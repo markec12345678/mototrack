@@ -1,0 +1,70 @@
+---
+description: "Native select dropdown styled with the MotoTrack dark theme. Supports label, options array (value/label pairs), placeholder, error state, disabled state, and required indicator."
+labels: ["input", "select", "form", "dropdown"]
+---
+
+A themed native `<select>` dropdown component for the MotoTrack design system.
+It supports labels, placeholder text, an options array, error messaging, disabled and required states — all styled with MotoTrack CSS variables.
+
+## Basic usage
+
+```tsx
+<SelectList
+  label="Race Class"
+  options={[
+    { value: "motogp", label: "MotoGP" },
+    { value: "moto2", label: "Moto2" },
+    { value: "moto3", label: "Moto3" },
+  ]}
+  placeholder="Select a class..."
+  onChange={(value) => console.log(value)}
+/>
+```
+
+## Controlled with value
+
+```tsx
+const [selected, setSelected] = React.useState("");
+
+<SelectList
+  label="Circuit"
+  options={[
+    { value: "mugello", label: "Mugello Circuit — Italy" },
+    { value: "jerez", label: "Circuito de Jerez — Spain" },
+    { value: "silverstone", label: "Silverstone — Great Britain" },
+  ]}
+  value={selected}
+  placeholder="Select a circuit..."
+  onChange={(value) => setSelected(value)}
+/>
+```
+
+## Error state
+
+```tsx
+<SelectList
+  label="Tyre Compound"
+  options={[
+    { value: "soft", label: "Soft" },
+    { value: "medium", label: "Medium" },
+    { value: "hard", label: "Hard" },
+  ]}
+  placeholder="Select compound..."
+  error="Please select a tyre compound to continue."
+  required
+/>
+```
+
+## Disabled state
+
+```tsx
+<SelectList
+  label="Race Class"
+  options={[
+    { value: "motogp", label: "MotoGP" },
+    { value: "moto2", label: "Moto2" },
+  ]}
+  value="motogp"
+  disabled
+/>
+```

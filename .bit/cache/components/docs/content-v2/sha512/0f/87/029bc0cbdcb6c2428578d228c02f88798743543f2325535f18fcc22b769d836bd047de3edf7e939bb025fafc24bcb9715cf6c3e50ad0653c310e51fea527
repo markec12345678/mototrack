@@ -1,0 +1,1 @@
+[{"name":"","description":"Port used by the internal Socket.io server that powers the\nreal-time group-ride chat.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"community-config.ts"}]

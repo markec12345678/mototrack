@@ -1,0 +1,82 @@
+---
+description: "Activity feed list for the MotoTrack community. Renders FeedItem cards with actor avatar, country flag, kind-specific payload (ride, route, achievement, comment), and time-ago timestamp."
+labels: ["feed", "activity", "community", "social"]
+---
+
+The `FeedList` component renders a chronological activity feed for the MotoTrack community. Each feed item displays the actor's avatar, country flag, a human-readable action label, and a rich payload card tailored to the activity kind — ride stats, shared routes, unlocked achievements, or community comments.
+
+Data is fetched automatically via the `useFeed` hook. You can override the items via the `items` prop for static rendering or testing.
+
+## Basic usage
+
+```tsx
+import { FeedList } from '@markec/community.ui.feed-list';
+
+<FeedList />
+```
+
+## With static items
+
+Pass an array of `FeedItemType` objects to bypass the GraphQL hook and render a static feed — useful for previews, tests, or server-side rendering.
+
+```tsx
+import { FeedList } from '@markec/community.ui.feed-list';
+
+const items = [
+  {
+    id: 'feed-1',
+    kind: 'ride',
+    actor: { id: 'u1', displayName: 'Luka Horvat', country: 'SI' },
+    payload: JSON.stringify({ km: 142, durationMin: 98, title: 'Vršič Pass Loop' }),
+    at: Date.now() - 4 * 60 * 1000,
+  },
+  {
+    id: 'feed-2',
+    kind: 'achievement',
+    actor: { id: 'u2', displayName: 'Marko Petrović', country: 'RS' },
+    payload: JSON.stringify({ name: 'Vršič Conqueror', icon: '🏔️', description: 'Completed the legendary Vršič pass route' }),
+    at: Date.now() - 22 * 60 * 1000,
+  },
+];
+
+<FeedList items={items} />
+```
+
+## Supported activity kinds
+
+The component renders a distinct payload card for each activity kind:
+
+- **ride** — distance (km), duration, and ride title
+- **route** — route name, distance, and difficulty badge
+- **achievement** — icon, achievement name, and description
+- **comment** — styled italic quote block
+
+```tsx
+import { FeedList } from '@markec/community.ui.feed-list';
+
+const mixedFeed = [
+  {
+    id: 'r1',
+    kind: 'ride',
+    actor: { id: 'u1', displayName: 'Ivan Kovač', country: 'HR' },
+    payload: JSON.stringify({ km: 310, durationMin: 240, title: 'Peloponnese Coastal Run' }),
+    at: Date.now() - 3600000,
+  },
+  {
+    id: 'r2',
+    kind: 'route',
+    actor: { id: 'u2', displayName: 'Nikola Dimitrov', country: 'MK' },
+    payload: JSON.stringify({ name: 'Durmitor Zanka', distanceKm: 124, difficulty: 'hard' }),
+    at: Date.now() - 7200000,
+  },
+  {
+    id: 'r3',
+    kind: 'comment',
+    actor: { id: 'u3', displayName: 'Stefan Georgiev', country: 'BG' },
+    payload: JSON.stringify({ text: 'Amazing roads through the Pirin mountains!' }),
+    at: Date.now() - 10800000,
+  },
+];
+
+<FeedList items={mixedFeed} />
+```

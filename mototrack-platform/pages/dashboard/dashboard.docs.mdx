@@ -1,0 +1,80 @@
+---
+description: "Authenticated dashboard page. Greets the user with 'Pozdravljen, {displayName}! 🏍️' and renders DashboardPanel slot widgets in a responsive 1–3 column grid. Falls back to getting-started cards when no panels are registered."
+labels: ["dashboard", "page", "mototrack", "authenticated"]
+---
+
+The `Dashboard` is the main authenticated landing page for MotoTrack riders. It displays a personalised greeting, a hero banner, and a responsive panel grid populated by registered `DashboardPanel` slot widgets.
+
+When no panels are registered, the dashboard shows three getting-started cards to help new riders take their first action.
+
+## Basic usage — empty state
+
+When no `panels` prop is provided, the dashboard shows the getting-started cards.
+
+```tsx
+import { Dashboard } from '@markec/mototrack-platform.pages.dashboard';
+
+<Dashboard displayName="Markec" />
+```
+
+## With registered panels
+
+Pass an array of `DashboardPanel` objects to populate the grid. Each panel has a `key`, `title`, `component`, and optional `span` (1–3 columns).
+
+```tsx
+import { Dashboard } from '@markec/mototrack-platform.pages.dashboard';
+
+function RideStats() {
+  return <div>1 247 km ridden</div>;
+}
+
+function RecentRides() {
+  return <div>Vršič Pass Loop — 142 km</div>;
+}
+
+<Dashboard
+  displayName="Markec"
+  panels={[
+    { key: 'ride-stats', title: 'Statistike voženj', component: RideStats, span: 1 },
+    { key: 'recent-rides', title: 'Nedavne vožnje', component: RecentRides, span: 2 },
+  ]}
+/>
+```
+
+## Full-width panel (span 3)
+
+A panel with `span: 3` stretches across all three columns on desktop, making it ideal for maps, charts, or summary tables.
+
+```tsx
+import { Dashboard } from '@markec/mototrack-platform.pages.dashboard';
+
+function SeasonSummary() {
+  return <div>Season 2025 — 18 rides, 2 430 km</div>;
+}
+
+<Dashboard
+  displayName="Luka"
+  panels={[
+    { key: 'season', title: 'Sezona 2025', component: SeasonSummary, span: 3 },
+  ]}
+/>
+```
+
+## DashboardPanel slot type
+
+```tsx
+type DashboardPanel = {
+  key: string;
+  title: string;
+  component: ComponentType;
+  span?: 1 | 2 | 3;
+};
+```
+
+## Responsive grid behaviour
+
+| Breakpoint | Columns |
+|---|---|
+| Mobile (< 480px) | 1 column — all spans collapse to 1 |
+| Tablet (480–1023px) | 2 columns — span 3 collapses to 2 |
+| Desktop (≥ 1024px) | 3 columns — full span support |

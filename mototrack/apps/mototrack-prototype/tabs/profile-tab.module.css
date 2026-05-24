@@ -1,0 +1,273 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--colors-surface-background, #020617);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  border-bottom: 1px solid var(--colors-surface-border, rgba(148, 163, 184, 0.15));
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nameRow h2 { margin: 0 !important; }
+
+.tabsBar {
+  background: var(--colors-surface-primary, #0f172a);
+  border-bottom: 1px solid var(--colors-surface-border, rgba(148, 163, 184, 0.15));
+  padding: 10px 12px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statIcon {
+  font-size: 1.3rem;
+}
+
+.statCard h4 { margin: 0 !important; }
+.statCard p { margin: 0 !important; }
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 160px;
+  margin-top: 12px;
+}
+
+.barCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.barCol > p { margin: 0 !important; font-size: 0.7rem !important; }
+
+.barWrap {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--colors-primary-default, #f97316), var(--colors-primary-hover, #ea580c));
+  border-radius: 6px 6px 0 0;
+  min-height: 4px;
+}
+
+.recordList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.recordRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.recordRow > span:first-child { font-size: 1.4rem; }
+.recordRow p { margin: 0 !important; }
+
+.garage {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bikeHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.bikeInfo { flex: 1; }
+.bikeInfo h4 { margin: 0 !important; }
+.bikeInfo p { margin: 0 !important; }
+
+.bikeStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--colors-surface-border, rgba(148, 163, 184, 0.15));
+}
+
+.bikeStats > div {
+  text-align: center;
+}
+
+.bikeStats h4 { margin: 0 !important; }
+.bikeStats p { margin: 0 !important; }
+
+.maintList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.maintHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.maintHead h5 { margin: 0 !important; }
+.maintHead p { margin: 0 !important; }
+
+.maintRem {
+  text-align: right;
+}
+
+.maintRem h4 { margin: 0 !important; }
+
+.expTotal {
+  text-align: center;
+}
+
+.expTotal h1 { margin: 4px 0 0 !important; line-height: 1; }
+.expTotal p { margin: 0 !important; }
+
+.expList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.expRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.expIcon { font-size: 1.4rem; }
+
+.expBody { flex: 1; }
+.expBody h5 { margin: 0 0 4px !important; }
+
+.fuelForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fuelInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gaugeRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.iceFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.emergencyCard {
+  margin-top: 14px;
+}
+
+.emergencyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.emergencyRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emergencyRow p { margin: 0 !important; }
+
+.achGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.achInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.achInner h5 { margin: 0 !important; }
+.achInner p { margin: 0 !important; }
+
+.achIcon {
+  font-size: 2.5rem;
+}
+
+.achLocked {
+  opacity: 0.6;
+  filter: grayscale(0.6);
+}
+
+@media (max-width: 540px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fuelInputs, .iceFields, .emergencyGrid {
+    grid-template-columns: 1fr;
+  }
+}

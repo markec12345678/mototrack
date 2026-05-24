@@ -1,0 +1,53 @@
+---
+description: 'Maps infrastructure aspect — registers the /map route, navigation item and exposes a TileProvider extension slot plus offline tile cache APIs.'
+labels: ['aspect', 'maps', 'mototrack']
+---
+
+The Maps aspect is the pluggable infrastructure for spatial features inside MotoTrack.
+
+It registers:
+
+- the top-level `/map` route, rendering the `MapPage`
+- the primary navigation item `Zemljevid` (🗺️) with `order=1`
+- a `TileProvider` slot that any feature aspect may use to add custom raster tile styles to the map's tile-style picker
+
+It exposes a small browser API for working with the on-device tile cache:
+
+- `registerTileProvider(providers)` — register one or more tile providers
+- `cacheTilesForRoute(route, zoomLevels, bufferKm)` — pre-cache tiles along a planned route
+- `getOfflineCacheStats()` — read aggregate stats about cached tiles
+
+## Compose to your platform
+
+```ts
+import { MapsAspect } from '@markec/maps.maps';
+
+export const Mototrack = HarmonyPlatform.from({
+  name: 'mototrack',
+  aspects: [
+    [MapsAspect, {}],
+  ],
+});
+```
+
+## Extend via the TileProvider slot
+
+```ts
+import { MapsAspect, type MapsBrowser } from '@markec/maps.maps';
+
+export class MyAspectBrowser {
+  static dependencies = [MapsAspect];
+
+  static async provider([maps]: [MapsBrowser]) {
+    maps.registerTileProvider([
+      {
+        key: 'my-custom-style',
+        label: 'My Style',
+        urlTemplate: 'https://tiles.example.com/{z}/{x}/{y}.png',
+        attribution: '&copy; Example',
+        maxZoom: 19,
+      },
+    ]);
+  }
+}
+```

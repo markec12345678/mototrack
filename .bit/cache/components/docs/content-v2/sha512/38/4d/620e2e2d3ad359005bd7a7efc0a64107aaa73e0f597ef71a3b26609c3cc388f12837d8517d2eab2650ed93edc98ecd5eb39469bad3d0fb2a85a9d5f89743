@@ -1,0 +1,1 @@
+[{"name":"","description":"Converts a normalized straightness score [0, 1] to an RGB color string.\n\n- 0 → green  (very twisty)\n- 0.5 → yellow (moderately twisty)\n- 1 → red   (very straight)","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"twistiness-color.ts"}]

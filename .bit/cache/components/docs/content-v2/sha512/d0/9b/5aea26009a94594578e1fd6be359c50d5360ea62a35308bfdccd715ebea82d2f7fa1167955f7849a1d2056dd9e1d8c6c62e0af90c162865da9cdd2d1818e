@@ -1,0 +1,1 @@
+[{"name":"","description":"Returns a list of mock ChatMessage instances.\nAccepts an optional partial override applied to each message.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"chat-message.mock.ts"}]

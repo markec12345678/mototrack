@@ -1,0 +1,79 @@
+---
+description: "SosDialog — country-aware emergency dialog for motorcycle riders. Auto-detects country from GPS to show local emergency numbers. Features a big tel:112 call button, ICE contact list with tel: links, and location sharing via Web Share API, SMS, WhatsApp, or clipboard. Works fully offline."
+labels: ["safety", "emergency", "sos", "dialog", "offline"]
+---
+
+A full-screen emergency dialog designed for motorcycle riders. It auto-detects the rider's country from GPS coordinates (using `useCountryFromLocation`) and displays the correct local emergency numbers. The big call button always works — it uses a native `tel:` link that functions even without internet.
+
+## Basic usage
+
+```tsx
+import { useState } from 'react';
+import { SosDialog } from '@markec/safety.ui.sos-dialog';
+
+function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>🆘 SOS</button>
+      <SosDialog
+        open={open}
+        onClose={() => setOpen(false)}
+      />
+    </>
+  );
+}
+```
+
+## With country override and ICE contacts
+
+```tsx
+import { SosDialog } from '@markec/safety.ui.sos-dialog';
+
+<SosDialog
+  open={open}
+  onClose={() => setOpen(false)}
+  countryName="Slovenia"
+  countryFlag="🇸🇮"
+  emergencyNumbers={{
+    police: '113',
+    ambulance: '112',
+    fire: '112',
+    general: '112',
+  }}
+  iceContacts={[
+    {
+      id: 'ice-1',
+      userId: 'user-1',
+      name: 'Ana Horvat',
+      relation: 'Partner',
+      phone: '+38641123456',
+      primary: true,
+      bloodType: 'A+',
+    },
+  ]}
+  lat={46.0569}
+  lng={14.5058}
+/>
+```
+
+## Offline / no GPS fallback
+
+When GPS is unavailable, the share buttons are disabled but the `tel:` call buttons and ICE contact links remain fully functional — no internet required.
+
+```tsx
+import { SosDialog } from '@markec/safety.ui.sos-dialog';
+
+<SosDialog
+  open={open}
+  onClose={() => setOpen(false)}
+  emergencyNumbers={{
+    police: '112',
+    ambulance: '112',
+    fire: '112',
+    general: '112',
+  }}
+  iceContacts={contacts}
+/>
+```

@@ -1,0 +1,45 @@
+---
+description: "The /rides page component. Tabs: List shows a RideCard grid, Calendar shows a monthly heatmap with day-drill. Supports date-range filtering."
+labels: ["rides", "page", "list", "calendar", "heatmap"]
+---
+
+The `RidesList` page renders the `/rides` route. It provides two views — a **List** tab with a responsive `RideCard` grid, and a **Calendar** tab with a monthly activity heatmap. Clicking a day in the calendar drills into the rides logged on that day.
+
+A collapsible date-range filter lets riders narrow down rides by a custom `from` / `to` date window.
+
+## Basic usage
+
+```tsx
+import { RidesList } from '@markec/rides.pages.rides-list';
+
+export function RidesPage() {
+  return <RidesList />;
+}
+```
+
+## With mock rides (testing / compositions)
+
+Pass `mockRides` to bypass GraphQL and render with static data:
+
+```tsx
+import { RidesList } from '@markec/rides.pages.rides-list';
+import { mockRides } from '@markec/rides.pages.rides-list';
+
+export function Preview() {
+  return <RidesList mockRides={mockRides} />;
+}
+```
+
+## Switching to the Calendar view
+
+The Calendar tab renders a monthly heatmap powered by `RideCalendar`. Clicking an active day opens a drill panel below the calendar showing the `RideCard`s for that day.
+
+```tsx
+import { RidesList } from '@markec/rides.pages.rides-list';
+
+// The user switches tabs interactively — no prop needed.
+// The component manages activeTab state internally.
+export function RidesPageCalendar() {
+  return <RidesList />;
+}
+```

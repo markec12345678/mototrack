@@ -1,0 +1,122 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: var(--interactions-z-index-tooltip);
+  background-color: #1e293b;
+  color: #ffffff;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  line-height: var(--typography-line-height-base);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--borders-radius-small);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--effects-shadows-floating);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  opacity: 0;
+  transform: scale(0.92) translateY(0);
+  transition:
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  max-width: 240px;
+  text-align: center;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── Position: top ── */
+.tooltip.top {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.92);
+}
+
+.tooltip.top.visible {
+  transform: translateX(-50%) scale(1);
+}
+
+/* ── Position: bottom ── */
+.tooltip.bottom {
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.92);
+}
+
+.tooltip.bottom.visible {
+  transform: translateX(-50%) scale(1);
+}
+
+/* ── Position: left ── */
+.tooltip.left {
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+}
+
+.tooltip.left.visible {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ── Position: right ── */
+.tooltip.right {
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+}
+
+.tooltip.right.visible {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ── Arrow ── */
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+}
+
+.arrow.top {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: #1e293b;
+  border-bottom: none;
+}
+
+.arrow.bottom {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: #1e293b;
+  border-top: none;
+}
+
+.arrow.left {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: #1e293b;
+  border-right: none;
+}
+
+.arrow.right {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: #1e293b;
+  border-left: none;
+}

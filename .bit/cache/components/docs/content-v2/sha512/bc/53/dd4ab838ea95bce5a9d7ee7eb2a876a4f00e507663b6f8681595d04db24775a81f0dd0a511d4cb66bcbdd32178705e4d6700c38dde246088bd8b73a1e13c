@@ -1,0 +1,1 @@
+[{"name":"","description":"Server-side runtime for the Balkan Roads aspect.\nSeeds 63 curated roads + 20 iconic tours from the static entity data.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"balkan-roads.node.runtime.ts"}]

@@ -1,0 +1,5 @@
+.root {
+  // This wrapper is invisible — it exists only to support className/style forwarding.
+  // All visual output is rendered via react-leaflet Polyline elements directly onto the map canvas.
+  display: contents;
+}

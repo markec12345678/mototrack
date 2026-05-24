@@ -1,0 +1,60 @@
+---
+description: "Ride detail page (/rides/:id). Displays a full-screen map with track polyline and twistiness heatmap toggle, a stats grid, elevation profile, Export GPX button, Delete button, and slot-registered tabs (Photos, Weather, Comments) from other aspects."
+labels: ["rides", "page", "map", "elevation", "gpx"]
+---
+
+The `RideDetail` component is the full `/rides/:id` page. It fetches the ride by ID from the `useRides` hook and renders:
+
+- **Map** with the recorded track polyline and a toggle to switch to the twistiness heatmap layer
+- **Stats grid** — distance, duration, max speed, avg speed, climb, descent, twistiness score
+- **Elevation profile** — SVG chart with climb/descent stats
+- **Export GPX** button — downloads the track as a `.gpx` file
+- **Delete** button — opens a confirmation modal before deleting
+- **Slot tabs** — registered by other aspects (Photos, Weather, Comments, etc.)
+
+## Basic usage
+
+```tsx
+import { RideDetail } from '@markec/rides.pages.ride-detail';
+
+// Inside a React Router route: /rides/:id
+<RideDetail />
+```
+
+## With slot-registered tabs
+
+Tabs are registered by other aspects via the `RideDetailTab` slot. Each tab provides a `key`, `label`, optional `icon`, a `component` that receives `rideId`, and an optional `order`.
+
+```tsx
+import { RideDetail } from '@markec/rides.pages.ride-detail';
+import type { RideDetailTab } from '@markec/rides.pages.ride-detail';
+
+const tabs: RideDetailTab[] = [
+  {
+    key: 'photos',
+    label: 'Photos',
+    icon: '📷',
+    component: PhotosTab,
+    order: 1,
+  },
+  {
+    key: 'weather',
+    label: 'Weather',
+    icon: '🌤️',
+    component: WeatherTab,
+    order: 2,
+  },
+];
+
+<RideDetail tabs={tabs} />
+```
+
+## Overriding the ride ID
+
+By default the component reads the ride ID from the `:id` route param. You can override it via the `rideId` prop — useful in compositions and tests.
+
+```tsx
+import { RideDetail } from '@markec/rides.pages.ride-detail';
+
+<RideDetail rideId="ride-001" tabs={[]} />
+```

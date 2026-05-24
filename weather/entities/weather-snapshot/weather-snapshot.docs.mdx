@@ -1,0 +1,70 @@
+---
+labels: ['weather', 'entity', 'open-meteo', 'wmo', 'slovenian']
+description: "WeatherSnapshot entity that maps WMO weather codes to Slovenian labels and emoji icons, and parses Open-Meteo API responses."
+---
+
+A browser- and server-compatible entity for representing a weather observation.
+It maps WMO weather interpretation codes to Slovenian labels and emoji icons (☀️ jasno, ⛅ delno oblačno, ☁️ oblačno, 🌧️ dež, ⛈️ nevihta, ❄️ sneg, 🌫️ megla, …) and provides a static factory `fromOpenMeteoCurrent` that parses the JSON response from the Open-Meteo `/v1/forecast?current=…` endpoint.
+
+## Parse an Open-Meteo API response
+
+```tsx
+import { WeatherSnapshot } from '@markec/weather.entities.weather-snapshot';
+
+// Typical fetch from Open-Meteo
+const res = await fetch(
+  'https://api.open-meteo.com/v1/forecast' +
+  '?latitude=46.05&longitude=14.51' +
+  '&current=temperature_2m,apparent_temperature,wind_speed_10m,' +
+  'wind_direction_10m,wind_gusts_10m,relative_humidity_2m,' +
+  'visibility,precipitation,weather_code'
+);
+const json = await res.json();
+
+const snapshot = WeatherSnapshot.fromOpenMeteoCurrent(json);
+
+console.log(`${snapshot.icon} ${snapshot.label}`);  // e.g. ☀️ Jasno
+console.log(`Temperatura: ${snapshot.tempC} °C`);
+console.log(`Veter: ${snapshot.windKmh} km/h`);
+```
+
+## Resolve a WMO code manually
+
+```tsx
+import { resolveWmo } from '@markec/weather.entities.weather-snapshot';
+
+const { label, icon } = resolveWmo(95);
+console.log(`${icon} ${label}`); // ⛈️ Nevihta
+```
+
+## Use mock data for development and testing
+
+```tsx
+import {
+  mockWeatherSnapshot,
+  mockWeatherSnapshots,
+} from '@markec/weather.entities.weather-snapshot';
+
+// Single snapshot with optional overrides
+const sunny = mockWeatherSnapshot({ wmoCode: 0, tempC: 30 });
+console.log(sunny.icon);   // ☀️
+console.log(sunny.label);  // Jasno
+
+// Collection covering multiple weather conditions
+const snapshots = mockWeatherSnapshots();
+snapshots.forEach((s) => console.log(`${s.icon} ${s.label} — ${s.tempC} °C`));
+```
+
+## Serialize and restore
+
+```tsx
+import { WeatherSnapshot } from '@markec/weather.entities.weather-snapshot';
+
+const snapshot = WeatherSnapshot.fromOpenMeteoCurrent(apiResponse);
+
+// Serialize to a plain object (safe for JSON.stringify / GraphQL response)
+const plain = snapshot.toObject();
+
+// Restore from a plain object (e.g. after fetching from your own API)
+const restored = WeatherSnapshot.from(plain);
+```

@@ -1,0 +1,1 @@
+[{"name":"","description":"Anthropic Messages provider. Uses the configured API key when set,\notherwise falls back to process.env.ANTHROPIC_API_KEY. The generate()\ncall throws when no key is configured.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"providers/anthropic-provider.ts"}]

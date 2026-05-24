@@ -1,0 +1,72 @@
+---
+description: "TourCard displays an iconic Balkan motorcycle tour with flag, rating pill, name, description, distance, difficulty badge, and waypoint count. A CTA button navigates to /plan with the tour loaded via location state. Supports hover lift animation."
+labels: ["tour", "card", "navigation", "balkan-roads"]
+---
+
+A rich card component for showcasing iconic Balkan motorcycle tours. Each card surfaces the most important tour metadata at a glance and provides a direct CTA to load the route into the planner.
+
+## Basic usage
+
+```tsx
+import { TourCard } from '@markec/balkan-roads.ui.tour-card';
+
+const tour = {
+  id: 'tour-vrsic-loop',
+  name: 'Vršič Polni Krog',
+  country: 'SI',
+  flag: '🇸🇮',
+  distanceKm: 187,
+  rating: 9.4,
+  difficulty: 'Hard',
+  description: 'Epska zanka čez prelaz Vršič (1611 m) in nazaj po dolini Soče.',
+  waypoints: [
+    { lat: 46.4095, lng: 13.7388, name: 'Kranjska Gora' },
+    { lat: 46.4378, lng: 13.7456, name: 'Prelaz Vršič' },
+    { lat: 46.2504, lng: 13.5765, name: 'Bovec' },
+  ],
+};
+
+<TourCard tour={tour} />
+```
+
+## Difficulty variants
+
+The difficulty badge automatically maps to a semantic color variant:
+
+```tsx
+// Easy   → success (green)
+// Moderate → warning (amber)
+// Hard   → danger (red)
+// Expert → danger (red)
+
+<TourCard tour={{ ...tour, difficulty: 'Easy' }} />
+<TourCard tour={{ ...tour, difficulty: 'Moderate' }} />
+<TourCard tour={{ ...tour, difficulty: 'Hard' }} />
+```
+
+## Grid layout
+
+TourCard is designed to sit inside a responsive CSS grid:
+
+```tsx
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+  {tours.map((tour) => (
+    <TourCard key={tour.id} tour={tour} />
+  ))}
+</div>
+```
+
+## Navigation behaviour
+
+Clicking **Naloži v Načrtuj** calls `useNavigate('/plan', { state: { tour } })`. The receiving `/plan` page can read the tour from `location.state.tour` via `useLocation()`.
+
+```tsx
+// In the /plan page:
+import { useLocation } from 'react-router-dom';
+
+function PlanPage() {
+  const { state } = useLocation();
+  const tour = state?.tour; // TourCardTour
+  // ...
+}
+```

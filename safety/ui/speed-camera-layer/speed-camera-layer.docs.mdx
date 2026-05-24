@@ -1,0 +1,70 @@
+---
+description: "SpeedCameraLayer — renders yellow 📷 camera markers on a MotoMap with popups showing speed limit, type, and country. Designed to be used as a child of MotoMap."
+labels: ["map", "safety", "speed-camera", "leaflet"]
+---
+
+`SpeedCameraLayer` renders yellow camera markers on a Leaflet map powered by `MotoMap`.
+Each marker opens a popup with the camera's speed limit, type (Fixed, Mobile, Average, Red Light), and country.
+
+The layer fetches cameras automatically via `useSpeedCameras`, or accepts an optional `cameras` prop for testing and controlled compositions.
+
+## Basic usage
+
+Place `SpeedCameraLayer` as a child of `MotoMap`. It renders directly into the Leaflet map context using `react-leaflet` `Marker` and `Popup` components.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { SpeedCameraLayer } from '@markec/safety.ui.speed-camera-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const SARAJEVO = LatLng.from({ lat: 43.8563, lng: 18.4131 });
+
+export function MyMap() {
+  return (
+    <MotoMap center={SARAJEVO} zoom={13}>
+      <SpeedCameraLayer />
+    </MotoMap>
+  );
+}
+```
+
+## With mock cameras
+
+Pass a `cameras` array to override the live data — useful for testing or storybook compositions.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { SpeedCameraLayer } from '@markec/safety.ui.speed-camera-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const cameras = [
+  { id: 'cam-1', lat: 43.8563, lng: 18.4131, speedLimit: 50, type: 'Fixed', country: 'Bosnia and Herzegovina' },
+  { id: 'cam-2', lat: 43.862, lng: 18.422, speedLimit: 80, type: 'Mobile', country: 'Bosnia and Herzegovina' },
+];
+
+export function MyMapWithMock() {
+  return (
+    <MotoMap center={LatLng.from({ lat: 43.8563, lng: 18.4131 })} zoom={13}>
+      <SpeedCameraLayer cameras={cameras} />
+    </MotoMap>
+  );
+}
+```
+
+## Multi-country view
+
+Zoom out to see cameras across multiple Balkan countries. Each popup clearly labels the country alongside the speed limit and camera type.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { SpeedCameraLayer } from '@markec/safety.ui.speed-camera-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+export function BalkanCameras() {
+  return (
+    <MotoMap center={LatLng.from({ lat: 44.5, lng: 17.5 })} zoom={7}>
+      <SpeedCameraLayer />
+    </MotoMap>
+  );
+}
+```

@@ -1,0 +1,76 @@
+---
+description: "useTts — Web Speech SpeechSynthesis wrapper. Picks sl-SI voice when available, falls back to system default. Queue-based speak(text, priority). Cancel-and-play for urgent priority. Volume, rate, and pitch configurable."
+labels: ['hook', 'react', 'speech', 'tts', 'navigation', 'accessibility']
+---
+
+`useTts` wraps the browser's Web Speech `SpeechSynthesis` API into a convenient React hook.
+It automatically selects a Slovenian (`sl-SI`) voice when one is available, and gracefully falls back to the system default.
+Utterances are queued so multiple `speak()` calls do not overlap. Passing `priority: 'urgent'` cancels any current speech and plays the new utterance immediately — ideal for re-routing announcements.
+
+## Basic usage
+
+```tsx
+function NavigationAnnouncer() {
+  const { speak, isSupported } = useTts();
+
+  if (!isSupported) return null;
+
+  return (
+    <button type="button" onClick={() => speak('Zavijte desno čez 200 metrov')}>
+      Announce turn
+    </button>
+  );
+}
+```
+
+## Urgent priority — cancel and play immediately
+
+Use `priority: 'urgent'` to interrupt any ongoing speech. This is useful when the route changes and the previous instruction is no longer valid.
+
+```tsx
+function RerouteAnnouncer() {
+  const { speak, cancel } = useTts({ volume: 1, rate: 1.1 });
+
+  const handleReroute = () => {
+    speak('Preračunavanje poti. Prosim počakajte.', { priority: 'urgent' });
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={handleReroute}>
+        Trigger reroute
+      </button>
+      <button type="button" onClick={() => cancel()}>
+        Silence
+      </button>
+    </div>
+  );
+}
+```
+
+## Custom voice and speech parameters
+
+Inspect available voices and override volume, rate, and pitch to match your application's needs.
+
+```tsx
+function VoiceSelector() {
+  const { voices, currentVoice, speak, isSupported } = useTts({
+    preferredLang: 'sl-SI',
+    volume: 0.9,
+    rate: 1.0,
+    pitch: 1.0,
+  });
+
+  if (!isSupported) return <p>Speech synthesis is not supported in this browser.</p>;
+
+  return (
+    <div>
+      <p>Active voice: {currentVoice?.name ?? 'None'} ({currentVoice?.lang})</p>
+      <p>Available voices: {voices.length}</p>
+      <button type="button" onClick={() => speak('Dobrodošli v navigaciji MotoTrack.')}>
+        Test voice
+      </button>
+    </div>
+  );
+}
+```

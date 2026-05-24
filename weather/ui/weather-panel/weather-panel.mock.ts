@@ -1,0 +1,7 @@
+import { WeatherSnapshot } from '@markec/weather.entities.weather-snapshot';
+const base = { id: 'mock', gustKmh: 22 };
+export const mockClearSnapshot = WeatherSnapshot.from({ ...base, id: 'clear', tempC: 22, feelsLikeC: 21, windKmh: 14, windDirDeg: 225, gustKmh: 22, humidity: 48, visibilityKm: 25, precipMmH: 0, wmoCode: 1, label: 'Pretežno jasno', icon: '⛅', ts: 1716800000 });
+export const mockRainSnapshot = WeatherSnapshot.from({ ...base, id: 'rain', tempC: 14, feelsLikeC: 12, windKmh: 28, windDirDeg: 315, gustKmh: 42, humidity: 87, visibilityKm: 6.5, precipMmH: 2.4, wmoCode: 61, label: 'Rahel dež', icon: '🌧️', ts: 1716800000 });
+export const mockSnowSnapshot = WeatherSnapshot.from({ ...base, id: 'snow', tempC: -3, feelsLikeC: -8, windKmh: 18, windDirDeg: 45, gustKmh: 30, humidity: 92, visibilityKm: 2.0, precipMmH: 1.1, wmoCode: 73, label: 'Zmeren sneg', icon: '❄️', ts: 1716800000 });
+export const mockThunderSnapshot = WeatherSnapshot.from({ ...base, id: 'thunder', tempC: 19, feelsLikeC: 18, windKmh: 45, windDirDeg: 180, gustKmh: 68, humidity: 94, visibilityKm: 3.5, precipMmH: 8.2, wmoCode: 95, label: 'Nevihta', icon: '⛈️', ts: 1716800000 });
+export const mockSunnySnapshot = WeatherSnapshot.from({ ...base, id: 'sunny', tempC: 28, feelsLikeC: 30, windKmh: 8, windDirDeg: 90, gustKmh: 12, humidity: 35, visibilityKm: 40, precipMmH: 0, wmoCode: 0, label: 'Jasno', icon: '☀️', ts: 1716800000 });

@@ -1,0 +1,87 @@
+---
+description: "useCrashDetection — subscribes to the DeviceMotion accelerometer API and detects motorcycle crashes based on g-force and speed-drop thresholds. On detection, starts a 15-second countdown before auto-dispatching SOS via GraphQL."
+labels: ['hook', 'react', 'safety', 'crash-detection', 'sos', 'accelerometer']
+---
+
+`useCrashDetection` monitors the device accelerometer via the `DeviceMotion` API and identifies crash events in real time. A crash is confirmed when **total g-force exceeds the sensitivity threshold** (default: 4g) **and speed drops by more than the configured amount** (default: 40 km/h) within a 1-second sliding window.
+
+Once a crash is detected, a **15-second countdown** begins. If the rider does not call `dismiss(eventId)` within that window, the hook automatically fires a `triggerSos` GraphQL mutation with the last known GPS coordinates.
+
+## Basic Usage
+
+```tsx
+function CrashMonitor() {
+  const { isMonitoring, lastEvent, sensitivity, setSensitivity, dismiss } =
+    useCrashDetection();
+
+  return (
+    <div>
+      <p>Status: {isMonitoring ? 'Monitoring' : 'Inactive'}</p>
+      <p>Sensitivity: {sensitivity}</p>
+      <button onClick={() => setSensitivity('high')}>High Sensitivity</button>
+
+      {lastEvent && !lastEvent.dismissed && !lastEvent.sosDispatched && (
+        <div>
+          <p>⚠️ Crash detected! G-Force: {lastEvent.gForce}g</p>
+          <p>SOS in {lastEvent.countdown}s</p>
+          <button onClick={() => dismiss(lastEvent.id)}>I am OK — Cancel SOS</button>
+        </div>
+      )}
+
+      {lastEvent?.sosDispatched && (
+        <p>🚨 SOS dispatched to emergency contacts.</p>
+      )}
+    </div>
+  );
+}
+```
+
+## Adjusting Sensitivity
+
+Three presets control the detection thresholds:
+
+| Preset | G-Force | Speed Drop |
+|--------|---------|------------|
+| `low`  | > 5g    | > 50 km/h  |
+| `medium` (default) | > 4g | > 40 km/h |
+| `high` | > 3g    | > 30 km/h  |
+
+```tsx
+function SensitivityControl() {
+  const { sensitivity, setSensitivity } = useCrashDetection();
+
+  return (
+    <div>
+      <p>Current sensitivity: {sensitivity}</p>
+      <button onClick={() => setSensitivity('low')}>Low</button>
+      <button onClick={() => setSensitivity('medium')}>Medium</button>
+      <button onClick={() => setSensitivity('high')}>High</button>
+    </div>
+  );
+}
+```
+
+## Testing with Mock Data
+
+Pass a `mockData` option to bypass the real `DeviceMotion` subscription and inject a pre-built `CrashEvent`. This is ideal for unit tests and UI compositions.
+
+```tsx
+import { crashEventMock } from '@markec/safety.hooks.use-crash-detection';
+
+function CrashAlertPreview() {
+  const { lastEvent, dismiss } = useCrashDetection({
+    mockData: crashEventMock.midCountdown,
+  });
+
+  if (!lastEvent) return null;
+
+  return (
+    <div>
+      <p>Crash detected at {lastEvent.detectedAt}</p>
+      <p>G-Force: {lastEvent.gForce}g | Speed drop: {lastEvent.speedDrop} km/h</p>
+      <p>SOS countdown: {lastEvent.countdown ?? 'N/A'}s</p>
+      <button onClick={() => dismiss(lastEvent.id)}>Dismiss</button>
+    </div>
+  );
+}
+```

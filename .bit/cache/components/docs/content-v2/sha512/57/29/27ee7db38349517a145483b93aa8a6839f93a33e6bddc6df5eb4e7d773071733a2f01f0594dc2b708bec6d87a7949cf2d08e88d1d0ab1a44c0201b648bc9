@@ -1,0 +1,1 @@
+[{"name":"","description":"Perform a web search using DuckDuckGo Instant Answer API. No API key is\nrequired. Returns a normalised list of snippets — empty when DuckDuckGo\nhas no instant answer for the query.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"web-search.ts"}]

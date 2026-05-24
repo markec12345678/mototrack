@@ -1,0 +1,68 @@
+import type { SpeedCamera } from './speed-camera-layer';
+
+export const mockSpeedCameras: SpeedCamera[] = [
+  {
+    id: `cam-1`,
+    lat: 43.8563,
+    lng: 18.4131,
+    speedLimit: 50,
+    type: `Fixed`,
+    country: `Bosnia and Herzegovina`,
+  },
+  {
+    id: `cam-2`,
+    lat: 43.862,
+    lng: 18.422,
+    speedLimit: 80,
+    type: `Mobile`,
+    country: `Bosnia and Herzegovina`,
+  },
+  {
+    id: `cam-3`,
+    lat: 43.871,
+    lng: 18.435,
+    speedLimit: 130,
+    type: `Average`,
+    country: `Bosnia and Herzegovina`,
+  },
+  {
+    id: `cam-4`,
+    lat: 43.845,
+    lng: 18.398,
+    speedLimit: 60,
+    type: `Fixed`,
+    country: `Bosnia and Herzegovina`,
+  },
+  {
+    id: `cam-5`,
+    lat: 43.878,
+    lng: 18.448,
+    speedLimit: 100,
+    type: `Red Light`,
+    country: `Bosnia and Herzegovina`,
+  },
+  {
+    id: `cam-6`,
+    lat: 45.815,
+    lng: 15.9819,
+    speedLimit: 50,
+    type: `Fixed`,
+    country: `Croatia`,
+  },
+  {
+    id: `cam-7`,
+    lat: 46.0569,
+    lng: 14.5058,
+    speedLimit: 50,
+    type: `Fixed`,
+    country: `Slovenia`,
+  },
+  {
+    id: `cam-8`,
+    lat: 44.8176,
+    lng: 20.4633,
+    speedLimit: 80,
+    type: `Mobile`,
+    country: `Serbia`,
+  },
+];

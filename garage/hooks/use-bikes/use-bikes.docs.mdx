@@ -1,0 +1,101 @@
+---
+description: "A React hook for managing a user's garage bikes. Provides list, save, delete, and getPrimary operations backed by GraphQL (Apollo Client). Supports mock data for testing."
+labels: ['hook', 'react', 'graphql', 'bikes', 'garage']
+---
+
+`useBikes` is the central data hook for the MotoTrack garage. It fetches the current user's bikes via GraphQL and exposes `save`, `deleteBike`, and `getPrimary` helpers — all with full Apollo cache invalidation on mutations.
+
+Pass `options.mockData` to bypass the network and return static data directly, making it trivial to test or preview components in isolation.
+
+## Basic usage — list bikes
+
+```tsx
+function BikeList() {
+  const { bikes, loading, error } = useBikes();
+
+  if (loading) return <p>Loading bikes…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {bikes.map((bike) => (
+        <li key={bike.id}>{bike.name} — {bike.model} ({bike.year})</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Get the primary bike
+
+```tsx
+function PrimaryBikeBadge() {
+  const { getPrimary, loading } = useBikes();
+
+  if (loading) return null;
+
+  const primary = getPrimary();
+  if (!primary) return <p>No primary bike set.</p>;
+
+  return (
+    <div>
+      <strong>{primary.name}</strong>
+      <span>{primary.model} · {primary.year}</span>
+      <span>Range: {primary.rangeKm.toFixed(0)} km</span>
+    </div>
+  );
+}
+```
+
+## Save and delete a bike
+
+```tsx
+function BikeActions({ bikeId }: { bikeId: string }) {
+  const { save, deleteBike } = useBikes();
+
+  const handleSave = async () => {
+    const updated = await save({
+      id: bikeId,
+      name: 'KTM Adventure',
+      model: 'KTM 890 Adventure',
+      year: 2022,
+      mileageKm: 15000,
+      tankL: 20,
+      consumptionLPer100: 5.2,
+      currentFuelL: 10,
+      color: '#f97316',
+      primary: true,
+    });
+    console.log('Saved bike:', updated?.id);
+  };
+
+  const handleDelete = async () => {
+    const success = await deleteBike(bikeId);
+    console.log('Deleted:', success);
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={handleSave}>Save</button>
+      <button type="button" onClick={handleDelete}>Delete</button>
+    </div>
+  );
+}
+```
+
+## Using mock data for testing
+
+```tsx
+import { mockBikes } from '@markec/garage.hooks.use-bikes';
+
+function TestComponent() {
+  const { bikes, getPrimary } = useBikes({ mockData: mockBikes });
+
+  return (
+    <div>
+      <p>Total bikes: {bikes.length}</p>
+      <p>Primary: {getPrimary()?.name ?? 'None'}</p>
+    </div>
+  );
+}
+```

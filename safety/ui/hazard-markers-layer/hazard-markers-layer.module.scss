@@ -1,0 +1,132 @@
+.root {
+  display: contents;
+}
+
+/* ── Global popup styles injected into Leaflet DOM ──────────────────────────── */
+
+:global(.hazard-leaflet-popup) {
+  .leaflet-popup-content-wrapper {
+    background-color: var(--colors-surface-primary);
+    border: 1px solid var(--colors-border-default);
+    border-radius: var(--borders-radius-large);
+    box-shadow: var(--effects-shadows-large);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .leaflet-popup-content {
+    margin: 0;
+    width: auto !important;
+  }
+
+  .leaflet-popup-tip-container {
+    .leaflet-popup-tip {
+      background-color: var(--colors-surface-primary);
+    }
+  }
+
+  .leaflet-popup-close-button {
+    color: var(--colors-text-muted);
+    font-size: 18px;
+    top: 6px;
+    right: 8px;
+
+    &:hover {
+      color: var(--colors-text-default);
+    }
+  }
+}
+
+/* ── Popup inner layout ──────────────────────────────────────────────────────── */
+
+:global(.hazard-popup-root) {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 200px;
+  font-family: var(--typography-font-family);
+}
+
+:global(.hazard-popup-header) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+  background-color: var(--colors-surface-secondary);
+}
+
+:global(.hazard-popup-emoji) {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+:global(.hazard-popup-title-group) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+:global(.hazard-popup-type) {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-default);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+:global(.hazard-popup-time) {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+:global(.hazard-popup-meta) {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--colors-border-default);
+}
+
+:global(.hazard-popup-confirms) {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+}
+
+:global(.hazard-popup-confirm-btn) {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: 0;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  color: #ffffff !important;
+  cursor: var(--interactions-cursor-pointer);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  transition:
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  text-align: center;
+
+  &:hover {
+    opacity: var(--effects-opacity-hover);
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+/* ── Hazard marker pin (rendered via DivIcon HTML) ───────────────────────────── */
+
+:global(.hazard-marker-pin) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+
+  &:hover {
+    transform: rotate(-45deg) scale(1.15) !important;
+  }
+}

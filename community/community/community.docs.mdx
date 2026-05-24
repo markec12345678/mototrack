@@ -1,0 +1,41 @@
+---
+description: 'Community aspect — social features, leaderboard, achievements, group rides chat.'
+labels: ['aspect', 'community', 'mototrack']
+---
+
+The `Community` aspect adds social features to the MotoTrack platform:
+leaderboard, achievements, challenges, activity feed, community routes,
+crowdsourced fuel prices and group rides with real-time chat.
+
+## Browser runtime
+
+Registers:
+
+- `GET /community` route serving the seven-tab `CommunityPage`
+- `Skupnost` primary navigation item (icon `👥`, order `5`)
+- `LeaderboardDashboardPanel` into the platform `DashboardPanel` slot
+
+## Node runtime
+
+- Mongo + Typegoose models for all community entities
+- GraphQL schema mounted on the platform backend server
+- Seeds: 8 leaderboard riders (demo user `markec` at rank 6),
+  12 achievements (some unlocked), 4 challenges, 5 feed items,
+  4 community routes, 6 fuel reports, 1 upcoming group ride
+- Internal Socket.io server on port `3050` (path `/group-rides`)
+  for real-time group-ride chat, status and location broadcasts
+
+## Use the aspect API
+
+```ts
+import { CommunityAspect, type CommunityNode } from '@markec/community.community';
+
+export class MyAspectNode {
+  static dependencies = [CommunityAspect];
+
+  static async provider([community]: [CommunityNode]) {
+    const rides = await community.listGroupRides();
+    return new MyAspectNode(rides);
+  }
+}
+```

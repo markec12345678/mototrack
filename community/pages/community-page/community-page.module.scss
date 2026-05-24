@@ -1,0 +1,190 @@
+/* ── Page root ───────────────────────────────────────────────────────────── */
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--typography-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Sticky tab bar ──────────────────────────────────────────────────────── */
+
+.tabBar {
+  position: sticky;
+  top: 0;
+  z-index: var(--interactions-z-index-sticky);
+  background-color: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(var(--effects-blur-medium));
+  border-bottom: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-medium);
+}
+
+.tabBarInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-sm) var(--layout-gutter);
+  box-sizing: border-box;
+}
+
+/* ── Hero strip ──────────────────────────────────────────────────────────── */
+
+.heroStrip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--colors-border-default);
+  animation: fadeSlideDown 0.3s var(--interactions-transitions-easing-ease-out) both;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-primary-default);
+}
+
+.heroTitle {
+  margin: 0;
+  background: var(--effects-gradients-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-default);
+  color: var(--colors-text-muted);
+  line-height: var(--typography-line-height-relaxed);
+  max-width: 600px;
+}
+
+/* ── Tab content ─────────────────────────────────────────────────────────── */
+
+.tabContent {
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeSlideUp 0.3s var(--interactions-transitions-easing-ease-out) both;
+}
+
+.tabContentNarrow {
+  max-width: 720px;
+}
+
+.tabContentFluid {
+  /* CommunityRoutesGrid manages its own padding */
+  margin: 0 calc(-1 * var(--layout-gutter));
+  width: calc(100% + 2 * var(--layout-gutter));
+}
+
+/* ── Group ride chat layout ──────────────────────────────────────────────── */
+
+.tabContentChat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.chatIntro {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-xl);
+  box-shadow: var(--effects-shadows-small);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, transparent 60%);
+}
+
+.chatIntroIcon {
+  font-size: 40px;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(249, 115, 22, 0.4));
+}
+
+.chatIntroText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.chatIntroTitle {
+  margin: 0;
+  font-size: var(--typography-sizes-heading-h4);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: var(--typography-line-height-heading);
+}
+
+.chatIntroSub {
+  margin: 0;
+  font-size: var(--typography-sizes-body-default);
+  color: var(--colors-text-muted);
+  line-height: var(--typography-line-height-relaxed);
+}
+
+.chatPanel {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .tabContentFluid {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 479px) {
+  .heroStrip {
+    gap: var(--spacing-xs);
+  }
+
+  .chatIntro {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+  }
+
+  .chatPanel {
+    max-width: 100%;
+  }
+
+  .tabContentNarrow {
+    max-width: 100%;
+  }
+}

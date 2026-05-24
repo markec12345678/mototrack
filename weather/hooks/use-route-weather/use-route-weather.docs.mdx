@@ -1,0 +1,107 @@
+---
+description: "useRouteWeather(route, samples) — fetches weather data at evenly-spaced points along a route via GraphQL getWeatherAlongRoute. Returns an array of RouteWeather samples (5 points by default)."
+labels: ['hook', 'react', 'weather', 'graphql', 'route']
+---
+
+A React hook that queries `getWeatherAlongRoute` via GraphQL and returns weather conditions at evenly-spaced points along a given route geometry.
+
+Pass an array of `LatLng` coordinates as the route and optionally specify how many sample points to fetch (default: 5). The hook automatically selects evenly-spaced points from the geometry before sending the query.
+
+## Basic Usage
+
+```tsx
+const route = [
+  { lat: 46.0569, lng: 14.5058 },
+  { lat: 46.2,    lng: 14.8    },
+  { lat: 46.35,   lng: 15.1   },
+  { lat: 46.5,    lng: 15.4   },
+  { lat: 46.65,   lng: 15.65  },
+];
+
+function RouteWeatherDisplay() {
+  const { routeWeather, loading, error } = useRouteWeather(route);
+
+  if (loading) return <p>Loading weather along route…</p>;
+  if (error)   return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {routeWeather.map((sample, i) => (
+        <li key={i}>
+          {sample.snapshot.icon} {sample.snapshot.label} — {sample.snapshot.tempC}°C
+          (ETA: {sample.etaMin} min)
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Custom Sample Count
+
+```tsx
+function TenPointForecast() {
+  const route = [
+    { lat: 46.0569, lng: 14.5058 },
+    { lat: 46.65,   lng: 15.65  },
+  ];
+
+  const { routeWeather, loading } = useRouteWeather(route, 10);
+
+  if (loading) return <p>Fetching 10 weather samples…</p>;
+
+  return (
+    <div>
+      {routeWeather.map((sample, i) => (
+        <div key={i}>
+          <strong>Point {i + 1}</strong>: {sample.snapshot.tempC}°C,
+          Wind {sample.snapshot.windKmh} km/h {sample.snapshot.icon}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Testing with Mock Data
+
+Pass `mockData` in the options object to skip the GraphQL query entirely — ideal for unit tests and Storybook/Bit compositions.
+
+```tsx
+const mockSamples = [
+  {
+    location: { lat: 46.0569, lng: 14.5058 },
+    etaMin: 0,
+    snapshot: {
+      tempC: 18.5,
+      feelsLikeC: 17.2,
+      windKmh: 22.0,
+      windDirDeg: 270,
+      gustKmh: 31.0,
+      humidity: 64,
+      visibilityKm: 10.0,
+      precipMmH: 0.0,
+      wmoCode: 1,
+      label: 'Mostly clear',
+      icon: '🌤️',
+      ts: 1718000000,
+    },
+  },
+];
+
+function MockedRouteWeather() {
+  const { routeWeather, loading } = useRouteWeather(
+    [{ lat: 46.0569, lng: 14.5058 }],
+    1,
+    { mockData: mockSamples }
+  );
+
+  if (loading) return null;
+
+  return (
+    <div>
+      {routeWeather[0].snapshot.icon} {routeWeather[0].snapshot.label}
+    </div>
+  );
+}
+```

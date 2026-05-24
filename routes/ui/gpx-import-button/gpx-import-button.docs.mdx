@@ -1,0 +1,62 @@
+---
+description: "GPX file picker button. Parses GPX 1.1 XML (DOMParser) into waypoints[] + geometry[]. Calls onLoad(parsedRoute) on success."
+labels: ["gpx", "import", "route", "file", "mototrack"]
+---
+
+A styled file-picker button that accepts `.gpx` files, parses the GPX 1.1 XML using the browser's `DOMParser`, and delivers a structured `ParsedGpxRoute` object — containing `waypoints[]` and `geometry[]` — via the `onLoad` callback.
+
+Supports success and error feedback states inline, with no modal or dialog required.
+
+## Basic usage
+
+```tsx
+import { GpxImportButton } from '@markec/routes.ui.gpx-import-button';
+
+<GpxImportButton
+  onLoad={(route) => console.log(route)}
+/>
+```
+
+## With error handling
+
+```tsx
+import { GpxImportButton } from '@markec/routes.ui.gpx-import-button';
+
+<GpxImportButton
+  label="Load GPX Route"
+  onLoad={(route) => {
+    console.log('Waypoints:', route.waypoints);
+    console.log('Geometry:', route.geometry);
+  }}
+  onError={(message) => {
+    alert(`Import failed: ${message}`);
+  }}
+/>
+```
+
+## Parsed route shape
+
+```tsx
+import type { ParsedGpxRoute } from '@markec/routes.ui.gpx-import-button';
+
+// The object passed to onLoad:
+const route: ParsedGpxRoute = {
+  name: 'Vršič Pass Loop',
+  waypoints: [
+    { id: 'wpt-0', name: 'Kranjska Gora', lat: 46.4839, lng: 13.7864 },
+    { id: 'wpt-1', name: 'Vršič Pass',    lat: 46.4378, lng: 13.7447 },
+  ],
+  geometry: [
+    { lat: 46.4839, lng: 13.7864 },
+    { lat: 46.4750, lng: 13.7800 },
+    // ... all track points
+  ],
+};
+```
+
+## GPX parsing rules
+
+- **Name** — reads `<metadata><name>` first, falls back to `<trk><name>`, then defaults to `"Imported Route"`.
+- **Waypoints** — collected from all `<wpt>` elements; each gets a stable `id` (`wpt-0`, `wpt-1`, …).
+- **Geometry** — collected from `<trkseg><trkpt>` elements. Falls back to `<rte><rtept>` if no track segments exist. If neither is present, waypoint coordinates are used as geometry.
+- Files that are not valid XML, lack a `<gpx>` root, or contain no spatial data trigger `onError`.

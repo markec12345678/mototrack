@@ -1,0 +1,62 @@
+---
+description: "PreRideWeatherCheck — a standalone weather safety block shown inside the pre-ride checklist modal. Pulls current weather via GraphQL, evaluates danger thresholds, and fires an onResult callback with { isDangerous, reason, snapshot }. When dangerous, the parent checklist disables the Start button."
+labels: ["weather", "safety", "pre-ride", "checklist", "mototrack"]
+---
+
+`PreRideWeatherCheck` fetches live weather for a given GPS location and evaluates whether conditions are safe for a motorcycle ride. It is designed to be embedded inside a pre-ride checklist modal and communicates its result to the parent via the `onResult` callback.
+
+## Basic usage
+
+```tsx
+<PreRideWeatherCheck
+  lat={46.0569}
+  lng={14.5058}
+  onResult={(result) => {
+    if (result.isDangerous) {
+      console.log('Ride blocked:', result.reason);
+    }
+  }}
+/>
+```
+
+## Integrating with a checklist
+
+The `onResult` callback returns a `WeatherCheckResult` object that the parent checklist uses to enable or disable the Start button:
+
+```tsx
+const [weatherResult, setWeatherResult] = useState(null);
+
+const canStart = weatherResult !== null && !weatherResult.isDangerous;
+
+<PreRideWeatherCheck
+  lat={46.0569}
+  lng={14.5058}
+  onResult={(result) => setWeatherResult(result)}
+/>
+
+<button disabled={!canStart}>
+  {canStart ? 'Start Ride' : 'Blocked by Weather'}
+</button>
+```
+
+## Danger thresholds
+
+The component evaluates the following conditions as dangerous:
+
+```tsx
+// WMO weather codes: thunderstorm, heavy snow, heavy rain, blizzard
+// Wind speed >= 60 km/h
+// Gusts >= 80 km/h
+// Precipitation >= 5 mm/h
+// Visibility < 1 km
+```
+
+## WeatherCheckResult type
+
+```tsx
+type WeatherCheckResult = {
+  isDangerous: boolean;   // true when any threshold is exceeded
+  reason: string;         // human-readable explanation
+  snapshot: WeatherSnapshot | null;  // raw weather data
+};
+```

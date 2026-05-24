@@ -1,0 +1,103 @@
+---
+description: "React hooks for listing, reporting, and confirming community fuel prices. Returns country averages computed client-side from all reports."
+labels: ['hook', 'react', 'fuel-prices', 'graphql', 'community']
+---
+
+A set of three focused React hooks for working with community-sourced fuel price data across Balkan motorcycle routes.
+
+- **`useFuelPrices`** — queries the list of reports and computes country-level averages client-side.
+- **`useReportFuelPrice`** — submits a new fuel price report via GraphQL mutation.
+- **`useConfirmFuelPrice`** — confirms an existing report, incrementing its community-verified counter.
+
+## List fuel prices and country averages
+
+```tsx
+const FuelPriceList = () => {
+  const { reports, countryAverages, loading, error } = useFuelPrices();
+
+  if (loading) return <p>Loading fuel prices…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>Country Averages</h2>
+      {countryAverages.map((avg) => (
+        <div key={avg.country}>
+          <strong>{avg.country}</strong>
+          {' — '}Petrol: €{avg.avgPetrolEur.toFixed(3)} / Diesel: €{avg.avgDieselEur.toFixed(3)}
+          {' ('}based on {avg.reportCount} report{avg.reportCount !== 1 ? 's' : ''}{')'}
+        </div>
+      ))}
+
+      <h2>All Reports</h2>
+      {reports.map((r) => (
+        <div key={r.id}>
+          {r.brand} · {r.location} · Petrol €{r.petrolEur} · {r.confirms} confirms
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Filter by country
+
+Pass an optional `country` string to narrow the query to a specific country.
+
+```tsx
+const SloveniaFuelPrices = () => {
+  const { reports, countryAverages } = useFuelPrices({ country: 'Slovenia' });
+
+  const avg = countryAverages[0];
+
+  return (
+    <div>
+      {avg && (
+        <p>
+          Slovenia average — Petrol: €{avg.avgPetrolEur.toFixed(3)} /
+          Diesel: €{avg.avgDieselEur.toFixed(3)}
+        </p>
+      )}
+      {reports.map((r) => (
+        <div key={r.id}>{r.brand} at {r.location}</div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Report and confirm a fuel price
+
+Use `useReportFuelPrice` to submit a new reading, and `useConfirmFuelPrice` to upvote an existing one.
+
+```tsx
+const ReportAndConfirm = ({ existingReportId }: { existingReportId: string }) => {
+  const { report, loading: reporting } = useReportFuelPrice();
+  const { confirm, loading: confirming } = useConfirmFuelPrice();
+
+  const handleReport = async () => {
+    await report({
+      country: 'Slovenia',
+      brand: 'OMV',
+      petrolEur: 1.589,
+      dieselEur: 1.479,
+      location: 'Ljubljana, Tržaška cesta',
+    });
+  };
+
+  const handleConfirm = async () => {
+    await confirm(existingReportId);
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={handleReport} disabled={reporting}>
+        {reporting ? 'Reporting…' : 'Report Price'}
+      </button>
+      <button type="button" onClick={handleConfirm} disabled={confirming}>
+        {confirming ? 'Confirming…' : 'Confirm Price'}
+      </button>
+    </div>
+  );
+};
+```

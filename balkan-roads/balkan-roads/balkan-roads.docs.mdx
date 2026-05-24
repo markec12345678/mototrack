@@ -1,0 +1,119 @@
+---
+description: A pluggable Balkan Roads aspect for the Mototrack platform. Registers explore and tour detail routes, a navigation item, a dashboard panel, and seeds MongoDB with 63 curated roads and 20 iconic tours via GraphQL.
+labels: ['aspect', 'balkan roads', 'mototrack', 'graphql', 'mongodb']
+---
+
+A pluggable Balkan Roads aspect that integrates into the Mototrack platform. It registers the explore page and tour detail routes in the browser, adds a primary navigation item labeled Raziskuj with a compass icon, and injects a tour dashboard panel. On the server side it connects to MongoDB, exposes a GraphQL schema for BalkanRoad and IconicTour types, and seeds both collections from static entity data on startup.
+
+## Compose to your platform
+
+Add the Balkan Roads aspect to your Harmony platform composition:
+
+```tsx
+import { HarmonyPlatform } from '@bitdev/harmony.harmony-platform';
+import { UIRuntime } from '@bitdev/harmony.runtimes.browser-runtime';
+import { NodeJSRuntime } from '@bitdev/harmony.runtimes.nodejs-runtime';
+import { BalkanRoadsAspect } from '@markec/balkan-roads.balkan-roads';
+import { MototrackPlatformAspect } from '@markec/mototrack-platform.mototrack-platform';
+
+export const MototrackCom = HarmonyPlatform.from({
+  name: 'mototrack-com',
+
+  runtimes: [
+    new UIRuntime(),
+    new NodeJSRuntime()
+  ],
+
+  aspects: [
+    MototrackPlatformAspect,
+    BalkanRoadsAspect,
+  ]
+});
+
+export default MototrackCom;
+
+```
+
+## Use the Node runtime API from another aspect
+
+Access the Balkan Roads node API from your own aspect to list roads and tours:
+
+```tsx
+import { BalkanRoadsAspect } from '@markec/balkan-roads.balkan-roads';
+import type { BalkanRoadsNode } from '@markec/balkan-roads.balkan-roads';
+
+export class MyAspectNode {
+  static dependencies = [BalkanRoadsAspect];
+
+  static async provider([balkanRoads]: [BalkanRoadsNode]) {
+    const roads = await balkanRoads.listRoads({ country: 'Slovenia', difficulty: 'hard' });
+    const tours = await balkanRoads.listTours({ difficulty: 'expert' });
+    const tour = await balkanRoads.getTour('1');
+
+    return new MyAspectNode();
+  }
+}
+
+```
+
+## Query Balkan Roads and Iconic Tours via GraphQL
+
+Use the registered GraphQL schema to query roads and tours from the backend:
+
+```tsx
+const LIST_ROADS_QUERY = `
+  query ListRoads($options: ListRoadsOptions) {
+    listRoads(options: $options) {
+      id
+      name
+      country
+      flag
+      lengthKm
+      rating
+      difficulty
+      type
+      description
+    }
+  }
+`;
+
+const LIST_TOURS_QUERY = `
+  query ListTours($options: ListToursOptions) {
+    listTours(options: $options) {
+      id
+      name
+      country
+      flag
+      distanceKm
+      rating
+      difficulty
+      description
+      waypoints {
+        lat
+        lng
+        name
+      }
+    }
+  }
+`;
+
+const GET_TOUR_QUERY = `
+  query GetTour($options: GetTourOptions!) {
+    getTour(options: $options) {
+      id
+      name
+      country
+      flag
+      distanceKm
+      rating
+      difficulty
+      description
+      waypoints {
+        lat
+        lng
+        name
+      }
+    }
+  }
+`;
+```

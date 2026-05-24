@@ -1,0 +1,26 @@
+declare const styles: {
+  readonly panel: string;
+  readonly expanded: string;
+  readonly toggleBtn: string;
+  readonly chevron: string;
+  readonly chevronExpanded: string;
+  readonly content: string;
+  readonly headerRow: string;
+  readonly iconTemp: string;
+  readonly weatherIcon: string;
+  readonly tempBlock: string;
+  readonly temp: string;
+  readonly label: string;
+  readonly alertPill: string;
+  readonly feelsLike: string;
+  readonly statRow: string;
+  readonly stat: string;
+  readonly value: string;
+  readonly unit: string;
+  readonly windArrow: string;
+  readonly expandedStats: string;
+  readonly skeleton: string;
+  readonly skeletonTemp: string;
+  readonly skeletonRow: string;
+};
+export default styles;

@@ -1,0 +1,81 @@
+---
+description: "React hooks for community routes — list with filters, like a route, and submit a detailed rating. All powered by GraphQL via Apollo Client."
+labels: ['hook', 'graphql', 'community', 'routes', 'mototrack']
+---
+
+A collection of three focused React hooks for interacting with community motorcycle routes on the MotoTrack platform.
+
+- **`useCommunityRoutes`** — query the list of community routes with optional country and difficulty filters.
+- **`useLikeRoute`** — express a like on a route by submitting a top-quality rating.
+- **`useRateRoute`** — submit a detailed multi-dimensional rating (quality, scenery, twistiness, difficulty) with an optional comment.
+
+All hooks integrate with Apollo Client and support mock data injection for testing and composition previews.
+
+## List community routes
+
+```tsx
+function RouteList() {
+  const { routes, loading, error } = useCommunityRoutes({ country: 'SI', difficulty: 'medium' });
+
+  if (loading) return <p>Loading routes…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {routes.map((route) => (
+        <li key={route.id}>
+          {route.name} — {route.distanceKm} km — ⭐ {route.rating}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Like a route
+
+```tsx
+function LikeButton({ routeId }: { routeId: string }) {
+  const { likeRoute, loading } = useLikeRoute();
+
+  return (
+    <button
+      type="button"
+      disabled={loading}
+      onClick={() => likeRoute(routeId)}
+    >
+      {loading ? 'Liking…' : '❤️ Like'}
+    </button>
+  );
+}
+```
+
+## Rate a route
+
+```tsx
+function RateRouteForm({ routeId }: { routeId: string }) {
+  const { rateRoute, loading, error, data } = useRateRoute();
+
+  const handleSubmit = () => {
+    rateRoute({
+      routeId,
+      quality: 5,
+      scenery: 4,
+      twistiness: 5,
+      difficulty: 3,
+      comment: 'Epic serpentines through the mountains!',
+    });
+  };
+
+  if (data) return <p>Rating submitted! ID: {data.id}</p>;
+
+  return (
+    <div>
+      {error && <p>Error: {error.message}</p>}
+      <button type="button" disabled={loading} onClick={handleSubmit}>
+        {loading ? 'Submitting…' : 'Submit Rating'}
+      </button>
+    </div>
+  );
+}
+```

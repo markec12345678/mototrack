@@ -1,0 +1,1 @@
+[{"name":"","description":"call OSRM and return decoded route + Slovenian-translated turn steps.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"osrm-client.ts"}]

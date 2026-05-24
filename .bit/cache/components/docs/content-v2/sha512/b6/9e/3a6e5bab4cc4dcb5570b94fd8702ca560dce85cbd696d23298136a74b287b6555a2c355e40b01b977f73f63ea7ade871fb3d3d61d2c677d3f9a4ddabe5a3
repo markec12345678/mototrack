@@ -1,0 +1,1 @@
+[{"name":"","description":"Static seed data used on first boot. Re-uses the same shape as the GraphQL\nHazard / SpeedCamera / BorderCrossing types.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"safety.seeds.ts"}]

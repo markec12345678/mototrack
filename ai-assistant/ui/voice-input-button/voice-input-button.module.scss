@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Pulse rings ─────────────────────────────────────────────────────────── */
+
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--borders-radius-full);
+  border: 2px solid var(--colors-primary-default);
+  opacity: 0;
+  animation: pulseRing 1.8s var(--interactions-transitions-easing-ease-out) infinite;
+  pointer-events: none;
+}
+
+.pulseDelay {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ── Button overrides ────────────────────────────────────────────────────── */
+
+.button {
+  position: relative;
+  z-index: 1;
+  transition:
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.buttonListening {
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.35), var(--effects-shadows-glow);
+}
+
+/* ── Error indicator ─────────────────────────────────────────────────────── */
+
+.errorDot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-status-danger-default);
+  border: 1.5px solid var(--colors-surface-background);
+  z-index: 2;
+  pointer-events: none;
+}

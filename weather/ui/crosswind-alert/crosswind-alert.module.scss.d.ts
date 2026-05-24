@@ -1,0 +1,22 @@
+declare const styles: {
+  readonly overlay: string;
+  readonly moderate: string;
+  readonly strong: string;
+  readonly dangerous: string;
+  readonly flashHidden: string;
+  readonly content: string;
+  readonly iconRow: string;
+  readonly windIcon: string;
+  readonly warningIcon: string;
+  readonly title: string;
+  readonly titleModerate: string;
+  readonly titleStrong: string;
+  readonly titleDangerous: string;
+  readonly sublabel: string;
+  readonly speedBadge: string;
+  readonly speedValue: string;
+  readonly speedUnit: string;
+  readonly speedLabel: string;
+  readonly pulseRing: string;
+};
+export default styles;

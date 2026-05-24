@@ -1,0 +1,44 @@
+---
+description: "CommunityRoutesGrid displays community motorcycle routes as cards with country flag, name, author, distance, likes, and rating. Supports filtering by country and difficulty, sorting by popularity, recent, or distance, and a 'Naloži v Načrtuj' action to load a route into the planner."
+labels: ["community", "routes", "grid", "motorcycle", "mototrack"]
+---
+
+A rich grid component for browsing community-shared motorcycle routes across the Balkans. Each card shows the country flag, route name, author, distance, duration, likes, and star rating. Users can filter by country or difficulty and sort by popularity, recency, or distance.
+
+## Basic usage
+
+```tsx
+import { CommunityRoutesGrid } from '@markec/community.ui.community-routes-grid';
+
+<CommunityRoutesGrid />
+```
+
+## With a load-route callback
+
+Use the `onLoadRoute` prop to handle the "Naloži v Načrtuj" action — triggered when the user clicks the primary button on a route card.
+
+```tsx
+import { CommunityRoutesGrid } from '@markec/community.ui.community-routes-grid';
+
+<CommunityRoutesGrid
+  onLoadRoute={(route) => {
+    console.log('Loading route into planner:', route.name);
+    // navigate to planner with route.id
+  }}
+/>
+```
+
+## Pre-filtered with initial values
+
+Set `initialCountry`, `initialDifficulty`, and `initialSort` to control the default filter and sort state on first render.
+
+```tsx
+import { CommunityRoutesGrid } from '@markec/community.ui.community-routes-grid';
+
+<CommunityRoutesGrid
+  initialCountry="SI"
+  initialDifficulty="medium"
+  initialSort="distance"
+  onLoadRoute={(route) => console.log(route)}
+/>
+```

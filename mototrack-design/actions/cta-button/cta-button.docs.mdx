@@ -1,0 +1,75 @@
+---
+description: "Large CTA button for landing pages and primary actions. Built on actions/button with bigger padding, orange gradient, and drop shadow. Used for SOS, Start Ride, and Save Route."
+labels: ["button", "cta", "actions", "landing page", "mototrack"]
+---
+
+A high-impact call-to-action button designed for the most important actions in the MotoTrack experience.
+Built on top of the base `Button` component with larger padding, vivid orange gradient fills, and a glowing drop shadow that commands attention on dark backgrounds.
+
+## When to use
+
+Use `CtaButton` for primary landing page actions, ride lifecycle controls, and emergency interactions:
+
+- **Start Ride** — begin a GPS-tracked session
+- **Save Route** — bookmark a completed or planned route
+- **SOS** — trigger an emergency alert with live location sharing
+- **Default** — generic high-priority CTA (e.g. "Get Started", "Join Now")
+
+## Basic usage
+
+```tsx
+<CtaButton variant="start-ride">Start Ride</CtaButton>
+```
+
+## With icons
+
+```tsx
+<CtaButton variant="sos" leftIcon={<SosIcon />}>
+  Send SOS Alert
+</CtaButton>
+
+<CtaButton variant="save-route" leftIcon={<SaveIcon />} rightIcon={<ArrowRightIcon />}>
+  Save Route
+</CtaButton>
+```
+
+## All variants
+
+```tsx
+<CtaButton variant="default">Get Started</CtaButton>
+<CtaButton variant="start-ride">Start Ride</CtaButton>
+<CtaButton variant="save-route">Save Route</CtaButton>
+<CtaButton variant="sos">SOS</CtaButton>
+```
+
+## States
+
+```tsx
+<CtaButton variant="start-ride" loading>Starting...</CtaButton>
+<CtaButton variant="save-route" disabled>Save Route</CtaButton>
+```
+
+## Full width
+
+```tsx
+<CtaButton variant="start-ride" fullWidth>
+  Start Ride
+</CtaButton>
+```
+
+## As a link
+
+```tsx
+<CtaButton variant="default" href="/onboarding">
+  Begin Your Journey
+</CtaButton>
+```
+
+## Variant reference
+
+| Variant | Gradient | Use case |
+|---|---|---|
+| `default` | Orange → Deep Orange | Generic landing page CTA |
+| `start-ride` | Light Orange → Burnt Orange | Begin a ride session |
+| `save-route` | Amber → Gold | Save or bookmark a route |
+| `sos` | Orange → Red | Emergency alert action |

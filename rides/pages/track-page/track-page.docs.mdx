@@ -1,0 +1,44 @@
+---
+description: "Full-screen /track page with live map, ride HUD, elevation profile strip, and floating safety alert widgets."
+labels: ["track", "map", "recording", "ride", "page"]
+---
+
+The `TrackPage` is the live riding screen of MotoTrack. It renders a full-screen interactive map with the rider's live GPS position and a growing track polyline while recording. All HUD elements float above the map as overlays.
+
+## Layout zones
+
+- **Top-center HUD** — `RideStatsPanel` with speed, distance, duration, climb, and GPS quality. Visible only while recording or paused.
+- **Bottom-center** — `StartRideControl` with start / pause / stop lifecycle. Always visible.
+- **Bottom strip** — `ElevationProfile` SVG chart with live progress indicator. Appears once the track has enough elevation data.
+- **Right column** — Slot-registered `SafetyAlert` widgets stacked vertically. Rendered only when alerts are provided.
+
+## Basic usage
+
+```tsx
+<TrackPage />
+```
+
+## With safety alert widgets
+
+Slot-collected `SafetyAlert` items are passed as the `safetyAlerts` prop. Each item provides a `key`, an optional `order`, and a `component` to render.
+
+```tsx
+function SpeedWarning() {
+  return <div>Speed Warning: approaching 120 km/h</div>;
+}
+
+<TrackPage
+  safetyAlerts={[
+    { key: "speed-warning", order: 1, component: SpeedWarning },
+  ]}
+/>
+```
+
+## With ride lifecycle callbacks
+
+```tsx
+<TrackPage
+  onRideSaved={(rideId) => console.log("Saved ride:", rideId)}
+  onRideDiscarded={() => console.log("Ride discarded")}
+/>
+```

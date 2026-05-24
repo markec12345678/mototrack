@@ -1,0 +1,55 @@
+---
+description: "A leaderboard table component for the MotoTrack community. Displays rider rankings with period and sort-by selectors. Top 3 riders are highlighted with medal emojis, and the current user's row is visually distinguished."
+labels: ["leaderboard", "table", "community", "rankings"]
+---
+
+A rich leaderboard table for the MotoTrack community. It supports period filtering (week, month, all-time) and sorting by points, distance, or rides. The top 3 riders are decorated with 🥇🥈🥉 medal emojis, and the current user's row is highlighted in orange.
+
+## Basic usage
+
+Render the table with a static list of entries:
+
+```tsx
+import { LeaderboardTable } from '@markec/community.ui.leaderboard-table';
+
+<LeaderboardTable
+  entries={entries}
+  defaultPeriod="week"
+  defaultSortBy="points"
+/>
+```
+
+## Highlighting the current user
+
+Set `me: true` on the entry that belongs to the logged-in user. The row will be highlighted with an orange accent and a "You" badge:
+
+```tsx
+const entries = [
+  { rank: 1, userId: 'u1', displayName: 'Luka Horvat', country: 'SI', km: 4820, rides: 87, points: 12450, me: false },
+  { rank: 2, userId: 'u2', displayName: 'Marko Petrović', country: 'RS', km: 4310, rides: 74, points: 11200, me: false },
+  { rank: 5, userId: 'me', displayName: 'Aris Papadopoulos', country: 'GR', km: 3210, rides: 55, points: 8950, me: true },
+];
+
+<LeaderboardTable entries={entries} defaultPeriod="week" defaultSortBy="points" />
+```
+
+## Limiting displayed rows
+
+Use the `limit` prop to cap the number of visible rows:
+
+```tsx
+<LeaderboardTable
+  entries={entries}
+  limit={10}
+  defaultPeriod="month"
+  defaultSortBy="km"
+/>
+```
+
+## Live data via hook
+
+When no `entries` prop is passed, the component fetches data automatically using the `useLeaderboard` hook based on the selected period and sort-by values:
+
+```tsx
+<LeaderboardTable defaultPeriod="alltime" defaultSortBy="points" />
+```

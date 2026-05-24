@@ -1,0 +1,65 @@
+---
+description: "Speedometer HUD component displaying large numeric speed in km/h. Supports compact (60px), normal (120px), and driving-mode (240px) sizes. Color shifts from green to amber to red based on a configurable warning threshold. Uses tabular numerals for stable digit widths."
+labels: ["hud", "speedometer", "dashboard", "mototrack"]
+---
+
+A heads-up display (HUD) speedometer that renders the current speed as a large, tabular-numeral digit. Designed for motorcycle dashboards, it adapts across three size variants and smoothly transitions color from green through amber to red as speed climbs past configurable thresholds.
+
+## Basic usage
+
+Render a speedometer at the default `normal` size showing 87 km/h:
+
+```tsx
+<Speedometer speed={87} />
+```
+
+## Size variants
+
+Three size presets cover every use case — from a compact status bar chip to a full-screen driving HUD:
+
+```tsx
+// Compact — 60px digits, ideal for status bars
+<Speedometer speed={87} size="compact" />
+
+// Normal — 120px digits, standard dashboard panel
+<Speedometer speed={87} size="normal" />
+
+// Driving mode — 240px digits, full-screen HUD
+<Speedometer speed={87} size="driving-mode" />
+```
+
+## Color thresholds
+
+The color shifts automatically based on the `warningThreshold` prop (default `120` km/h):
+
+- **Green** — speed is below the threshold (safe)
+- **Amber** — speed is at or above the threshold (caution)
+- **Red** — speed is at or above `warningThreshold × 1.4` (danger)
+
+```tsx
+// Green — safe zone
+<Speedometer speed={95} warningThreshold={120} />
+
+// Amber — caution zone (>= 120 km/h)
+<Speedometer speed={135} warningThreshold={120} />
+
+// Red — danger zone (>= 168 km/h, i.e. 120 × 1.4)
+<Speedometer speed={175} warningThreshold={120} />
+```
+
+## Custom threshold
+
+Adjust the threshold to match your track or road speed limits:
+
+```tsx
+// Warn at 80 km/h instead of the default 120
+<Speedometer speed={90} warningThreshold={80} />
+```
+
+## Hiding the unit label
+
+Omit the `km/h` label for ultra-minimal displays:
+
+```tsx
+<Speedometer speed={120} showUnit={false} />
+```

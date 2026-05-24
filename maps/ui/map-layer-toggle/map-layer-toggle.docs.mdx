@@ -1,0 +1,77 @@
+---
+description: "Layer toggle list shown over the map. Renders all MapLayer slot entries from the platform with icon, label, and a toggle. Persists toggles in localStorage."
+labels: ["map", "layers", "toggle", "ui", "mototrack"]
+---
+
+A floating panel component designed to sit over a map surface. It renders a list of `MapLayer` entries — each with an optional icon, a label, and a toggle switch. Toggle states are automatically persisted to `localStorage` so they survive page reloads.
+
+## Basic usage
+
+```tsx
+import { MapLayerToggle } from '@markec/maps.ui.map-layer-toggle';
+
+<MapLayerToggle
+  layers={[
+    { key: 'satellite', label: 'Satellite', defaultEnabled: false },
+    { key: 'traffic',   label: 'Traffic',   defaultEnabled: true  },
+    { key: 'terrain',   label: 'Terrain',   defaultEnabled: false },
+  ]}
+  onLayerChange={(key, enabled) => console.log(key, enabled)}
+/>
+```
+
+## With icons
+
+Each layer entry accepts an optional `icon` — any React node rendered inside a small icon container to the left of the label.
+
+```tsx
+import { MapLayerToggle } from '@markec/maps.ui.map-layer-toggle';
+
+function SatelliteIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M6.3 6.3a8 8 0 0 0 0 11.4" />
+      <path d="M17.7 6.3a8 8 0 0 1 0 11.4" />
+    </svg>
+  );
+}
+
+<MapLayerToggle
+  title="Overlays"
+  layers={[
+    { key: 'satellite', label: 'Satellite View', icon: <SatelliteIcon />, defaultEnabled: false },
+    { key: 'traffic',   label: 'Live Traffic',   defaultEnabled: true  },
+    { key: 'poi',       label: 'Points of Interest', defaultEnabled: false },
+  ]}
+/>
+```
+
+## Platform slot integration
+
+In the MotoTrack platform, `MapLayer` entries are collected from feature aspects via slot registration and passed as the `layers` prop. The component itself is stateless regarding slot management — it only renders what it receives.
+
+```tsx
+import { MapLayerToggle } from '@markec/maps.ui.map-layer-toggle';
+
+// In your map shell / layout component:
+function MapShell({ mapLayers }) {
+  return (
+    <div style={{ position: 'relative' }}>
+      <MapCanvas />
+      <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 100 }}>
+        <MapLayerToggle
+          layers={mapLayers}
+          onLayerChange={(key, enabled) => {
+            // Notify the map engine to show/hide the layer
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## localStorage persistence
+
+Toggle states are stored under the key `map-layer-toggle:<layerKey>` in `localStorage`. On mount the component reads these values and initialises each toggle accordingly, falling back to `defaultEnabled` when no stored value exists.

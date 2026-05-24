@@ -1,0 +1,57 @@
+---
+description: "Dashboard panel showing the top 5 riders by weekly kilometres. Designed to span 2 columns in the DashboardPanel slot."
+labels: ["leaderboard", "dashboard", "community", "panel"]
+---
+
+A rich dashboard panel component that displays the **top 5 riders** ranked by kilometres ridden during the current week. It integrates with the `useLeaderboard` GraphQL hook, highlights the current user's row, and renders animated km progress bars for each entry.
+
+The panel is designed to occupy **2 columns** in the dashboard grid slot system.
+
+## Basic usage
+
+```tsx
+import { LeaderboardDashboardPanel } from '@markec/community.ui.leaderboard-dashboard-panel';
+
+<LeaderboardDashboardPanel />
+```
+
+## With a custom link to the full leaderboard
+
+```tsx
+import { LeaderboardDashboardPanel } from '@markec/community.ui.leaderboard-dashboard-panel';
+
+<LeaderboardDashboardPanel
+  fullLeaderboardHref="/community/leaderboard"
+  period="weekly"
+  sortBy="km"
+  limit={5}
+/>
+```
+
+## Spanning 2 columns in a dashboard grid
+
+```tsx
+import { LeaderboardDashboardPanel } from '@markec/community.ui.leaderboard-dashboard-panel';
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
+  <div>Stats Panel</div>
+  <div>Activity Panel</div>
+
+  <div style={{ gridColumn: 'span 2' }}>
+    <LeaderboardDashboardPanel />
+  </div>
+</div>
+```
+
+## With mock data (for testing or Storybook)
+
+```tsx
+import { LeaderboardDashboardPanel } from '@markec/community.ui.leaderboard-dashboard-panel';
+
+const mockEntries = [
+  { rank: 1, userId: 'u1', displayName: 'Luka Horvat', country: '🇸🇮 SI', km: 1248, rides: 9, points: 3120, me: false },
+  { rank: 2, userId: 'u2', displayName: 'Marco Bianchi', country: '🇮🇹 IT', km: 1105, rides: 7, points: 2760, me: true },
+];
+
+<LeaderboardDashboardPanel mockEntries={mockEntries} />
+```

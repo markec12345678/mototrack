@@ -1,0 +1,83 @@
+---
+description: "A React hook for fetching the community leaderboard via GraphQL. Accepts a time period and sort field, returns ranked entries with loading and error state."
+labels: ['hook', 'react', 'graphql', 'leaderboard', 'community']
+---
+
+`useLeaderboard` fetches the MotoTrack community leaderboard using Apollo Client and the `getLeaderboard` GraphQL query.
+It accepts a `period` (e.g. `"weekly"`, `"monthly"`, `"alltime"`) and a `sortBy` field (e.g. `"points"`, `"km"`, `"rides"`),
+and returns a list of `LeaderboardEntry` objects along with standard query state.
+
+## Basic Usage
+
+```tsx
+function WeeklyLeaderboard() {
+  const { entries, loading, error } = useLeaderboard('weekly', 'points');
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {entries.map((entry) => (
+        <li key={entry.userId}>
+          #{entry.rank} {entry.displayName} — {entry.points} pts
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## With a Limit
+
+```tsx
+function TopFiveRiders() {
+  const { entries, loading } = useLeaderboard('monthly', 'km', { limit: 5 });
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <ol>
+      {entries.map((entry) => (
+        <li key={entry.userId}>
+          {entry.displayName} ({entry.country}) — {entry.km.toFixed(0)} km
+        </li>
+      ))}
+    </ol>
+  );
+}
+```
+
+## With Mock Data (Testing & Compositions)
+
+Pass `mockData` to skip the GraphQL network call and return data immediately.
+This is ideal for unit tests and Bit compositions.
+
+```tsx
+const mockEntries = [
+  LeaderboardEntry.from({
+    rank: 1,
+    userId: 'u1',
+    displayName: 'Marco Bianchi',
+    country: 'IT',
+    km: 4820,
+    rides: 38,
+    points: 9640,
+    me: false,
+  }),
+];
+
+function MockLeaderboard() {
+  const { entries } = useLeaderboard('weekly', 'points', { mockData: mockEntries });
+
+  return (
+    <ul>
+      {entries.map((entry) => (
+        <li key={entry.userId}>
+          #{entry.rank} {entry.displayName}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```

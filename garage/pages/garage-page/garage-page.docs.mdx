@@ -1,0 +1,53 @@
+---
+description: "Glavna stran /garage z zavihki Motorji, Vzdrževanje in Stroški. Motorji: seznam BikeCard + obrazec za dodajanje. Vzdrževanje: MaintenanceList po motorjih. Stroški: ExpenseSummary."
+labels: ["garage", "page", "bikes", "maintenance", "expenses"]
+---
+
+The `GaragePage` is the main `/garage` route page for the MotoTrack platform.
+It provides a three-tab interface for managing motorcycles, tracking maintenance schedules,
+and monitoring garage expenses — all in one place.
+
+## Tabs
+
+- **Motorji** — Lists all bikes as `BikeCard` components. Includes an inline "Add bike" form with validation.
+- **Vzdrževanje** — Per-bike accordion sections, each rendering a `MaintenanceList` with status indicators and progress bars.
+- **Stroški** — `ExpenseSummary` with monthly total, category breakdown, and an inline add-expense form.
+
+## Basic usage
+
+```tsx
+import { GaragePage } from '@markec/garage.pages.garage-page';
+
+<GaragePage />
+```
+
+## Open on a specific tab
+
+```tsx
+import { GaragePage } from '@markec/garage.pages.garage-page';
+
+<GaragePage initialTab="vzdrzevanje" />
+```
+
+## With pre-loaded bikes (SSR / testing)
+
+```tsx
+import { GaragePage } from '@markec/garage.pages.garage-page';
+
+const bikes = [
+  {
+    id: 'bike-1',
+    name: 'KTM 890 Adventure',
+    model: '890 Adventure',
+    year: 2023,
+    mileageKm: 12450,
+    tankL: 20,
+    consumptionLPer100: 5.2,
+    currentFuelL: 14,
+    color: '#f97316',
+    primary: true,
+  },
+];
+
+<GaragePage initialTab="motorji" bikes={bikes} />
+```

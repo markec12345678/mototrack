@@ -1,0 +1,40 @@
+.triggerWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animated notification badge dot */
+.badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.7);
+  pointer-events: none;
+  animation: badgePulse 2.4s var(--interactions-transitions-easing-ease-in-out) infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(249, 115, 22, 0.7);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.8);
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);
+  }
+}

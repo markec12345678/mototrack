@@ -1,0 +1,61 @@
+---
+description: "Avatar component for MotoTrack. Displays a user's initials or profile image in a round shape. Supports five sizes (xs/sm/md/lg/xl) and an optional status dot (online/offline)."
+labels: ["avatar", "ui", "content", "mototrack"]
+---
+
+A round avatar component that displays either a user's initials (derived automatically from their name) or a profile image. Supports five sizes and an optional status indicator dot.
+
+## Basic usage — initials
+
+When no `src` is provided, the component derives initials from the `name` prop.
+
+```tsx
+<Avatar name="Marco Bianchi" />
+```
+
+## With a profile image
+
+Pass a `src` URL to display a photo instead of initials.
+
+```tsx
+<Avatar
+  name="Marco Bianchi"
+  src="https://example.com/racer.jpg"
+  size="lg"
+/>
+```
+
+## Sizes
+
+Five sizes are available: `xs`, `sm`, `md` (default), `lg`, and `xl`.
+
+```tsx
+<Avatar name="Marco Bianchi" size="xs" />
+<Avatar name="Marco Bianchi" size="sm" />
+<Avatar name="Marco Bianchi" size="md" />
+<Avatar name="Marco Bianchi" size="lg" />
+<Avatar name="Marco Bianchi" size="xl" />
+```
+
+## Status dot
+
+Add an `online` or `offline` status indicator with the `status` prop.
+
+```tsx
+<Avatar name="Marco Bianchi" size="lg" status="online" />
+<Avatar name="Marco Bianchi" size="lg" status="offline" />
+```
+
+## Team roster example
+
+Combine the avatar with surrounding UI to build a rider list.
+
+```tsx
+<div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+  <Avatar name="Marco Bianchi" src="https://example.com/racer.jpg" size="md" status="online" />
+  <div>
+    <div>Marco Bianchi</div>
+    <div>Team Captain</div>
+  </div>
+</div>
+```

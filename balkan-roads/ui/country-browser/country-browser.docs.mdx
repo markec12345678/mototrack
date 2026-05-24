@@ -1,0 +1,55 @@
+---
+description: "Country-grouped accordion for browsing Balkan motorcycle roads. Each country row shows a flag, country name, and road count badge. Clicking a row expands it to reveal a grid of RoadCards."
+labels: ["accordion", "roads", "balkan", "country", "browser"]
+---
+
+A country-grouped accordion component for exploring Balkan motorcycle roads.
+Each row shows the country flag, name, and road count. Clicking expands the row to reveal a responsive grid of `RoadCard` components.
+
+## Basic usage
+
+```tsx
+<CountryBrowser roads={roads} />
+```
+
+## Pre-expanding countries on mount
+
+Pass an array of ISO country codes to `defaultOpenCountries` to have those sections open when the component first renders.
+
+```tsx
+<CountryBrowser
+  roads={roads}
+  defaultOpenCountries={["SI", "HR"]}
+  title="Top Balkan Roads"
+  subtitle="Slovenia and Croatia are expanded by default."
+/>
+```
+
+## Handling road card clicks
+
+Use the `onRoadClick` callback to respond when a user clicks a road card inside an expanded accordion panel.
+
+```tsx
+<CountryBrowser
+  roads={roads}
+  defaultOpenCountries={["RO"]}
+  onRoadClick={(id) => {
+    console.log("Navigate to road:", id);
+  }}
+/>
+```
+
+## Filtering to a single country
+
+Pass a filtered subset of roads to show only one country in the accordion.
+
+```tsx
+const romaniaRoads = roads.filter((r) => r.country === "RO");
+
+<CountryBrowser
+  roads={romaniaRoads}
+  title="Romania — Mountain Passes"
+  subtitle="The most legendary mountain roads in Eastern Europe."
+  defaultOpenCountries={["RO"]}
+/>
+```

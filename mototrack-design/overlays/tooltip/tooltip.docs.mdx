@@ -1,0 +1,62 @@
+---
+description: "Tooltip component that appears on hover or focus. Supports top, bottom, left, and right positions. Dark theme with white text, smooth entrance animation, and an arrow indicator."
+labels: ["tooltip", "overlay", "ui", "dark-theme"]
+---
+
+A lightweight, accessible tooltip that appears on hover or focus around any trigger element.
+It supports four positions — `top`, `bottom`, `left`, `right` — with a smooth scale-in animation and a directional arrow.
+Styled with the MotoTrack dark theme: deep slate background with crisp white text.
+
+## Basic usage
+
+Wrap any element with `<Tooltip>` and provide a `content` string:
+
+```tsx
+<Tooltip content="Fastest lap recorded">
+  <button type="button">Hover me</button>
+</Tooltip>
+```
+
+## Positions
+
+Control where the tooltip appears relative to its trigger using the `position` prop:
+
+```tsx
+<Tooltip content="Tooltip on top" position="top">
+  <button type="button">Top</button>
+</Tooltip>
+
+<Tooltip content="Tooltip on bottom" position="bottom">
+  <button type="button">Bottom</button>
+</Tooltip>
+
+<Tooltip content="Tooltip on left" position="left">
+  <button type="button">Left</button>
+</Tooltip>
+
+<Tooltip content="Tooltip on right" position="right">
+  <button type="button">Right</button>
+</Tooltip>
+```
+
+## Disabled state
+
+Set `disabled` to prevent the tooltip from appearing:
+
+```tsx
+<Tooltip content="You will not see this" position="top" disabled>
+  <button type="button" style={{ opacity: 0.5, cursor: 'not-allowed' }}>
+    Disabled action
+  </button>
+</Tooltip>
+```
+
+## Custom delay
+
+Adjust the show delay (in milliseconds) with the `delay` prop:
+
+```tsx
+<Tooltip content="Appears after 500ms" position="top" delay={500}>
+  <span>Slow tooltip</span>
+</Tooltip>
+```

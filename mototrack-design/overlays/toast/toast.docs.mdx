@@ -1,0 +1,86 @@
+---
+description: "Toast notification system with Provider and useToast hook. Supports success, warning, danger, and info variants with auto-dismiss. Used for hazard alerts, ride saved, and route shared notifications."
+labels: ["toast", "notification", "alert", "overlay", "mototrack"]
+---
+
+A fully-featured toast notification system for MotoTrack. Wrap your app with `ToastProvider` and trigger notifications anywhere in the tree using the `useToast` hook.
+
+## Setup
+
+Wrap your app (or page) with `ToastProvider` once:
+
+```tsx
+import { ToastProvider } from '@markec/mototrack-design.overlays.toast';
+
+function App() {
+  return (
+    <ToastProvider>
+      {/* your app */}
+    </ToastProvider>
+  );
+}
+```
+
+## Triggering toasts
+
+Use the `useToast` hook inside any component to fire notifications:
+
+```tsx
+import { useToast } from '@markec/mototrack-design.overlays.toast';
+
+function RideControls() {
+  const { addToast } = useToast();
+
+  const handleSave = () => {
+    addToast('Ride saved to your garage — 142 km logged.', 'success', 'Ride Saved');
+  };
+
+  const handleHazard = () => {
+    addToast('Oil spill on Turn 7 — reduce speed!', 'danger', 'Hazard Alert', 0);
+  };
+
+  const handleShare = () => {
+    addToast('Route shared with your crew. Link expires in 24h.', 'info', 'Route Shared');
+  };
+
+  return (
+    <div>
+      <button onClick={handleSave}>Save Ride</button>
+      <button onClick={handleHazard}>Report Hazard</button>
+      <button onClick={handleShare}>Share Route</button>
+    </div>
+  );
+}
+```
+
+## Variants
+
+Four variants are available matching MotoTrack status colors:
+
+```tsx
+const { addToast } = useToast();
+
+// Success — ride saved, lap recorded, connection established
+addToast('Personal best: 1:23.456', 'success', 'New Best Lap');
+
+// Warning — yellow flag, tyre wear, advisory
+addToast('Tyre wear at 85% — consider pitting.', 'warning', 'Tyre Warning');
+
+// Danger — hazard, emergency, red flag (set duration 0 to persist)
+addToast('Safety car deployed — reduce speed.', 'danger', 'Safety Car', 0);
+
+// Info — route shared, timing feed, general updates
+addToast('Connected to live timing feed.', 'info', 'Live Timing');
+```
+
+## Auto-dismiss and persistence
+
+By default toasts dismiss after **4000ms**. Pass a custom `duration` (ms) as the 4th argument, or `0` to make a toast persist until manually dismissed:
+
+```tsx
+// Dismisses after 6 seconds
+addToast('Yellow flag — sector 3', 'warning', 'Yellow Flag', 6000);
+
+// Persists until the user clicks the close button
+addToast('Red flag — session stopped.', 'danger', 'Red Flag', 0);
+```

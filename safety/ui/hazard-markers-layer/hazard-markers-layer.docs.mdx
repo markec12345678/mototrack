@@ -1,0 +1,80 @@
+---
+description: "Hazard markers layer for the map. Renders colored DivIcon markers per hazard type, popups with type/time/confirm-count and a Potrdi button. Registered as a MapLayer."
+labels: ["map", "hazard", "safety", "leaflet", "markers"]
+---
+
+A Leaflet layer component that renders colored diamond-shaped DivIcon markers for each hazard on the map.
+Each marker opens a popup showing the hazard type, relative report time, confirmation count, and a **Potrdi** (Confirm) button.
+The layer integrates with `useHazards` for live GraphQL data and accepts a `hazards` prop for testing and compositions.
+
+## Basic usage inside MotoMap
+
+Render `HazardMarkersLayer` as a child of `MotoMap`. It uses `useMap()` internally to attach Leaflet markers.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { HazardMarkersLayer } from '@markec/safety.ui.hazard-markers-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const center = LatLng.from({ lat: 43.8563, lng: 18.4131 });
+
+export const MyMap = () => (
+  <MotoMap center={center} zoom={13}>
+    <HazardMarkersLayer lat={43.8563} lng={18.4131} radiusKm={50} />
+  </MotoMap>
+);
+```
+
+## With confirm callback
+
+Listen for when a user clicks the **Potrdi** button on a hazard popup.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { HazardMarkersLayer } from '@markec/safety.ui.hazard-markers-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const center = LatLng.from({ lat: 43.8563, lng: 18.4131 });
+
+export const MapWithConfirm = () => (
+  <MotoMap center={center} zoom={13}>
+    <HazardMarkersLayer
+      lat={43.8563}
+      lng={18.4131}
+      radiusKm={30}
+      onConfirm={(id) => console.log('Confirmed hazard:', id)}
+    />
+  </MotoMap>
+);
+```
+
+## With mock hazards (for testing)
+
+Pass a `hazards` array directly to bypass the GraphQL hook — useful in tests and Storybook-style compositions.
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+import { HazardMarkersLayer } from '@markec/safety.ui.hazard-markers-layer';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+import type { Hazard } from '@markec/safety.entities.hazard';
+
+const center = LatLng.from({ lat: 43.8563, lng: 18.4131 });
+
+const mockHazards: Hazard[] = [
+  {
+    id: 'h1',
+    type: 'ice',
+    lat: 43.862,
+    lng: 18.422,
+    reportedAt: Date.now() - 15 * 60_000,
+    reportedBy: 'user-1',
+    confirmedCount: 4,
+  },
+];
+
+export const MockMap = () => (
+  <MotoMap center={center} zoom={13}>
+    <HazardMarkersLayer hazards={mockHazards} />
+  </MotoMap>
+);
+```

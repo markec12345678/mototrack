@@ -1,0 +1,169 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  border-radius: var(--borders-radius-large);
+  overflow: hidden;
+  background-color: var(--colors-surface-primary);
+  box-shadow: var(--effects-shadows-large);
+  box-sizing: border-box;
+}
+
+/* ── Leaflet map container ──────────────────────────────────────────────────── */
+
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  z-index: var(--interactions-z-index-base);
+  border-radius: var(--borders-radius-large);
+}
+
+/* ── Overlay corners ────────────────────────────────────────────────────────── */
+
+.overlayCorner {
+  position: absolute;
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  pointer-events: none;
+}
+
+.overlayCorner > * {
+  pointer-events: auto;
+}
+
+.topLeft {
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.topCenter {
+  top: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.topRight {
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.bottomLeft {
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.bottomCenter {
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.bottomRight {
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  align-items: flex-end;
+}
+
+/* ── Default controls stack ─────────────────────────────────────────────────── */
+
+.defaultControls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  pointer-events: auto;
+}
+
+/* ── Waypoint remove button ─────────────────────────────────────────────────── */
+
+.removeWaypointBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--colors-status-danger-default);
+  color: var(--colors-text-inverse);
+  border: none;
+  border-radius: var(--borders-radius-medium);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  cursor: var(--interactions-cursor-pointer);
+  transition: opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  white-space: nowrap;
+}
+
+.removeWaypointBtn:hover {
+  opacity: 0.85;
+}
+
+/* ── Click-to-add hint ──────────────────────────────────────────────────────── */
+
+.clickHint {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--interactions-z-index-overlay);
+  background-color: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: var(--borders-radius-large);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-secondary);
+  backdrop-filter: blur(var(--effects-blur-small));
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .root {
+    min-height: 300px;
+    border-radius: var(--borders-radius-medium);
+  }
+
+  .mapContainer {
+    min-height: 300px;
+    border-radius: var(--borders-radius-medium);
+  }
+
+  .topLeft,
+  .topRight,
+  .bottomLeft,
+  .bottomRight {
+    gap: var(--spacing-xs);
+  }
+
+  .topLeft {
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+  }
+
+  .topRight {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+
+  .bottomLeft {
+    bottom: var(--spacing-sm);
+    left: var(--spacing-sm);
+  }
+
+  .bottomRight {
+    bottom: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+}

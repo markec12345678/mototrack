@@ -1,0 +1,48 @@
+---
+description: "MotoTrack logo — 🏍️ icon + 'MotoTrack' wordmark + 'Balkan' accent tag pill. Configurable size (sm/md/lg). Links to home. Uses theme accent color for the tag."
+labels: ["logo", "brand", "navigation", "mototrack"]
+---
+
+The `Logo` component is the primary brand mark for MotoTrack. It combines a motorcycle emoji icon, a two-tone **MotoTrack** wordmark, and an accent-coloured **Balkan** tag pill into a single, clickable element that links to the home route.
+
+## Basic usage
+
+```tsx
+import { Logo } from '@markec/mototrack-design.content.logo';
+
+<Logo />
+```
+
+## Sizes
+
+Three sizes are available — `sm` for compact navigation bars, `md` (default) for standard headers, and `lg` for hero or splash sections.
+
+```tsx
+<Logo size="sm" />
+<Logo size="md" />
+<Logo size="lg" />
+```
+
+## Custom tag and href
+
+The tag label and the link destination are both configurable via props.
+
+```tsx
+<Logo size="md" tag="Pro" href="/home" />
+```
+
+## Without the tag pill
+
+Hide the tag pill by setting `showTag` to `false`.
+
+```tsx
+<Logo size="md" showTag={false} />
+```
+
+## In a navigation bar
+
+```tsx
+<nav style={{ display: 'flex', alignItems: 'center', height: '60px', padding: '0 24px' }}>
+  <Logo size="sm" />
+</nav>
+```

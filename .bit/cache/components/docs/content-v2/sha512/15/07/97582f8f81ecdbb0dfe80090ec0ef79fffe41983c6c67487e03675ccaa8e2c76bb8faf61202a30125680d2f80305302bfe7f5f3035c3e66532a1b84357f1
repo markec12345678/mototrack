@@ -1,0 +1,1 @@
+[{"filePath":"toast-item.tsx","name":"ToastItem","description":"","properties":[{"name":"toast","description":"","required":true,"type":"Toast"},{"name":"onRemove","description":"","required":true,"type":"signature"}],"access":"public","methods":[],"args":[],"examples":[]}]

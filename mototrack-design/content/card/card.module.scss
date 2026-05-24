@@ -1,0 +1,82 @@
+.card {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: var(--borders-radius-large);
+  border: var(--borders-default-width) var(--borders-default-style) var(--borders-default-color);
+  background-color: var(--colors-surface-primary);
+  color: var(--colors-text-primary);
+  font-family: var(--typography-font-family);
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  width: 100%;
+}
+
+/* ── Variants ──────────────────────────────────────────────────────────────── */
+
+.default {
+  background-color: var(--colors-surface-primary);
+  border-color: var(--colors-border-default);
+  box-shadow: var(--effects-shadows-xs);
+}
+
+.elevated {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-border-default);
+  box-shadow: var(--effects-shadows-medium);
+}
+
+.outlined {
+  background-color: transparent;
+  border-color: var(--colors-border-strong);
+  box-shadow: none;
+}
+
+.danger {
+  background-color: var(--colors-status-danger-subtle);
+  border-color: var(--colors-status-danger-default);
+  box-shadow: 0 0 0 1px var(--colors-status-danger-default);
+}
+
+/* ── Padding ───────────────────────────────────────────────────────────────── */
+
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.padding-md {
+  padding: var(--spacing-md);
+}
+
+.padding-lg {
+  padding: var(--spacing-lg);
+}
+
+.padding-xl {
+  padding: var(--spacing-xl);
+}
+
+/* ── Hover lift ────────────────────────────────────────────────────────────── */
+
+.hoverLift:hover {
+  transform: translateY(var(--interactions-hover-effect-translate-y));
+  box-shadow: var(--effects-shadows-large);
+}
+
+.hoverLift.elevated:hover {
+  box-shadow: var(--effects-shadows-x-large);
+}
+
+.hoverLift.danger:hover {
+  box-shadow: 0 0 0 1px var(--colors-status-danger-default), var(--effects-shadows-large);
+}
+
+/* ── Clickable ─────────────────────────────────────────────────────────────── */
+
+.clickable {
+  cursor: var(--interactions-cursor-pointer);
+}

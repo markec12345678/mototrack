@@ -1,0 +1,41 @@
+---
+description: "Signup page in Slovenian for the MotoTrack platform. Includes a card with email, username, displayName, password, and country select with 10 Balkan options. Features a Registracija heading and primary submit button, with a link to the login page."
+labels: ["page", "auth", "signup", "slovenian", "form"]
+---
+
+The `Signup` page provides a full registration form for the MotoTrack platform, localised in Slovenian. It uses the `useAuth` hook to call the `signup` GraphQL mutation and redirects on success.
+
+## Basic usage
+
+```tsx
+<Signup redirectTo="/dashboard" loginPath="/login" />
+```
+
+## With custom paths
+
+Configure where the user lands after signup and where the login link points:
+
+```tsx
+<Signup
+  redirectTo="/dashboard"
+  loginPath="/prijava"
+/>
+```
+
+## Form fields
+
+The signup form includes the following fields:
+
+- **E-poštni naslov** — email address (required, validated)
+- **Uporabniško ime** — unique username (required)
+- **Prikazno ime** — display name shown to other riders (required)
+- **Geslo** — password, minimum 8 characters (required)
+- **Država** — country select with 10 Balkan options: Slovenia, Croatia, Bosnia & Herzegovina, Serbia, Montenegro, North Macedonia, Albania, Bulgaria, Romania, Greece
+
+```tsx
+<Signup
+  redirectTo="/"
+  loginPath="/login"
+  className="my-custom-class"
+/>
+```

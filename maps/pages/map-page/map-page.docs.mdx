@@ -1,0 +1,59 @@
+---
+description: "Top-level /map page. Full-screen MotoMap by default with all registered MapLayer overlays. Floating button toggles to 3D MapLibre terrain view. Floating offline-cache indicator. Wrapped in ProtectedRoute."
+labels: ["map", "page", "motomap", "3d", "protected", "offline"]
+---
+
+The `MapPage` is the top-level `/map` route page for the MotoTrack platform. It renders a full-screen interactive map with:
+
+- **MotoMap** (Leaflet 2D) as the default view with all registered `MapLayer` slot overlays
+- **MapLibre3D** terrain view toggled via a floating cube button
+- **OfflineCacheIndicator** floating in the bottom-left corner
+- **ProtectedRoute** wrapper — unauthenticated users are redirected to `/login`
+
+## Basic usage
+
+```tsx
+import { MapPage } from '@markec/maps.pages.map-page';
+
+<MapPage />
+```
+
+## With custom center and zoom
+
+```tsx
+import { MapPage } from '@markec/maps.pages.map-page';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const stelvio = LatLng.from({ lat: 46.5253, lng: 10.4536 });
+
+<MapPage
+  center={stelvio}
+  zoom={12}
+  redirectTo="/login"
+/>
+```
+
+## With slot-registered overlays
+
+```tsx
+import { MapPage } from '@markec/maps.pages.map-page';
+import type { MapOverlay } from '@markec/maps.ui.moto-map';
+
+const overlays: MapOverlay[] = [
+  {
+    key: 'twistiness',
+    component: TwistinessHeatmapLayer,
+    position: 'top-left',
+  },
+];
+
+<MapPage overlays={overlays} />
+```
+
+## Toggling 3D terrain
+
+The floating button in the top-right corner switches between the 2D Leaflet view and the MapLibre GL JS 3D terrain view. The `3D TERRAIN` badge appears when 3D mode is active. Clicking the button again returns to the 2D map.
+
+## Offline cache indicator
+
+The `OfflineCacheIndicator` pill floats in the bottom-left corner. Click it to expand the detail panel showing cached tile count, storage used, and readiness score. Use the **Clear Cache** button to purge stored tiles.

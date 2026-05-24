@@ -1,0 +1,77 @@
+---
+description: "Dashboard panel 'Vzdrževanje' — lists maintenance items in warn or danger status for the primary bike. Designed to be registered into the DashboardPanel slot with span 1."
+labels: ["dashboard", "maintenance", "garage", "panel"]
+---
+
+The `GarageDashboardPanel` component is a compact dashboard widget that surfaces maintenance items requiring attention for the rider's primary bike. It derives warn/danger status from interval thresholds (km and days) and renders a concise, actionable list.
+
+## Basic usage
+
+```tsx
+<GarageDashboardPanel
+  bikes={bikes}
+  maintenanceItems={maintenanceItems}
+  maintenanceHref="/maintenance"
+/>
+```
+
+## With alert items
+
+When maintenance items exceed their km or day thresholds, the panel highlights them with warn (yellow) or danger (red) badges and shows a count indicator in the header.
+
+```tsx
+<GarageDashboardPanel
+  bikes={[{ id: "bike-1", name: "KTM 890 Adventure", mileageKm: 18500, primary: true }]}
+  maintenanceItems={[
+    {
+      id: "m-1",
+      name: "Menjava olja",
+      intervalKm: 5000,
+      intervalDays: 365,
+      lastServiceKm: 14000,
+      lastServiceAt: Date.now() - 280 * 86400000,
+    },
+    {
+      id: "m-2",
+      name: "Zavorni tekočina",
+      intervalKm: 20000,
+      intervalDays: 730,
+      lastServiceKm: 0,
+      lastServiceAt: Date.now() - 800 * 86400000,
+    },
+  ]}
+  maintenanceHref="/maintenance"
+/>
+```
+
+## All-ok empty state
+
+When all maintenance items are within their service intervals, the panel shows a friendly confirmation message instead of a list.
+
+```tsx
+<GarageDashboardPanel
+  bikes={[{ id: "bike-1", name: "KTM 890 Adventure", mileageKm: 18500, primary: true }]}
+  maintenanceItems={[
+    {
+      id: "ok-1",
+      name: "Menjava olja",
+      intervalKm: 5000,
+      intervalDays: 365,
+      lastServiceKm: 18000,
+      lastServiceAt: Date.now() - 10 * 86400000,
+    },
+  ]}
+  maintenanceHref="/maintenance"
+/>
+```
+
+## Status derivation
+
+Status is computed client-side from the maintenance item data and the bike's current mileage:
+
+- `kmUsed = mileageKm - lastServiceKm`
+- `daysUsed = (now - lastServiceAt) / 86400000`
+- `ratio = max(kmUsed / intervalKm, daysUsed / intervalDays)`
+- `ratio < 0.5` → **ok** (hidden)
+- `0.5 ≤ ratio < 1` → **warn** (yellow badge)
+- `ratio ≥ 1` → **danger** (red badge)

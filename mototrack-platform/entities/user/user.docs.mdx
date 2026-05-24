@@ -1,0 +1,63 @@
+---
+labels: ['user', 'entity', 'mototrack', 'rider']
+description: "User entity with id, email, username, displayName, country (ISO), language (sl/en/hr), primaryBikeId, level (calculated from points), points, role (rider/admin), and createdAt. Includes a plain-class, Mongoose Typegoose model, and User.from helpers."
+---
+
+A core entity representing a MotoTrack platform user. It can be used on both the frontend and backend, supports serialization via `toObject()`, and provides a `User.from()` factory for constructing instances from plain objects.
+
+The `level` property is a computed getter derived from the user's `points` using predefined thresholds.
+
+## Create a user from a plain object
+
+```tsx
+import { User } from '@markec/mototrack-platform.entities.user';
+
+const user = User.from({
+  id: 'u-001',
+  email: 'luka@mototrack.app',
+  username: 'luka_novak',
+  displayName: 'Luka Novak',
+  country: 'SI',
+  language: 'sl',
+  points: 1200,
+  role: 'rider',
+  createdAt: new Date(),
+  primaryBikeId: 'bike-101',
+});
+
+console.log(user.level); // calculated from points
+```
+
+## Serialize a user to a plain object
+
+```tsx
+import { User } from '@markec/mototrack-platform.entities.user';
+
+const user = User.from({
+  id: 'u-002',
+  email: 'ivan@mototrack.app',
+  username: 'ivan_h',
+  displayName: 'Ivan Horvat',
+  country: 'HR',
+  language: 'hr',
+  points: 580,
+  role: 'rider',
+  createdAt: new Date(),
+});
+
+const plain = user.toObject();
+// plain is a PlainUser object safe to send over the wire or store in state
+```
+
+## Use mock data for development and testing
+
+```tsx
+import { mockUser, mockUsers } from '@markec/mototrack-platform.entities.user';
+
+// Single mock user with optional overrides
+const testUser = mockUser({ username: 'custom_rider', points: 999 });
+
+// Array of diverse mock users (different roles, languages, countries)
+const allUsers = mockUsers();
+console.log(allUsers.map((u) => `${u.displayName} — Level ${u.level}`));
+```

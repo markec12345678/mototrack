@@ -1,0 +1,74 @@
+---
+labels: ['maintenance', 'entity', 'garage', 'bike']
+description: "A MaintenanceItem entity representing a scheduled maintenance task for a bike, with derived status based on km and time usage."
+---
+
+A `MaintenanceItem` models a recurring maintenance task (e.g. oil change, chain lube) for a specific bike.
+It derives a `status` of `'ok'`, `'warn'`, or `'danger'` by comparing how much of the service interval has been consumed — both in kilometres and in days — and taking the worst case.
+
+**Status derivation formula:**
+
+- `kmUsed = currentMileage − lastServiceKm`
+- `daysUsed = (now − lastServiceAt) / 86 400 000`
+- `ratio = max(kmUsed / intervalKm, daysUsed / intervalDays)`
+- `ratio < 0.5` → `'ok'` | `ratio < 1` → `'warn'` | `ratio ≥ 1` → `'danger'`
+
+## Create a MaintenanceItem
+
+```tsx
+import { MaintenanceItem } from '@markec/garage.entities.maintenance-item';
+
+const oilChange = MaintenanceItem.from({
+  id: 'mc-001',
+  bikeId: 'bike-42',
+  name: 'Oil & Filter Change',
+  intervalKm: 5000,
+  intervalDays: 180,
+  lastServiceKm: 10000,
+  lastServiceAt: Date.now() - 90 * 86_400_000, // 90 days ago
+  history: [],
+});
+
+console.log(oilChange.status(12000)); // 'warn' — 40 % km used, 50 % days used
+```
+
+## Derive status and ratio
+
+```tsx
+import { MaintenanceItem } from '@markec/garage.entities.maintenance-item';
+
+const item = MaintenanceItem.from({
+  id: 'mc-002',
+  bikeId: 'bike-42',
+  name: 'Spark Plug Replacement',
+  intervalKm: 15000,
+  intervalDays: 540,
+  lastServiceKm: 0,
+  lastServiceAt: Date.now() - 600 * 86_400_000, // 600 days ago — overdue!
+  history: [],
+});
+
+const currentMileage = 12000;
+console.log(item.kmUsed(currentMileage));   // 12000
+console.log(item.daysUsed());               // ~600
+console.log(item.ratio(currentMileage));    // ~1.11 (day ratio wins)
+console.log(item.status(currentMileage));   // 'danger'
+```
+
+## Use mock data for development and testing
+
+```tsx
+import {
+  mockMaintenanceItems,
+  mockMaintenanceItem,
+} from '@markec/garage.entities.maintenance-item';
+
+// 6 items seeded for a primary bike — covers ok / warn / danger statuses
+const items = mockMaintenanceItems('primary-bike-1');
+console.log(items.map((i) => i.status(12000)));
+// e.g. ['ok', 'ok', 'warn', 'warn', 'danger', 'danger']
+
+// Single item with overrides
+const custom = mockMaintenanceItem('primary-bike-1', 0, { name: 'Custom Task' });
+console.log(custom.name); // 'Custom Task'
+```

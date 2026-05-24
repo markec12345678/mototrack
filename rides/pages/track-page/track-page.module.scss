@@ -1,0 +1,193 @@
+// ── Root ─────────────────────────────────────────────────────────────────────
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #020617;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+// ── Map layer (fills entire viewport) ────────────────────────────────────────
+
+.mapLayer {
+  position: absolute;
+  inset: 0;
+  z-index: var(--interactions-z-index-base);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+// ── Top HUD ───────────────────────────────────────────────────────────────────
+
+.topHud {
+  position: absolute;
+  top: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--interactions-z-index-overlay);
+  pointer-events: none;
+
+  // Allow clicks through to the panel itself
+  > * {
+    pointer-events: auto;
+  }
+}
+
+// ── Safety alerts right column ────────────────────────────────────────────────
+
+.safetyColumn {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-end;
+  max-width: 280px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.safetyWidget {
+  width: 100%;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-large);
+  box-shadow: var(--effects-shadows-floating);
+  overflow: hidden;
+  backdrop-filter: blur(var(--effects-blur-medium));
+  -webkit-backdrop-filter: blur(var(--effects-blur-medium));
+  animation: slideInRight 0.25s var(--interactions-transitions-easing-ease-out) both;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ── Elevation profile strip ───────────────────────────────────────────────────
+
+.elevationStrip {
+  position: absolute;
+  bottom: 140px;
+  left: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--interactions-z-index-overlay);
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-large);
+  box-shadow: var(--effects-shadows-floating);
+  padding: var(--spacing-sm) var(--spacing-md);
+  backdrop-filter: blur(var(--effects-blur-medium));
+  -webkit-backdrop-filter: blur(var(--effects-blur-medium));
+  box-sizing: border-box;
+  animation: slideUp 0.3s var(--interactions-transitions-easing-ease-out) both;
+}
+
+.elevationProfile {
+  width: 100%;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Ride control (bottom-center) ──────────────────────────────────────────────
+
+.rideControl {
+  position: absolute;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  max-width: 560px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.rideControlActive {
+  bottom: var(--spacing-md);
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .topHud {
+    top: var(--spacing-md);
+  }
+
+  .safetyColumn {
+    top: var(--spacing-md);
+    right: var(--spacing-sm);
+    max-width: 200px;
+  }
+
+  .elevationStrip {
+    bottom: 120px;
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .rideControl {
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 100%;
+  }
+
+  .rideControlActive {
+    bottom: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .topHud {
+    top: var(--spacing-xl);
+  }
+
+  .safetyColumn {
+    top: var(--spacing-xl);
+    right: var(--spacing-xl);
+    max-width: 320px;
+  }
+
+  .elevationStrip {
+    bottom: 160px;
+    left: var(--spacing-xl);
+    right: var(--spacing-xl);
+  }
+}

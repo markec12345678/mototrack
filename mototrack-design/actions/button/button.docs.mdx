@@ -1,0 +1,77 @@
+---
+description: "MotoTrack Button component. Variants: primary (orange), secondary (outlined), ghost, danger, success. Sizes sm/md/lg/xl. Optional left/right icon, loading state, full-width, and href (renders as Link)."
+labels: ["button", "ui", "actions", "mototrack"]
+---
+
+A versatile, theme-aware button component for the MotoTrack design system. Supports five visual variants, four sizes, icon slots, a loading state, full-width layout, and optional navigation via `href`.
+
+## Basic Usage
+
+```tsx
+<Button>Register Now</Button>
+```
+
+## Variants
+
+Use the `variant` prop to control the visual style of the button.
+
+```tsx
+<Button variant="primary">Register Now</Button>
+<Button variant="secondary">View Results</Button>
+<Button variant="ghost">Learn More</Button>
+<Button variant="danger">Remove Rider</Button>
+<Button variant="success">Confirm Entry</Button>
+```
+
+## Sizes
+
+Four sizes are available: `sm`, `md` (default), `lg`, and `xl`.
+
+```tsx
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="xl">Extra Large</Button>
+```
+
+## With Icons
+
+Pass any React node to `leftIcon` or `rightIcon` to render icons alongside the label.
+
+```tsx
+<Button variant="primary" leftIcon={<PlayIcon />}>Watch Live</Button>
+<Button variant="secondary" rightIcon={<ArrowRightIcon />}>View Standings</Button>
+<Button variant="ghost" leftIcon={<PlusIcon />} rightIcon={<ArrowRightIcon />}>Add Rider</Button>
+```
+
+## Loading State
+
+Set `loading` to show a spinner and disable interaction automatically.
+
+```tsx
+<Button variant="primary" loading>Submitting Entry...</Button>
+<Button variant="danger" loading>Removing...</Button>
+```
+
+## Disabled State
+
+```tsx
+<Button variant="primary" disabled>Registration Closed</Button>
+```
+
+## Full Width
+
+Stretch the button to fill its container.
+
+```tsx
+<Button variant="primary" fullWidth>Submit Race Entry</Button>
+```
+
+## As a Link
+
+When `href` is provided, the button renders as a `Link` component for navigation. Use `external` to open in a new tab.
+
+```tsx
+<Button variant="primary" href="/races">Race Calendar</Button>
+<Button variant="secondary" href="https://www.motogp.com" external>MotoGP Official</Button>
+```

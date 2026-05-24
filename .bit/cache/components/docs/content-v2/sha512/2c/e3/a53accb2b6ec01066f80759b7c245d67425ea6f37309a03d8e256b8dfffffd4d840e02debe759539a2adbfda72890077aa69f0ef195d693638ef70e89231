@@ -1,0 +1,1 @@
+[{"name":"","description":"MongoDB connection URL. Defaults to the MONGO_URL environment variable.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"rides-config.ts"}]

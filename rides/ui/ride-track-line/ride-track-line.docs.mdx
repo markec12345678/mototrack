@@ -1,0 +1,49 @@
+---
+description: "RideTrackLine renders a ride track as a green polyline on a MotoMap, with a green start marker and a red end marker. Accepts a focused boolean to fitBounds on mount."
+labels: ["map", "track", "ride", "polyline", "leaflet"]
+---
+
+`RideTrackLine` is a self-contained map component that renders a GPS track as a styled green polyline on top of a `MotoMap`. It automatically places a **green circle marker** at the start of the track and a **red circle marker** at the end. When `focused` is `true`, the map fits its viewport to the full track extent on mount.
+
+## Basic usage
+
+Render a track from an array of `TrackPoint` objects:
+
+```tsx
+import { RideTrackLine } from '@markec/rides.ui.ride-track-line';
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const track = [
+  TrackPoint.from({ lat: 43.8563, lng: 18.4131, ts: Date.now(), speed: 0, elevation: 520 }),
+  TrackPoint.from({ lat: 43.8490, lng: 18.4238, ts: Date.now() + 60000, speed: 16.7, elevation: 610 }),
+  TrackPoint.from({ lat: 43.8260, lng: 18.4505, ts: Date.now() + 480000, speed: 0, elevation: 1006 }),
+];
+
+<RideTrackLine track={track} />
+```
+
+## With fitBounds on mount
+
+Pass `focused` to automatically zoom and pan the map to fit the entire track:
+
+```tsx
+<RideTrackLine track={track} focused />
+```
+
+## Empty state
+
+When `track` is an empty array, an empty state placeholder is shown instead of the map:
+
+```tsx
+<RideTrackLine track={[]} />
+```
+
+## Custom sizing
+
+The component fills its container. Control the size via a wrapper element:
+
+```tsx
+<div style={{ width: '100%', height: '520px' }}>
+  <RideTrackLine track={track} focused />
+</div>
+```

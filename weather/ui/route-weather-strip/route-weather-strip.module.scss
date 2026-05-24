@@ -1,0 +1,390 @@
+.strip {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--typography-font-family);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.title {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+  margin: 0;
+}
+
+.sampleCount {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+/* ── Scroll container ────────────────────────────────────────────────────────── */
+
+.scrollContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--colors-border-default) transparent;
+  padding-bottom: var(--spacing-xs);
+}
+
+.scrollContainer::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: var(--colors-border-default);
+  border-radius: var(--borders-radius-full);
+}
+
+/* ── Points row ──────────────────────────────────────────────────────────────── */
+
+.pointsRow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: max-content;
+}
+
+/* ── Connector line ──────────────────────────────────────────────────────────── */
+
+.connector {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 32px;
+  padding: 0 var(--spacing-xs);
+  padding-top: 28px;
+}
+
+.connectorLine {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--colors-border-default) 0%,
+    var(--colors-primary-default) 50%,
+    var(--colors-border-default) 100%
+  );
+  border-radius: var(--borders-radius-full);
+  opacity: 0.5;
+}
+
+/* ── Point card ──────────────────────────────────────────────────────────────── */
+
+.pointCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-sm);
+  border-radius: var(--borders-radius-large);
+  border: var(--borders-default-width) var(--borders-default-style) var(--colors-border-default);
+  background-color: var(--colors-surface-primary);
+  box-shadow: var(--effects-shadows-small);
+  min-width: 100px;
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    border-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  cursor: default;
+  position: relative;
+}
+
+.pointCard:hover {
+  transform: translateY(var(--interactions-hover-effect-translate-y));
+  box-shadow: var(--effects-shadows-medium);
+  border-color: var(--colors-primary-default);
+}
+
+.pointCardStart {
+  border-color: var(--colors-primary-default);
+  background-color: var(--colors-surface-secondary);
+  box-shadow: var(--effects-shadows-glow);
+}
+
+.pointCardEnd {
+  border-color: var(--colors-border-strong);
+  background-color: var(--colors-surface-secondary);
+}
+
+/* ── Alert state ─────────────────────────────────────────────────────────────── */
+
+.pointCardAlert {
+  border-color: var(--colors-status-warning-default);
+  background-color: var(--colors-status-warning-subtle);
+}
+
+.pointCardAlert:hover {
+  border-color: var(--colors-status-warning-default);
+  box-shadow: 0 0 0 1px var(--colors-status-warning-default), var(--effects-shadows-medium);
+}
+
+.pointCardDanger {
+  border-color: var(--colors-status-danger-default);
+  background-color: var(--colors-status-danger-subtle);
+}
+
+.pointCardDanger:hover {
+  border-color: var(--colors-status-danger-default);
+  box-shadow: 0 0 0 1px var(--colors-status-danger-default), var(--effects-shadows-medium);
+}
+
+/* ── ETA badge ───────────────────────────────────────────────────────────────── */
+
+.etaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--borders-radius-large);
+  background-color: var(--colors-primary-default);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  color: var(--colors-text-inverse) !important;
+  white-space: nowrap;
+}
+
+.etaBadgeStart {
+  background-color: var(--colors-primary-default);
+}
+
+.etaBadgeNeutral {
+  background-color: var(--colors-surface-secondary);
+  color: var(--colors-text-secondary) !important;
+  border: var(--borders-default-width) var(--borders-default-style) var(--colors-border-default);
+}
+
+/* ── Weather icon ────────────────────────────────────────────────────────────── */
+
+.weatherIcon {
+  font-size: 28px;
+  line-height: 1;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* ── Temperature ─────────────────────────────────────────────────────────────── */
+
+.temperature {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+}
+
+/* ── Weather label ───────────────────────────────────────────────────────────── */
+
+.weatherLabel {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-secondary);
+  font-weight: var(--typography-font-weight-regular);
+  text-align: center;
+  white-space: nowrap;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Wind info ───────────────────────────────────────────────────────────────── */
+
+.windRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.windArrow {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--colors-text-muted);
+  transition: transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.windValue {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Precip pill ─────────────────────────────────────────────────────────────── */
+
+.precipPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: var(--borders-radius-medium);
+  background-color: var(--colors-status-info-subtle);
+  border: 1px solid var(--colors-status-info-default);
+}
+
+.precipValue {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-status-info-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Loading skeleton ────────────────────────────────────────────────────────── */
+
+.skeleton {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: 100%;
+}
+
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-sm);
+  border-radius: var(--borders-radius-large);
+  border: var(--borders-default-width) var(--borders-default-style) var(--colors-border-default);
+  background-color: var(--colors-surface-primary);
+  min-width: 100px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.skeletonConnector {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 32px;
+  padding: 0 var(--spacing-xs);
+  padding-top: 28px;
+}
+
+.skeletonLine {
+  flex: 1;
+  height: 2px;
+  background-color: var(--colors-border-default);
+  border-radius: var(--borders-radius-full);
+  opacity: 0.4;
+}
+
+.skeletonBlock {
+  border-radius: var(--borders-radius-small);
+  background-color: var(--colors-border-default);
+  opacity: 0.4;
+}
+
+.skeletonBadge {
+  width: 52px;
+  height: 18px;
+}
+
+.skeletonIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--borders-radius-medium);
+}
+
+.skeletonTemp {
+  width: 44px;
+  height: 20px;
+}
+
+.skeletonLabel {
+  width: 72px;
+  height: 12px;
+}
+
+.skeletonWind {
+  width: 56px;
+  height: 12px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ── Error state ─────────────────────────────────────────────────────────────── */
+
+.errorState {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid var(--colors-status-danger-default);
+  background-color: var(--colors-status-danger-subtle);
+}
+
+.errorIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-status-danger-default);
+  font-weight: var(--typography-font-weight-medium);
+  margin: 0;
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────────── */
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  border-radius: var(--borders-radius-large);
+  border: 1px dashed var(--colors-border-default);
+  background-color: var(--colors-surface-primary);
+}
+
+.emptyText {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  margin: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .pointCard {
+    min-width: 84px;
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+
+  .weatherIcon {
+    font-size: 22px;
+  }
+
+  .temperature {
+    font-size: var(--typography-sizes-body-default);
+  }
+
+  .connector {
+    min-width: 16px;
+    padding: 0 2px;
+    padding-top: 28px;
+  }
+}

@@ -1,0 +1,31 @@
+---
+description: 'Garage aspect — multi-bike garage with maintenance tracking, expenses, and live fuel-range overlay.'
+labels: ['aspect', 'garage', 'mototrack']
+---
+
+The **Garage** aspect plugs the multi-bike garage feature into the MotoTrack platform.
+
+## What it does
+
+- **Browser runtime**
+  - registers the `/garage` page (Motorji / Vzdrževanje / Stroški tabs)
+  - adds the `Garaža` navigation item (icon 🏍️, secondary group, order 14)
+  - mounts the floating `FuelRangeIndicator` as a live-ride MapOverlay
+  - registers the `GarageDashboardPanel` in the dashboard for maintenance alerts
+- **Node runtime**
+  - persists `Bike`, `MaintenanceItem`, and `Expense` documents in MongoDB
+  - exposes a GraphQL schema with `listBikes`, `listMaintenance`, `listExpenses`
+    queries and `saveBike`, `deleteBike`, `saveMaintenance`, `saveExpense` mutations
+  - seeds the demo user with two bikes, six maintenance items, and six expenses on
+    `registerOnStart`
+
+## Compose into a platform
+
+```ts
+import { GarageAspect } from '@markec/garage.garage';
+
+export const MotoTrackApp = HarmonyPlatform.from({
+  name: 'mototrack',
+  aspects: [[GarageAspect, {}]],
+});
+```

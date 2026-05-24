@@ -1,0 +1,102 @@
+---
+description: "React hook that calls the public OSRM routing API, decodes GeoJSON geometry, maps turn steps to Slovenian instructions, and falls back to straight-line geometry on network failure."
+labels: ['hook', 'routing', 'osrm', 'navigation', 'slovenian']
+---
+
+`useOsrm` fetches a driving route from the public OSRM server at
+`https://router.project-osrm.org/route/v1/driving/{coords}` with
+`overview=full`, `geometries=geojson`, and `steps=true`.
+
+It decodes the GeoJSON geometry into an array of `LatLng` points, translates
+every OSRM maneuver step into a Slovenian instruction string, and returns the
+result as `{ compute, data, isLoading, error }`.
+
+When the network request fails the hook automatically falls back to a
+straight-line geometry interpolated between the supplied waypoints, so the UI
+never breaks.
+
+## Basic usage
+
+```tsx
+import { useOsrm } from '@markec/routes.hooks.use-osrm';
+
+function RouteButton() {
+  const { compute, data, isLoading, error } = useOsrm();
+
+  const handleClick = async () => {
+    await compute([
+      { lat: 46.0511, lng: 14.5051 }, // Ljubljana
+      { lat: 46.3631, lng: 14.0946 }, // Kranjska Gora
+    ]);
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick} disabled={isLoading}>
+        {isLoading ? 'Računam pot…' : 'Izračunaj pot'}
+      </button>
+      {error && <p>Napaka: {error}</p>}
+      {data && (
+        <p>
+          Razdalja: {data.distanceKm} km — Čas: {Math.round(data.durationSec / 60)} min
+        </p>
+      )}
+    </div>
+  );
+}
+```
+
+## Displaying turn-by-turn steps in Slovenian
+
+```tsx
+import { useOsrm } from '@markec/routes.hooks.use-osrm';
+
+function TurnList() {
+  const { compute, data } = useOsrm();
+
+  return (
+    <div>
+      <button
+        onClick={() =>
+          compute([
+            { lat: 46.5547, lng: 15.6459 }, // Maribor
+            { lat: 46.4201, lng: 15.8701 }, // Ptuj
+          ])
+        }
+      >
+        Naloži navodila
+      </button>
+
+      {data?.steps.map((step, i) => (
+        <div key={i}>
+          <strong>{step.instruction}</strong>
+          {' — '}
+          {step.distanceM > 0 && `${step.distanceM} m`}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Using mock data in tests and compositions
+
+```tsx
+import { useOsrm } from '@markec/routes.hooks.use-osrm';
+import { mockOsrmRoute } from '@markec/routes.hooks.use-osrm';
+
+function PreviewMap() {
+  // Passing mockData skips the network call entirely.
+  const { data } = useOsrm({ mockData: mockOsrmRoute });
+
+  return (
+    <ul>
+      {data?.geometry.map((point, i) => (
+        <li key={i}>
+          {point.lat.toFixed(4)}, {point.lng.toFixed(4)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```

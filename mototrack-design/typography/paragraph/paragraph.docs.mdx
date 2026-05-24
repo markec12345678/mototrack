@@ -1,0 +1,64 @@
+---
+description: "Paragraph component for rendering body copy, captions, labels, and monospace text. Supports body, caption, label, and mono variants with primary, secondary, and muted color props. Uses MotoTrack theme CSS variables."
+labels: ["typography", "text", "paragraph", "mototrack"]
+---
+
+A flexible text primitive for the MotoTrack design system. The `Paragraph` component maps to four visual variants — `body`, `caption`, `label`, and `mono` — and three semantic color levels driven entirely by theme CSS variables.
+
+## Basic usage
+
+```tsx
+<Paragraph>
+  MotoTrack delivers real-time telemetry and race analytics for professional motorcycle racing teams.
+</Paragraph>
+```
+
+## Variants
+
+Use the `variant` prop to switch between text styles:
+
+```tsx
+<Paragraph variant="body" color="primary">
+  Standard body copy for race reports and descriptions.
+</Paragraph>
+
+<Paragraph variant="caption" color="secondary">
+  Last updated 3 minutes ago · Round 7 of 20
+</Paragraph>
+
+<Paragraph variant="label" color="muted">
+  Live Timing
+</Paragraph>
+
+<Paragraph variant="mono" color="primary">
+  1:23.456
+</Paragraph>
+```
+
+## Color prop
+
+The `color` prop maps to theme text tokens:
+
+```tsx
+<Paragraph color="primary">High-contrast primary text — #f1f5f9</Paragraph>
+
+<Paragraph color="secondary">Subdued secondary text — #94a3b8</Paragraph>
+
+<Paragraph color="muted">Quiet muted text — #64748b</Paragraph>
+```
+
+## Combining variant and color
+
+```tsx
+<Paragraph variant="label" color="muted">
+  Fastest Lap
+</Paragraph>
+
+<Paragraph variant="mono" color="primary">
+  1:23.456
+</Paragraph>
+
+<Paragraph variant="body" color="secondary">
+  Lap 14 of 20 underway. The leading pack is separated by less than half a second.
+</Paragraph>
+```

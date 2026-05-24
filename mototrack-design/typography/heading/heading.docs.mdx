@@ -1,0 +1,53 @@
+---
+description: "Heading component for MotoTrack Design System. Renders h1–h6 semantic elements with size variants (xs/sm/md/lg/xl/2xl/3xl), color variants (primary/secondary/accent/danger), and a mobile-first responsive scale driven by theme CSS variables."
+labels: ["typography", "heading", "mototrack"]
+---
+
+A semantic heading component that maps HTML levels `h1`–`h6` to visual size variants. Size and color are fully driven by MotoTrack theme CSS variables, ensuring consistent typography across the design system.
+
+## Basic usage
+
+Render a heading at a specific semantic level. The visual size is automatically derived from the level.
+
+```tsx
+<Heading level={1}>MotoTrack Racing Series</Heading>
+<Heading level={2}>Season Championship 2025</Heading>
+<Heading level={3}>Race Results Overview</Heading>
+```
+
+## Explicit size variants
+
+Override the automatic size mapping with any of the seven size tokens.
+
+```tsx
+<Heading level={1} size="xs">Extra Small</Heading>
+<Heading level={1} size="sm">Small</Heading>
+<Heading level={1} size="md">Medium</Heading>
+<Heading level={1} size="lg">Large</Heading>
+<Heading level={1} size="xl">Extra Large</Heading>
+<Heading level={1} size="2xl">2X Large</Heading>
+<Heading level={1} size="3xl">3X Large — Display</Heading>
+```
+
+## Color variants
+
+Use the `color` prop to apply semantic color tokens from the theme.
+
+```tsx
+<Heading level={2} color="primary">P1 — Marco Bianchi</Heading>
+<Heading level={2} color="secondary">P2 — Luka Horvat</Heading>
+<Heading level={2} color="accent">Fastest Lap — 1:23.456</Heading>
+<Heading level={2} color="danger">Red Flag — Race Suspended</Heading>
+```
+
+## Composing headings in a card
+
+Combine multiple heading levels to build rich content hierarchy.
+
+```tsx
+<div>
+  <Heading level={3} size="2xl" color="accent">MotoTrack 2025</Heading>
+  <Heading level={4} size="lg" color="primary">Championship Standings</Heading>
+  <Heading level={5} size="sm" color="secondary">Round 7 of 18 — Circuit de Catalunya</Heading>
+</div>
+```

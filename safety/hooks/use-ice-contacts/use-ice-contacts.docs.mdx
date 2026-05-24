@@ -1,0 +1,109 @@
+---
+description: "React hook for managing In-Case-of-Emergency (ICE) contacts. Provides a reactive list backed by GraphQL, plus save and delete mutations."
+labels: ['hook', 'graphql', 'safety', 'ice', 'emergency']
+---
+
+`useIceContacts` is a GraphQL-backed React hook that manages a rider's In-Case-of-Emergency contacts.
+It exposes the full CRUD surface — list, save (create or update), and delete — along with granular
+loading and error states for each operation.
+
+## Basic usage — list contacts
+
+```tsx
+function IceContactList() {
+  const { contacts, loading, error } = useIceContacts();
+
+  if (loading) return <p>Loading contacts…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {contacts.map((contact) => (
+        <li key={contact.id}>
+          {contact.name} — {contact.relation} ({contact.phone})
+          {contact.primary && ' ★ Primary'}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Save (create or update) a contact
+
+Pass an `id` to update an existing contact; omit it to create a new one.
+
+```tsx
+function AddContactForm() {
+  const { save, saving } = useIceContacts();
+
+  const handleSubmit = async () => {
+    const saved = await save({
+      name: 'Ana Kovač',
+      relation: 'Spouse',
+      phone: '+386 41 123 456',
+      primary: true,
+      bloodType: 'A+',
+      allergies: 'Penicillin',
+    });
+    console.log('Saved contact id:', saved.id);
+  };
+
+  return (
+    <button type="button" onClick={() => handleSubmit()} disabled={saving}>
+      {saving ? 'Saving…' : 'Add Contact'}
+    </button>
+  );
+}
+```
+
+## Delete a contact
+
+```tsx
+function ContactRow({ contact }) {
+  const { remove, removing } = useIceContacts();
+
+  return (
+    <div>
+      <span>{contact.name}</span>
+      <button
+        type="button"
+        onClick={() => remove(contact.id)}
+        disabled={removing}
+      >
+        {removing ? 'Removing…' : 'Delete'}
+      </button>
+    </div>
+  );
+}
+```
+
+## Testing with mock data
+
+Pass `mockData` to bypass the GraphQL network entirely — ideal for unit tests and component previews.
+
+```tsx
+function IceContactPreview() {
+  const mockContacts = [
+    IceContact.from({
+      id: 'ice-001',
+      userId: 'user-001',
+      name: 'Ana Kovač',
+      relation: 'Spouse',
+      phone: '+386 41 123 456',
+      primary: true,
+      bloodType: 'A+',
+    }),
+  ];
+
+  const { contacts } = useIceContacts({ mockData: mockContacts });
+
+  return (
+    <ul>
+      {contacts.map((c) => (
+        <li key={c.id}>{c.name}</li>
+      ))}
+    </ul>
+  );
+}
+```

@@ -1,0 +1,60 @@
+---
+description: "Three-segment route mode picker for MotoTrack: Asfalt (blue, 🛣️), Vijugasto (orange, 🌀), and Terensko (green, 🏔️). The active segment is outlined in its mode colour."
+labels: ["routes", "ui", "picker", "navigation"]
+---
+
+A compact three-segment control that lets riders choose between paved (Asfalt), twisty (Vijugasto), and off-road (Terensko) route modes. Each mode has a distinct colour — blue, orange, and green respectively — and the active segment is highlighted with a matching coloured outline and subtle background tint.
+
+## Basic usage
+
+Render the picker with a controlled `activeMode` and an `onModeChange` callback:
+
+```tsx
+import { RouteModePicker } from '@markec/routes.ui.route-mode-picker';
+
+function RoutePlanner() {
+  const [mode, setMode] = useState('asfalt');
+
+  return (
+    <RouteModePicker
+      activeMode={mode}
+      onModeChange={(m) => setMode(m)}
+    />
+  );
+}
+```
+
+## Default active mode
+
+When no `activeMode` is provided, the picker defaults to `asfalt`:
+
+```tsx
+import { RouteModePicker } from '@markec/routes.ui.route-mode-picker';
+
+function Example() {
+  return <RouteModePicker />;
+}
+```
+
+## Custom options
+
+Override the default segments by passing your own `options` array. Each option requires a `mode`, `label`, and `emoji`:
+
+```tsx
+import { RouteModePicker } from '@markec/routes.ui.route-mode-picker';
+
+const customOptions = [
+  { mode: 'asfalt', label: 'Highway', emoji: '🛣️' },
+  { mode: 'vijugasto', label: 'Scenic', emoji: '🌀' },
+];
+
+function Example() {
+  return (
+    <RouteModePicker
+      activeMode="asfalt"
+      options={customOptions}
+      onModeChange={(m) => console.log(m)}
+    />
+  );
+}
+```

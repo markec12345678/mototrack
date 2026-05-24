@@ -1,0 +1,28 @@
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Responsive padding adjustments ─────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .column {
+    padding-left: var(--spacing-md) !important;
+    padding-right: var(--spacing-md) !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .column {
+    padding-left: var(--spacing-lg) !important;
+    padding-right: var(--spacing-lg) !important;
+  }
+}

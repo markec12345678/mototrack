@@ -1,0 +1,70 @@
+---
+description: "Link component wrapping react-router-dom Link. Supports external links (target=_blank with rel). Variants: default, button, subtle. Uses theme accent color on hover."
+labels: ["navigation", "link", "react-router", "mototrack"]
+---
+
+A flexible Link component built on top of `react-router-dom`'s `Link`. It supports internal SPA navigation and external links (which open in a new tab with `rel="noopener noreferrer"` and display an arrow icon). Three visual variants are available — `default`, `button`, and `subtle` — all using the MotoTrack theme accent colour on hover.
+
+## Basic Usage
+
+Use the `default` variant for inline text links within body copy or navigation:
+
+```tsx
+<Link href="/races">Race Calendar</Link>
+```
+
+## Variants
+
+### Default
+
+Inline text link with an accent-coloured underline on hover:
+
+```tsx
+<Link href="/races" variant="default">Race Calendar</Link>
+```
+
+### Button
+
+Pill-shaped CTA with an accent background and glow shadow on hover:
+
+```tsx
+<Link href="/register" variant="button">Register Now</Link>
+```
+
+### Subtle
+
+Muted secondary text that brightens to accent on hover — ideal for footers and secondary navigation:
+
+```tsx
+<Link href="/privacy" variant="subtle">Privacy Policy</Link>
+```
+
+## External Links
+
+Pass `external` to open the link in a new tab. An arrow icon is automatically appended and `rel="noopener noreferrer"` is added for security:
+
+```tsx
+<Link href="https://www.motogp.com" external variant="default">
+  MotoGP Official
+</Link>
+```
+
+External links work with all three variants:
+
+```tsx
+<Link href="https://www.fim-moto.com" external variant="button">
+  Live Stream
+</Link>
+```
+
+## In Context
+
+Combining variants inside a race card UI:
+
+```tsx
+<div>
+  <Link href="/races/qatar" variant="default">Qatar Grand Prix</Link>
+  <Link href="/races/qatar" variant="button">Details</Link>
+  <Link href="https://www.motogp.com" external variant="subtle">Official Site</Link>
+</div>
+```

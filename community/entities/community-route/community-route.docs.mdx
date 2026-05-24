@@ -1,0 +1,82 @@
+---
+labels: ['community-route', 'entity', 'route', 'moto', 'enduro']
+description: "CommunityRoute entity indexed by country, difficulty, and rating. Includes 4 seeded routes: Skrita Logarska, Durmitor Zanka, Plitvička Jezera, and Pirin Enduro."
+---
+
+A data entity representing a community-submitted motorcycle route. Supports serialization and deserialization, and is safe to use on both the frontend and backend.
+
+Routes are indexed by `country`, `difficulty`, and `rating`, making them easy to filter and sort in queries.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { CommunityRoute } from '@markec/community.entities.community-route';
+
+const route = CommunityRoute.from({
+  id: 'route-abc-123',
+  name: 'Vršič Pass Loop',
+  author: 'MarkoP',
+  country: 'SI',
+  distanceKm: 94.5,
+  durationSec: 10200,
+  difficulty: 'hard',
+  rating: 4.7,
+  likes: 204,
+  geometry: [
+    { lat: 46.4389, lng: 13.7456 },
+    { lat: 46.4512, lng: 13.7623 },
+  ],
+});
+
+console.log(route.name);       // 'Vršič Pass Loop'
+console.log(route.country);    // 'SI'
+console.log(route.difficulty); // 'hard'
+```
+
+## Serialize to a plain object
+
+Use `toObject()` to convert a `CommunityRoute` instance back into a plain serializable object — useful for API responses or state management:
+
+```ts
+import { CommunityRoute } from '@markec/community.entities.community-route';
+
+const route = CommunityRoute.from({
+  id: 'route-xyz-456',
+  name: 'Durmitor Zanka',
+  author: 'NikolaM',
+  country: 'ME',
+  distanceKm: 134.2,
+  durationSec: 14400,
+  difficulty: 'expert',
+  rating: 4.9,
+  likes: 487,
+  geometry: [{ lat: 43.1522, lng: 19.0144 }],
+});
+
+const plain = route.toObject();
+console.log(plain.id);          // 'route-xyz-456'
+console.log(plain.distanceKm);  // 134.2
+```
+
+## Mock data
+
+Use the built-in mock helpers for development and testing. Four real Balkan routes are seeded out of the box:
+
+```ts
+import {
+  mockCommunityRoutes,
+  mockCommunityRoute,
+} from '@markec/community.entities.community-route';
+
+// All 4 seeded routes
+const routes = mockCommunityRoutes();
+console.log(routes.map((r) => r.name));
+// ['Skrita Logarska', 'Durmitor Zanka', 'Plitvička Jezera', 'Pirin Enduro']
+
+// Single route with optional overrides
+const custom = mockCommunityRoute({ difficulty: 'easy', rating: 3.5 });
+console.log(custom.name);       // 'Skrita Logarska'
+console.log(custom.difficulty); // 'easy'
+```

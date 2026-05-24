@@ -1,0 +1,72 @@
+---
+description: "React hook for managing group rides — list active rides, create, join, update participant status, and open a real-time Socket.io chat connection with REST fallback."
+labels: ['hook', 'react', 'group-ride', 'websocket', 'graphql']
+---
+
+`useGroupRide` is the primary hook for interacting with the group-ride feature.
+It combines a GraphQL-backed ride list with REST-fallback mutations for joining
+and status updates, plus a Socket.io chat connection wrapper for each ride.
+
+## List active rides
+
+```tsx
+const MyRideList = () => {
+  const { rides, loading, error } = useGroupRide();
+
+  if (loading) return <p>Loading rides…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {rides.map((ride) => (
+        <li key={ride.id}>
+          {ride.name} — {ride.meetingPoint.label}
+        </li>
+      ))}
+    </ul>
+  );
+};
+```
+
+## Create and join a ride
+
+```tsx
+const CreateAndJoin = () => {
+  const { create, join } = useGroupRide();
+
+  const handleCreate = async () => {
+    const ride = await create({
+      name: 'Vršič Sunrise Run',
+      startAt: Date.now() + 1000 * 60 * 60 * 24,
+      meetingPoint: { lat: 46.4398, lng: 13.7456, label: 'Kranjska Gora — P1' },
+    });
+    // Join immediately as "pripravljen" (ready)
+    await join(ride.id, 'pripravljen');
+  };
+
+  return <button type="button" onClick={() => handleCreate()}>Create & Join</button>;
+};
+```
+
+## Real-time chat with Socket.io
+
+```tsx
+const RideChat = ({ rideId }: { rideId: string }) => {
+  const { chat } = useGroupRide();
+  const connection = chat(rideId);
+
+  React.useEffect(() => {
+    const unsubscribe = connection.onMessage((msg) => {
+      console.log(`${msg.senderName}: ${msg.text}`);
+    });
+    return () => {
+      unsubscribe();
+      connection.disconnect();
+    };
+  }, [rideId]);
+
+  const send = () => connection.sendMessage({ text: 'Na poti! 🏍️' });
+
+  return <button type="button" onClick={() => send()}>Send message</button>;
+};
+```

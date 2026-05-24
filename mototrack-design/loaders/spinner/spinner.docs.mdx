@@ -1,0 +1,59 @@
+---
+description: "Loading spinner with sm/md/lg sizes and an optional label. Used in protected-route guards and async data loads across the MotoTrack platform."
+labels: ["spinner", "loader", "ui", "feedback"]
+---
+
+A lightweight, animated loading spinner built for the MotoTrack dark theme.
+It supports three sizes (`sm`, `md`, `lg`) and an optional label rendered below the ring.
+The spinner uses the primary accent colour and CSS variables from the MotoTrack design system.
+
+## Basic usage
+
+Render a default medium spinner with no label:
+
+```tsx
+<Spinner />
+```
+
+## Size variants
+
+Choose between `sm`, `md`, and `lg` to match the surrounding context:
+
+```tsx
+<Spinner size="sm" />
+<Spinner size="md" />
+<Spinner size="lg" />
+```
+
+## With a label
+
+Pass a `label` string to display descriptive text below the spinner.
+Ideal for protected-route guards and async data loads:
+
+```tsx
+<Spinner size="lg" label="Verifying your credentials…" />
+```
+
+```tsx
+<Spinner size="md" label="Fetching race data…" />
+```
+
+## Full-page overlay pattern
+
+Combine the spinner with a semi-transparent overlay for route-level loading states:
+
+```tsx
+<div style={{ position: 'relative', minHeight: '100vh' }}>
+  {/* page content behind */}
+  <div style={{
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(2, 6, 23, 0.75)',
+  }}>
+    <Spinner size="lg" label="Loading…" />
+  </div>
+</div>
+```

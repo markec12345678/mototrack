@@ -1,0 +1,251 @@
+.forecastCard {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 280px;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.headerIcon {
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  flex: 1;
+  font-size: var(--typography-sizes-caption-medium) !important;
+  letter-spacing: var(--typography-letter-spacing-widest) !important;
+}
+
+// ── Divider ───────────────────────────────────────────────────────────────────
+
+.divider {
+  height: 1px;
+  background-color: var(--colors-border-default);
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.6;
+}
+
+// ── Day list ──────────────────────────────────────────────────────────────────
+
+.dayList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+// ── Day row ───────────────────────────────────────────────────────────────────
+
+.dayRow {
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto auto;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--colors-border-default);
+  transition: background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  border-radius: var(--borders-radius-medium);
+}
+
+.dayRowFirst {
+  border-top: none;
+}
+
+.dayRow:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+// ── Day label ─────────────────────────────────────────────────────────────────
+
+.dayLabel {
+  display: flex;
+  align-items: center;
+}
+
+.dayName {
+  font-size: var(--typography-sizes-caption-medium) !important;
+  font-weight: var(--typography-font-weight-semi-bold) !important;
+  letter-spacing: var(--typography-letter-spacing-wide) !important;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+// ── Icon block ────────────────────────────────────────────────────────────────
+
+.iconBlock {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.weatherIcon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.2));
+}
+
+.weatherLabel {
+  font-size: var(--typography-sizes-caption-default) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ── Temperature block ─────────────────────────────────────────────────────────
+
+.tempBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.tempMax {
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  line-height: 1;
+}
+
+.tempSep {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  line-height: 1;
+}
+
+.tempMin {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+  line-height: 1;
+}
+
+// ── Meta block (wind / precip) ────────────────────────────────────────────────
+
+.metaBlock {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.metaIcon {
+  font-size: 12px;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.windIcon {
+  font-size: 11px;
+}
+
+.precipIcon {
+  font-size: 11px;
+}
+
+.metaValue {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  line-height: 1;
+  font-family: var(--typography-font-family);
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.metaUnit {
+  font-size: var(--typography-sizes-xs);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+}
+
+// ── Wind severity ─────────────────────────────────────────────────────────────
+
+.wind-normal {
+  color: var(--colors-text-secondary);
+}
+
+.wind-moderate {
+  color: var(--colors-status-warning-default);
+}
+
+.wind-strong {
+  color: var(--colors-flags-orange);
+}
+
+.wind-danger {
+  color: var(--colors-status-danger-default);
+  font-weight: var(--typography-font-weight-bold);
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+// ── Precipitation severity ────────────────────────────────────────────────────
+
+.precip-none {
+  color: var(--colors-text-muted);
+}
+
+.precip-light {
+  color: var(--colors-status-info-default);
+}
+
+.precip-heavy {
+  color: var(--colors-status-danger-default);
+}
+
+// ── Legend ────────────────────────────────────────────────────────────────────
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--colors-border-default);
+  opacity: 0.7;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.legendDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--borders-radius-full);
+  flex-shrink: 0;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .dayRow {
+    grid-template-columns: 48px 1fr auto auto;
+    gap: var(--spacing-xs);
+  }
+
+  .metaBlock:last-child {
+    display: none;
+  }
+
+  .weatherLabel {
+    display: none;
+  }
+
+  .legend {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+}

@@ -1,0 +1,77 @@
+---
+description: "MaintenanceList displays all maintenance tasks for a bike. Each row shows the task name, a status dot, a progress bar (used vs interval), km and days remaining, the last service date, and a Mark serviced button."
+labels: ["maintenance", "bike", "garage", "list"]
+---
+
+`MaintenanceList` is a data-driven component that renders all maintenance tasks for a given bike.
+It connects to the `useMaintenance` hook to fetch and mutate data, and derives each task's status
+(`ok`, `warn`, `danger`) from the current mileage and time since last service.
+
+## Basic usage
+
+Provide the `bikeId` and `currentMileageKm` props. The component fetches its own data via the hook.
+
+```tsx
+<MaintenanceList
+  bikeId="bike-abc123"
+  currentMileageKm={16800}
+/>
+```
+
+## With static items (testing / SSR)
+
+Pass an `items` prop to bypass the hook and render a fixed list. Useful for Storybook, tests, or server-side rendering.
+
+```tsx
+<MaintenanceList
+  bikeId="bike-abc123"
+  currentMileageKm={16800}
+  items={[
+    {
+      id: "maint-1",
+      bikeId: "bike-abc123",
+      name: "Engine Oil",
+      intervalKm: 5000,
+      intervalDays: 180,
+      lastServiceKm: 12000,
+      lastServiceAt: 1700000000000,
+      history: [],
+    },
+    {
+      id: "maint-2",
+      bikeId: "bike-abc123",
+      name: "Chain Lubrication",
+      intervalKm: 1000,
+      intervalDays: 30,
+      lastServiceKm: 16200,
+      lastServiceAt: 1710000000000,
+      history: [],
+    },
+  ]}
+/>
+```
+
+## Handling the serviced callback
+
+Use `onServiced` to react after a task is marked as serviced — for example, to refresh the bike mileage or show a toast notification.
+
+```tsx
+<MaintenanceList
+  bikeId="bike-abc123"
+  currentMileageKm={16800}
+  onServiced={(itemId) => {
+    console.log(`Task ${itemId} marked as serviced`);
+  }}
+/>
+```
+
+## Status derivation
+
+Each row's status is derived automatically:
+
+- **ok** — ratio < 50% of interval used
+- **warn** — ratio between 50% and 100%
+- **danger** — ratio ≥ 100% (overdue)
+
+The ratio is the maximum of `kmUsed / intervalKm` and `daysUsed / intervalDays`.
+Tasks are sorted by urgency (most overdue first).

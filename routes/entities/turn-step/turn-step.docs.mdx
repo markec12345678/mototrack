@@ -1,0 +1,70 @@
+---
+labels: ['turn-step', 'entity', 'osrm', 'navigation', 'slovenian']
+description: "TurnStep entity representing a single navigation step from an OSRM route, with Slovenian-localized instructions, distance, duration, location, and a normalized turn modifier."
+---
+
+A `TurnStep` entity encapsulates a single navigation maneuver step from an OSRM routing response.
+It provides a Slovenian-localized instruction string, distance in metres, duration in seconds, a geographic location, and a normalized `modifier` (e.g. `turn-left`, `turn-right`, `uturn`, `roundabout`).
+
+The static `fromOsrmStep(step)` factory method parses the raw OSRM JSON `maneuver` object and translates it into a human-readable Slovenian instruction automatically.
+
+## Create from a plain object
+
+```tsx
+import { TurnStep } from '@markec/routes.entities.turn-step';
+
+const step = TurnStep.from({
+  id: 'step-001',
+  instruction: 'Zavijte desno na Čopova ulica',
+  distanceM: 180,
+  durationSec: 24,
+  location: { lat: 46.0512, lng: 14.5063 },
+  modifier: 'turn-right',
+});
+
+console.log(step.instruction); // 'Zavijte desno na Čopova ulica'
+console.log(step.modifier);    // 'turn-right'
+```
+
+## Parse directly from an OSRM step
+
+```tsx
+import { TurnStep } from '@markec/routes.entities.turn-step';
+
+// Raw step object as returned by the OSRM HTTP API
+const osrmStep = {
+  maneuver: {
+    type: 'turn',
+    modifier: 'right',
+    location: [14.5063, 46.0512],
+  },
+  distance: 180,
+  duration: 24,
+  name: 'Čopova ulica',
+};
+
+const step = TurnStep.fromOsrmStep(osrmStep, 'step-001');
+
+console.log(step.instruction);
+// → 'Zavijte desno na Čopova ulica'
+
+console.log(step.modifier);
+// → 'turn-right'
+
+console.log(step.location);
+// → { lat: 46.0512, lng: 14.5063 }
+```
+
+## Use mock data for development and testing
+
+```tsx
+import { mockTurnStep, mockTurnSteps } from '@markec/routes.entities.turn-step';
+
+// Single step with optional overrides
+const singleStep = mockTurnStep({ modifier: 'uturn' });
+console.log(singleStep.instruction); // 'Obrnite se'
+
+// Full route steps through Ljubljana
+const steps = mockTurnSteps();
+steps.forEach((s) => console.log(`[${s.modifier}] ${s.instruction} — ${s.distanceM}m`));
+```

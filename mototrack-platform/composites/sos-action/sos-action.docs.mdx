@@ -1,0 +1,62 @@
+---
+description: "SOS header action button — always-visible red gradient pill that opens an emergency modal with GPS coordinates, share-location options, one-tap 112 call, Balkan emergency numbers, and ICE contacts."
+labels: ["sos", "emergency", "header", "gps", "safety"]
+---
+
+SOS header action button for the MotoTrack platform. Renders as a persistent red gradient pill in the application header. Clicking it opens a comprehensive emergency modal designed for motorcycle riders in the Balkans.
+
+## Features
+
+- **Always-visible pill** — red gradient with pulsing icon, never hidden
+- **Live GPS coordinates** — reads from the browser Geolocation API with accuracy indicator
+- **Share location** — SMS, WhatsApp, Telegram, and clipboard copy
+- **One-tap 112** — large EU emergency call button
+- **Balkan emergency numbers** — police, ambulance, and fire for 10 countries
+- **ICE contacts** — In Case of Emergency contacts with direct call links
+
+## Basic usage
+
+```tsx
+import { SosAction } from '@markec/mototrack-platform.composites.sos-action';
+
+<SosAction />
+```
+
+## With pre-loaded GPS coordinates
+
+Useful for testing or SSR environments where the Geolocation API is not available:
+
+```tsx
+import { SosAction } from '@markec/mototrack-platform.composites.sos-action';
+
+<SosAction
+  gpsCoords={{ lat: 46.056946, lng: 14.505751, accuracy: 8 }}
+/>
+```
+
+## With ICE contacts
+
+Pass an array of ICE (In Case of Emergency) contacts to display in the modal:
+
+```tsx
+import { SosAction } from '@markec/mototrack-platform.composites.sos-action';
+
+<SosAction
+  gpsCoords={{ lat: 46.056946, lng: 14.505751, accuracy: 8 }}
+  iceContacts={[
+    { name: 'Ana Kovač', phone: '+386 41 123 456', relation: 'Partner' },
+    { name: 'Marko Novak', phone: '+386 31 987 654', relation: 'Brat' },
+  ]}
+/>
+```
+
+## HeaderAction slot registration
+
+The component exports a `sosHeaderAction` descriptor for registration into the `HeaderAction` slot:
+
+```tsx
+import { sosHeaderAction } from '@markec/mototrack-platform.composites.sos-action';
+
+// In your platform aspect:
+headerActionSlot.register([sosHeaderAction]);
+```

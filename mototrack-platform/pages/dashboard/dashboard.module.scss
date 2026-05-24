@@ -1,0 +1,337 @@
+// ─── Root ────────────────────────────────────────────────────────────────────
+
+.dashboard {
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  font-family: var(--typography-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ─── Hero Banner ─────────────────────────────────────────────────────────────
+
+.heroBanner {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(2, 6, 23, 0.85) 0%,
+    rgba(2, 6, 23, 0.6) 50%,
+    rgba(2, 6, 23, 0.75) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+// ─── Greeting ────────────────────────────────────────────────────────────────
+
+.greetingRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.greetingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 12px;
+  background-color: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: var(--borders-radius-full);
+  width: fit-content;
+}
+
+.greetingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+  flex-shrink: 0;
+}
+
+.greetingBadgeText {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-primary-default);
+}
+
+.greetingHeading {
+  color: var(--colors-text-primary) !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.greetingSubtitle {
+  max-width: 480px;
+}
+
+.skeletonHeading {
+  height: 40px;
+  width: 360px;
+  max-width: 100%;
+  border-radius: var(--borders-radius-medium);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+// ─── Panel Grid ───────────────────────────────────────────────────────────────
+
+.panelGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.panelCell {
+  box-sizing: border-box;
+}
+
+.span1 {
+  grid-column: span 1;
+}
+
+.span2 {
+  grid-column: span 2;
+}
+
+.span3 {
+  grid-column: span 3;
+}
+
+.panelCard {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.panelHeader {
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--colors-border-default);
+  margin-bottom: var(--spacing-md);
+}
+
+.panelBody {
+  width: 100%;
+}
+
+// ─── Empty State ─────────────────────────────────────────────────────────────
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+}
+
+.emptyStateHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.emptyStateLabel {
+  margin-bottom: var(--spacing-xs);
+}
+
+.emptyStateDescription {
+  max-width: 560px;
+}
+
+// ─── Getting Started Grid ─────────────────────────────────────────────────────
+
+.gettingStartedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+// ─── Start Card ───────────────────────────────────────────────────────────────
+
+.startCard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.startCardImageWrapper {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.startCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--interactions-transitions-duration-slow) var(--interactions-transitions-easing-ease-out);
+}
+
+.startCard:hover .startCardImage {
+  transform: scale(1.06);
+}
+
+.startCardImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.1) 0%,
+    rgba(2, 6, 23, 0.55) 100%
+  );
+}
+
+.startCardIcon {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.startCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  flex: 1;
+}
+
+.startCardTitle {
+  margin: 0;
+}
+
+.startCardDescription {
+  flex: 1;
+}
+
+.startCardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  padding: 8px 18px;
+  background-color: var(--colors-primary-default);
+  color: var(--colors-text-inverse) !important;
+  border: none;
+  border-radius: var(--borders-radius-large);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  width: fit-content;
+}
+
+.startCardCta:hover {
+  background-color: var(--colors-primary-hover);
+  transform: translateY(-1px);
+}
+
+.startCardCta:active {
+  background-color: var(--colors-primary-active);
+  transform: translateY(0);
+}
+
+.startCardCtaArrow {
+  font-size: 14px;
+  transition: transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+}
+
+.startCardCta:hover .startCardCtaArrow {
+  transform: translateX(3px);
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 479px) {
+  .heroBanner {
+    height: 220px;
+  }
+
+  .panelGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .span1,
+  .span2,
+  .span3 {
+    grid-column: span 1;
+  }
+
+  .gettingStartedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .startCardImageWrapper {
+    height: 160px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .heroBanner {
+    height: 240px;
+  }
+
+  .panelGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .span3 {
+    grid-column: span 2;
+  }
+
+  .gettingStartedGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .panelGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gettingStartedGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

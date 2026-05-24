@@ -1,0 +1,88 @@
+---
+description: "useIconicTours hook — fetches iconic Balkan motorcycle tours via GraphQL with seed-data fallback. Returns tours, loading, error, and a getTour(id) helper."
+labels: ['hook', 'graphql', 'balkan-roads', 'tours', 'react']
+---
+
+`useIconicTours` is a React hook that fetches the list of iconic Balkan motorcycle tours from a GraphQL backend.
+When the network is unavailable or returns an empty result, it automatically falls back to the built-in seed data of 20 curated tours.
+It also accepts an optional `mockData` parameter to bypass the network entirely — ideal for tests and Storybook-style compositions.
+
+## Basic usage
+
+```tsx
+function TourList() {
+  const { tours, loading, error } = useIconicTours();
+
+  if (loading) return <p>Loading tours…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {tours.map((tour) => (
+        <li key={tour.id}>
+          {tour.flag} {tour.name} — {tour.distanceKm} km
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Fetching a single tour by ID
+
+```tsx
+function TourDetail({ id }: { id: string }) {
+  const { getTour, loading } = useIconicTours();
+
+  if (loading) return <p>Loading…</p>;
+
+  const tour = getTour(id);
+  if (!tour) return <p>Tour not found.</p>;
+
+  return (
+    <div>
+      <h2>{tour.flag} {tour.name}</h2>
+      <p>{tour.description}</p>
+      <p>Distance: {tour.distanceKm} km · Rating: {tour.rating} · Difficulty: {tour.difficulty}</p>
+    </div>
+  );
+}
+```
+
+## Using mock data for tests and previews
+
+```tsx
+import { iconicTourSeeds } from '@markec/balkan-roads.entities.iconic-tour';
+
+function PreviewTours() {
+  const { tours } = useIconicTours({ mockData: iconicTourSeeds.slice(0, 3) });
+
+  return (
+    <ul>
+      {tours.map((tour) => (
+        <li key={tour.id}>
+          {tour.name} ({tour.country})
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Filtering by country and difficulty
+
+```tsx
+function HardMontenegroTours() {
+  const { tours, loading } = useIconicTours({ country: 'ME', difficulty: 'Hard' });
+
+  if (loading) return <p>Loading…</p>;
+
+  return (
+    <ul>
+      {tours.map((tour) => (
+        <li key={tour.id}>{tour.name}</li>
+      ))}
+    </ul>
+  );
+}
+```

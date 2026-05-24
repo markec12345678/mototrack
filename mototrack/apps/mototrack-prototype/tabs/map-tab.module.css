@@ -1,0 +1,100 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.night :global(.leaflet-tile-pane) {
+  filter: hue-rotate(-30deg) saturate(0.8) brightness(0.6) sepia(0.4);
+}
+
+.badge3D {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 500;
+}
+
+.badgeSub {
+  font-weight: 500;
+  opacity: 0.8;
+  font-size: 0.7rem;
+}
+
+.toursStrip {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  padding: 0 12px;
+  pointer-events: none;
+}
+
+.toursStripTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.toursScroller {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  pointer-events: auto;
+  scrollbar-width: thin;
+}
+
+.tourCard {
+  flex-shrink: 0;
+  min-width: 240px;
+  background: rgba(15, 23, 42, 0.92) !important;
+  backdrop-filter: blur(8px);
+}
+
+.tourCardActive {
+  background: rgba(249, 115, 22, 0.18) !important;
+  border-color: var(--colors-primary-default, #f97316) !important;
+  box-shadow: 0 0 0 1px var(--colors-primary-default, #f97316);
+}
+
+.tourCardInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tourBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+
+
+.tourName {
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+
+.tourMeta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.toursStrip {
+  display: flex !important;
+  flex-direction: column;
+  gap: 6px;
+}

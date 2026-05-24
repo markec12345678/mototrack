@@ -1,0 +1,79 @@
+---
+description: "useFuelRange — computes fuel-range metrics for a bike. Returns tankL, currentFuelL, consumptionLPer100, rangeKm, percent, status (ok/warn/empty), and refuelThresholdKm."
+labels: ['hook', 'react', 'fuel', 'range', 'garage']
+---
+
+`useFuelRange` is a pure-computation React hook that derives all fuel-range metrics from a `Bike` entity.
+It requires no network calls — all values are computed synchronously from the bike's stored fuel data.
+
+## Basic usage
+
+```tsx
+import { useFuelRange } from '@markec/garage.hooks.use-fuel-range';
+import { useBikes } from '@markec/garage.hooks.use-bikes';
+
+function FuelWidget() {
+  const { getPrimary } = useBikes();
+  const primaryBike = getPrimary();
+  const { rangeKm, percent, status } = useFuelRange(primaryBike);
+
+  return (
+    <div>
+      <p>Range: {rangeKm} km</p>
+      <p>Fuel: {percent}%</p>
+      <p>Status: {status}</p>
+    </div>
+  );
+}
+```
+
+## Custom refuel threshold
+
+The default refuel warning threshold is **50 km**. Pass `refuelThresholdKm` to override it.
+
+```tsx
+import { useFuelRange } from '@markec/garage.hooks.use-fuel-range';
+
+function LongTripWidget({ bike }) {
+  const { rangeKm, status, refuelThresholdKm } = useFuelRange(bike, {
+    refuelThresholdKm: 100,
+  });
+
+  return (
+    <div>
+      <p>Range: {rangeKm} km</p>
+      <p>Refuel when below: {refuelThresholdKm} km</p>
+      <p>Status: {status}</p>
+    </div>
+  );
+}
+```
+
+## Using mock data in tests and compositions
+
+Pass `mockData` to bypass computation entirely and return a fixed `FuelRange` value.
+This is ideal for unit tests and Bit compositions.
+
+```tsx
+import { useFuelRange } from '@markec/garage.hooks.use-fuel-range';
+import { fuelRangeMock } from '@markec/garage.hooks.use-fuel-range';
+
+function TestWidget() {
+  const fuelRange = useFuelRange(undefined, { mockData: fuelRangeMock.warn });
+
+  return (
+    <div>
+      <p>Range: {fuelRange.rangeKm} km</p>
+      <p>Status: {fuelRange.status}</p>
+    </div>
+  );
+}
+```
+
+## Status values
+
+| Status  | Condition                                  |
+|---------|--------------------------------------------|
+| `ok`    | `rangeKm` is above `refuelThresholdKm`     |
+| `warn`  | `rangeKm` is ≤ `refuelThresholdKm` (> 0)  |
+| `empty` | `rangeKm` is 0 (tank is effectively empty) |

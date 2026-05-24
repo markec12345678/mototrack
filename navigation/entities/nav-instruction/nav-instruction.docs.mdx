@@ -1,0 +1,111 @@
+---
+labels: ['navigation', 'entity', 'slovenian', 'turn-by-turn']
+description: "A NavInstruction entity representing a single navigation step with Slovenian text, distance, maneuver modifier, and dynamic announcement distance."
+---
+
+A `NavInstruction` entity models a single turn-by-turn navigation instruction.
+It carries the instruction text in Slovenian, the distance to the maneuver in meters,
+a modifier describing the type of maneuver (e.g. `turn-left`, `uturn`, `roundabout`),
+and an `announceAt` value — the distance in meters before the maneuver at which the
+instruction should be spoken aloud.
+
+## Create from a plain object
+
+Use `NavInstruction.from()` to construct an instance from a serialized plain object:
+
+```ts
+import { NavInstruction } from '@markec/navigation.entities.nav-instruction';
+
+const instruction = NavInstruction.from({
+  id: 'step-1',
+  text: 'Zavijte levo',
+  distanceM: 300,
+  modifier: 'turn-left',
+  announceAt: 150,
+});
+
+console.log(instruction.text);       // 'Zavijte levo'
+console.log(instruction.distanceM); // 300
+console.log(instruction.announceAt); // 150
+```
+
+## Create from a routing turn step with dynamic announceAt
+
+Use `NavInstruction.fromTurnStep(step, currentSpeedKmh)` to build an instruction
+from a raw routing step. The `announceAt` value is computed dynamically as
+`max(150, currentSpeedKmh * 4)` — so at higher speeds the driver gets more advance notice:
+
+```ts
+import { NavInstruction } from '@markec/navigation.entities.nav-instruction';
+
+// At 60 km/h: announceAt = max(150, 60 * 4) = 240 m
+const instruction = NavInstruction.fromTurnStep(
+  {
+    id: 'step-2',
+    text: 'Zavijte desno',
+    distanceM: 500,
+    modifier: 'turn-right',
+  },
+  60,
+);
+
+console.log(instruction.announceAt); // 240
+
+// At 20 km/h: announceAt = max(150, 20 * 4) = 150 m (minimum)
+const slowInstruction = NavInstruction.fromTurnStep(
+  {
+    id: 'step-3',
+    text: 'Nadaljujte naravnost',
+    distanceM: 200,
+    modifier: 'continue',
+  },
+  20,
+);
+
+console.log(slowInstruction.announceAt); // 150
+```
+
+## Serialize to a plain object
+
+Use `toObject()` to convert a `NavInstruction` back to a plain serializable object,
+useful for storing in state, sending over the network, or passing to GraphQL:
+
+```ts
+import { NavInstruction } from '@markec/navigation.entities.nav-instruction';
+
+const instruction = NavInstruction.from({
+  id: 'step-4',
+  text: 'Prispeli ste na cilj',
+  distanceM: 0,
+  modifier: 'arrive',
+  announceAt: 150,
+});
+
+const plain = instruction.toObject();
+console.log(plain);
+// {
+//   id: 'step-4',
+//   text: 'Prispeli ste na cilj',
+//   distanceM: 0,
+//   modifier: 'arrive',
+//   announceAt: 150,
+// }
+```
+
+## Mock data
+
+Use `mockNavInstruction()` or `mockNavInstructions()` for development and testing:
+
+```ts
+import {
+  mockNavInstruction,
+  mockNavInstructions,
+} from '@markec/navigation.entities.nav-instruction';
+
+// Single instruction with optional overrides
+const single = mockNavInstruction({ modifier: 'uturn', text: 'Naredite obrat' });
+
+// Full list of 5 varied instructions
+const list = mockNavInstructions();
+console.log(list.map((i) => i.text));
+```

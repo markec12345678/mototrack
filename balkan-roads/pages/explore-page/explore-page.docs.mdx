@@ -1,0 +1,46 @@
+---
+description: "Stran /explore z zavihki Ikonične ture, Balkanske ceste in Skupnostne rute. Prikazuje mrežo TourCard komponent s filtri po državi in težavnosti, CountryBrowser za ceste in placeholder za skupnostne funkcije."
+labels: ["page", "explore", "tours", "roads", "balkans"]
+---
+
+The `ExplorePage` is the main discovery page for Balkan Roads. It features three tabs:
+
+- **Ikonične ture** — A filterable grid of `TourCard` components, with country and difficulty filters.
+- **Balkanske ceste** — A `CountryBrowser` accordion grouped by country.
+- **Skupnostne rute** — A placeholder for the upcoming community routes feature.
+
+## Basic usage
+
+```tsx
+import { ExplorePage } from '@markec/balkan-roads.pages.explore-page';
+
+<ExplorePage />
+```
+
+## With mock data (for testing or SSR)
+
+Pass `mockTours` to bypass the GraphQL hook and render with static data:
+
+```tsx
+import { ExplorePage } from '@markec/balkan-roads.pages.explore-page';
+import { mockExploreTours } from '@markec/balkan-roads.pages.explore-page';
+
+<ExplorePage mockTours={mockExploreTours} />
+```
+
+## Filtered subset
+
+Show only a specific difficulty level by pre-filtering the mock data:
+
+```tsx
+import { ExplorePage } from '@markec/balkan-roads.pages.explore-page';
+import { mockExploreTours } from '@markec/balkan-roads.pages.explore-page';
+
+const hardTours = mockExploreTours.filter((t) => t.difficulty === 'Hard');
+
+<ExplorePage mockTours={hardTours} />
+```
+
+## Tab navigation
+
+The page manages its own active tab state internally. Users can switch between the three tabs using the pill-style `Tabs` component at the top of the content area. The Tours tab includes interactive filter chips for country and difficulty that update the displayed grid in real time.

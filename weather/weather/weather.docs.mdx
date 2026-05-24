@@ -1,0 +1,25 @@
+---
+description: 'Weather aspect for MotoTrack. Map overlay, safety alerts and Open-Meteo backed GraphQL API.'
+labels: ['aspect', 'weather', 'mototrack']
+---
+
+The `weather` aspect plugs into the MotoTrack platform and adds weather
+intelligence both on the UI and on the backend.
+
+## Browser runtime
+
+- Registers `WeatherPanel` as a top-right `MapOverlay`.
+- Registers `CrosswindAlert` as a `SafetyAlert`.
+
+## Node runtime
+
+Exposes three GraphQL queries backed by the
+[Open-Meteo](https://open-meteo.com) public API:
+
+- `getCurrentWeather(location)` — current snapshot.
+- `getWeatherAlongRoute(geometry, samples)` — evenly-spaced waypoints.
+- `getForecast(location)` — multi-day daily forecast.
+
+Snapshots are cached in-memory for 5 minutes per coordinate and the
+service falls back to a safe synthetic snapshot when the upstream API
+is unreachable.

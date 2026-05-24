@@ -1,0 +1,100 @@
+/**
+ * this is the main configuration file of your bit workspace.
+ * for full documentation, please see: https://bit.dev/reference/workspace/workspace-json
+ **/{
+  "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
+  /**
+   * main configuration of the Bit workspace.
+   **/
+  "teambit.workspace/workspace": {
+    /**
+     * the name of the component workspace. used for development purposes.
+     **/
+    "name": "mototrack",
+    /**
+     * set the icon to be shown on the Bit server.
+     **/
+    "icon": "https://static.bit.dev/brands/bit-logo-min.png",
+    /**
+     * default directory to place a component during `bit import` and `bit create`.
+     * the following placeholders are available:
+     * name - component name includes namespace, e.g. 'ui/button'.
+     * scopeId - full scope-id includes the owner, e.g. 'teambit.compilation'.
+     * scope - scope name only, e.g. 'compilation'.
+     * owner - owner name in bit.dev, e.g. 'teambit'.
+     **/
+    "defaultDirectory": "{scope}/{name}",
+    /**
+     * default scope for all components in workspace.
+     **/
+    "defaultScope": "markec.mototrack",
+    "resolveAspectsFromNodeModules": true,
+    "resolveEnvsFromRoots": true
+  },
+  /**
+  * Enable generator templates by uncommenting the desired environments below.
+  * These generators scaffold components for Node, React, Vue, and Angular.
+  * After uncommenting, run `bit install` to make them available in your workspace.
+  * Explore more dev environments at: https://bit.dev/docs/getting-started/composing/dev-environments
+  **/
+  "teambit.generator/generator": {
+    "envs": [
+      // "bitdev.node/node-env",
+      // "bitdev.react/react-env",
+      // "bitdev.vue/vue-env",
+      // "bitdev.angular/angular-env"
+      // "bitdev.symphony/envs/symphony-env"
+    ]
+  },
+  /**
+   * main configuration for component dependency resolution.
+   **/
+  "teambit.dependencies/dependency-resolver": {
+    /**
+     * Configure which dependencies are allowed to run install scripts.
+     * By default, no dependencies can run scripts. Set to true to allow, false to explicitly disallow.
+     * Example: { "esbuild": true, "core-js": false }
+     * See also: dangerouslyAllowAllScripts to allow all scripts (not recommended).
+     * This is a security-sensitive setting: enabling scripts may allow arbitrary code execution during install.
+     **/
+    "allowScripts": {},
+    "rootComponents": true,
+    "policy": {
+      "dependencies": {
+        "@bitdesign/sparks.sparks-theme": "^2.0.1",
+        "@bitdev/harmony.harmony-platform": "^4.0.13",
+        "@bitdev/harmony.runtimes.browser-runtime": "^1.0.13",
+        "@bitdev/harmony.runtimes.nodejs-runtime": "^2.0.13",
+        "@bitdev/react.app-types.vite-react": "^3.0.11",
+        "@bitdev/react.eslint.eslint-config-bit-react": "^2.0.1",
+        "@bitdev/symphony.backends.backend-server": "^2.0.11",
+        "@bitdev/symphony.exceptions.access-denied": "^1.0.11",
+        "@bitdev/symphony.exceptions.unauthorized": "^1.0.11",
+        "@bitdev/symphony.symphony-platform": "^3.0.14",
+        "@eslint/eslintrc": "^3.3.5",
+        "@teambit/react.mounter": "^1.1.5",
+        "@typegoose/typegoose": "^13.3.0",
+        "@types/leaflet": "^1.9.21",
+        "bcryptjs": "^3.0.3",
+        "body-parser": "^2.2.2",
+        "classnames": "^2.5.1",
+        "connect-mongo": "^6.0.0",
+        "express-session": "^1.19.0",
+        "graphql-tag": "^2.12.6",
+        "jsonwebtoken": "^9.0.3",
+        "leaflet": "^1.9.4",
+        "maplibre-gl": "^5.24.0",
+        "mongoose": "^9.6.2",
+        "react-leaflet": "^5.0.0",
+        "socket.io": "^4.8.3",
+        "socket.io-client": "^4.8.3"
+      },
+      "peerDependencies": {}
+    },
+    "linkCoreAspects": true,
+    "packageManager": "teambit.dependencies/pnpm"
+  },
+  "teambit.workspace/workspace-config-files": {
+    "enableWorkspaceConfigWrite": true
+  }
+}

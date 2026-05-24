@@ -1,0 +1,83 @@
+---
+description: "useRouteShare hook — share a route and get a short code (MTXXXX), a QR data URL, and an expiry timestamp. Load a previously shared route by its code."
+labels: ['hook', 'react', 'graphql', 'routes', 'sharing']
+---
+
+`useRouteShare` is a React hook that lets you share a planned motorcycle route and retrieve it later using a short code.
+
+Calling `share(route)` fires a `shareRoute` GraphQL mutation and returns a `SharedRouteDetails` object containing:
+- `code` — a short human-readable code like `MT4X2Z`
+- `qrUrl` — a QR code as a data URL ready to render in an `<img>` tag
+- `expiresAt` — a Unix timestamp (seconds) indicating when the share link expires
+
+Calling `load(code)` triggers a `loadSharedRoute` GraphQL query and returns the full `PlannedRoute` entity.
+
+## Share a route
+
+```tsx
+function ShareButton({ route }) {
+  const { share, loading, error } = useRouteShare();
+
+  const handleShare = async () => {
+    const details = await share({
+      name: route.name,
+      waypoints: route.waypoints,
+      mode: route.mode,
+      geometry: route.geometry,
+      distanceKm: route.distanceKm,
+      durationSec: route.durationSec,
+      notes: route.notes,
+    });
+
+    console.log('Code:', details.code);
+    console.log('QR URL:', details.qrUrl);
+    console.log('Expires at:', new Date(details.expiresAt * 1000).toLocaleString());
+  };
+
+  return (
+    <button type="button" onClick={handleShare} disabled={loading}>
+      {loading ? 'Sharing…' : 'Share Route'}
+    </button>
+  );
+}
+```
+
+## Load a shared route by code
+
+```tsx
+function LoadSharedRoute({ code }) {
+  const { load, loading, error } = useRouteShare();
+  const [route, setRoute] = React.useState(null);
+
+  React.useEffect(() => {
+    load(code).then(setRoute);
+  }, [code]);
+
+  if (loading) return <p>Loading route…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!route) return null;
+
+  return (
+    <div>
+      <h2>{route.name}</h2>
+      <p>{route.distanceKm} km — {Math.round(route.durationSec / 60)} min</p>
+    </div>
+  );
+}
+```
+
+## Using mock data in tests
+
+```tsx
+function TestComponent() {
+  const { load } = useRouteShare({ mockData: mockPlannedRoute });
+
+  React.useEffect(() => {
+    load('MT4X2Z').then((route) => {
+      console.log('Loaded mock route:', route?.name);
+    });
+  }, []);
+
+  return null;
+}
+```

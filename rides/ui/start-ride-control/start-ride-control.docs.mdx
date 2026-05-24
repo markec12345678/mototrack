@@ -1,0 +1,60 @@
+---
+description: "Large 'Začni vožnjo' play button with pause/stop controls. Opens a Pre-Ride checklist modal (gear + weather check) before starting. Handles the save flow after stop — asks for name and notes, then calls useRides.createRide."
+labels: ["rides", "ui", "control", "recording"]
+---
+
+`StartRideControl` is the primary ride recording control for MotoTrack. It guides the rider through a safety checklist before starting GPS recording, provides live stats and pause/stop controls during the ride, and opens a save dialog after stopping.
+
+## States
+
+The component moves through four states:
+
+- **idle** — shows the large orange "Začni vožnjo" button with a pulse animation
+- **recording** — shows live stats (distance, duration, speed, GPS quality) + pause and stop buttons
+- **paused** — same strip with a yellow indicator + resume and stop buttons
+- **stopped** — automatically opens the save modal
+
+## Basic usage
+
+```tsx
+import { StartRideControl } from '@markec/rides.ui.start-ride-control';
+
+<StartRideControl
+  onRideSaved={(id) => console.log('Saved ride', id)}
+  onRideDiscarded={() => console.log('Discarded')}
+/>
+```
+
+## Pre-Ride checklist
+
+Before recording starts the component opens a modal with two sections — **Oprema** (gear) and **Vreme** (weather). All 8 items must be checked before the ride can begin. A progress bar and "Označi vse" shortcut are included.
+
+```tsx
+// The checklist modal opens automatically when the play button is pressed.
+// No additional props are needed — it is built into the component.
+<StartRideControl />
+```
+
+## Save flow
+
+After the rider presses stop, a save modal appears with:
+
+- A summary strip (distance, duration, max speed)
+- An optional ride name input (max 80 chars)
+- An optional notes textarea (max 500 chars)
+- A **Shrani vožnjo** button that calls `useRides.createRide`
+- A **Zavrži** button that calls `onRideDiscarded`
+
+```tsx
+<StartRideControl
+  onRideSaved={(rideId) => navigate(`/rides/${rideId}`)}
+  onRideDiscarded={() => navigate('/')}
+/>
+```
+
+## Callbacks
+
+| Prop | Type | Description |
+|---|---|---|
+| `onRideSaved` | `(rideId: string) => void` | Called after the ride is successfully saved to the backend |
+| `onRideDiscarded` | `() => void` | Called when the rider dismisses the save modal without saving |

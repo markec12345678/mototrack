@@ -1,0 +1,94 @@
+---
+description: "Generic circular arc gauge with min/max/value/label/unit props and configurable color zones (green/yellow/red). Used for lean angle, elevation, and twistiness in the MotoTrack HUD."
+labels: ["gauge", "hud", "circular", "arc", "mototrack", "telemetry"]
+---
+
+A high-fidelity SVG circular arc gauge designed for the MotoTrack HUD. It renders a 270° sweep arc with configurable color zones, animated needle, tick marks, and a live value readout. Ideal for lean angle, elevation, twistiness, and any other telemetry metric.
+
+## Basic usage
+
+Render a gauge with a value, range, label, and unit:
+
+```tsx
+<Gauge
+  value={45}
+  min={0}
+  max={100}
+  label="Lean Angle"
+  unit="°"
+/>
+```
+
+## Color zones
+
+Define custom color zones to paint sections of the arc track. Each zone maps a value range to a color (`'green'`, `'yellow'`, `'red'`, or any CSS color string):
+
+```tsx
+<Gauge
+  value={38}
+  min={0}
+  max={60}
+  label="Lean Angle"
+  unit="°"
+  zones={[
+    { from: 0,  to: 20, color: 'green'  },
+    { from: 20, to: 40, color: 'yellow' },
+    { from: 40, to: 60, color: 'red'    },
+  ]}
+/>
+```
+
+## Size variants
+
+Control the diameter via the `size` prop (in pixels). The gauge scales all internal elements proportionally:
+
+```tsx
+<Gauge value={55} min={0} max={100} label="Speed" unit="km/h" size={120} />
+<Gauge value={55} min={0} max={100} label="Speed" unit="km/h" size={200} />
+<Gauge value={55} min={0} max={100} label="Speed" unit="km/h" size={280} />
+```
+
+## HUD dashboard example
+
+Compose multiple gauges side by side for a live telemetry dashboard:
+
+```tsx
+<div style={{ display: 'flex', gap: '32px' }}>
+  <Gauge
+    value={38}
+    min={0}
+    max={60}
+    label="Lean Angle"
+    unit="°"
+    zones={[
+      { from: 0,  to: 20, color: 'green'  },
+      { from: 20, to: 40, color: 'yellow' },
+      { from: 40, to: 60, color: 'red'    },
+    ]}
+  />
+  <Gauge
+    value={620}
+    min={0}
+    max={2000}
+    label="Elevation"
+    unit="m"
+    zones={[
+      { from: 0,    to: 500,  color: 'green'  },
+      { from: 500,  to: 1200, color: 'yellow' },
+      { from: 1200, to: 2000, color: 'red'    },
+    ]}
+  />
+  <Gauge
+    value={72}
+    min={0}
+    max={100}
+    label="Twistiness"
+    unit="%"
+    zones={[
+      { from: 0,  to: 33,  color: 'green'  },
+      { from: 33, to: 66,  color: 'yellow' },
+      { from: 66, to: 100, color: 'red'    },
+    ]}
+  />
+</div>
+```

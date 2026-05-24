@@ -1,0 +1,1 @@
+[{"name":"","description":"Represents a single point in a ride's track, used as a sub-document in RideModel.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"track-point.model.ts"}]

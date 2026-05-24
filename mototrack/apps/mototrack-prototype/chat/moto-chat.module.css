@@ -1,0 +1,75 @@
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 70vh;
+  max-height: 640px;
+}
+
+.subHeader {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.subHeader p {
+  margin: 0 !important;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
+}
+
+.msgRow {
+  display: flex;
+}
+
+.userRow { justify-content: flex-end; }
+.aiRow { justify-content: flex-start; }
+
+.msgCard {
+  max-width: 85%;
+}
+
+.userMsg {
+  background: linear-gradient(135deg, var(--colors-primary-default, #f97316), var(--colors-primary-hover, #ea580c)) !important;
+  border-color: transparent !important;
+}
+
+.userMsg p {
+  color: white !important;
+}
+
+.aiMsg {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.msgText {
+  margin: 0 !important;
+  white-space: pre-wrap;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputBar {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid var(--colors-surface-border, rgba(148, 163, 184, 0.15));
+}
+
+.inputWrap {
+  flex: 1;
+}

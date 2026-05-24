@@ -1,0 +1,65 @@
+---
+description: "Modal dialog for sharing a planned motorcycle route. Displays a share code, QR code image, copy-link button, Web Share API trigger, and a 24-hour expiry note. Automatically uses the native share sheet on mobile devices."
+labels: ["routes", "share", "modal", "qr-code", "mobile"]
+---
+
+A modal dialog that lets riders share a planned route with other motorcyclists. It integrates with the `useRouteShare` hook to generate a short share code (e.g. `MT7X9K`), a QR code image, and a shareable link — all expiring after 24 hours.
+
+On mobile devices that support the Web Share API, a native share sheet is triggered. On desktop, a copy-to-clipboard button is shown instead.
+
+## Basic usage
+
+```tsx
+import { RouteShareDialog } from '@markec/routes.ui.route-share-dialog';
+
+function MyPage() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Share Route</button>
+      <RouteShareDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        route={myPlannedRoute}
+      />
+    </>
+  );
+}
+```
+
+## With a short city route
+
+```tsx
+import { RouteShareDialog } from '@markec/routes.ui.route-share-dialog';
+
+function CityRouteCard({ route }) {
+  const [shareOpen, setShareOpen] = useState(false);
+
+  return (
+    <div>
+      <h2>{route.name}</h2>
+      <button onClick={() => setShareOpen(true)}>Share</button>
+      <RouteShareDialog
+        open={shareOpen}
+        onClose={() => setShareOpen(false)}
+        route={route}
+      />
+    </div>
+  );
+}
+```
+
+## Share flow
+
+The dialog starts in an **idle** state showing a "Generate Share Link" button. When clicked:
+
+1. The `useRouteShare` hook calls the `shareRoute` GraphQL mutation.
+2. A short code (`MT****`), QR code image URL, and expiry timestamp are returned.
+3. The dialog transitions to the **ready** state showing:
+   - A scannable QR code image
+   - The share code in monospace display
+   - The full shareable URL with a copy button
+   - An expiry note indicating the link is valid for 24 hours
+4. On mobile (Web Share API available), a **Share** button triggers the native share sheet.
+5. On desktop, a **Copy Link** button copies the URL to the clipboard.

@@ -1,0 +1,76 @@
+---
+description: "ProtectedRoute wrapper for the MotoTrack platform. Shows a full-page spinner while auth state is loading, redirects unauthenticated users to /login, and optionally restricts access by role."
+labels: ["auth", "routing", "protected", "react-router"]
+---
+
+`ProtectedRoute` is a route-guard wrapper that integrates with the `useAuth` hook.
+It handles three states automatically:
+
+1. **Loading** — displays a full-page spinner with a branded overlay while auth state resolves.
+2. **Unauthenticated** — redirects to `redirectTo` (default: `/login`) using React Router's `<Navigate>`.
+3. **Authorized** — renders `children` when the user is authenticated (and optionally role-matched).
+
+## Basic usage
+
+Wrap any page or layout that requires authentication:
+
+```tsx
+<ProtectedRoute>
+  <DashboardPage />
+</ProtectedRoute>
+```
+
+## Custom redirect path
+
+Override the default `/login` redirect destination:
+
+```tsx
+<ProtectedRoute redirectTo="/auth/sign-in">
+  <AccountSettingsPage />
+</ProtectedRoute>
+```
+
+## Role-based access control
+
+Restrict a route to specific roles. Users authenticated but without a matching role are redirected to `/`:
+
+```tsx
+<ProtectedRoute allowedRoles={['admin']}>
+  <AdminPanel />
+</ProtectedRoute>
+```
+
+Multiple roles can be allowed:
+
+```tsx
+<ProtectedRoute allowedRoles={['admin', 'moderator']}>
+  <ModerationDashboard />
+</ProtectedRoute>
+```
+
+## Usage inside a router
+
+`ProtectedRoute` must be rendered inside a React Router context (e.g. `BrowserRouter` or `MemoryRouter`):
+
+```tsx
+<BrowserRouter>
+  <Routes>
+    <Route
+      path="/dashboard"
+      element={
+        <ProtectedRoute>
+          <DashboardPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin"
+      element={
+        <ProtectedRoute allowedRoles={['admin']} redirectTo="/login">
+          <AdminPage />
+        </ProtectedRoute>
+      }
+    />
+  </Routes>
+</BrowserRouter>
+```

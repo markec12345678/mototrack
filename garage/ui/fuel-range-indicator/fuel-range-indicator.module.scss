@@ -1,0 +1,323 @@
+// ─── Root container ───────────────────────────────────────────────────────────
+
+.root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.rootExpanded {
+  align-items: flex-end;
+}
+
+// ─── Compact pill ─────────────────────────────────────────────────────────────
+
+.pill {
+  pointer-events: all;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 14px;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-floating);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  outline: none;
+  user-select: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--effects-shadows-large);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.pillIcon {
+  font-size: 15px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pillPercent {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-extra-bold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+}
+
+.percentOk {
+  color: var(--colors-status-success-default);
+}
+
+.percentWarn {
+  color: var(--colors-status-warning-default);
+}
+
+.percentEmpty {
+  color: var(--colors-status-danger-default);
+}
+
+.pillDivider {
+  width: 1px;
+  height: 14px;
+  background-color: var(--colors-border-default);
+  flex-shrink: 0;
+}
+
+.pillRange {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.pillRangeValue {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.pillRangeUnit {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-muted);
+  line-height: 1;
+}
+
+.pillDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// ─── Status color modifiers ───────────────────────────────────────────────────
+
+.statusOk {
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.statusWarn {
+  border-color: rgba(234, 179, 8, 0.35);
+  background-color: color-mix(in srgb, var(--colors-surface-primary) 92%, var(--colors-status-warning-default) 8%);
+}
+
+.statusEmpty {
+  border-color: rgba(239, 68, 68, 0.4);
+  background-color: color-mix(in srgb, var(--colors-surface-primary) 90%, var(--colors-status-danger-default) 10%);
+}
+
+// ─── Expanded panel ───────────────────────────────────────────────────────────
+
+.panel {
+  pointer-events: all;
+  width: 320px;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-xl);
+  box-shadow: var(--effects-shadows-panel);
+  overflow: hidden;
+  animation: slideUp var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-spring) both;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+// ─── Panel header ─────────────────────────────────────────────────────────────
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
+}
+
+.panelTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.panelIcon {
+  font-size: var(--typography-sizes-body-large);
+  line-height: 1;
+}
+
+.panelTitle {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--borders-radius-medium);
+  background: transparent;
+  border: 1px solid var(--colors-border-default);
+  color: var(--colors-text-muted);
+  font-size: 11px;
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  outline: none;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: var(--colors-surface-secondary);
+    color: var(--colors-text-primary);
+  }
+}
+
+// ─── Gauge wrapper ────────────────────────────────────────────────────────────
+
+.gaugeWrapper {
+  padding: 0 var(--spacing-md) var(--spacing-sm);
+}
+
+// ─── Warning banner ───────────────────────────────────────────────────────────
+
+.warningBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0 var(--spacing-md) var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--borders-radius-medium);
+}
+
+.warningWarn {
+  background-color: var(--colors-status-warning-subtle);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.warningEmpty {
+  background-color: var(--colors-status-danger-subtle);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  animation: warningPulse 1.8s ease-in-out infinite;
+}
+
+.warningIcon {
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.warningText {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-primary);
+  line-height: var(--typography-line-height-tight);
+}
+
+// ─── Find station button ──────────────────────────────────────────────────────
+
+.findStationBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  width: calc(100% - var(--spacing-md) * 2);
+  margin: 0 var(--spacing-md) var(--spacing-md);
+  padding: 10px var(--spacing-md);
+  border-radius: var(--borders-radius-large);
+  background: var(--effects-gradients-primary);
+  border: none;
+  color: var(--colors-text-inverse) !important;
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  outline: none;
+  box-shadow: var(--effects-shadows-glow);
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--effects-shadows-glow-strong);
+  }
+
+  &:active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.findStationIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .root {
+    bottom: 16px;
+    right: 12px;
+  }
+
+  .panel {
+    width: calc(100vw - 24px);
+    max-width: 320px;
+  }
+}

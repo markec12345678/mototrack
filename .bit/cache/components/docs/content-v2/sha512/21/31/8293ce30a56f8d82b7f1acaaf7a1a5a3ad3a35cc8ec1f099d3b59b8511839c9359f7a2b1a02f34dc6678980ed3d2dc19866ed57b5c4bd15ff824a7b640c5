@@ -1,0 +1,1 @@
+[{"name":"","description":"Display title of the citation source.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"citation-type.ts"},{"name":"","description":"URL of the citation source.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"citation-type.ts"}]

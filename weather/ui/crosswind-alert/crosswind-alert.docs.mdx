@@ -1,0 +1,47 @@
+---
+description: "CrosswindAlert overlay. Hidden when level=none. Color escalates moderate (yellow) → strong (orange) → dangerous (red full-screen flash 'USTAVI SE!'). Registered as SafetyAlert."
+labels: ["weather", "safety", "alert", "crosswind", "moto"]
+---
+
+`CrosswindAlert` is a safety overlay that warns motorcycle riders of dangerous crosswind conditions in real time. It integrates with the `useCrosswind` hook and escalates visually based on severity.
+
+## Severity Levels
+
+| Level       | Appearance                          | Message              |
+|-------------|-------------------------------------|----------------------|
+| `none`      | Hidden — no overlay rendered        | —                    |
+| `moderate`  | Yellow bottom banner                | Bočni veter          |
+| `strong`    | Orange bottom banner                | Močan bočni veter    |
+| `dangerous` | Full-screen red flashing overlay    | USTAVI SE!           |
+
+## Basic Usage
+
+Provide the rider's current heading in degrees. The component uses `useCrosswind` internally to compute the perpendicular wind component and determine the alert level.
+
+```tsx
+<CrosswindAlert headingDeg={90} />
+```
+
+## Overriding Level for Testing
+
+Use `levelOverride` and `crossKmhOverride` to force a specific state — useful in compositions, Storybook, or integration tests.
+
+```tsx
+<CrosswindAlert
+  headingDeg={90}
+  levelOverride="strong"
+  crossKmhOverride={41}
+/>
+```
+
+## Dangerous Full-Screen Flash
+
+When the level reaches `dangerous`, the overlay fills the entire screen with a pulsing red background and flashes at 600 ms intervals to maximise rider attention. The Slovenian stop command **USTAVI SE!** is displayed in large bold text.
+
+```tsx
+<CrosswindAlert
+  headingDeg={0}
+  levelOverride="dangerous"
+  crossKmhOverride={68}
+/>
+```

@@ -1,0 +1,88 @@
+---
+labels: ['group-ride', 'entity', 'community', 'moto']
+description: "GroupRide entity representing a community motorcycle group ride, including host, meeting point, participants, and per-participant status."
+---
+
+A component for the `GroupRide` entity. Supports serialization and de-serialization of group ride objects and can be used from both backend and frontend.
+
+Participant statuses follow Slovenian terminology:
+
+- `pripravljen` — ready
+- `na-poti` — on the way
+- `odmor` — on a break
+- `konec` — finished
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { GroupRide } from '@markec/community.entities.group-ride';
+
+const ride = GroupRide.from({
+  id: 'ride-001',
+  name: 'Nedeljska jutrannja tura',
+  host: { id: 'user-001', displayName: 'Marko Novak' },
+  startAt: Date.now() + 86_400_000,
+  meetingPoint: { lat: 46.0569, lng: 14.5058, label: 'Kongresni trg, Ljubljana' },
+  participants: [
+    { id: 'user-002', displayName: 'Ana Kovač', status: 'pripravljen' },
+    { id: 'user-003', displayName: 'Jure Horvat', status: 'na-poti' },
+  ],
+  routeId: 'route-alpine-001',
+});
+
+console.log(ride.name);          // 'Nedeljska jutrannja tura'
+console.log(ride.host.displayName); // 'Marko Novak'
+```
+
+## Serialization
+
+Use `toObject()` to convert the entity back into a plain object suitable for API responses or storage:
+
+```ts
+import { GroupRide } from '@markec/community.entities.group-ride';
+
+const ride = GroupRide.from({
+  id: 'ride-002',
+  name: 'Alpska avantura',
+  host: { id: 'user-010', displayName: 'Petra Mlakar' },
+  startAt: Date.now() + 3 * 86_400_000,
+  meetingPoint: { lat: 46.3631, lng: 13.7266, label: 'Bovec' },
+  participants: [
+    { id: 'user-011', displayName: 'Simon Bernik', status: 'odmor' },
+    { id: 'user-012', displayName: 'Tina Oblak', status: 'konec' },
+  ],
+});
+
+const plain = ride.toObject();
+console.log(plain);
+// {
+//   id: 'ride-002',
+//   name: 'Alpska avantura',
+//   host: { id: 'user-010', displayName: 'Petra Mlakar' },
+//   startAt: ...,
+//   meetingPoint: { lat: 46.3631, lng: 13.7266, label: 'Bovec' },
+//   participants: [
+//     { id: 'user-011', displayName: 'Simon Bernik', status: 'odmor' },
+//     { id: 'user-012', displayName: 'Tina Oblak', status: 'konec' },
+//   ],
+//   routeId: undefined,
+// }
+```
+
+## Mock data
+
+Use `mockGroupRide` and `mockGroupRides` for development and testing:
+
+```ts
+import { mockGroupRide, mockGroupRides } from '@markec/community.entities.group-ride';
+
+// Single mock with optional overrides
+const ride = mockGroupRide({ name: 'Primorska tura' });
+console.log(ride.name); // 'Primorska tura'
+
+// Multiple mocks
+const rides = mockGroupRides(3);
+rides.forEach((r) => console.log(r.name, r.participants.length));
+```

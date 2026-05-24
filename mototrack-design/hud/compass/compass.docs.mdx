@@ -1,0 +1,61 @@
+---
+description: "Compass HUD showing heading in degrees with N/E/S/W cardinal markers. Uses DeviceOrientation API where available, falls back to GPS-derived bearing. Animated rotation."
+labels: ["hud", "compass", "navigation", "sensor", "mototrack"]
+---
+
+A rich, animated compass HUD component designed for the MotoTrack dark motorcycle theme.
+It reads live heading data from the browser's **DeviceOrientation API** (gyroscope) when available,
+falls back to a **GPS-derived bearing** prop, and finally accepts a **manual heading** override.
+The compass rose rotates smoothly with interpolated animation.
+
+## Basic usage
+
+```tsx
+<Compass heading={45} />
+```
+
+## With GPS bearing fallback
+
+When no manual heading is provided, the compass uses the DeviceOrientation API.
+If the sensor is unavailable, it falls back to the `gpsBearing` prop.
+
+```tsx
+<Compass gpsBearing={135} showDegrees showSource />
+```
+
+## Manual heading with custom size
+
+Pass a `heading` prop to override all sensor data. Useful for testing or replay scenarios.
+
+```tsx
+<Compass
+  heading={270}
+  size={300}
+  showDegrees
+  showSource
+  onHeadingChange={(deg, source) => console.log(deg, source)}
+/>
+```
+
+## Props overview
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `heading` | `number` | — | Manual heading in degrees (0–359). Overrides sensor data. |
+| `gpsBearing` | `number` | — | GPS-derived bearing used as fallback when gyro is unavailable. |
+| `size` | `number` | `220` | Diameter of the compass in pixels. |
+| `showDegrees` | `boolean` | `true` | Show the numeric degree readout in the centre. |
+| `showSource` | `boolean` | `true` | Show the active data source badge (GYRO / GPS / MANUAL). |
+| `onHeadingChange` | `(heading, source) => void` | — | Callback fired whenever the heading value changes. |
+| `className` | `string` | — | Additional CSS class applied to the root element. |
+| `style` | `CSSProperties` | — | Inline styles for the root element. |
+
+## Data sources
+
+The component resolves heading from three sources in priority order:
+
+1. **`heading` prop** — explicit manual override, always wins.
+2. **DeviceOrientation API** — gyroscope/compass sensor via `deviceorientation` event. Supports both iOS (`webkitCompassHeading`) and Android (`alpha`).
+3. **`gpsBearing` prop** — GPS-derived bearing, used when the sensor is unavailable or fires no events within 2 seconds.
+
+The active source is shown in the badge: `GYRO`, `GPS`, or `MANUAL`.

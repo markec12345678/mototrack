@@ -1,0 +1,56 @@
+---
+description: "A voice input button that wraps the Web SpeechRecognition API with the sl-SI (Slovenian) locale. Shows a pulse animation while listening and fires an onResult(text) callback with the recognised transcript. Hidden automatically when SpeechRecognition is unsupported."
+labels: ["voice", "speech", "input", "ai-assistant", "microphone"]
+---
+
+`VoiceInputButton` integrates the browser's Web Speech API into a single, accessible button.
+It targets the Slovenian locale (`sl-SI`) by default, displays a pulsing ring animation while
+the microphone is active, and calls `onResult(text)` with the final transcript.
+The component renders `null` when `SpeechRecognition` (or `webkitSpeechRecognition`) is not
+available in the current browser, so no extra feature-detection code is needed.
+
+## Basic usage
+
+```tsx
+<VoiceInputButton
+  onResult={(text) => console.log('Recognised:', text)}
+/>
+```
+
+## Custom locale
+
+Override the default `sl-SI` locale with any BCP-47 language tag:
+
+```tsx
+<VoiceInputButton
+  locale="en-US"
+  onResult={(text) => console.log('Recognised:', text)}
+/>
+```
+
+## Embedded in a chat input bar
+
+```tsx
+const [draft, setDraft] = React.useState('');
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  <input
+    value={draft}
+    onChange={(e) => setDraft(e.target.value)}
+    placeholder="Type or speak…"
+  />
+  <VoiceInputButton onResult={(text) => setDraft(text)} />
+  <button onClick={() => send(draft)}>Send</button>
+</div>
+```
+
+## Disabled state
+
+Pass `disabled` to prevent the user from activating the microphone:
+
+```tsx
+<VoiceInputButton
+  onResult={(text) => console.log(text)}
+  disabled
+/>
+```

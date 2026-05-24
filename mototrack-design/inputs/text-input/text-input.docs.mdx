@@ -1,0 +1,100 @@
+---
+description: "Text input with label, error message, helper text, and optional left icon. Supports text, email, password, number, and search types. Theme-styled with focus accent border."
+labels: ["input", "form", "ui", "mototrack"]
+---
+
+A fully-featured text input component for the MotoTrack design system. It supports multiple input types, validation states, helper text, error messages, and an optional left icon — all styled with the dark motorcycle theme and an orange accent focus border.
+
+## Basic usage
+
+```tsx
+<TextInput
+  type="text"
+  label="Rider Name"
+  placeholder="e.g. Marco Rossi"
+  helperText="Enter your full racing name."
+/>
+```
+
+## With left icon
+
+Provide any React node as the `leftIcon` prop to render an icon inside the input on the left side.
+
+```tsx
+function MailIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M1.5 5.5L8 9.5L14.5 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+<TextInput
+  type="email"
+  label="Email Address"
+  placeholder="rider@mototrack.com"
+  helperText="Race updates will be sent here."
+  leftIcon={<MailIcon />}
+/>
+```
+
+## Validation states
+
+Use `errorMessage` to show an error state with an inline error message. The helper text is hidden when an error is present. Use `required` to mark a field as mandatory.
+
+```tsx
+// Error state
+<TextInput
+  type="email"
+  label="Email Address"
+  value="not-an-email"
+  errorMessage="Please enter a valid email address."
+/>
+
+// Required field
+<TextInput
+  type="text"
+  label="Team Name"
+  placeholder="e.g. Yamaha Racing"
+  required
+  helperText="Your official team name."
+/>
+
+// Disabled state
+<TextInput
+  type="text"
+  label="Race Number"
+  value="46"
+  disabled
+  helperText="This field is locked."
+/>
+```
+
+## Controlled usage with onChange
+
+The component is controlled via the `value` and `onChange` props. `onChange` receives the new string value directly — not a DOM event.
+
+```tsx
+const [query, setQuery] = useState('');
+
+<TextInput
+  type="search"
+  label="Search Riders"
+  placeholder="Search by name or number…"
+  value={query}
+  onChange={(value) => setQuery(value)}
+/>
+```
+
+## Input types
+
+Supported values for the `type` prop: `text`, `email`, `password`, `number`, `search`.
+
+```tsx
+<TextInput type="text"     label="Text"     placeholder="Plain text" />
+<TextInput type="email"    label="Email"    placeholder="you@example.com" />
+<TextInput type="password" label="Password" placeholder="••••••••" />
+<TextInput type="number"   label="Number"   placeholder="42" />
+<TextInput type="search"   label="Search"   placeholder="Search…" />
+```

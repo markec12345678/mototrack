@@ -1,0 +1,350 @@
+.calendar {
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-xl);
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-medium);
+  padding: var(--spacing-xl);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--typography-font-family);
+  color: var(--colors-text-default);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.monthTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
+.monthName {
+  font-size: var(--typography-sizes-heading-h4);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-default);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+.yearLabel {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-muted);
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--borders-radius-medium);
+  border: 1px solid var(--colors-border-default);
+  background: transparent;
+  color: var(--colors-text-muted);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+
+  &:hover {
+    background: var(--colors-surface-secondary);
+    color: var(--colors-text-default);
+    border-color: var(--colors-border-strong);
+  }
+
+  &:active {
+    background: var(--colors-primary-default);
+    color: var(--colors-text-inverse);
+    border-color: var(--colors-primary-default);
+  }
+}
+
+/* ── Stats bar ───────────────────────────────────────────────────────────── */
+
+.statsBar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  background: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-large);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.statValue {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+  line-height: var(--typography-line-height-tight);
+}
+
+.statLabel {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-wide);
+}
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background: var(--colors-border-default);
+  flex-shrink: 0;
+}
+
+/* ── Weekday labels ──────────────────────────────────────────────────────── */
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-wide);
+  padding: 4px 0;
+}
+
+/* ── Day grid ────────────────────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--borders-radius-medium);
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6px 7px 4px;
+  overflow: hidden;
+  transition:
+    background var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+  box-sizing: border-box;
+  background: var(--colors-surface-secondary);
+}
+
+.cellOtherMonth {
+  opacity: var(--effects-opacity-faint);
+  pointer-events: none;
+}
+
+.cellToday {
+  border-color: var(--colors-primary-default);
+}
+
+.cellSelected {
+  border-color: var(--colors-primary-default);
+  box-shadow: 0 0 0 2px var(--colors-primary-default), var(--effects-shadows-glow);
+}
+
+.cellClickable {
+  cursor: var(--interactions-cursor-pointer);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--colors-border-strong);
+    box-shadow: var(--effects-shadows-raised);
+    z-index: 1;
+  }
+}
+
+/* Intensity levels — background glow behind the heat bar */
+.intensity1 {
+  background: color-mix(in srgb, var(--colors-primary-default) 8%, var(--colors-surface-secondary));
+}
+
+.intensity2 {
+  background: color-mix(in srgb, var(--colors-primary-default) 18%, var(--colors-surface-secondary));
+}
+
+.intensity3 {
+  background: color-mix(in srgb, var(--colors-primary-default) 30%, var(--colors-surface-secondary));
+}
+
+.intensity4 {
+  background: color-mix(in srgb, var(--colors-primary-default) 45%, var(--colors-surface-secondary));
+}
+
+/* ── Day number ──────────────────────────────────────────────────────────── */
+
+.dayNumber {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  line-height: 1;
+  z-index: 1;
+  position: relative;
+}
+
+.cellToday .dayNumber {
+  color: var(--colors-primary-default);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+/* ── Ride info ───────────────────────────────────────────────────────────── */
+
+.rideInfo {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: auto;
+  z-index: 1;
+  position: relative;
+  width: 100%;
+}
+
+.rideDistance {
+  font-size: 9px;
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.rideBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borders-radius-full);
+  background: var(--colors-primary-default);
+  color: var(--colors-text-inverse) !important;
+  font-size: 8px;
+  font-weight: var(--typography-font-weight-extra-bold);
+  flex-shrink: 0;
+}
+
+/* ── Heat bar ────────────────────────────────────────────────────────────── */
+
+.heatBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--colors-primary-default);
+  opacity: 0.85;
+  border-radius: 0 0 var(--borders-radius-medium) var(--borders-radius-medium);
+  transform-origin: left;
+  transform: scaleX(var(--heat-ratio, 1));
+  transition: transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+}
+
+/* ── Legend ──────────────────────────────────────────────────────────────── */
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--colors-border-default);
+}
+
+.legendLabel {
+  font-size: var(--typography-sizes-caption-medium);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--borders-radius-small);
+  flex-shrink: 0;
+}
+
+.legendDot1 {
+  background: color-mix(in srgb, var(--colors-primary-default) 20%, var(--colors-surface-secondary));
+}
+
+.legendDot2 {
+  background: color-mix(in srgb, var(--colors-primary-default) 40%, var(--colors-surface-secondary));
+}
+
+.legendDot3 {
+  background: color-mix(in srgb, var(--colors-primary-default) 65%, var(--colors-surface-secondary));
+}
+
+.legendDot4 {
+  background: var(--colors-primary-default);
+}
+
+.legendSeparator {
+  flex: 1;
+}
+
+.legendHint {
+  font-size: var(--typography-sizes-caption-medium);
+  color: var(--colors-text-muted);
+  font-style: italic;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .calendar {
+    padding: var(--spacing-md);
+  }
+
+  .statsBar {
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .statValue {
+    font-size: var(--typography-sizes-body-default);
+  }
+
+  .cell {
+    padding: 4px 4px 3px;
+  }
+
+  .rideDistance {
+    display: none;
+  }
+
+  .legendHint {
+    display: none;
+  }
+
+  .monthName {
+    font-size: var(--typography-sizes-body-large);
+  }
+}

@@ -1,0 +1,124 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-decoration: none !important;
+  cursor: var(--interactions-cursor-pointer);
+  user-select: none;
+  flex-shrink: 0;
+  border-radius: var(--borders-radius-small);
+  transition: opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+
+  &:hover {
+    opacity: var(--effects-opacity-hover);
+    text-decoration: none !important;
+  }
+}
+
+/* ── Icon ─────────────────────────────────────────────────────────────────── */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ── Wordmark ─────────────────────────────────────────────────────────────── */
+
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-extra-bold);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: var(--typography-line-height-tight);
+}
+
+.wordmarkMoto {
+  color: var(--colors-text-primary);
+}
+
+.wordmarkTrack {
+  color: var(--colors-primary-default);
+}
+
+/* ── Tag pill ─────────────────────────────────────────────────────────────── */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colors-primary-default);
+  color: var(--colors-text-inverse) !important;
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  text-transform: uppercase;
+  border-radius: var(--borders-radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Size: sm ─────────────────────────────────────────────────────────────── */
+
+.sm .icon {
+  font-size: 16px;
+}
+
+.sm .wordmark {
+  font-size: var(--typography-sizes-body-default);
+}
+
+.sm .tag {
+  font-size: var(--typography-sizes-caption-default);
+  padding: 1px 6px;
+}
+
+/* ── Size: md ─────────────────────────────────────────────────────────────── */
+
+.md .icon {
+  font-size: 22px;
+}
+
+.md .wordmark {
+  font-size: var(--typography-sizes-xl);
+}
+
+.md .tag {
+  font-size: var(--typography-sizes-caption-medium);
+  padding: 2px 8px;
+}
+
+/* ── Size: lg ─────────────────────────────────────────────────────────────── */
+
+.lg .icon {
+  font-size: 36px;
+}
+
+.lg .wordmark {
+  font-size: var(--typography-sizes-xxxl);
+}
+
+.lg .tag {
+  font-size: var(--typography-sizes-xs);
+  padding: 3px 10px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .lg .icon {
+    font-size: 28px;
+  }
+
+  .lg .wordmark {
+    font-size: var(--typography-sizes-xxl);
+  }
+
+  .lg .tag {
+    font-size: var(--typography-sizes-caption-default);
+    padding: 2px 8px;
+  }
+}

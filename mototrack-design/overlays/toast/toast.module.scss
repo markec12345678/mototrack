@@ -1,0 +1,182 @@
+.toastContainer {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 400px;
+  width: calc(100vw - 48px);
+  pointer-events: none;
+
+  @media (max-width: 480px) {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    left: var(--spacing-md);
+    width: auto;
+    max-width: none;
+  }
+}
+
+.toastItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid transparent;
+  box-shadow: var(--effects-shadows-floating);
+  backdrop-filter: blur(var(--effects-blur-medium));
+  position: relative;
+  overflow: hidden;
+  pointer-events: all;
+  cursor: default;
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  box-sizing: border-box;
+}
+
+.toastItem.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toastItem.exiting {
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+
+.success {
+  background-color: var(--colors-surface-primary);
+  border-color: var(--colors-status-success-default);
+
+  .toastIcon {
+    color: var(--colors-status-success-default);
+  }
+
+  .progressBar {
+    background: var(--colors-status-success-default);
+  }
+}
+
+.warning {
+  background-color: var(--colors-surface-primary);
+  border-color: var(--colors-status-warning-default);
+
+  .toastIcon {
+    color: var(--colors-status-warning-default);
+  }
+
+  .progressBar {
+    background: var(--colors-status-warning-default);
+  }
+}
+
+.danger {
+  background-color: var(--colors-surface-primary);
+  border-color: var(--colors-status-danger-default);
+
+  .toastIcon {
+    color: var(--colors-status-danger-default);
+  }
+
+  .progressBar {
+    background: var(--colors-status-danger-default);
+  }
+}
+
+.info {
+  background-color: var(--colors-surface-primary);
+  border-color: var(--colors-status-info-default);
+
+  .toastIcon {
+    color: var(--colors-status-info-default);
+  }
+
+  .progressBar {
+    background: var(--colors-status-info-default);
+  }
+}
+
+// ── Inner elements ────────────────────────────────────────────────────────────
+
+.toastIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.toastContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.toastTitle {
+  margin: 0 0 2px;
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-primary);
+  line-height: var(--typography-line-height-tight);
+  letter-spacing: var(--typography-letter-spacing-normal);
+}
+
+.toastMessage {
+  margin: 0;
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-secondary);
+  line-height: var(--typography-line-height-base);
+}
+
+.toastClose {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--colors-text-muted);
+  cursor: var(--interactions-cursor-pointer);
+  border-radius: var(--borders-radius-small);
+  padding: 0;
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  margin-top: -2px;
+
+  &:hover {
+    color: var(--colors-text-primary);
+    background-color: rgba(148, 163, 184, 0.1);
+  }
+}
+
+// ── Progress bar ──────────────────────────────────────────────────────────────
+
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left;
+  animation: shrink linear forwards;
+  opacity: 0.7;
+}
+
+@keyframes shrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}

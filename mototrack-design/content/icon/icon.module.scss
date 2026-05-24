@@ -1,0 +1,69 @@
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  color: currentColor;
+  user-select: none;
+  box-sizing: border-box;
+
+  // Ensure SVG children fill the icon container
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: currentColor;
+  }
+
+  // Ensure image children fill the icon container
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+}
+
+.clickable {
+  cursor: var(--interactions-cursor-pointer);
+  border-radius: var(--borders-radius-small);
+  transition:
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+
+  &:hover {
+    opacity: var(--effects-opacity-hover);
+    transform: scale(var(--interactions-hover-effect-scale));
+  }
+
+  &:active {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+}
+
+// Size variants — width/height driven by inline style; font-size mirrors for glyph/emoji
+.xs {
+  font-size: 12px;
+}
+
+.sm {
+  font-size: 16px;
+}
+
+.md {
+  font-size: 20px;
+}
+
+.lg {
+  font-size: 24px;
+}
+
+.xl {
+  font-size: 32px;
+}
+
+.xxl {
+  font-size: 48px;
+}

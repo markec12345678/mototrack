@@ -1,0 +1,261 @@
+.compass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--borders-radius-full);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.glowRing {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--borders-radius-full);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(249, 115, 22, 0.08) 0%,
+    rgba(249, 115, 22, 0.04) 40%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 32px rgba(249, 115, 22, 0.18),
+    0 0 64px rgba(249, 115, 22, 0.08),
+    inset 0 0 24px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.7));
+}
+
+/* ── Background circle ─────────────────────────────────────── */
+.bgCircle {
+  fill: #0a1628;
+  stroke: rgba(148, 163, 184, 0.18);
+  stroke-width: 1.5;
+}
+
+/* ── Rotating ring ─────────────────────────────────────────── */
+.rotatingRing {
+  will-change: transform;
+}
+
+/* ── Tick marks ────────────────────────────────────────────── */
+.tick {
+  stroke: rgba(148, 163, 184, 0.3);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.tickMajor {
+  stroke: rgba(241, 245, 249, 0.7);
+  stroke-width: 1.5;
+}
+
+.tickMinor {
+  stroke: rgba(148, 163, 184, 0.5);
+  stroke-width: 1;
+}
+
+/* ── Cardinal labels ───────────────────────────────────────── */
+.cardinalLabel {
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  pointer-events: none;
+}
+
+.cardinalLabelPrimary {
+  font-size: 13px;
+  fill: var(--colors-text-primary);
+}
+
+.cardinalLabelNorth {
+  fill: var(--colors-primary-default);
+  font-size: 14px;
+  font-weight: var(--typography-font-weight-extra-bold);
+}
+
+.cardinalLabelSecondary {
+  font-size: 9px;
+  fill: var(--colors-text-muted);
+}
+
+/* ── Degree markers ────────────────────────────────────────── */
+.degreeMarker {
+  font-family: var(--typography-font-family);
+  font-size: 8px;
+  fill: rgba(100, 116, 139, 0.6);
+  pointer-events: none;
+}
+
+/* ── Inner circle ──────────────────────────────────────────── */
+.innerCircle {
+  fill: #060d1a;
+  stroke: rgba(249, 115, 22, 0.15);
+  stroke-width: 1;
+}
+
+/* ── Needle ────────────────────────────────────────────────── */
+.needle {
+  pointer-events: none;
+}
+
+.needleNorth {
+  fill: var(--colors-primary-default);
+  filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.8));
+}
+
+.needleSouth {
+  fill: rgba(148, 163, 184, 0.35);
+}
+
+.needleCenter {
+  fill: var(--colors-surface-primary);
+  stroke: var(--colors-primary-default);
+  stroke-width: 2;
+}
+
+/* ── Top indicator ─────────────────────────────────────────── */
+.topIndicator {
+  fill: var(--colors-primary-default);
+  filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.9));
+}
+
+/* ── Center readout ────────────────────────────────────────── */
+.readout {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+  gap: 0;
+}
+
+.degreesRow {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.degreesValue {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-xl);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+}
+
+.degreesSymbol {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-sm);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.cardinalBig {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-sm);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  margin-top: var(--spacing-xs);
+}
+
+/* ── Source badge ──────────────────────────────────────────── */
+.sourceBadge {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 3px 10px;
+  border-radius: var(--borders-radius-full);
+  font-family: var(--typography-font-family);
+  font-size: 9px;
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  z-index: 3;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+.sourceDot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--borders-radius-full);
+  flex-shrink: 0;
+}
+
+.sourceGyro {
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  color: var(--colors-primary-default);
+}
+
+.sourceGyro .sourceDot {
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 5px rgba(249, 115, 22, 0.9);
+}
+
+.sourceGps {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--colors-status-success-default);
+}
+
+.sourceGps .sourceDot {
+  background-color: var(--colors-status-success-default);
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.8);
+}
+
+.sourceManual {
+  background: rgba(100, 116, 139, 0.12);
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  color: var(--colors-text-muted);
+}
+
+.sourceManual .sourceDot {
+  background-color: var(--colors-text-muted);
+}
+
+/* ── Unsupported badge ─────────────────────────────────────── */
+.unsupportedBadge {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  border-radius: var(--borders-radius-full);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--colors-status-danger-default);
+  font-family: var(--typography-font-family);
+  font-size: 9px;
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .degreesValue {
+    font-size: var(--typography-sizes-lg);
+  }
+}

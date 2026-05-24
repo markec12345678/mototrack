@@ -1,0 +1,98 @@
+---
+description: "React hook that fetches the current weather for a given location via the getCurrentWeather GraphQL query. Auto-refreshes every 10 minutes and returns snapshot, isLoading, error, and refresh."
+labels: ['hook', 'weather', 'graphql', 'apollo']
+---
+
+A React hook that calls the `getCurrentWeather` GraphQL query and returns a live `WeatherSnapshot`. It automatically re-fetches data every **10 minutes** using Apollo's `pollInterval`. A manual `refresh()` function is also provided for on-demand updates.
+
+Supports a `mockData` option to bypass the network entirely — ideal for tests and compositions.
+
+## Basic Usage
+
+```tsx
+function WeatherWidget() {
+  const { snapshot, isLoading, error, refresh } = useCurrentWeather(
+    { lat: 46.0569, lng: 14.5058 }
+  );
+
+  if (isLoading) return <p>Loading weather…</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return (
+    <div>
+      <span>{snapshot?.icon} {snapshot?.label}</span>
+      <span>{snapshot?.tempC}°C</span>
+      <button onClick={() => refresh()}>Refresh</button>
+    </div>
+  );
+}
+```
+
+## With Mock Data (Testing & Compositions)
+
+Pass `mockData` to skip the GraphQL query and return a snapshot immediately. No Apollo provider is required for the mock path.
+
+```tsx
+const mockSnapshot = {
+  tempC: 24.5,
+  feelsLikeC: 23.1,
+  windKmh: 12.4,
+  windDirDeg: 220,
+  gustKmh: 18.0,
+  humidity: 45,
+  visibilityKm: 25,
+  precipMmH: 0,
+  wmoCode: 0,
+  label: 'Jasno',
+  icon: '☀️',
+  ts: 1718000000,
+};
+
+function WeatherPreview() {
+  const { snapshot, isLoading } = useCurrentWeather(
+    { lat: 46.0569, lng: 14.5058 },
+    { mockData: mockSnapshot }
+  );
+
+  if (isLoading) return null;
+
+  return (
+    <div>
+      <p>{snapshot?.icon} {snapshot?.label}</p>
+      <p>Temperature: {snapshot?.tempC}°C</p>
+      <p>Humidity: {snapshot?.humidity}%</p>
+    </div>
+  );
+}
+```
+
+## Handling All Return Values
+
+```tsx
+function RideConditionsPanel() {
+  const { snapshot, isLoading, error, refresh } = useCurrentWeather(
+    { lat: 45.8150, lng: 15.9819 }
+  );
+
+  return (
+    <div>
+      {isLoading && <p>Fetching conditions…</p>}
+      {error && (
+        <div>
+          <p>Could not load weather: {error}</p>
+          <button onClick={() => refresh()}>Retry</button>
+        </div>
+      )}
+      {snapshot && (
+        <ul>
+          <li>Condition: {snapshot.icon} {snapshot.label}</li>
+          <li>Temp: {snapshot.tempC}°C (feels like {snapshot.feelsLikeC}°C)</li>
+          <li>Wind: {snapshot.windKmh} km/h (gusts {snapshot.gustKmh} km/h)</li>
+          <li>Rain: {snapshot.precipMmH} mm/h</li>
+          <li>Visibility: {snapshot.visibilityKm} km</li>
+        </ul>
+      )}
+    </div>
+  );
+}
+```

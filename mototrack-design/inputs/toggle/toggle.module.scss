@@ -1,0 +1,221 @@
+.root {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.root.disabled {
+  cursor: var(--interactions-cursor-disabled);
+  opacity: var(--effects-opacity-disabled);
+}
+
+/* ── Input (visually hidden) ─────────────────────────────────────── */
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Toggle wrapper ──────────────────────────────────────────────── */
+
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Track ───────────────────────────────────────────────────────── */
+
+.track {
+  position: relative;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-surface-secondary);
+  border: 1px solid var(--colors-border-default);
+  transition:
+    background-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  box-sizing: border-box;
+}
+
+.trackChecked {
+  border-color: transparent;
+}
+
+/* Variant colours when checked */
+.track-default {
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.35);
+}
+
+.track-success {
+  background-color: var(--colors-status-success-default);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.35);
+}
+
+.track-warning {
+  background-color: var(--colors-status-warning-default);
+  box-shadow: 0 0 12px rgba(234, 179, 8, 0.35);
+}
+
+.track-danger {
+  background-color: var(--colors-status-danger-default);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
+}
+
+/* ── Knob ────────────────────────────────────────────────────────── */
+
+.knob {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(0);
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-spring),
+    background-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  box-shadow: var(--effects-shadows-small);
+  box-sizing: border-box;
+}
+
+/* ── Size: sm ────────────────────────────────────────────────────── */
+
+.sm .track {
+  width: 32px;
+  height: 18px;
+}
+
+.sm .knob {
+  width: 12px;
+  height: 12px;
+  left: 2px;
+}
+
+.sm .knobChecked {
+  transform: translateY(-50%) translateX(14px);
+}
+
+/* ── Size: md ────────────────────────────────────────────────────── */
+
+.md .track {
+  width: 44px;
+  height: 24px;
+}
+
+.md .knob {
+  width: 18px;
+  height: 18px;
+  left: 2px;
+}
+
+.md .knobChecked {
+  transform: translateY(-50%) translateX(20px);
+}
+
+/* ── Size: lg ────────────────────────────────────────────────────── */
+
+.lg .track {
+  width: 56px;
+  height: 30px;
+}
+
+.lg .knob {
+  width: 22px;
+  height: 22px;
+  left: 3px;
+}
+
+.lg .knobChecked {
+  transform: translateY(-50%) translateX(26px);
+}
+
+/* ── Icon inside knob ────────────────────────────────────────────── */
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  color: var(--colors-surface-background);
+}
+
+.sm .icon {
+  font-size: 8px;
+}
+
+.md .icon {
+  font-size: 10px;
+}
+
+.lg .icon {
+  font-size: 13px;
+}
+
+/* ── Label group ─────────────────────────────────────────────────── */
+
+.labelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.label {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-primary);
+  line-height: var(--typography-line-height-tight);
+}
+
+.description {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+  line-height: var(--typography-line-height-base);
+}
+
+/* ── Hover glow on track (non-disabled) ──────────────────────────── */
+
+.root:not(.disabled) .track:hover {
+  border-color: var(--colors-border-strong);
+}
+
+.root:not(.disabled) .trackChecked:hover {
+  border-color: transparent;
+  filter: brightness(1.1);
+}
+
+/* ── Focus ring ──────────────────────────────────────────────────── */
+
+.root:focus-within .track {
+  outline: var(--borders-focus-width) var(--borders-focus-style) var(--borders-focus-color);
+  outline-offset: var(--borders-focus-offset);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .label {
+    font-size: var(--typography-sizes-body-small);
+  }
+
+  .description {
+    font-size: var(--typography-sizes-caption-default);
+  }
+}

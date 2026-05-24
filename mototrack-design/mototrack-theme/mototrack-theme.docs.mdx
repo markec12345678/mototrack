@@ -1,0 +1,132 @@
+---
+description: "Dark motorcycle theme for MotoTrack. Provides CSS variables, antialiased base styles, Inter typeface, and a full token system covering surfaces, accent orange, status colours, country flag palette, typography scale (xs–3xl), 4px spacing scale, border radii, and floating-panel shadows."
+labels: ['react', 'theme', 'dark', 'motorcycle', 'design-system', 'mototrack']
+---
+
+A dark, high-contrast theme built for the MotoTrack design system. It wraps your component tree with CSS custom properties, antialiased text rendering, and the Inter typeface — giving every component a consistent, premium racing aesthetic.
+
+## Get started
+
+Install the package and wrap your app root:
+
+```bash
+bit install @markec/mototrack-design.mototrack-theme
+```
+
+```tsx
+import { MototrackTheme } from '@markec/mototrack-design.mototrack-theme';
+
+export function App() {
+  return (
+    <MototrackTheme>
+      <YourApp />
+    </MototrackTheme>
+  );
+}
+```
+
+## Midnight variant (ultra-dark)
+
+Switch to the deeper OLED-optimised palette by setting `initialTheme="dark"`:
+
+```tsx
+import { MototrackTheme } from '@markec/mototrack-design.mototrack-theme';
+
+export function App() {
+  return (
+    <MototrackTheme initialTheme="dark">
+      <YourApp />
+    </MototrackTheme>
+  );
+}
+```
+
+## Access tokens in components
+
+Use the `useTheme` hook to read any design token at runtime:
+
+```tsx
+import { useTheme } from '@markec/mototrack-design.mototrack-theme';
+
+export function RacingCard() {
+  const theme = useTheme();
+
+  return (
+    <div
+      style={{
+        backgroundColor: theme.colors.surface.primary,
+        border: `1px solid ${theme.colors.border.default}`,
+        borderRadius: theme.borders.radius.large,
+        boxShadow: theme.effects.shadows.floating,
+        padding: theme.spacing.xl,
+        color: theme.colors.text.primary,
+      }}
+    >
+      <span style={{ color: theme.colors.primary.default }}>P1</span>
+      <span>Marc Márquez</span>
+    </div>
+  );
+}
+```
+
+## Override tokens
+
+Pass a partial token object via `overrides` to customise any value without forking the theme:
+
+```tsx
+import { MototrackTheme } from '@markec/mototrack-design.mototrack-theme';
+
+export function BrandedSection() {
+  return (
+    <MototrackTheme
+      overrides={{
+        colors: {
+          primary: {
+            default: '#a855f7',
+            hover: '#9333ea',
+            active: '#7e22ce',
+          },
+        },
+      }}
+    >
+      <FeatureSection />
+    </MototrackTheme>
+  );
+}
+```
+
+## Control the theme programmatically
+
+Use `useThemeController` to toggle or set the theme mode from any child component:
+
+```tsx
+import { useThemeController } from '@markec/mototrack-design.mototrack-theme';
+
+export function ThemeToggle() {
+  const { themeMode, toggleTheme } = useThemeController();
+
+  return (
+    <button type="button" onClick={() => toggleTheme()}>
+      {themeMode === 'dark' ? 'Switch to Default' : 'Switch to Midnight'}
+    </button>
+  );
+}
+```
+
+## Key design tokens
+
+| Token path | CSS variable | Value |
+|---|---|---|
+| `colors.surface.background` | `--colors-surface-background` | `#020617` |
+| `colors.surface.primary` | `--colors-surface-primary` | `#0f172a` |
+| `colors.surface.secondary` | `--colors-surface-secondary` | `#1e293b` |
+| `colors.primary.default` | `--colors-primary-default` | `#f97316` |
+| `colors.text.primary` | `--colors-text-primary` | `#f1f5f9` |
+| `colors.text.secondary` | `--colors-text-secondary` | `#94a3b8` |
+| `colors.text.muted` | `--colors-text-muted` | `#64748b` |
+| `colors.status.success.default` | `--colors-status-success-default` | `#22c55e` |
+| `colors.status.warning.default` | `--colors-status-warning-default` | `#eab308` |
+| `colors.status.danger.default` | `--colors-status-danger-default` | `#ef4444` |
+| `colors.status.info.default` | `--colors-status-info-default` | `#3b82f6` |
+| `effects.shadows.floating` | `--effects-shadows-floating` | floating panel shadow |
+| `effects.shadows.glow` | `--effects-shadows-glow` | orange glow |

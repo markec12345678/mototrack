@@ -1,0 +1,57 @@
+---
+description: "Monthly calendar grid with per-day intensity heatmap based on ride distance. Click a day to drill into rides. Navigate month with prev/next."
+labels: ["calendar", "heatmap", "rides", "mototrack"]
+---
+
+A monthly calendar component that visualises ride activity as a colour-intensity heatmap. Each day cell is shaded according to the total distance ridden that day — the brighter the cell, the more kilometres were covered. A bottom heat-bar scales proportionally to the month's maximum distance, giving an instant visual comparison across days.
+
+## Basic usage
+
+Provide a list of `RideEntry` objects (each with an `id`, `startedAt` epoch timestamp, and `distanceKm`) and an optional `onDayClick` callback to react when the user selects an active day.
+
+```tsx
+<RideCalendar
+  rides={[
+    { id: "r1", startedAt: Date.now(), distanceKm: 95.4, name: "Mountain Loop" },
+    { id: "r2", startedAt: Date.now() - 86400000, distanceKm: 42.1, name: "Morning Blast" },
+  ]}
+  onDayClick={(dateKey, rides) => console.log(dateKey, rides)}
+/>
+```
+
+## Intensity levels
+
+The heatmap uses four intensity tiers based on total daily distance:
+
+```tsx
+// Level 1 — < 30 km   (faint orange tint)
+// Level 2 — 30–80 km  (light orange)
+// Level 3 — 80–150 km (medium orange)
+// Level 4 — > 150 km  (full primary colour)
+
+<RideCalendar
+  rides={[
+    { id: "a", startedAt: new Date(2024, 5, 3).getTime(), distanceKm: 15 },
+    { id: "b", startedAt: new Date(2024, 5, 10).getTime(), distanceKm: 60 },
+    { id: "c", startedAt: new Date(2024, 5, 17).getTime(), distanceKm: 120 },
+    { id: "d", startedAt: new Date(2024, 5, 24).getTime(), distanceKm: 200 },
+  ]}
+  initialYear={2024}
+  initialMonth={5}
+/>
+```
+
+## Controlled initial month
+
+Use `initialYear` and `initialMonth` (0-indexed) to open the calendar on a specific month:
+
+```tsx
+<RideCalendar
+  rides={myRides}
+  initialYear={2024}
+  initialMonth={0}
+  onDayClick={(dateKey, rides) => {
+    console.log(`Clicked ${dateKey} — ${rides.length} ride(s)`);
+  }}
+/>
+```

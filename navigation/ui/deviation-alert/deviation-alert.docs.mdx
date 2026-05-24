@@ -1,0 +1,60 @@
+---
+description: "DeviationAlert — a small floating pill that escalates colour (green → yellow → orange → red) based on deviation state. When the state is 'lost', a Recompute button appears."
+labels: ["navigation", "alert", "pill", "deviation", "route"]
+---
+
+`DeviationAlert` is a compact floating pill designed for navigation UIs. It communicates the rider's deviation from the planned route through colour escalation and a contextual label. When the route is completely lost, a **Recompute** button is shown alongside the pill so the rider can request a fresh route calculation.
+
+## States
+
+The `state` prop drives both the colour and the label:
+
+| State | Colour | Label |
+|---|---|---|
+| `on-track` | 🟢 Green | On Track |
+| `minor` | 🟡 Yellow | Minor Deviation |
+| `moderate` | 🟠 Orange | Off Route |
+| `lost` | 🔴 Red | Route Lost |
+
+## Basic usage
+
+```tsx
+<DeviationAlert state="on-track" />
+```
+
+## With deviation distance
+
+Pass `deviationMeters` to show a distance badge inside the pill. Values below 1 000 m are displayed in metres; at or above 1 000 m they switch to kilometres.
+
+```tsx
+<DeviationAlert state="minor" deviationMeters={320} />
+```
+
+```tsx
+<DeviationAlert state="moderate" deviationMeters={1450} />
+```
+
+## Lost state with Recompute
+
+When `state="lost"` a Recompute button appears. Wire up `onRecompute` to trigger a new route calculation.
+
+```tsx
+<DeviationAlert
+  state="lost"
+  deviationMeters={2300}
+  onRecompute={() => recalculateRoute()}
+/>
+```
+
+## Floating on a map
+
+The pill is designed to be positioned absolutely over a map canvas using standard CSS:
+
+```tsx
+<div style={{ position: "relative" }}>
+  <MapCanvas />
+  <div style={{ position: "absolute", top: 14, left: "50%", transform: "translateX(-50%)" }}>
+    <DeviationAlert state="moderate" deviationMeters={275} onRecompute={() => {}} />
+  </div>
+</div>
+```

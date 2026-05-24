@@ -1,0 +1,65 @@
+---
+description: "Floating WeatherPanel for the track page. Displays temperature, feels like, wind speed with directional arrow, visibility, and humidity. Shows a rain/snow/storm proximity alert pill when the WMO weather code indicates precipitation. Supports compact and expanded display variants."
+labels: ["weather", "panel", "track", "floating", "ui"]
+---
+
+A floating weather panel designed for the MotoTrack track page. It fetches live weather data via the `useCurrentWeather` hook and presents it in a compact or expanded layout. A proximity alert pill appears automatically when rain, snow, or thunderstorm WMO codes are detected.
+
+## Basic usage
+
+Render the panel with a GPS location. It fetches weather automatically and defaults to the compact variant.
+
+```tsx
+<WeatherPanel
+  location={{ lat: 46.0569, lng: 14.5058 }}
+  variant="compact"
+/>
+```
+
+## Expanded variant
+
+The expanded variant reveals additional stats: visibility (km), humidity (%), and gust speed (km/h).
+
+```tsx
+<WeatherPanel
+  location={{ lat: 40.6401, lng: 14.0328 }}
+  variant="expanded"
+/>
+```
+
+## Providing a snapshot directly
+
+Pass a `snapshot` prop to bypass the hook — useful for SSR, testing, or when weather data is already available from a parent component.
+
+```tsx
+const snapshot = {
+  tempC: 14,
+  feelsLikeC: 12,
+  windKmh: 28,
+  windDirDeg: 315,
+  gustKmh: 42,
+  humidity: 87,
+  visibilityKm: 6.5,
+  precipMmH: 2.4,
+  wmoCode: 61,
+  label: "Light rain",
+  icon: "🌧️",
+  ts: 1716800000,
+};
+
+<WeatherPanel snapshot={snapshot} variant="expanded" />
+```
+
+## Alert pill behaviour
+
+The panel automatically shows a coloured alert pill when the WMO code indicates nearby precipitation:
+
+- **Rain** (WMO 51–65, 80–82) → `🌧️ Rain nearby` info pill
+- **Snow** (WMO 71–77, 85–86) → `❄️ Snow nearby` info pill
+- **Thunderstorm** (WMO 95–99) → `⛈️ Storm nearby` danger pill
+
+No pill is shown for clear, cloudy, or foggy conditions.
+
+## Toggle behaviour
+
+The panel includes a toggle button (chevron) in the top-right corner that switches between compact and expanded variants at runtime. The initial variant is controlled via the `variant` prop.

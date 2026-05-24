@@ -1,0 +1,36 @@
+declare const styles: {
+  readonly backdrop: string;
+  readonly backdropVisible: string;
+  readonly panel: string;
+  readonly panelOpen: string;
+  readonly header: string;
+  readonly headerLeft: string;
+  readonly headerText: string;
+  readonly headerTitle: string;
+  readonly headerSubtitle: string;
+  readonly headerActions: string;
+  readonly brainIconWrap: string;
+  readonly messageList: string;
+  readonly messages: string;
+  readonly emptyState: string;
+  readonly emptyIconWrap: string;
+  readonly emptyTitle: string;
+  readonly emptySubtitle: string;
+  readonly thinkingWrapper: string;
+  readonly thinkingAvatar: string;
+  readonly thinkingBubble: string;
+  readonly thinkingDots: string;
+  readonly dot: string;
+  readonly dotDelay1: string;
+  readonly dotDelay2: string;
+  readonly quickPromptsWrap: string;
+  readonly inputBar: string;
+  readonly inputWrap: string;
+  readonly input: string;
+  readonly inputActions: string;
+  readonly sendButton: string;
+  readonly sendButtonActive: string;
+  readonly sendIcon: string;
+};
+
+export default styles;

@@ -1,0 +1,403 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+}
+
+.title {
+  font-size: var(--typography-sizes-heading-h4);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: var(--typography-line-height-heading);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  margin: 4px 0 0;
+  line-height: var(--typography-line-height-relaxed);
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  flex-shrink: 0;
+}
+
+/* ── List ────────────────────────────────────────────────────────────────── */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Challenge Card ──────────────────────────────────────────────────────── */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-xl);
+  box-shadow: var(--effects-shadows-small);
+  box-sizing: border-box;
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    border-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--borders-radius-xl);
+  background: var(--effects-gradients-card);
+  opacity: 0;
+  transition: opacity var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(var(--interactions-hover-effect-translate-y));
+  box-shadow: var(--effects-shadows-medium);
+  border-color: rgba(249, 115, 22, 0.25);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.cardJoined {
+  border-color: rgba(249, 115, 22, 0.3);
+  background-color: var(--colors-surface-primary);
+}
+
+.cardJoined::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--colors-primary-default), var(--colors-primary-hover));
+  border-radius: var(--borders-radius-xl) var(--borders-radius-xl) 0 0;
+}
+
+/* ── Card Top Row ────────────────────────────────────────────────────────── */
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────────── */
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  font-size: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(249, 115, 22, 0.15);
+  transition: box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+}
+
+.card:hover .iconWrapper {
+  box-shadow: 0 0 24px rgba(249, 115, 22, 0.3);
+}
+
+/* ── Card Info ───────────────────────────────────────────────────────────── */
+
+.cardInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: var(--typography-line-height-heading);
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardDescription {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-secondary);
+  line-height: var(--typography-line-height-relaxed);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── XP Badge ────────────────────────────────────────────────────────────── */
+
+.xpBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--borders-radius-large);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.15));
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.xpIcon {
+  font-size: 12px;
+}
+
+.xpValue {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+}
+
+/* ── Meta Row ────────────────────────────────────────────────────────────── */
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.metaIcon {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.metaLabel {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+  white-space: nowrap;
+}
+
+.metaValue {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-secondary);
+  font-weight: var(--typography-font-weight-semi-bold);
+  white-space: nowrap;
+}
+
+.metaValueUrgent {
+  color: var(--colors-status-danger-default);
+}
+
+.metaValueWarning {
+  color: var(--colors-status-warning-default);
+}
+
+/* ── Progress Section ────────────────────────────────────────────────────── */
+
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.progressLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-muted);
+}
+
+.progressValue {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+}
+
+/* ── Card Footer ─────────────────────────────────────────────────────────── */
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.participantsInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.participantsIcon {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.participantsText {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.participantsCount {
+  color: var(--colors-text-secondary);
+  font-weight: var(--typography-font-weight-semi-bold);
+}
+
+.joinedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-status-success-default);
+  white-space: nowrap;
+}
+
+.joinedIcon {
+  font-size: 11px;
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: 48px var(--spacing-lg);
+  background-color: var(--colors-surface-primary);
+  border: 1px dashed var(--colors-border-default);
+  border-radius: var(--borders-radius-xl);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-secondary);
+  margin: 0;
+}
+
+.emptySubtitle {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  margin: 0;
+}
+
+/* ── Loading Skeleton ────────────────────────────────────────────────────── */
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.skeletonCard {
+  height: 160px;
+  border-radius: var(--borders-radius-xl);
+  background: linear-gradient(
+    90deg,
+    var(--colors-surface-primary) 0%,
+    var(--colors-surface-secondary) 50%,
+    var(--colors-surface-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border: 1px solid var(--colors-border-default);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .cardTop {
+    flex-wrap: wrap;
+  }
+
+  .xpBadge {
+    align-self: auto;
+  }
+
+  .metaRow {
+    gap: var(--spacing-md);
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

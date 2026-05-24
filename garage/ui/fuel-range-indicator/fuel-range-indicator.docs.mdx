@@ -1,0 +1,74 @@
+---
+description: "Floating fuel-range overlay shown during rides. Registered as MapOverlay (bottom-right). Compact pill with fuel % and range km, expands on click to a full fuel-gauge view with a 'najdi črpalko' action."
+labels: ["ui", "hud", "overlay", "fuel", "map", "ride"]
+---
+
+A fixed-position floating overlay designed to sit in the bottom-right corner of a map or ride screen.
+In its collapsed state it renders as a compact pill showing the current fuel percentage and estimated range in km.
+Clicking the pill expands it into a full panel with the `FuelGauge` component, a contextual warning banner (for low or critical fuel), and a **Najdi črpalko** action button.
+
+## Basic usage
+
+```tsx
+import { FuelRangeIndicator } from '@markec/garage.ui.fuel-range-indicator';
+
+<FuelRangeIndicator />
+```
+
+The component reads live data from the `useFuelRange` hook automatically.
+Pass `mockData` to override the hook for testing or static previews.
+
+## With mock data (static preview)
+
+```tsx
+import { FuelRangeIndicator } from '@markec/garage.ui.fuel-range-indicator';
+
+<FuelRangeIndicator
+  mockData={{
+    tankL: 18,
+    currentFuelL: 5.4,
+    consumptionLPer100: 5.8,
+    rangeKm: 93,
+    percent: 30,
+    status: 'warn',
+    refuelThresholdKm: 50,
+  }}
+  onFindStation={() => console.log('Navigate to nearest station')}
+/>
+```
+
+## Critical fuel state
+
+When `status` is `'empty'`, the pill border pulses red and the expanded panel shows an urgent warning banner with a prominent **Najdi črpalko** button.
+
+```tsx
+import { FuelRangeIndicator } from '@markec/garage.ui.fuel-range-indicator';
+
+<FuelRangeIndicator
+  mockData={{
+    tankL: 18,
+    currentFuelL: 1.8,
+    consumptionLPer100: 5.8,
+    rangeKm: 31,
+    percent: 10,
+    status: 'empty',
+    refuelThresholdKm: 50,
+  }}
+  onFindStation={() => console.log('SOS: find fuel station')}
+/>
+```
+
+## Registering as a MapOverlay
+
+The component is designed to be registered in the `MapOverlay` slot at the bottom-right position.
+It uses `position: fixed` internally, so it floats above any map or ride content without requiring a wrapper.
+
+```tsx
+import { FuelRangeIndicator } from '@markec/garage.ui.fuel-range-indicator';
+
+// Inside your MapOverlay slot registration:
+mapOverlaySlot.register({
+  position: 'bottom-right',
+  component: () => <FuelRangeIndicator onFindStation={() => navigate('/map/stations')} />,
+});
+```

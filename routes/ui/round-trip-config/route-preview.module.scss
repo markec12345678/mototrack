@@ -1,0 +1,27 @@
+.previewContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.routePath {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 0;
+  animation: drawRoute 1.2s var(--interactions-transitions-easing-ease-out) forwards;
+}
+
+@keyframes drawRoute {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

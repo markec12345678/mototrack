@@ -1,0 +1,75 @@
+---
+description: "A React hook that fetches Balkan motorcycle roads from a GraphQL API. Returns roads, loading, and error states. Supports filtering by country and difficulty, with seed-data fallback via mockData for testing."
+labels: ['hook', 'graphql', 'balkan-roads', 'motorcycle', 'react']
+---
+
+`useBalkanRoads` is a data-fetching hook that queries the `listRoads` GraphQL endpoint and returns
+a typed list of `BalkanRoad` entities. It supports optional country and difficulty filters, and
+accepts a `mockData` option to bypass the network entirely — ideal for tests and compositions.
+
+## Basic Usage
+
+```tsx
+function RoadList() {
+  const { roads, loading, error } = useBalkanRoads();
+
+  if (loading) return <p>Loading roads…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {roads.map((road) => (
+        <li key={road.id}>
+          {road.flag} {road.name} — {road.country} ({road.lengthKm} km)
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Filtering by Country and Difficulty
+
+```tsx
+function HardRoadsInMontenegro() {
+  const { roads, loading } = useBalkanRoads({
+    country: 'ME',
+    difficulty: 'Hard',
+  });
+
+  if (loading) return <p>Loading…</p>;
+
+  return (
+    <ul>
+      {roads.map((road) => (
+        <li key={road.id}>
+          {road.name} — ⭐ {road.rating} / 10
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Using Mock Data for Testing
+
+```tsx
+import { mockRoads } from '@markec/balkan-roads.hooks.use-balkan-roads';
+
+function TestableRoadList() {
+  const { roads, loading, error } = useBalkanRoads({ mockData: mockRoads });
+
+  if (loading) return <p>Loading…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {roads.map((road) => (
+        <li key={road.id}>
+          {road.flag} {road.name} ({road.difficulty})
+        </li>
+      ))}
+    </ul>
+  );
+}
+```

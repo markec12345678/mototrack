@@ -1,0 +1,80 @@
+---
+labels: ['forecast', 'weather', 'entity', 'open-meteo']
+description: "ForecastDay entity representing a single day in a weather forecast. Parses Open-Meteo daily forecast responses and maps WMO codes to Slovenian labels and emoji icons."
+---
+
+A component for a `ForecastDay` entity. Supports serialization and de-serialization of daily forecast objects and can be used from both backend and frontend.
+
+The `fromOpenMeteoDaily(json)` static method parses the `daily` block from an Open-Meteo `/v1/forecast` response into an array of `ForecastDay` instances, automatically resolving WMO weather codes to human-readable Slovenian labels and emoji icons.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { ForecastDay } from '@markec/weather.entities.forecast-day';
+
+const days = ForecastDay.fromOpenMeteoDaily(openMeteoResponse);
+
+days.forEach((day) => {
+  console.log(`${day.date}: ${day.icon} ${day.label}, ${day.tempMinC}–${day.tempMaxC}°C`);
+});
+```
+
+## Parse an Open-Meteo daily response
+
+Pass the full Open-Meteo JSON response directly to `fromOpenMeteoDaily`:
+
+```ts
+import { ForecastDay } from '@markec/weather.entities.forecast-day';
+
+const response = await fetch(
+  'https://api.open-meteo.com/v1/forecast?latitude=46.05&longitude=14.51' +
+  '&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,windspeed_10m_max,weathercode' +
+  '&timezone=Europe%2FBerlin'
+);
+const json = await response.json();
+
+const forecast: ForecastDay[] = ForecastDay.fromOpenMeteoDaily(json);
+// forecast[0].date      → "2024-06-01"
+// forecast[0].tempMinC  → 12.4
+// forecast[0].tempMaxC  → 24.8
+// forecast[0].label     → "Jasno"
+// forecast[0].icon      → "☀️"
+```
+
+## Create from a plain object and serialize
+
+```ts
+import { ForecastDay } from '@markec/weather.entities.forecast-day';
+
+const day = ForecastDay.from({
+  date: '2024-06-01',
+  tempMinC: 12.4,
+  tempMaxC: 24.8,
+  precipMm: 0.0,
+  windKmh: 10.2,
+  wmoCode: 0,
+  label: 'Jasno',
+  icon: '☀️',
+});
+
+const plain = day.toObject();
+// plain.id       → "2024-06-01"
+// plain.date     → "2024-06-01"
+// plain.tempMinC → 12.4
+```
+
+## Mock data
+
+Use `mockForecastDays` for development and testing purposes. Supports partial overrides per day:
+
+```ts
+import { mockForecastDays } from '@markec/weather.entities.forecast-day';
+
+// Default 7-day mock forecast
+const days = mockForecastDays();
+
+// Override the first day's max temperature
+const customDays = mockForecastDays([{ tempMaxC: 35.0 }]);
+```

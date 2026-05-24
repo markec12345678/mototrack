@@ -1,0 +1,38 @@
+---
+description: "Login page in Slovenian for the MotoTrack platform. Centered card with logo, 'Prijava' heading, email and password inputs, primary 'Prijavi se' button, and a link to the signup page. Shows demo credentials hint. Calls useAuth.login, redirects to / on success, and shows an error toast on failure."
+labels: ["login", "auth", "page", "slovenian", "mototrack"]
+---
+
+The `Login` component renders a full-page Slovenian login screen for the MotoTrack platform.
+It uses `useAuth` to authenticate the user and `react-router-dom`'s `useNavigate` to redirect on success.
+A demo credentials hint is shown below the form for easy onboarding.
+
+## Basic usage
+
+```tsx
+import { Login } from '@markec/mototrack-platform.pages.login';
+
+<Login />
+```
+
+## Custom redirect and signup path
+
+```tsx
+import { Login } from '@markec/mototrack-platform.pages.login';
+
+<Login
+  redirectTo="/nadzorna-plosca"
+  signupPath="/registracija"
+/>
+```
+
+## Inside a route
+
+```tsx
+import { Routes, Route } from 'react-router-dom';
+import { Login } from '@markec/mototrack-platform.pages.login';
+
+<Routes>
+  <Route path="/prijava" element={<Login redirectTo="/" signupPath="/registracija" />} />
+</Routes>
+```

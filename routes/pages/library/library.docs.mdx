@@ -1,0 +1,71 @@
+---
+description: "Route Library page — a grid of saved-route cards with mini-map SVG previews, mode badges, stats, and actions: load into planner, share, export GPX, delete. Supports filtering by route mode (paved, twisty, offroad)."
+labels: ["routes", "library", "ui", "page"]
+---
+
+The `Library` component is the `/routes` page of MotoTrack. It displays all of a rider's saved routes in a responsive card grid. Each card shows a live SVG mini-map preview of the route geometry, the route name, mode badge (Asfalt 🛣️ / Vijugasto 🌀 / Terensko 🏔️), distance, duration, and waypoint count. Four action buttons let the rider load the route into the planner, share it, export it as a GPX file, or delete it.
+
+## Basic usage
+
+```tsx
+import { Library } from '@markec/routes.pages.library';
+
+<Library
+  onLoadRoute={(route) => navigate(`/planner?routeId=${route.id}`)}
+  onShareRoute={(route) => openShareModal(route)}
+  onExportGpx={(route) => downloadGpx(route)}
+  onDeleteRoute={(route) => console.log('deleted', route.id)}
+/>
+```
+
+## With mock data (compositions / testing)
+
+Pass `mockRoutes` to bypass the GraphQL hook and render with static data.
+
+```tsx
+import { Library } from '@markec/routes.pages.library';
+import { mockRoutes } from '@markec/routes.pages.library/library.mock';
+
+<Library
+  mockRoutes={mockRoutes}
+  onLoadRoute={(route) => console.log('load', route.name)}
+  onShareRoute={(route) => console.log('share', route.name)}
+  onExportGpx={(route) => console.log('gpx', route.name)}
+  onDeleteRoute={(route) => console.log('delete', route.name)}
+/>
+```
+
+## Empty state
+
+When no routes are saved (or none match the active filter), the component renders an empty state with a CTA to the planner.
+
+```tsx
+import { Library } from '@markec/routes.pages.library';
+
+<Library
+  mockRoutes={[]}
+  onLoadRoute={() => {}}
+  onShareRoute={() => {}}
+  onExportGpx={() => {}}
+  onDeleteRoute={() => {}}
+/>
+```
+
+## Slot-injected extra actions
+
+Additional per-card actions can be injected via the `extraActions` prop (slot pattern). Each action receives the full `SavedRoute` object.
+
+```tsx
+import { Library } from '@markec/routes.pages.library';
+
+<Library
+  extraActions={[
+    {
+      key: 'duplicate',
+      label: 'Duplicate',
+      icon: '📋',
+      handler: (route) => duplicateRoute(route),
+    },
+  ]}
+/>
+```

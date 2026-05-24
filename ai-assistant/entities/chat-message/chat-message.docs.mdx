@@ -1,0 +1,59 @@
+---
+labels: ['chat', 'message', 'entity', 'typegoose', 'ai']
+description: "A ChatMessage entity with Typegoose model support and sessionId index. Provides static helpers to create system, user, and assistant messages."
+---
+
+A `ChatMessage` entity that can be used across the frontend and backend. It is backed by a Typegoose model with a `sessionId` index for efficient session-based queries. The class exposes three static factory helpers — `ChatMessage.system()`, `ChatMessage.user()`, and `ChatMessage.assistant()` — to create typed messages by role.
+
+## Create messages using helpers
+
+Use the static helpers to quickly create role-typed messages:
+
+```tsx
+import { ChatMessage } from '@markec/ai-assistant.entities.chat-message';
+
+const systemPrompt = ChatMessage.system('You are a helpful AI assistant.', 'session-abc');
+const userMessage  = ChatMessage.user('What is the capital of France?', 'session-abc');
+const aiReply      = ChatMessage.assistant('The capital of France is Paris.', 'session-abc');
+
+console.log(systemPrompt.role);  // 'system'
+console.log(userMessage.role);   // 'user'
+console.log(aiReply.role);       // 'assistant'
+```
+
+## Deserialize from a plain object
+
+Use `ChatMessage.from()` to reconstruct an entity from a plain object (e.g. from an API response or database document):
+
+```tsx
+import { ChatMessage } from '@markec/ai-assistant.entities.chat-message';
+
+const plain = {
+  id: 'msg-001',
+  sessionId: 'session-abc',
+  role: 'user' as const,
+  content: 'Hello, world!',
+  createdAt: new Date(),
+};
+
+const message = ChatMessage.from(plain);
+console.log(message.toObject());
+// { id: 'msg-001', sessionId: 'session-abc', role: 'user', content: 'Hello, world!', createdAt: Date }
+```
+
+## Use mock data for development and testing
+
+The `mockChatMessages` helper returns a ready-to-use list of `ChatMessage` instances and supports partial overrides:
+
+```tsx
+import { mockChatMessages } from '@markec/ai-assistant.entities.chat-message';
+
+// Default mock set (system + user + assistant messages)
+const messages = mockChatMessages();
+
+// Override a specific field across all mocks
+const sessionMessages = mockChatMessages({ sessionId: 'my-session-id' });
+
+console.log(sessionMessages.map((m) => m.role));
+// ['system', 'user', 'assistant', 'user', 'assistant']
+```

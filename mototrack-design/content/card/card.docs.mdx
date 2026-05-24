@@ -1,0 +1,66 @@
+---
+description: "Card container component for the MotoTrack design system. Supports default, elevated, outlined, and danger variants with configurable padding and an optional hover lift effect."
+labels: ["card", "container", "ui", "mototrack"]
+---
+
+A flexible card container that follows the MotoTrack dark theme. Cards are the primary surface for grouping related content — from race stats and rider profiles to alerts and data panels.
+
+## Variants
+
+Four visual variants are available to communicate hierarchy and intent:
+
+```tsx
+<Card variant="default" padding="md">
+  Standard card with a subtle border and minimal shadow.
+</Card>
+
+<Card variant="elevated" padding="md">
+  Deeper background with a prominent shadow for featured content.
+</Card>
+
+<Card variant="outlined" padding="md">
+  Transparent background with a strong border for secondary containers.
+</Card>
+
+<Card variant="danger" padding="md">
+  Danger-tinted surface for alerts and destructive action zones.
+</Card>
+```
+
+## Hover Lift Effect
+
+Enable the `hoverLift` prop to add a smooth translate + shadow animation on hover. Works with all variants.
+
+```tsx
+<Card variant="elevated" padding="lg" hoverLift>
+  <div>Top Speed</div>
+  <div>312 km/h</div>
+</Card>
+```
+
+## Configurable Padding
+
+Choose from five padding sizes to suit the content density:
+
+```tsx
+<Card padding="none">No padding — full-bleed content</Card>
+<Card padding="sm">Small padding — compact layouts</Card>
+<Card padding="md">Medium padding — default</Card>
+<Card padding="lg">Large padding — comfortable reading</Card>
+<Card padding="xl">Extra large padding — hero-style cards</Card>
+```
+
+## Clickable Card
+
+Pass an `onClick` handler to make the card interactive. A pointer cursor is applied automatically.
+
+```tsx
+<Card
+  variant="default"
+  padding="md"
+  hoverLift
+  onClick={() => console.log('Card clicked')}
+>
+  Click me to navigate
+</Card>
+```

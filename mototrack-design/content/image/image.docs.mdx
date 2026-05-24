@@ -1,0 +1,88 @@
+---
+description: "Image component with lazy loading, aspect ratio control, object-fit options, rounded corners, and fallback alt rendering for the MotoTrack design system."
+labels: ["image", "media", "lazy-loading", "ui"]
+---
+
+A flexible, accessible image component built for the MotoTrack design system.
+It handles lazy loading via `IntersectionObserver`, enforces aspect ratios, supports all CSS `object-fit` modes, offers border radius presets, and gracefully falls back to a placeholder with the `alt` text when the image fails to load or no `src` is provided.
+
+## Basic usage
+
+```tsx
+<Image
+  src="https://example.com/race-track.jpg"
+  alt="Race track at dusk"
+  aspectRatio="16/9"
+  borderRadius="large"
+/>
+```
+
+## Aspect ratio control
+
+Use the `aspectRatio` prop to lock the container to a specific ratio. The image fills the space according to the `objectFit` setting.
+
+```tsx
+<Image
+  src="https://example.com/helmet.jpg"
+  alt="Racing helmet"
+  aspectRatio="1/1"
+  objectFit="cover"
+  borderRadius="full"
+  caption="Racing helmet — square crop"
+/>
+```
+
+## Fallback rendering
+
+When `src` is missing or the image fails to load, a placeholder icon and the `alt` text are displayed inside the container.
+
+```tsx
+<Image
+  alt="Image could not be loaded"
+  aspectRatio="4/3"
+  borderRadius="medium"
+/>
+```
+
+## Lazy loading
+
+Lazy loading is enabled by default. Images only load when they scroll into the viewport, reducing initial page weight. Disable it for above-the-fold images.
+
+```tsx
+<Image
+  src="https://example.com/hero.jpg"
+  alt="Hero banner"
+  aspectRatio="21/9"
+  objectFit="cover"
+  borderRadius="none"
+  lazy={false}
+/>
+```
+
+## Object-fit options
+
+Control how the image fills its container with the `objectFit` prop.
+
+```tsx
+<Image
+  src="https://example.com/photo.jpg"
+  alt="Mountain road"
+  aspectRatio="4/3"
+  objectFit="contain"
+  borderRadius="large"
+/>
+```
+
+## Border radius presets
+
+Choose from `none`, `xs`, `small`, `medium`, `large`, `xl`, `xxl`, or `full`.
+
+```tsx
+<Image
+  src="https://example.com/avatar.jpg"
+  alt="Rider avatar"
+  aspectRatio="1/1"
+  borderRadius="full"
+  width="80px"
+/>
+```

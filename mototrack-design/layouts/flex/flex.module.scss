@@ -1,0 +1,55 @@
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+$mobile: 0px;
+$tablet: 480px;
+$laptop: 1024px;
+$desktop: 1280px;
+
+// ─── Default CSS variable fallbacks ──────────────────────────────────────────
+.flex {
+  display: flex;
+  box-sizing: border-box;
+
+  // Mobile-first base values (resolved from --flex-*-mobile or scalar)
+  flex-direction: var(--flex-direction-mobile, row);
+  gap: var(--flex-gap-mobile, 0);
+  align-items: var(--flex-align-mobile, stretch);
+  justify-content: var(--flex-justify-mobile, flex-start);
+  flex-wrap: var(--flex-wrap-mobile, nowrap);
+
+  @media (min-width: $tablet) {
+    flex-direction: var(--flex-direction-tablet, var(--flex-direction-mobile, row));
+    gap: var(--flex-gap-tablet, var(--flex-gap-mobile, 0));
+    align-items: var(--flex-align-tablet, var(--flex-align-mobile, stretch));
+    justify-content: var(--flex-justify-tablet, var(--flex-justify-mobile, flex-start));
+    flex-wrap: var(--flex-wrap-tablet, var(--flex-wrap-mobile, nowrap));
+  }
+
+  @media (min-width: $laptop) {
+    flex-direction: var(--flex-direction-laptop, var(--flex-direction-tablet, var(--flex-direction-mobile, row)));
+    gap: var(--flex-gap-laptop, var(--flex-gap-tablet, var(--flex-gap-mobile, 0)));
+    align-items: var(--flex-align-laptop, var(--flex-align-tablet, var(--flex-align-mobile, stretch)));
+    justify-content: var(--flex-justify-laptop, var(--flex-justify-tablet, var(--flex-justify-mobile, flex-start)));
+    flex-wrap: var(--flex-wrap-laptop, var(--flex-wrap-tablet, var(--flex-wrap-mobile, nowrap)));
+  }
+
+  @media (min-width: $desktop) {
+    flex-direction: var(--flex-direction-desktop, var(--flex-direction-laptop, var(--flex-direction-tablet, var(--flex-direction-mobile, row))));
+    gap: var(--flex-gap-desktop, var(--flex-gap-laptop, var(--flex-gap-tablet, var(--flex-gap-mobile, 0))));
+    align-items: var(--flex-align-desktop, var(--flex-align-laptop, var(--flex-align-tablet, var(--flex-align-mobile, stretch))));
+    justify-content: var(--flex-justify-desktop, var(--flex-justify-laptop, var(--flex-justify-tablet, var(--flex-justify-mobile, flex-start))));
+    flex-wrap: var(--flex-wrap-desktop, var(--flex-wrap-laptop, var(--flex-wrap-tablet, var(--flex-wrap-mobile, nowrap))));
+  }
+}
+
+// ─── Modifiers ────────────────────────────────────────────────────────────────
+.inline {
+  display: inline-flex;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fullHeight {
+  height: 100%;
+}

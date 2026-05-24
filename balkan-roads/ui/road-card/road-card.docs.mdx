@@ -1,0 +1,51 @@
+---
+description: "RoadCard is a compact card component displaying a Balkan road's flag, name, type, length, and star rating. Used in country browsers and search result grids."
+labels: ['ui', 'card', 'road', 'balkan-roads']
+---
+
+A compact, visually rich card for displaying a single Balkan road entry. It shows the country flag emoji, road name, type badge, difficulty badge, length in kilometres, and a 5-star rating derived from the 0–10 rating scale.
+
+Designed to be used in country browser grids and search result lists.
+
+## Basic usage
+
+```tsx
+<RoadCard
+  id="vrsic-pass"
+  name="Vršič Pass"
+  country="SI"
+  type="Pass"
+  lengthKm={25.4}
+  rating={9.2}
+  difficulty="Hard"
+/>
+```
+
+## Clickable card with navigation callback
+
+Pass an `onClick` handler to make the card interactive. The card will lift on hover and call `onClick` with the road `id`.
+
+```tsx
+<RoadCard
+  id="transfagarasan"
+  name="Transfăgărășan"
+  country="RO"
+  type="Pass"
+  lengthKm={90.0}
+  rating={9.8}
+  difficulty="Expert"
+  onClick={(id) => navigate(`/roads/${id}`)}
+/>
+```
+
+## Grid layout in a country browser
+
+RoadCard is designed to sit inside a responsive CSS grid. Pair it with a grid wrapper to build a full country browser or search results page.
+
+```tsx
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
+  <RoadCard id="vrsic-pass" name="Vršič Pass" country="SI" type="Pass" lengthKm={25.4} rating={9.2} difficulty="Hard" />
+  <RoadCard id="adriatic-coast" name="Adriatic Coastal Road" country="HR" type="Coastal" lengthKm={178.5} rating={8.7} difficulty="Easy" />
+  <RoadCard id="transfagarasan" name="Transfăgărășan" country="RO" type="Pass" lengthKm={90.0} rating={9.8} difficulty="Expert" />
+</div>
+```

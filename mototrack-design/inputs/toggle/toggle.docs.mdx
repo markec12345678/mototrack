@@ -1,0 +1,102 @@
+---
+description: "Toggle/switch component for boolean settings such as voice on/off, night mode, and auto-pause."
+labels: ["toggle", "switch", "input", "settings", "boolean"]
+---
+
+A smooth, animated toggle/switch component built for the MotoTrack design system.
+Supports controlled and uncontrolled usage, three sizes, four colour variants, optional icons inside the knob, and accessible label + description pairs.
+
+## Basic usage
+
+```tsx
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+<Toggle label="Voice Guidance" defaultChecked />
+```
+
+## Controlled toggle
+
+Use `checked` and `onChange` together to drive the toggle from external state.
+
+```tsx
+import { useState } from 'react';
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+function VoiceSwitch() {
+  const [on, setOn] = useState(false);
+
+  return (
+    <Toggle
+      label="Voice Guidance"
+      description="Spoken turn-by-turn instructions"
+      checked={on}
+      onChange={(value) => setOn(value)}
+      variant="default"
+    />
+  );
+}
+```
+
+## Sizes
+
+Three sizes are available: `sm`, `md` (default), and `lg`.
+
+```tsx
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+<>
+  <Toggle size="sm" label="Small" defaultChecked />
+  <Toggle size="md" label="Medium" defaultChecked />
+  <Toggle size="lg" label="Large" defaultChecked />
+</>
+```
+
+## Colour variants
+
+Use `variant` to communicate the semantic meaning of the setting.
+
+```tsx
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+<>
+  <Toggle variant="default" label="Default"  defaultChecked />
+  <Toggle variant="success" label="Success"  defaultChecked />
+  <Toggle variant="warning" label="Warning"  defaultChecked />
+  <Toggle variant="danger"  label="Danger"   defaultChecked />
+</>
+```
+
+## With icon in the knob
+
+Pass any React node as `icon` to render it inside the toggle knob.
+
+```tsx
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+const MoonIcon = () => (
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
+<Toggle
+  label="Night Mode"
+  description="Dim display for low-light riding"
+  icon={<MoonIcon />}
+  variant="warning"
+  defaultChecked
+/>
+```
+
+## Disabled state
+
+```tsx
+import { Toggle } from '@markec/mototrack-design.inputs.toggle';
+
+<Toggle
+  label="Auto-Pause (locked)"
+  description="Controlled by your team admin"
+  disabled
+  defaultChecked
+/>
+```

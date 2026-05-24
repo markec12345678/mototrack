@@ -1,0 +1,102 @@
+---
+description: "React hook for managing a full AI chat session in the MotoTrack assistant. Executes the GraphQL chat mutation, maintains in-memory session history, persists messages to localStorage under mototrack:chat, and optionally captures voice input via SpeechRecognition (sl-SI locale)."
+labels: ['hook', 'react', 'graphql', 'chat', 'ai', 'voice', 'mototrack']
+---
+
+`useMotoChat` is the core data hook powering the MotoTrack AI assistant chat experience.
+It manages the full conversation lifecycle: sending messages via the GraphQL `chat` mutation,
+maintaining an in-memory session history, persisting it to `localStorage`, and optionally
+capturing voice input via the browser's `SpeechRecognition` API with the Slovenian (`sl-SI`) locale.
+
+## Basic Usage
+
+```tsx
+function ChatPanel() {
+  const { messages, send, isThinking, clear } = useMotoChat();
+
+  return (
+    <div>
+      <ul>
+        {messages.map((msg, i) => (
+          <li key={i}>
+            <strong>{msg.role}:</strong> {msg.content}
+          </li>
+        ))}
+      </ul>
+      {isThinking && <p>Asistent razmišlja…</p>}
+      <button onClick={() => send('Predlagaj pot po Soški dolini.')}>
+        Pošlji
+      </button>
+      <button onClick={() => clear()}>Počisti</button>
+    </div>
+  );
+}
+```
+
+## With Voice Input
+
+```tsx
+function VoiceChatPanel() {
+  const {
+    messages,
+    send,
+    isThinking,
+    isVoiceSupported,
+    isListening,
+    startListening,
+    stopListening,
+  } = useMotoChat();
+
+  return (
+    <div>
+      <ul>
+        {messages.map((msg, i) => (
+          <li key={i}>
+            <strong>{msg.role}:</strong> {msg.content}
+          </li>
+        ))}
+      </ul>
+      {isThinking && <p>Asistent razmišlja…</p>}
+      {isVoiceSupported && (
+        <button onClick={() => (isListening ? stopListening() : startListening())}>
+          {isListening ? '🛑 Ustavi' : '🎙️ Govori'}
+        </button>
+      )}
+      <button onClick={() => send('Kakšno bo vreme jutri v Bovcu?')}>
+        Pošlji
+      </button>
+    </div>
+  );
+}
+```
+
+## With Location Context
+
+```tsx
+function LocationAwareChatPanel() {
+  const { messages, send, isThinking } = useMotoChat();
+
+  const handleSend = async (text: string) => {
+    const context = {
+      currentLocation: { lat: 46.2524, lng: 13.8936 }, // Bovec, Slovenia
+    };
+    await send(text, context);
+  };
+
+  return (
+    <div>
+      <ul>
+        {messages.map((msg, i) => (
+          <li key={i}>
+            <strong>{msg.role}:</strong> {msg.content}
+          </li>
+        ))}
+      </ul>
+      {isThinking && <p>Asistent razmišlja…</p>}
+      <button onClick={() => handleSend('Kje je najbližja bencinska črpalka?')}>
+        Pošlji z lokacijo
+      </button>
+    </div>
+  );
+}
+```

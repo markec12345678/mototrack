@@ -1,0 +1,318 @@
+// ─── Root ────────────────────────────────────────────────────────────────────
+
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--typography-font-family);
+  z-index: var(--interactions-z-index-overlay);
+}
+
+// ─── Pill ────────────────────────────────────────────────────────────────────
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 6px 12px 6px 10px;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-xl);
+  box-shadow: var(--effects-shadows-floating);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: var(--colors-surface-secondary);
+    border-color: var(--colors-border-strong);
+    box-shadow: var(--effects-shadows-raised);
+  }
+
+  &:focus-visible {
+    border-color: var(--borders-focus-color);
+    box-shadow: 0 0 0 var(--borders-focus-offset) var(--borders-focus-color);
+  }
+}
+
+.pillExpanded {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-border-strong);
+  border-bottom-left-radius: var(--borders-radius-small);
+  border-bottom-right-radius: var(--borders-radius-small);
+  box-shadow: var(--effects-shadows-raised);
+}
+
+.pillIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-primary-default);
+  flex-shrink: 0;
+}
+
+.pillStats {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.statValue {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-default);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+.divider {
+  width: 1px;
+  height: 12px;
+  background-color: var(--colors-border-default);
+  flex-shrink: 0;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pillChevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--colors-text-muted);
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+// ─── Chevron animation ───────────────────────────────────────────────────────
+
+.chevron {
+  transition: transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+// ─── Score color overrides ───────────────────────────────────────────────────
+
+.score-success {
+  color: var(--colors-status-success-default);
+}
+
+.score-warning {
+  color: var(--colors-status-warning-default);
+}
+
+.score-danger {
+  color: var(--colors-status-danger-default);
+}
+
+.score-neutral {
+  color: var(--colors-text-muted);
+}
+
+// ─── Detail panel ────────────────────────────────────────────────────────────
+
+.panel {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  min-width: 300px;
+  max-width: 340px;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-strong);
+  border-top: none;
+  border-radius: 0 var(--borders-radius-large) var(--borders-radius-large) var(--borders-radius-large);
+  box-shadow: var(--effects-shadows-panel);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-height var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  box-sizing: border-box;
+}
+
+.panelOpen {
+  max-height: 400px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panelInner {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+// ─── Panel header ────────────────────────────────────────────────────────────
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelTitle {
+  font-size: var(--typography-sizes-body-medium);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-default);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+.offlineIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--colors-text-muted);
+}
+
+// ─── Stats grid ──────────────────────────────────────────────────────────────
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-sm) var(--spacing-xs);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-medium);
+  border: 1px solid var(--colors-border-default);
+  box-sizing: border-box;
+}
+
+.statCardValue {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-default);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.statCardLabel {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+  text-align: center;
+  line-height: var(--typography-line-height-tight);
+}
+
+// ─── Bar section ─────────────────────────────────────────────────────────────
+
+.barSection {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// ─── Info text ───────────────────────────────────────────────────────────────
+
+.infoText {
+  margin: 0;
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  line-height: var(--typography-line-height-relaxed);
+}
+
+// ─── Clear button ────────────────────────────────────────────────────────────
+
+.clearBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+  padding: 8px 16px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--borders-radius-large);
+  color: var(--colors-status-danger-default);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  box-sizing: border-box;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(239, 68, 68, 0.18);
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+
+  &:disabled {
+    opacity: var(--effects-opacity-disabled);
+    cursor: var(--interactions-cursor-disabled);
+  }
+}
+
+.clearBtnIcon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.clearBtnClearing {
+  opacity: 0.7;
+}
+
+.clearBtnCleared {
+  background-color: var(--colors-status-success-subtle);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: var(--colors-status-success-default);
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .pill {
+    padding: 5px 10px 5px 8px;
+    gap: var(--spacing-xs);
+  }
+
+  .pillStats {
+    gap: var(--spacing-xs);
+  }
+
+  .pillBadge {
+    display: none;
+  }
+
+  .panel {
+    min-width: 260px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,215 @@
+/* ── Root wrapper ─────────────────────────────────────────────────────────── */
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  position: relative;
+  z-index: var(--interactions-z-index-tooltip);
+}
+
+/* ── Pill ─────────────────────────────────────────────────────────────────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 8px;
+  border-radius: var(--borders-radius-full);
+  border: 1px solid transparent;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--effects-shadows-raised);
+  transition:
+    background-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+/* ── State colour variants ────────────────────────────────────────────────── */
+
+.onTrack {
+  background-color: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.45);
+  color: #4ade80;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2), var(--effects-shadows-raised);
+}
+
+.minor {
+  background-color: rgba(234, 179, 8, 0.15);
+  border-color: rgba(234, 179, 8, 0.45);
+  color: #facc15;
+  box-shadow: 0 0 12px rgba(234, 179, 8, 0.2), var(--effects-shadows-raised);
+}
+
+.moderate {
+  background-color: rgba(249, 115, 22, 0.15);
+  border-color: rgba(249, 115, 22, 0.45);
+  color: var(--colors-primary-default);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.25), var(--effects-shadows-raised);
+}
+
+.lost {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.3), var(--effects-shadows-raised);
+  animation: lostPulse 2s ease-in-out infinite;
+}
+
+/* ── Icon slot ────────────────────────────────────────────────────────────── */
+
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Label ────────────────────────────────────────────────────────────────── */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Distance badge ───────────────────────────────────────────────────────── */
+
+.distance {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: var(--borders-radius-small);
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 10px;
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  font-family: monospace;
+  color: inherit;
+}
+
+/* ── Pulsing dot ──────────────────────────────────────────────────────────── */
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.dot-onTrack {
+  background-color: #4ade80;
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.8);
+}
+
+.dot-minor {
+  background-color: #facc15;
+  box-shadow: 0 0 6px rgba(250, 204, 21, 0.8);
+}
+
+.dot-moderate {
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+}
+
+.dot-lost {
+  background-color: #f87171;
+  box-shadow: 0 0 6px rgba(248, 113, 113, 0.8);
+}
+
+/* ── Recompute button ─────────────────────────────────────────────────────── */
+
+.recomputeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px 5px 10px;
+  border-radius: var(--borders-radius-full);
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+  cursor: var(--interactions-cursor-pointer);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.2), var(--effects-shadows-raised);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+.recomputeBtn:hover {
+  background-color: rgba(239, 68, 68, 0.35);
+  border-color: rgba(239, 68, 68, 0.85);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), var(--effects-shadows-floating);
+}
+
+.recomputeBtn:active {
+  transform: translateY(0);
+  background-color: rgba(239, 68, 68, 0.45);
+}
+
+.recomputeBtn:focus-visible {
+  outline: var(--borders-focus-width) var(--borders-focus-style) var(--borders-focus-color);
+  outline-offset: var(--borders-focus-offset);
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.75);
+  }
+}
+
+@keyframes lostPulse {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.3), var(--effects-shadows-raised);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(239, 68, 68, 0.55), var(--effects-shadows-raised);
+  }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .pill {
+    font-size: 10px;
+    padding: 4px 10px 4px 7px;
+    gap: 5px;
+  }
+
+  .recomputeBtn {
+    font-size: 10px;
+    padding: 4px 10px 4px 8px;
+  }
+}

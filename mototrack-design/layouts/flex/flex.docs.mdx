@@ -1,0 +1,82 @@
+---
+description: "Flex layout primitive with direction, gap, align, justify, and wrap props. Supports mobile-first responsive helpers via breakpoint object syntax."
+labels: ["layout", "flex", "responsive", "primitive"]
+---
+
+A composable, mobile-first flex container that covers the most common layout needs.
+All layout props accept either a scalar value or a responsive object `{ mobile, tablet, laptop, desktop }`.
+
+## Basic usage
+
+```tsx
+<Flex direction="row" gap="md" align="center" justify="space-between">
+  <span>Left</span>
+  <span>Right</span>
+</Flex>
+```
+
+## Gap tokens
+
+Use the `gap` prop with spacing tokens to control the space between children.
+
+```tsx
+<Flex gap="lg" align="center">
+  <div>Item A</div>
+  <div>Item B</div>
+  <div>Item C</div>
+</Flex>
+```
+
+Available gap values: `none` | `xs` | `sm` | `md` | `lg` | `xl` | `xxl`
+
+## Responsive layout
+
+Pass a breakpoint object to any layout prop to change behaviour at different screen sizes.
+Values cascade upward — a `mobile` value applies until overridden by a larger breakpoint.
+
+```tsx
+<Flex
+  direction={{ mobile: 'column', laptop: 'row' }}
+  gap={{ mobile: 'md', laptop: 'xl' }}
+  wrap="wrap"
+>
+  <div>Card 1</div>
+  <div>Card 2</div>
+  <div>Card 3</div>
+</Flex>
+```
+
+## Rendering as a semantic element
+
+Use the `as` prop to render the Flex container as any HTML element while keeping flex layout behaviour.
+
+```tsx
+<Flex as="nav" justify="space-between" align="center" gap="md">
+  <span>Logo</span>
+  <Flex as="ul" gap="sm" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+    <li>Home</li>
+    <li>About</li>
+    <li>Contact</li>
+  </Flex>
+</Flex>
+```
+
+## Inline flex
+
+Set `inline` to render as `inline-flex` instead of `flex`.
+
+```tsx
+<Flex inline gap="xs" align="center">
+  <span>●</span>
+  <span>Status: Live</span>
+</Flex>
+```
+
+## Full-width and full-height
+
+```tsx
+<Flex fullWidth justify="space-between" align="center">
+  <span>Start</span>
+  <span>End</span>
+</Flex>
+```

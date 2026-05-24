@@ -1,0 +1,55 @@
+---
+labels: ['speed-camera', 'entity', 'safety', 'balkans']
+description: "SpeedCamera entity representing a speed enforcement camera. Includes a seed array of 20 known speed cameras across 10 Balkan countries with real coordinates."
+---
+
+A component for the `SpeedCamera` entity. Supports serialization and de-serialization of speed camera objects and can be used from both backend and frontend.
+
+Speed cameras are categorised by type: `fixed`, `mobile`, `average`, `red-light`, or `section`. Each camera carries its GPS coordinates, enforced speed limit, and the country it belongs to.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { SpeedCamera } from '@markec/safety.entities.speed-camera';
+
+const camera = SpeedCamera.from({
+  id: 'sc-001',
+  lat: 46.0419,
+  lng: 14.4726,
+  speedLimit: 50,
+  type: 'fixed',
+  country: 'Slovenia',
+});
+
+console.log(camera.toObject());
+```
+
+## Mock data
+
+Use the built-in seed data for development and testing. The seed contains 20 real-world speed cameras spread across 10 Balkan countries (Slovenia, Croatia, Serbia, Bulgaria, Romania, Bosnia & Herzegovina, North Macedonia, Montenegro, Albania, Greece).
+
+```ts
+import { mockSpeedCameras, mockSpeedCamera } from '@markec/safety.entities.speed-camera';
+
+// All 20 seed cameras
+const cameras = mockSpeedCameras();
+
+// A single camera with optional field overrides
+const custom = mockSpeedCamera({ speedLimit: 130, type: 'average' });
+```
+
+## Partial overrides
+
+Each mock helper accepts partial overrides so you can tailor the data to your test scenario without rebuilding the whole object:
+
+```ts
+import { mockSpeedCameras } from '@markec/safety.entities.speed-camera';
+
+// Override the speed limit of the first camera only
+const cameras = mockSpeedCameras([{ speedLimit: 999 }]);
+
+console.log(cameras[0].speedLimit); // 999
+console.log(cameras[1].speedLimit); // original seed value
+```

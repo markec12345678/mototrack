@@ -1,0 +1,51 @@
+---
+description: "Editable waypoint list with drag-and-drop reordering, inline name editing, coordinate display, and an empty-state hint to click on the map."
+labels: ["routes", "waypoints", "drag-and-drop", "editable"]
+---
+
+An interactive waypoint list panel for route planning. Each row shows an index badge, an editable name field, the GPS coordinates, a drag handle for HTML5 drag-and-drop reordering, and a delete button. When the list is empty, a friendly hint prompts the user to click on the map.
+
+## Basic usage
+
+```tsx
+import { WaypointList } from '@markec/routes.ui.waypoint-list';
+
+const waypoints = [
+  { id: 'wp-1', name: 'Ljubljana', lat: 46.05108, lng: 14.50513 },
+  { id: 'wp-2', name: 'Maribor', lat: 46.55472, lng: 15.64667 },
+];
+
+<WaypointList
+  waypoints={waypoints}
+  onNameChange={(id, name) => console.log(id, name)}
+  onDelete={(id) => console.log('delete', id)}
+  onReorder={(reordered) => console.log(reordered)}
+/>
+```
+
+## Empty state
+
+When `waypoints` is an empty array (or omitted), the component renders a hint to click on the map.
+
+```tsx
+<WaypointList waypoints={[]} />
+```
+
+## Controlled reordering
+
+Drag a row by its handle and drop it onto another row. The `onReorder` callback receives the full reordered array so you can update your state.
+
+```tsx
+const [waypoints, setWaypoints] = useState(initialWaypoints);
+
+<WaypointList
+  waypoints={waypoints}
+  onReorder={(reordered) => setWaypoints(reordered)}
+  onDelete={(id) => setWaypoints((prev) => prev.filter((wp) => wp.id !== id))}
+  onNameChange={(id, name) =>
+    setWaypoints((prev) =>
+      prev.map((wp) => (wp.id === id ? { ...wp, name } : wp))
+    )
+  }
+/>
+```

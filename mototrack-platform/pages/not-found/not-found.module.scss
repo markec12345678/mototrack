@@ -1,0 +1,151 @@
+.root {
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────────── */
+
+.heroWrapper {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.2) 0%,
+    rgba(2, 6, 23, 0.6) 60%,
+    rgba(2, 6, 23, 1) 100%
+  );
+}
+
+.errorCode {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 140px;
+  font-weight: var(--typography-font-weight-extra-bold);
+  font-family: var(--typography-font-family);
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(249, 115, 22, 0.5);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 0 0 80px rgba(249, 115, 22, 0.2);
+}
+
+/* ── Content ───────────────────────────────────────────────────────────────── */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+}
+
+/* ── Badge ─────────────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 5px 14px;
+  background-color: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: var(--borders-radius-full);
+}
+
+.badgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.8);
+  flex-shrink: 0;
+}
+
+.badgeLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--colors-primary-default);
+  font-family: var(--typography-font-family);
+}
+
+/* ── Heading ───────────────────────────────────────────────────────────────── */
+
+.heading {
+  max-width: 600px;
+}
+
+/* ── Subtitle ──────────────────────────────────────────────────────────────── */
+
+.subtitle {
+  max-width: 480px;
+  line-height: var(--typography-line-height-relaxed);
+}
+
+/* ── Actions ───────────────────────────────────────────────────────────────── */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* ── Hints ─────────────────────────────────────────────────────────────────── */
+
+.hints {
+  margin-top: var(--spacing-xs);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  width: 100%;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .heroWrapper {
+    height: 260px;
+  }
+
+  .errorCode {
+    font-size: 80px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .heroWrapper {
+    height: 340px;
+  }
+
+  .errorCode {
+    font-size: 110px;
+  }
+}

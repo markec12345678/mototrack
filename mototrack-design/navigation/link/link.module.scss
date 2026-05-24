@@ -1,0 +1,115 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-medium);
+  line-height: var(--typography-line-height-base);
+  text-decoration: none;
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  border-radius: var(--borders-radius-small);
+  position: relative;
+}
+
+/* ── Default variant ─────────────────────────────────────────────────────── */
+
+.default {
+  color: var(--colors-text-default);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.default:hover {
+  color: var(--colors-primary-default);
+  text-decoration-color: var(--colors-primary-default);
+}
+
+.default:active {
+  color: var(--colors-primary-active);
+  text-decoration-color: var(--colors-primary-active);
+}
+
+/* ── Button variant ──────────────────────────────────────────────────────── */
+
+.button {
+  color: var(--colors-text-inverse) !important;
+  background-color: var(--colors-primary-default);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--borders-radius-large);
+  font-weight: var(--typography-font-weight-semi-bold);
+  font-size: var(--typography-sizes-body-small);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  border: 1px solid transparent;
+  box-shadow: var(--effects-shadows-xs);
+}
+
+.button:hover {
+  background-color: var(--colors-primary-hover);
+  box-shadow: var(--effects-shadows-glow);
+  transform: translateY(-1px);
+}
+
+.button:active {
+  background-color: var(--colors-primary-active);
+  transform: translateY(0);
+  box-shadow: var(--effects-shadows-xs);
+}
+
+/* ── Subtle variant ──────────────────────────────────────────────────────── */
+
+.subtle {
+  color: var(--colors-text-secondary);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+.subtle:hover {
+  color: var(--colors-primary-default);
+}
+
+.subtle:active {
+  color: var(--colors-primary-active);
+}
+
+/* ── External icon ───────────────────────────────────────────────────────── */
+
+.externalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  flex-shrink: 0;
+}
+
+.link:hover .externalIcon {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+/* ── Button variant external icon ────────────────────────────────────────── */
+
+.button .externalIcon {
+  opacity: 0.85;
+}
+
+.button:hover .externalIcon {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .button {
+    font-size: var(--typography-sizes-caption-default);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}

@@ -1,0 +1,124 @@
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  color: var(--colors-text-primary);
+  font-family: var(--typography-font-family);
+  box-sizing: border-box;
+}
+
+/* ── Body (sidebar + main) ─────────────────────────────────────────────────── */
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+/* ── Main content area ─────────────────────────────────────────────────────── */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.mainWithSidebar {
+  /* On mobile, add bottom padding to clear the fixed bottom-nav (60px + safe area) */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+}
+
+.mainAnonymous {
+  padding-bottom: 0;
+}
+
+.mainInner {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Loading overlay ───────────────────────────────────────────────────────── */
+
+.loadingOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  padding: var(--spacing-xl);
+  box-sizing: border-box;
+}
+
+.loadingCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-xxl);
+  padding: 48px 56px;
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-panel);
+}
+
+.loadingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 12px;
+  background-color: rgba(249, 115, 22, 0.12);
+  border-radius: var(--borders-radius-full);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.loadingDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.loadingBadgeText {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+  }
+}
+
+/* ── Responsive — desktop (≥1024px) ────────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .mainWithSidebar {
+    /* On desktop, no bottom-nav padding needed */
+    padding-bottom: 0;
+  }
+}
+
+/* ── Responsive — mobile (<480px) ─────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .loadingCard {
+    padding: 36px 32px;
+  }
+}

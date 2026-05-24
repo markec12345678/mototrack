@@ -1,0 +1,59 @@
+---
+description: "Desktop sidebar for the MotoTrack platform. Renders primary navigation items as icon + label rows. Supports active state with orange accent and left border, collapsible to icon-only mode with tooltips, and is hidden on screens narrower than 1024px."
+labels: ["sidebar", "navigation", "layout", "desktop"]
+---
+
+The `Sidebar` component is the primary desktop navigation shell for the MotoTrack platform. It renders `NavigationItem` slot entries as icon + label rows, highlights the active route with an orange accent and a left border indicator, and can collapse to icon-only mode with tooltips for a compact view. It is hidden on screens narrower than 1024px — mobile navigation is handled by a separate bottom-nav component.
+
+## Basic usage
+
+```tsx
+<Sidebar
+  navigationItems={[
+    { key: "dashboard", label: "Dashboard", icon: "🏠", path: "/", order: 1, primary: true },
+    { key: "races",     label: "Races",     icon: "🏁", path: "/races", order: 2, primary: true },
+    { key: "riders",    label: "Riders",    icon: "🏍️", path: "/riders", order: 3, primary: true },
+    { key: "settings",  label: "Settings",  icon: "⚙️", path: "/settings", order: 4 },
+  ]}
+/>
+```
+
+## Collapsed (icon-only) mode
+
+Start the sidebar in collapsed mode. Each icon shows a tooltip on hover with the item label.
+
+```tsx
+<Sidebar
+  defaultCollapsed
+  navigationItems={[
+    { key: "dashboard", label: "Dashboard", icon: "🏠", path: "/" },
+    { key: "races",     label: "Races",     icon: "🏁", path: "/races" },
+    { key: "standings", label: "Standings", icon: "🏆", path: "/standings" },
+  ]}
+/>
+```
+
+## With custom logo and footer
+
+Inject a branded logo element at the top and a user profile card at the bottom.
+
+```tsx
+<Sidebar
+  navigationItems={navItems}
+  logo={
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <img src="/logo.png" alt="MotoTrack" width={32} height={32} />
+      <span style={{ fontWeight: 800, color: "#f1f5f9" }}>MotoTrack</span>
+    </div>
+  }
+  footer={
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <img src="/avatar.png" alt="Markec" width={32} height={32} style={{ borderRadius: "50%" }} />
+      <div>
+        <div style={{ fontWeight: 600, color: "#f1f5f9" }}>Markec</div>
+        <div style={{ fontSize: 11, color: "#64748b" }}>Level 8 · 5430 pts</div>
+      </div>
+    </div>
+  }
+/>
+```

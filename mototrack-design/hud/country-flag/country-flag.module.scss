@@ -1,0 +1,63 @@
+.countryFlag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: var(--typography-font-family);
+  color: var(--colors-text-primary);
+  white-space: nowrap;
+  line-height: var(--typography-line-height-tight);
+  transition: opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.label {
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  color: var(--colors-text-primary);
+}
+
+/* ── Size variants ─────────────────────────────────────────────────────────── */
+
+.sm {
+  gap: var(--spacing-xs);
+
+  .emoji {
+    font-size: 14px;
+  }
+
+  .label {
+    font-size: var(--typography-sizes-caption-default);
+  }
+}
+
+.md {
+  gap: var(--spacing-xs);
+
+  .emoji {
+    font-size: 20px;
+  }
+
+  .label {
+    font-size: var(--typography-sizes-body-small);
+  }
+}
+
+.lg {
+  gap: var(--spacing-sm);
+
+  .emoji {
+    font-size: 28px;
+  }
+
+  .label {
+    font-size: var(--typography-sizes-body-large);
+    font-weight: var(--typography-font-weight-semi-bold);
+  }
+}

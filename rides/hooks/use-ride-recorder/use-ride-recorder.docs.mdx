@@ -1,0 +1,111 @@
+---
+description: "useRideRecorder — production-grade GPS ride recorder hook. Manages status (idle/recording/paused/stopped), track points, and derived metrics with WakeLock, heartbeat fallback, sanity checks, crash recovery, and visibility-change re-acquisition."
+labels: ['hook', 'gps', 'ride', 'recorder', 'geolocation', 'mototrack']
+---
+
+A production-grade GPS recorder hook for motorcycle rides. It manages the full recording lifecycle — from requesting WakeLock and starting a high-accuracy GPS watch, through sanity-checking each fix, auto-saving crash-recovery snapshots, handling app backgrounding, all the way to pause/resume/stop controls.
+
+## Basic Usage
+
+```tsx
+function RideControls() {
+  const {
+    status,
+    distanceKm,
+    durationSec,
+    currentSpeedKmh,
+    maxSpeedKmh,
+    climbM,
+    gpsQuality,
+    start,
+    pause,
+    resume,
+    stop,
+  } = useRideRecorder();
+
+  return (
+    <div>
+      <p>Status: {status}</p>
+      <p>GPS: {gpsQuality}</p>
+      <p>Distance: {distanceKm.toFixed(2)} km</p>
+      <p>Duration: {durationSec}s</p>
+      <p>Speed: {currentSpeedKmh.toFixed(1)} km/h</p>
+      <p>Max Speed: {maxSpeedKmh.toFixed(1)} km/h</p>
+      <p>Climb: {climbM.toFixed(0)} m</p>
+
+      {status === 'idle' && (
+        <button type="button" onClick={() => start()}>Start Ride</button>
+      )}
+      {status === 'recording' && (
+        <>
+          <button type="button" onClick={() => pause()}>Pause</button>
+          <button type="button" onClick={() => stop()}>Stop</button>
+        </>
+      )}
+      {status === 'paused' && (
+        <>
+          <button type="button" onClick={() => resume()}>Resume</button>
+          <button type="button" onClick={() => stop()}>Stop</button>
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+## Crash Recovery
+
+The hook auto-saves a snapshot to `localStorage` under the key `mototrack:active-ride` every 15 seconds. On mount, if a snapshot is found it is automatically rehydrated. You can also call `restore()` manually to trigger rehydration.
+
+```tsx
+function RideRecoveryBanner() {
+  const { status, restore } = useRideRecorder();
+  const [showBanner, setShowBanner] = React.useState(false);
+
+  React.useEffect(() => {
+    const raw = localStorage.getItem('mototrack:active-ride');
+    if (raw) setShowBanner(true);
+  }, []);
+
+  const handleRestore = () => {
+    const ok = restore();
+    if (ok) setShowBanner(false);
+  };
+
+  if (!showBanner || status !== 'idle') return null;
+
+  return (
+    <div>
+      <p>A previous ride was found. Would you like to continue?</p>
+      <button type="button" onClick={() => handleRestore()}>Restore Ride</button>
+      <button type="button" onClick={() => setShowBanner(false)}>Discard</button>
+    </div>
+  );
+}
+```
+
+## GPS Quality Indicator
+
+The hook derives a `gpsQuality` value from the accuracy of the most recent fix. Use it to give riders real-time signal feedback.
+
+```tsx
+const GPS_QUALITY_LABELS: Record<string, string> = {
+  excellent: '🟢 Excellent',
+  good: '🟡 Good',
+  poor: '🟠 Poor',
+  lost: '🔴 Lost',
+};
+
+function GpsQualityBadge() {
+  const { gpsQuality, reconnectCount } = useRideRecorder();
+
+  return (
+    <div>
+      <span>{GPS_QUALITY_LABELS[gpsQuality]}</span>
+      {reconnectCount > 0 && (
+        <span>Reconnects: {reconnectCount}</span>
+      )}
+    </div>
+  );
+}
+```

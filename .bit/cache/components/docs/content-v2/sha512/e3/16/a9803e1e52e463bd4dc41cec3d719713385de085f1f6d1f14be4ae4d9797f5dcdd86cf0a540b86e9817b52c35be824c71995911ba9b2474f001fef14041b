@@ -1,0 +1,1 @@
+[{"name":"","description":"Typegoose model class for the Expense entity.\nImport this only in server-side / Node.js code.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"expense.model.ts"}]

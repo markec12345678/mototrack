@@ -1,0 +1,1 @@
+[{"name":"","description":"Tiny pub/sub store used by the navigation aspect to share the currently\nactive route across the runtime API and the React overlays it registers.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"active-route-store.ts"}]

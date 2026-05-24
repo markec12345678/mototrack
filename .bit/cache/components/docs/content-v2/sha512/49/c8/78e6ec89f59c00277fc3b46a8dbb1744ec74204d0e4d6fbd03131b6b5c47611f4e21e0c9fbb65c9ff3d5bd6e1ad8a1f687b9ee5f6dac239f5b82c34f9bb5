@@ -1,0 +1,1 @@
+[{"filePath":"chat/moto-chat.tsx","name":"MotoChat","description":"MotoChat AI assistant overlay with quick prompts and conversational UI.","properties":[{"name":"onClose","description":"","required":true,"type":"signature"}],"access":"public","methods":[],"args":[],"examples":[]}]

@@ -1,0 +1,77 @@
+---
+description: "useSavedRoutes — GraphQL hook for the user route library. Returns the saved routes list plus save, deleteRoute, and update helpers. Accepts optional mockData for offline compositions and unit tests."
+labels: ['hook', 'graphql', 'routes', 'apollo']
+---
+
+`useSavedRoutes` is a GraphQL-backed React hook that manages a rider's personal route library.
+It fetches the list of saved routes via Apollo Client and exposes mutation helpers for saving,
+updating, and deleting routes. Pass `mockData` to bypass the network entirely — ideal for
+compositions and unit tests.
+
+## Basic usage — live query
+
+```tsx
+function RouteLibrary() {
+  const { routes, loading, error } = useSavedRoutes();
+
+  if (loading) return <p>Loading routes…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {routes.map((route) => (
+        <li key={route.id}>
+          {route.name} — {route.distanceKm} km
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Saving a new route
+
+```tsx
+function SaveRouteButton({ computedRoute }) {
+  const { save, saving } = useSavedRoutes();
+
+  const handleSave = async () => {
+    const saved = await save({
+      name: 'My Alpine Loop',
+      waypoints: computedRoute.waypoints,
+      mode: 'twisty',
+      geometry: computedRoute.geometry,
+      distanceKm: computedRoute.distanceKm,
+      durationSec: computedRoute.durationSec,
+      notes: 'Favourite summer route',
+    });
+    console.log('Saved route id:', saved?.id);
+  };
+
+  return (
+    <button type="button" onClick={() => handleSave()} disabled={saving}>
+      {saving ? 'Saving…' : 'Save Route'}
+    </button>
+  );
+}
+```
+
+## Mock fallback for compositions and tests
+
+```tsx
+import { mockRoutes } from '@markec/routes.hooks.use-saved-routes';
+
+function RouteLibraryPreview() {
+  const { routes } = useSavedRoutes({ mockData: mockRoutes });
+
+  return (
+    <ul>
+      {routes.map((route) => (
+        <li key={route.id}>
+          {route.name} · {route.mode} · {route.distanceKm} km
+        </li>
+      ))}
+    </ul>
+  );
+}
+```

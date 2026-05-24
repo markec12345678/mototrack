@@ -1,0 +1,60 @@
+---
+description: "Dashboard panel — 'Zadnje vožnje' showing top 3 recent rides with a 'Vse vožnje →' link. Registered into DashboardPanel slot (span 2)."
+labels: ["rides", "dashboard", "panel", "ui"]
+---
+
+The `RideDashboardPanel` is a dashboard widget that displays the three most recent motorcycle rides. It includes a heading ("Zadnje vožnje"), a list of `RideCard` components, and a "Vse vožnje →" link to the full rides list. It is designed to occupy a 2-column span in the dashboard grid.
+
+## Basic usage
+
+```tsx
+import { RideDashboardPanel } from '@markec/rides.ui.ride-dashboard-panel';
+
+<RideDashboardPanel />
+```
+
+## With mock rides
+
+Pass rides directly via the `rides` prop to bypass the GraphQL hook — useful for testing and compositions.
+
+```tsx
+import { RideDashboardPanel } from '@markec/rides.ui.ride-dashboard-panel';
+
+const rides = [
+  {
+    id: 'ride-001',
+    userId: 'user-1',
+    startedAt: Date.now() - 86400000,
+    endedAt: Date.now() - 86400000 + 7200000,
+    distanceKm: 142.7,
+    durationSec: 7320,
+    maxSpeedKmh: 187,
+    avgSpeedKmh: 70.2,
+    climbM: 1240,
+    descentM: 1180,
+    twistinessScore: 8.4,
+    track: [],
+    name: 'Soška dolina',
+  },
+];
+
+<RideDashboardPanel rides={rides} limit={3} allRidesHref="/rides" />
+```
+
+## Inside a dashboard grid (span 2)
+
+The panel is designed to span 2 columns in a 4-column dashboard grid layout.
+
+```tsx
+import { RideDashboardPanel } from '@markec/rides.ui.ride-dashboard-panel';
+import { Card } from '@markec/mototrack-design.content.card';
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+  {/* other stat cards ... */}
+  <div style={{ gridColumn: 'span 2' }}>
+    <Card variant="elevated" padding="xl">
+      <RideDashboardPanel allRidesHref="/rides" />
+    </Card>
+  </div>
+</div>
+```

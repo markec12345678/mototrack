@@ -1,0 +1,1 @@
+[{"name":"","description":"Mock WeatherSnapshot instances for use in tests and compositions.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-current-weather.mock.ts"}]

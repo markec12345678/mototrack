@@ -1,0 +1,114 @@
+.tabsWrapper {
+  width: 100%;
+  position: relative;
+
+  // Fade-out gradient on the right edge to hint scrollability
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--colors-surface-background));
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-xs);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  box-sizing: border-box;
+
+  // Hide scrollbar across browsers
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-surface-primary);
+  color: var(--colors-text-secondary);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  white-space: nowrap;
+  cursor: var(--interactions-cursor-pointer);
+  flex-shrink: 0;
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  box-sizing: border-box;
+  outline: none;
+  position: relative;
+
+  &:hover {
+    background-color: var(--colors-surface-secondary);
+    color: var(--colors-text-primary);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 var(--borders-focus-offset) var(--borders-focus-color);
+  }
+}
+
+.active {
+  background-color: var(--colors-primary-default);
+  color: var(--colors-text-inverse) !important;
+  box-shadow: var(--effects-shadows-xs), 0 0 12px rgba(249, 115, 22, 0.3);
+
+  &:hover {
+    background-color: var(--colors-primary-hover);
+    color: var(--colors-text-inverse) !important;
+    transform: translateY(-1px);
+  }
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.label {
+  line-height: var(--typography-line-height-tight);
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .tab {
+    padding: 7px 12px;
+    font-size: var(--typography-sizes-caption-default);
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
+  }
+}

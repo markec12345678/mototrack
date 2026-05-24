@@ -1,0 +1,156 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// ─── Label row ───────────────────────────────────────────────────────────────
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-secondary);
+  line-height: var(--typography-line-height-tight);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.percentage {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+// ─── Track ───────────────────────────────────────────────────────────────────
+
+.track {
+  position: relative;
+  width: 100%;
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-full);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+// ─── Fill ────────────────────────────────────────────────────────────────────
+
+.fill {
+  height: 100%;
+  border-radius: var(--borders-radius-full);
+  transition:
+    width var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  will-change: width;
+  position: relative;
+}
+
+// ─── Variants ────────────────────────────────────────────────────────────────
+
+.variantAccent {
+  background: linear-gradient(
+    90deg,
+    var(--colors-primary-default) 0%,
+    var(--colors-primary-hover) 100%
+  );
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.45);
+}
+
+.variantSuccess {
+  background: linear-gradient(
+    90deg,
+    var(--colors-status-success-default) 0%,
+    color-mix(in srgb, var(--colors-status-success-default) 70%, white) 100%
+  );
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+}
+
+.variantWarning {
+  background: linear-gradient(
+    90deg,
+    var(--colors-status-warning-default) 0%,
+    color-mix(in srgb, var(--colors-status-warning-default) 70%, white) 100%
+  );
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.35);
+}
+
+.variantDanger {
+  background: linear-gradient(
+    90deg,
+    var(--colors-status-danger-default) 0%,
+    color-mix(in srgb, var(--colors-status-danger-default) 70%, white) 100%
+  );
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+}
+
+// ─── Indeterminate (animated stripes) ────────────────────────────────────────
+
+.indeterminate {
+  width: 100% !important;
+  background-size: 40px 100%;
+  animation: stripes 1s linear infinite;
+}
+
+.indeterminate.variantAccent {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--colors-primary-default) 0px,
+    var(--colors-primary-default) 10px,
+    var(--colors-primary-hover) 10px,
+    var(--colors-primary-hover) 20px
+  );
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.45);
+}
+
+.indeterminate.variantSuccess {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--colors-status-success-default) 0px,
+    var(--colors-status-success-default) 10px,
+    #16a34a 10px,
+    #16a34a 20px
+  );
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+}
+
+.indeterminate.variantWarning {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--colors-status-warning-default) 0px,
+    var(--colors-status-warning-default) 10px,
+    #ca8a04 10px,
+    #ca8a04 20px
+  );
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.35);
+}
+
+.indeterminate.variantDanger {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--colors-status-danger-default) 0px,
+    var(--colors-status-danger-default) 10px,
+    #dc2626 10px,
+    #dc2626 20px
+  );
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+}
+
+@keyframes stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}

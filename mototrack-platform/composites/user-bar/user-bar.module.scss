@@ -1,0 +1,222 @@
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.userBar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+/* ── Skeleton loader ───────────────────────────────────────────────────────── */
+
+.skeleton {
+  width: 180px;
+  height: 44px;
+  border-radius: var(--borders-radius-large);
+  background: linear-gradient(
+    90deg,
+    var(--colors-surface-secondary) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    var(--colors-surface-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Avatar Trigger ────────────────────────────────────────────────────────── */
+
+.avatarTrigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 6px 10px 6px 6px;
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid var(--colors-border-default);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.avatarTrigger:hover {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-primary-default);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+}
+
+.triggerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.triggerName {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-primary);
+  line-height: var(--typography-line-height-tight);
+  white-space: nowrap;
+}
+
+.triggerMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.levelBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  background: linear-gradient(135deg, var(--colors-primary-default), var(--colors-primary-hover));
+  border-radius: var(--borders-radius-small);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-inverse) !important;
+  letter-spacing: var(--typography-letter-spacing-wide);
+  line-height: 1.4;
+}
+
+.triggerPoints {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-muted);
+  white-space: nowrap;
+}
+
+/* ── Dropdown Header ───────────────────────────────────────────────────────── */
+
+.dropdownHeader {
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  pointer-events: none;
+}
+
+.dropdownAvatarRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.dropdownUserInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dropdownDisplayName {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  line-height: var(--typography-line-height-tight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownUsername {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+  white-space: nowrap;
+}
+
+/* ── Stats Row ─────────────────────────────────────────────────────────────── */
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-medium);
+  border: 1px solid var(--colors-border-default);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.statValue {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-primary-default);
+  line-height: 1;
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+.statLabel {
+  font-family: var(--typography-font-family);
+  font-size: 9px;
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-wider);
+}
+
+.statDivider {
+  width: 1px;
+  height: 28px;
+  background-color: var(--colors-border-default);
+  flex-shrink: 0;
+}
+
+/* ── Level Ring ────────────────────────────────────────────────────────────── */
+
+.levelRing {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--borders-radius-full);
+  border: 2px solid var(--colors-primary-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(249, 115, 22, 0.1);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.25);
+}
+
+.levelRingText {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-primary-default);
+  line-height: 1;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .triggerInfo {
+    display: none;
+  }
+
+  .avatarTrigger {
+    padding: 5px;
+    border-radius: var(--borders-radius-full);
+  }
+}

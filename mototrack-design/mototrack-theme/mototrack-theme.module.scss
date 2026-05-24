@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+.mototrackTheme {
+  font-family: var(--typography-font-family);
+  background-color: var(--colors-surface-background);
+  color: var(--colors-text-primary);
+
+  // Antialiased base styles for crisp rendering on dark backgrounds
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  // Ensure box-sizing is consistent throughout the tree
+  box-sizing: border-box;
+
+  // Reset margin/padding for clean layout
+  margin: 0;
+  padding: 0;
+
+  // Minimum height to fill the viewport
+  min-height: 100vh;
+}
+
+:root {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #020617;
+  }
+}

@@ -1,0 +1,95 @@
+---
+description: "Floating stats panel displayed during ride recording. Shows current speed via a compact speedometer, plus distance, duration, max speed, climb, and elevation stats. Includes a GPS quality indicator. Designed for compact mobile overlay use."
+labels: ["ride", "hud", "recording", "stats", "speedometer", "gps", "mobile"]
+---
+
+A floating HUD panel that overlays the map during an active ride recording session. It combines a compact speedometer with a grid of key ride metrics and a GPS quality indicator — all in a space-efficient layout optimised for mobile screens.
+
+## Basic usage
+
+```tsx
+<RideStatsPanel
+  currentSpeedKmh={87}
+  distanceKm={24.3}
+  durationSec={3720}
+  maxSpeedKmh={134}
+  climbM={412}
+  elevationM={876}
+  gpsAccuracyMeters={7}
+  isRecording={true}
+/>
+```
+
+## Paused state
+
+When the recording is paused, the badge switches to "PAUSED" and the pulsing red dot stops animating.
+
+```tsx
+<RideStatsPanel
+  currentSpeedKmh={0}
+  distanceKm={12.8}
+  durationSec={1845}
+  maxSpeedKmh={98}
+  climbM={210}
+  elevationM={540}
+  gpsAccuracyMeters={18}
+  isRecording={false}
+/>
+```
+
+## No GPS fix
+
+When `gpsAccuracyMeters` is `null`, the GPS indicator shows a "signal lost" state.
+
+```tsx
+<RideStatsPanel
+  currentSpeedKmh={0}
+  distanceKm={0}
+  durationSec={0}
+  maxSpeedKmh={0}
+  climbM={0}
+  elevationM={0}
+  gpsAccuracyMeters={null}
+  isRecording={false}
+/>
+```
+
+## Floating on a map
+
+Position the panel absolutely over a map container using CSS:
+
+```tsx
+<div style={{ position: 'relative', width: '100%', height: '400px' }}>
+  <MapComponent />
+  <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+    <RideStatsPanel
+      currentSpeedKmh={87}
+      distanceKm={24.3}
+      durationSec={3720}
+      maxSpeedKmh={134}
+      climbM={412}
+      elevationM={876}
+      gpsAccuracyMeters={7}
+      isRecording={true}
+    />
+  </div>
+</div>
+```
+
+## Custom speed warning threshold
+
+Adjust the speed at which the speedometer turns amber/red:
+
+```tsx
+<RideStatsPanel
+  currentSpeedKmh={95}
+  distanceKm={5.2}
+  durationSec={600}
+  maxSpeedKmh={110}
+  climbM={80}
+  elevationM={200}
+  gpsAccuracyMeters={6}
+  isRecording={true}
+  warningThreshold={100}
+/>
+```

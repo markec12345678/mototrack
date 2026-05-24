@@ -1,0 +1,75 @@
+---
+labels: ['bike', 'entity', 'garage', 'motorcycle']
+description: "A Bike entity representing a user's motorcycle. Includes computed rangeKm, serialization helpers, and seeded mock data for KTM 890 Adventure and Yamaha MT-07."
+---
+
+A component for the `Bike` entity used across the Garage application. It models a motorcycle owned by a user, supports serialization and deserialization, and exposes a computed `rangeKm` property.
+
+Each user may own multiple bikes; uniqueness of the **primary** flag is enforced per user. The entity is safe to use in both frontend and backend contexts.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { Bike } from '@markec/garage.entities.bike';
+
+const bike = Bike.from({
+  id: 'bike-001',
+  userId: 'user-abc',
+  name: 'KTM 890 Adventure',
+  model: '890 Adventure',
+  year: 2022,
+  mileageKm: 14320,
+  tankL: 20,
+  consumptionLPer100: 5.2,
+  currentFuelL: 14,
+  color: '#f97316',
+  primary: true,
+});
+
+console.log(bike.rangeKm); // (14 * 100) / 5.2 ≈ 269.23 km
+```
+
+## Computed range
+
+The `rangeKm` getter estimates how far the bike can travel on the current fuel level:
+
+```ts
+import { Bike } from '@markec/garage.entities.bike';
+
+const bike = Bike.from({
+  id: 'bike-002',
+  userId: 'user-abc',
+  name: 'Yamaha MT-07',
+  model: 'MT-07',
+  year: 2021,
+  mileageKm: 8750,
+  tankL: 13,
+  consumptionLPer100: 4.8,
+  currentFuelL: 7,
+  color: '#1e40af',
+  primary: false,
+});
+
+// rangeKm = (7 * 100) / 4.8 ≈ 145.83 km
+console.log(`Estimated range: ${bike.rangeKm.toFixed(1)} km`);
+```
+
+## Mock data
+
+Use the seeded demo bikes for development and testing:
+
+```ts
+import { mockBikes, mockKtm890, mockYamahaMt07 } from '@markec/garage.entities.bike';
+
+// Both demo bikes
+const bikes = mockBikes();
+
+// Individual bikes with optional overrides
+const ktm = mockKtm890({ color: '#ff6600' });
+const yamaha = mockYamahaMt07({ mileageKm: 10000 });
+
+console.log(ktm.name);    // 'KTM 890 Adventure'
+console.log(yamaha.name); // 'Yamaha MT-07'
+```

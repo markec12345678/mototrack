@@ -1,0 +1,77 @@
+---
+description: "React hook that fetches speed cameras via GraphQL and exposes list(from) and nearest(from) spatial helpers — used by DrivingModeHud to trigger the 500 m audible alert."
+labels: ['hook', 'react', 'speed-camera', 'safety', 'driving']
+---
+
+`useSpeedCameras` fetches speed cameras from the GraphQL API and provides two spatial helpers built on top of the `LatLng` haversine and bearing utilities:
+
+- **`list(from)`** — returns all cameras sorted by distance from the rider's current position (closest first).
+- **`nearest(from)`** — returns the single closest camera together with its distance in kilometres and bearing in degrees (clockwise from north). Returns `undefined` when no cameras are loaded.
+
+The hook is the data backbone of `DrivingModeHud`'s 500 m audible alert: when `nearest(pos).distanceKm < 0.5` the HUD triggers a beep.
+
+## Basic usage
+
+```tsx
+import { useSpeedCameras } from '@markec/safety.hooks.use-speed-cameras';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+function AlertEngine({ position }: { position: LatLng }) {
+  const { nearest, loading } = useSpeedCameras();
+
+  if (loading) return null;
+
+  const hit = nearest(position);
+  if (hit && hit.distanceKm < 0.5) {
+    // trigger audible alert
+    console.log(`Camera ahead in ${(hit.distanceKm * 1000).toFixed(0)} m — ${hit.camera.speedLimit} km/h`);
+  }
+
+  return null;
+}
+```
+
+## Sorted camera list
+
+```tsx
+import { useSpeedCameras } from '@markec/safety.hooks.use-speed-cameras';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+function NearestCameraList({ position }: { position: LatLng }) {
+  const { list, loading } = useSpeedCameras();
+
+  if (loading) return <p>Loading cameras…</p>;
+
+  const sorted = list(position);
+
+  return (
+    <ul>
+      {sorted.map((cam) => (
+        <li key={cam.id}>
+          {cam.country} — {cam.speedLimit} km/h ({cam.type})
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Using mock data in tests
+
+```tsx
+import { renderHook } from '@testing-library/react';
+import { useSpeedCameras } from '@markec/safety.hooks.use-speed-cameras';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+import { speedCameraMocks } from '@markec/safety.hooks.use-speed-cameras';
+
+it('triggers alert within 500 m', () => {
+  const { result } = renderHook(() =>
+    useSpeedCameras({ mockData: speedCameraMocks })
+  );
+
+  const pos = new LatLng(46.0511, 14.5061); // ~100 m from Ljubljana cam
+  const hit = result.current.nearest(pos);
+
+  expect(hit?.distanceKm).toBeLessThan(0.5);
+});
+```

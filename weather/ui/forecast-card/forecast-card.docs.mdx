@@ -1,0 +1,102 @@
+---
+description: "3-day weather forecast card for MotoTrack. Displays day name, weather icon, min/max temperature, wind speed with severity colouring, and precipitation. Used on the dashboard and inside the plan page."
+labels: ["weather", "forecast", "card", "dashboard"]
+---
+
+A compact, information-dense card that shows a 3-day weather forecast tailored for motorcycle riders. Each day row includes the day name, weather icon, temperature range, wind speed (colour-coded by severity), and precipitation amount.
+
+Wind severity is colour-coded:
+- **Normal** (< 20 km/h) — muted text
+- **Moderate** (20–40 km/h) — warning amber
+- **Strong** (40–60 km/h) — orange
+- **Danger** (≥ 60 km/h) — red with glow
+
+## Basic usage
+
+```tsx
+import { ForecastCard } from '@markec/weather.ui.forecast-card';
+
+<ForecastCard />
+```
+
+## With custom forecast data
+
+```tsx
+import { ForecastCard } from '@markec/weather.ui.forecast-card';
+
+const days = [
+  {
+    date: '2025-06-10',
+    tempMinC: 12,
+    tempMaxC: 22,
+    precipMm: 0.2,
+    windKmh: 18,
+    wmoCode: 1,
+    label: 'Pretežno jasno',
+    icon: '⛅',
+  },
+  {
+    date: '2025-06-11',
+    tempMinC: 10,
+    tempMaxC: 19,
+    precipMm: 4.5,
+    windKmh: 32,
+    wmoCode: 61,
+    label: 'Dež',
+    icon: '🌧️',
+  },
+  {
+    date: '2025-06-12',
+    tempMinC: 14,
+    tempMaxC: 25,
+    precipMm: 0,
+    windKmh: 12,
+    wmoCode: 0,
+    label: 'Jasno',
+    icon: '☀️',
+  },
+];
+
+<ForecastCard days={days} title="3-dnevna napoved" />
+```
+
+## Storm warning scenario
+
+```tsx
+import { ForecastCard } from '@markec/weather.ui.forecast-card';
+
+const stormDays = [
+  {
+    date: '2025-06-10',
+    tempMinC: 8,
+    tempMaxC: 14,
+    precipMm: 12.5,
+    windKmh: 65,
+    wmoCode: 95,
+    label: 'Nevihta',
+    icon: '⛈️',
+  },
+  {
+    date: '2025-06-11',
+    tempMinC: 6,
+    tempMaxC: 11,
+    precipMm: 8.0,
+    windKmh: 48,
+    wmoCode: 80,
+    label: 'Plohe',
+    icon: '🌧️',
+  },
+  {
+    date: '2025-06-12',
+    tempMinC: 10,
+    tempMaxC: 18,
+    precipMm: 1.2,
+    windKmh: 22,
+    wmoCode: 3,
+    label: 'Oblačno',
+    icon: '☁️',
+  },
+];
+
+<ForecastCard days={stormDays} title="Opozorilo: Nevihte" />
+```

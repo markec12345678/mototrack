@@ -1,0 +1,133 @@
+{
+  "components": [
+    {
+      "id": {
+        "scope": "bitdev.react",
+        "name": "react-env"
+      },
+      "isSymlink": false,
+      "hash": "332d61722e10572fbaef5995407ebdce773c6a7e"
+    },
+    {
+      "id": {
+        "scope": "bitdev.react",
+        "name": "app-types/vite-react"
+      },
+      "isSymlink": false,
+      "hash": "7c7b0e8b950507675eb26a304d7d26defab275a7"
+    },
+    {
+      "id": {
+        "scope": "bitdesign.sparks",
+        "name": "sparks-theme"
+      },
+      "isSymlink": false,
+      "hash": "9e16a0dabf50d591b097b016eb6865c858704e37"
+    },
+    {
+      "id": {
+        "scope": "bitdev.node",
+        "name": "node-env"
+      },
+      "isSymlink": false,
+      "hash": "ca06bbbbe1eefa9afb10aeb40fd66d33d9477d7e"
+    },
+    {
+      "id": {
+        "scope": "bitdev.general",
+        "name": "envs/bit-env"
+      },
+      "isSymlink": false,
+      "hash": "689a54288ee6bcbfe1bab66173e3e1cd2acef266"
+    },
+    {
+      "id": {
+        "scope": "bitdev.react",
+        "name": "eslint/eslint-config-bit-react"
+      },
+      "isSymlink": false,
+      "hash": "d962f8103c4ff038f4174d2a24cd1d8a99352832"
+    },
+    {
+      "id": {
+        "scope": "teambit.react",
+        "name": "mounter"
+      },
+      "isSymlink": false,
+      "hash": "586a20562a9166bc7ed2f2e95fc02604ce281408"
+    },
+    {
+      "id": {
+        "scope": "teambit.mdx",
+        "name": "ui/mdx-scope-context"
+      },
+      "isSymlink": false,
+      "hash": "cc7cd9acc608063b4575e5462aa054e31a39311a"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "envs/symphony-env"
+      },
+      "isSymlink": false,
+      "hash": "f2752f0c0ba0e0c3fc81e6e6c0cbf0cc8ee4c0f5"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "symphony-platform"
+      },
+      "isSymlink": false,
+      "hash": "0935dde3b85712ee126c6d972b5a82323fd5e735"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "backends/backend-server"
+      },
+      "isSymlink": false,
+      "hash": "67d954e11483b0771ec77b5c0949d59d67d81cb0"
+    },
+    {
+      "id": {
+        "scope": "bitdev.harmony",
+        "name": "harmony"
+      },
+      "isSymlink": false,
+      "hash": "1c8362ed58df5791d1e899fce2e627931f071960"
+    },
+    {
+      "id": {
+        "scope": "bitdev.harmony",
+        "name": "harmony-platform"
+      },
+      "isSymlink": false,
+      "hash": "2163734f17fc36c97c48b8917ccf78773ebb65ff"
+    },
+    {
+      "id": {
+        "scope": "bitdev.harmony",
+        "name": "runtimes/browser-runtime"
+      },
+      "isSymlink": false,
+      "hash": "2f423f0645af8ecfe0186d367f203ac12905cb94"
+    },
+    {
+      "id": {
+        "scope": "bitdev.harmony",
+        "name": "runtimes/nodejs-runtime"
+      },
+      "isSymlink": false,
+      "hash": "2c90523c07cf72889fa1c76acd03721f88f94150"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "examples/people"
+      },
+      "isSymlink": false,
+      "hash": "85309f84b88cd03adc54889fad96be5b9dca6036"
+    }
+  ],
+  "lanes": []
+}

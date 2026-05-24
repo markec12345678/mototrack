@@ -1,0 +1,62 @@
+---
+description: "GPS signal-quality dot for the MotoTrack HUD. Shows four quality states — excellent, good, poor, and lost — derived from accuracy in meters. Displays a tooltip with accuracy on hover and pulses on reconnect."
+labels: ["gps", "hud", "indicator", "signal", "mototrack"]
+---
+
+A compact, animated GPS signal-quality dot designed for the MotoTrack HUD. It derives its quality state automatically from an accuracy value in meters and supports four variants: **excellent** (≤10 m), **good** (≤25 m), **poor** (≤50 m), and **lost** (>50 m or no fix). A tooltip appears on hover showing the quality label and accuracy. When the signal reconnects after being lost, the dot plays a pulse animation.
+
+## Basic usage
+
+```tsx
+<GpsQualityIndicator accuracyMeters={8} />
+```
+
+## All quality variants
+
+The quality state is derived automatically from `accuracyMeters`. You can also override it explicitly with the `quality` prop.
+
+```tsx
+// 🟢 Excellent — ≤10 m
+<GpsQualityIndicator accuracyMeters={6} />
+
+// 🟡 Good — ≤25 m
+<GpsQualityIndicator accuracyMeters={18} />
+
+// 🟠 Poor — ≤50 m
+<GpsQualityIndicator accuracyMeters={42} />
+
+// 🔴 Lost — no fix
+<GpsQualityIndicator accuracyMeters={null} />
+
+// Override quality explicitly
+<GpsQualityIndicator accuracyMeters={6} quality="poor" />
+```
+
+## Embedding in a HUD panel
+
+```tsx
+<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+  <GpsQualityIndicator accuracyMeters={8} size={12} />
+  <span>GPS · ±8 m</span>
+</div>
+```
+
+## Reconnect pulse
+
+Pass `reconnecting` to trigger the pulse animation manually, or let the component detect the transition automatically when `accuracyMeters` changes from `null` to a valid value.
+
+```tsx
+<GpsQualityIndicator accuracyMeters={8} reconnecting />
+```
+
+## Hiding the tooltip
+
+```tsx
+<GpsQualityIndicator accuracyMeters={8} showTooltip={false} />
+```
+
+## Custom size
+
+```tsx
+<GpsQualityIndicator accuracyMeters={8} size={20} />
+```

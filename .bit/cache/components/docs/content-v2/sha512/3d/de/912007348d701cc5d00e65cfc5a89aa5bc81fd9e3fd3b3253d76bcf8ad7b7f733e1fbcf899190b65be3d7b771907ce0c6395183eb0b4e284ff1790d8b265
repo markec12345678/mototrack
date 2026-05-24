@@ -1,0 +1,1 @@
+[{"name":"","description":"display label for the header link.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"header-link.ts"},{"name":"","description":"URL for the header link.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"header-link.ts"}]

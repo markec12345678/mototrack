@@ -1,0 +1,138 @@
+.roadCard {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 200px;
+  max-width: 320px;
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+}
+
+.clickable {
+  cursor: var(--interactions-cursor-pointer);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.flag {
+  flex-shrink: 0;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.typeAndDifficulty {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ── Body ────────────────────────────────────────────────────────────────────── */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.name {
+  font-size: var(--typography-sizes-body-large) !important;
+  font-weight: var(--typography-font-weight-bold) !important;
+  letter-spacing: var(--typography-letter-spacing-tight) !important;
+  text-transform: none !important;
+  color: var(--colors-text-primary) !important;
+  line-height: var(--typography-line-height-tight) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-xs);
+  border-top: 1px solid var(--colors-border-default);
+}
+
+.length {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lengthIcon {
+  font-size: 11px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.lengthText {
+  font-size: var(--typography-sizes-caption-default) !important;
+  color: var(--colors-text-muted) !important;
+  white-space: nowrap;
+}
+
+/* ── Star Rating ─────────────────────────────────────────────────────────────── */
+
+.starRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.star {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--colors-text-muted);
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.star.filled {
+  color: var(--colors-flags-gold);
+}
+
+.star.half {
+  color: var(--colors-flags-gold);
+  opacity: 0.7;
+}
+
+.ratingValue {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  font-family: var(--typography-font-family);
+  margin-left: 2px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .roadCard {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .name {
+    font-size: var(--typography-sizes-body-default) !important;
+  }
+}

@@ -1,0 +1,76 @@
+---
+description: "Full-screen driving mode page (/drive). Loads an active route from the ?routeId= URL param, activates useRideRecorder and useTurnByTurn, and renders DrivingModeHud. Requests Fullscreen API and keeps WakeLock on mount. ESC or the exit button returns to /track."
+labels: ["navigation", "driving", "hud", "page"]
+---
+
+The `DrivingModePage` is the full-screen CarPlay-style navigation experience for MotoTrack.
+It is mounted at `/drive?routeId=<id>` and orchestrates the entire active-ride lifecycle:
+
+- Loads the route from `?routeId=` via `useSavedRoutes`
+- Starts GPS recording via `useRideRecorder` on mount
+- Activates turn-by-turn navigation via `useTurnByTurn`
+- Requests the Fullscreen API and acquires a WakeLock to keep the screen on
+- Renders `DrivingModeHud` full-screen with live data
+- ESC key or the exit button stops recording, releases WakeLock, exits fullscreen, and navigates to `/track`
+
+## Basic usage
+
+```tsx
+import { DrivingModePage } from '@markec/navigation.pages.driving-mode-page';
+
+// Mounted by the router at /drive
+// URL: /drive?routeId=route-highway-a1
+<DrivingModePage />
+```
+
+## With mock route (compositions / testing)
+
+Pass a `mockRoute` prop to bypass the URL param lookup and GraphQL fetch.
+This is the recommended approach for compositions and unit tests.
+
+```tsx
+import { DrivingModePage } from '@markec/navigation.pages.driving-mode-page';
+
+const mockRoute = {
+  id: 'route-highway-a1',
+  name: 'Avtocesta A1 — Ljubljana → Maribor',
+  distanceKm: 128.4,
+  durationSec: 4680,
+};
+
+<DrivingModePage
+  mockRoute={mockRoute}
+  fontScale="1x"
+  warningThreshold={120}
+  voiceEnabled
+  tankCapacityLiters={18}
+  initialFuelLiters={15}
+/>
+```
+
+## Accessibility font scale
+
+The HUD supports three font scale levels for riders who need larger text.
+
+```tsx
+import { DrivingModePage } from '@markec/navigation.pages.driving-mode-page';
+
+// 2x scale — maximum accessibility, ideal for older riders or bright sunlight
+<DrivingModePage
+  mockRoute={mockRoute}
+  fontScale="2x"
+  warningThreshold={60}
+  voiceEnabled={false}
+/>
+```
+
+## Route not found
+
+When `?routeId=` does not match any saved route, the page renders a full-screen
+error card with a **Back to Track** button that navigates to `/track`.
+
+```tsx
+// Navigating to /drive?routeId=unknown-id
+// → renders the error overlay automatically
+<DrivingModePage />
+```

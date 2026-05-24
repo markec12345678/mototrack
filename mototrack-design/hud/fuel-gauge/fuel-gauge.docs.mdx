@@ -1,0 +1,60 @@
+---
+description: "Fuel gauge bar with current liters, tank capacity, and estimated range (km). Color shifts green→yellow→red as fuel decreases. Used in profile and driving mode."
+labels: ["hud", "fuel", "gauge", "mototrack", "telemetry"]
+---
+
+A rich HUD component that visualises motorcycle fuel levels with a colour-coded progress bar, litre readout, and estimated range. The bar transitions from **green** (above 40%) → **yellow** (20–40%) → **red** (below 20%) to give riders an immediate at-a-glance status.
+
+## Basic usage
+
+Render the gauge with a current fuel level and tank capacity:
+
+```tsx
+<FuelGauge
+  currentLiters={12}
+  tankCapacity={18}
+  estimatedRange={180}
+/>
+```
+
+## Fuel states
+
+The component automatically picks the correct colour variant based on the percentage of fuel remaining:
+
+```tsx
+// Full — green (above 40%)
+<FuelGauge currentLiters={16} tankCapacity={18} estimatedRange={246} />
+
+// Low — yellow (20–40%)
+<FuelGauge currentLiters={5.5} tankCapacity={18} estimatedRange={84} />
+
+// Critical — red (below 20%)
+<FuelGauge currentLiters={2.1} tankCapacity={18} estimatedRange={32} />
+```
+
+## Estimated range calculation
+
+If `estimatedRange` is omitted, the component calculates it automatically using `consumptionRate` (litres per 100 km):
+
+```tsx
+<FuelGauge
+  currentLiters={13}
+  tankCapacity={18}
+  consumptionRate={6.5}
+/>
+```
+
+## Compact / driving mode
+
+Increase `barHeight` for a more prominent HUD bar, or hide individual sections:
+
+```tsx
+<FuelGauge
+  currentLiters={8}
+  tankCapacity={18}
+  estimatedRange={123}
+  barHeight={14}
+  showRange
+  showLiters
+/>
+```

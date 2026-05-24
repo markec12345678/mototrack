@@ -1,0 +1,90 @@
+---
+description: "useBtHelmet — Web Bluetooth wrapper for motorcycle helmet intercoms (Sena / Cardo). Requests a device with audio service filters, returns connection state, and configures MediaSession so SpeechSynthesis routes to the connected Bluetooth audio output."
+labels: ['hook', 'bluetooth', 'web-bluetooth', 'helmet', 'sena', 'cardo', 'navigation', 'speech-synthesis']
+---
+
+`useBtHelmet` is a React hook that wraps the Web Bluetooth API to connect to motorcycle helmet intercoms such as **Sena** and **Cardo** devices. It opens the browser's native Bluetooth device picker filtered to common audio service UUIDs, maintains connection state, and — once connected — configures the **MediaSession API** so that `SpeechSynthesis` navigation announcements are routed to the helmet's audio output.
+
+## Basic usage
+
+```tsx
+function HelmetConnectButton() {
+  const { isSupported, isConnected, deviceName, connect, disconnect } = useBtHelmet();
+
+  if (!isSupported) {
+    return <p>Web Bluetooth is not supported in this browser.</p>;
+  }
+
+  return (
+    <div>
+      <p>Status: {isConnected ? `Connected — ${deviceName}` : 'Disconnected'}</p>
+      {isConnected ? (
+        <button type="button" onClick={() => disconnect()}>
+          Disconnect Helmet
+        </button>
+      ) : (
+        <button type="button" onClick={() => connect()}>
+          Connect Helmet
+        </button>
+      )}
+    </div>
+  );
+}
+```
+
+## Using mock data for testing and previews
+
+Pass a `mockData` object to bypass the real Web Bluetooth API. This is ideal for Bit compositions, Storybook stories, and unit tests.
+
+```tsx
+function HelmetStatusPreview() {
+  const { isConnected, deviceName } = useBtHelmet({
+    mockData: {
+      isSupported: true,
+      isConnected: true,
+      deviceName: 'Sena SMH10',
+      error: null,
+      connect: async () => {},
+      disconnect: () => {},
+    },
+  });
+
+  return (
+    <div>
+      <span>{isConnected ? `🎧 ${deviceName}` : 'No helmet connected'}</span>
+    </div>
+  );
+}
+```
+
+## Handling errors
+
+The hook exposes an `error` field that is populated when a connection attempt fails (e.g. Bluetooth adapter unavailable, permission denied). User-initiated cancellations of the device picker are silently ignored.
+
+```tsx
+function HelmetConnectWithError() {
+  const { isSupported, isConnected, deviceName, error, connect, disconnect } = useBtHelmet();
+
+  return (
+    <div>
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+      <p>
+        {isConnected
+          ? `Connected to ${deviceName}`
+          : 'No helmet connected'}
+      </p>
+
+      {isConnected ? (
+        <button type="button" onClick={() => disconnect()}>
+          Disconnect
+        </button>
+      ) : (
+        <button type="button" onClick={() => connect()} disabled={!isSupported}>
+          {isSupported ? 'Connect Helmet' : 'Bluetooth not supported'}
+        </button>
+      )}
+    </div>
+  );
+}
+```

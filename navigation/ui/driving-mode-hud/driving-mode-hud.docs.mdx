@@ -1,0 +1,90 @@
+---
+description: "DrivingModeHud — full-screen CarPlay-style HUD with massive 240px speedometer, compass, street name, turn banner, ETA, fuel range, and GPS quality dot. Supports 1x/1.5x/2x font scale for accessibility."
+labels: ["navigation", "hud", "driving", "carplay", "speedometer"]
+---
+
+A full-screen, CarPlay-style heads-up display designed for motorcycle and car navigation. Combines all critical driving telemetry into a single dark, high-contrast screen optimised for glanceability at speed.
+
+## Key features
+
+- **Massive 240px speedometer** with green → amber → red colour states
+- **Compass** with cardinal markers and animated heading
+- **Turn banner** with direction arrow, distance, and voice toggle
+- **ETA + distance** to destination in the top bar
+- **Fuel gauge** with estimated range in the bottom bar
+- **GPS quality dot** — excellent / good / poor / lost
+- **Font scale prop** (`1x` / `1.5x` / `2x`) for accessibility
+- **Exit button** to return to the map view
+
+## Basic usage
+
+```tsx
+<DrivingModeHud
+  data={{
+    speed: 87,
+    heading: 47,
+    streetName: "Avtocesta A1",
+    eta: "14:32",
+    distanceToDestinationKm: 38.4,
+    currentFuelLiters: 14.2,
+    tankCapacityLiters: 18,
+    fuelRangeKm: 218,
+    gpsAccuracyMeters: 7,
+    nextInstruction: {
+      text: "Zavijte desno",
+      distanceM: 1200,
+      modifier: "turn-right",
+      announceAt: 300,
+    },
+  }}
+  fontScale="1x"
+  onExit={() => navigateToMap()}
+/>
+```
+
+## Accessibility — font scale
+
+Use the `fontScale` prop to increase text size for riders who need larger typography:
+
+```tsx
+// Default — standard HUD
+<DrivingModeHud data={hudData} fontScale="1x" />
+
+// Medium — 1.5× larger text
+<DrivingModeHud data={hudData} fontScale="1.5x" />
+
+// Maximum — 2× larger text for maximum readability
+<DrivingModeHud data={hudData} fontScale="2x" />
+```
+
+## With Bluetooth helmet and voice guidance
+
+```tsx
+<DrivingModeHud
+  data={hudData}
+  fontScale="1x"
+  voiceEnabled
+  btConnected
+  btDeviceName="Sena 50S"
+  onVoiceToggle={(enabled) => console.log("Voice:", enabled)}
+  onExit={() => router.push("/map")}
+/>
+```
+
+## Speed warning threshold
+
+Adjust the speed at which the speedometer shifts from green to amber and red:
+
+```tsx
+// Amber at 90 km/h, red at 126 km/h (90 × 1.4)
+<DrivingModeHud
+  data={hudData}
+  warningThreshold={90}
+/>
+
+// Amber at 120 km/h (default), red at 168 km/h
+<DrivingModeHud
+  data={hudData}
+  warningThreshold={120}
+/>
+```

@@ -1,0 +1,1 @@
+[{"name":"","description":"Seed mock hazard plain objects across Balkan roads.\nPass into useHazards({ mockData: mockHazardSeeds }) for testing and compositions.\nUses static timestamps to keep tests deterministic.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-hazards.mock.ts"}]

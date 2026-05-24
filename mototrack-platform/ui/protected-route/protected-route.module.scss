@@ -1,0 +1,62 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--interactions-z-index-overlay);
+}
+
+.card {
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-xl);
+  padding: 40px 48px;
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-panel);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 12px;
+  background-color: rgba(249, 115, 22, 0.12);
+  border-radius: var(--borders-radius-full);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+  flex-shrink: 0;
+}
+
+.badgeLabel {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  color: var(--colors-primary-default);
+  text-transform: uppercase;
+}
+
+.content {
+  width: 100%;
+  min-height: 100%;
+}
+
+@media (max-width: 479px) {
+  .card {
+    padding: 32px 24px;
+    margin: 0 16px;
+  }
+}

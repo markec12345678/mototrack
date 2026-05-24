@@ -1,0 +1,1 @@
+[{"name":"","description":"Creates the GraphQL schema for the Weather aspect API.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"weather.graphql.ts"}]

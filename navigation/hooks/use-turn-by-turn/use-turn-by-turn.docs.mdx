@@ -1,0 +1,91 @@
+---
+description: "useTurnByTurn — orchestrates real-time turn-by-turn navigation. Inputs: route (geometry + steps), live GPS position from useGeolocation. Computes nearest step, distance-to-turn, when to announce (distance ≤ step.announceAt). Speaks step.instruction via useTts with auto-BT routing. Tracks deviationState: on-route / drift / off-route / lost. On lost emits a Slovenian urgent announcement. Returns { currentStep, nextStep, distanceToTurn, etaSeconds, deviationState, recompute() }."
+labels: ['hook', 'navigation', 'turn-by-turn', 'geolocation', 'tts', 'bluetooth']
+---
+
+`useTurnByTurn` is the core navigation orchestrator for the MotoTrack platform.
+It fuses a `PlannedRoute` (geometry + `TurnStep[]`) with live GPS data from
+`useGeolocation`, and drives the full turn-by-turn experience:
+
+- Projects the rider onto the nearest route segment every GPS tick.
+- Identifies the **current** and **next** `TurnStep`.
+- Computes **distanceToTurn** (metres to the next manoeuvre).
+- Announces step instructions via `useTts` when `distance ≤ step.announceAt`, automatically routed to a connected Bluetooth helmet via `useBtHelmet`.
+- Tracks **deviationState**: `on-route` → `drift` → `off-route` → `lost`.
+- Emits a Slovenian urgent announcement when the rider is **lost**: *"Izgubili ste pot, pritisnite za ponovni izračun"*.
+- Exposes `recompute()` for consumers to trigger a fresh route calculation.
+
+## Basic usage
+
+```tsx
+function NavigationScreen({ route }: { route: PlannedRoute }) {
+  const {
+    currentStep,
+    nextStep,
+    distanceToTurn,
+    etaSeconds,
+    deviationState,
+    recompute,
+  } = useTurnByTurn(route);
+
+  return (
+    <div>
+      <p>Current: {currentStep?.instruction}</p>
+      <p>Distance to turn: {distanceToTurn} m</p>
+      <p>ETA: {Math.round(etaSeconds / 60)} min</p>
+      <p>Status: {deviationState}</p>
+      {deviationState === 'lost' && (
+        <button onClick={() => recompute()}>Ponovni izračun</button>
+      )}
+    </div>
+  );
+}
+```
+
+## Deviation state handling
+
+```tsx
+function DeviationIndicator({ route }: { route: PlannedRoute }) {
+  const { deviationState, recompute } = useTurnByTurn(route);
+
+  const colorMap = {
+    'on-route': '#22c55e',
+    'drift': '#eab308',
+    'off-route': '#f97316',
+    'lost': '#ef4444',
+  };
+
+  return (
+    <div style={{ color: colorMap[deviationState] }}>
+      {deviationState === 'lost' ? (
+        <button onClick={() => recompute()}>
+          Izgubili ste pot — Ponovni izračun
+        </button>
+      ) : (
+        <span>{deviationState}</span>
+      )}
+    </div>
+  );
+}
+```
+
+## Testing with mock data
+
+```tsx
+function TestableNavigation({ route }: { route: PlannedRoute }) {
+  const mockPosition = { lat: 46.0569, lng: 14.5058 };
+
+  const { currentStep, distanceToTurn, deviationState } = useTurnByTurn(route, {
+    mockPosition,
+    mockDeviationState: 'on-route',
+  });
+
+  return (
+    <div>
+      <p>Step: {currentStep?.instruction}</p>
+      <p>Distance: {distanceToTurn} m</p>
+      <p>Deviation: {deviationState}</p>
+    </div>
+  );
+}
+```

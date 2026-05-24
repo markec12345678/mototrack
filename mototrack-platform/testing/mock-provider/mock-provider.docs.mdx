@@ -1,0 +1,71 @@
+---
+description: "Mock provider wrapping MemoryRouter and Apollo MockedProvider with the MotoTrack theme. Used by all compositions across scopes."
+labels: ["testing", "mock", "provider", "apollo", "router", "theme"]
+---
+
+A universal mock provider for the MotoTrack platform. It wraps any component tree with:
+
+- **MototrackTheme** — injects the dark motorcycle CSS variables and base styles
+- **MemoryRouter** — provides in-memory routing via `react-router-dom`
+- **Apollo MockedProvider** — enables GraphQL query/mutation mocking without a real server
+- **MockContext** — signals to child components that they are running in mock mode
+
+Use this provider in every composition and test across all MotoTrack scopes to ensure a consistent, fully-wired rendering environment.
+
+## Basic usage
+
+Wrap any component with `MockProvider` in your composition file:
+
+```tsx
+import { MockProvider } from '@markec/mototrack-platform.testing.mock-provider';
+import { RiderCard } from '@markec/mototrack-platform.ui.rider-card';
+
+export const BasicComposition = () => {
+  return (
+    <MockProvider>
+      <RiderCard name="Marco Bianchi" position={1} lapTime="1:23.456" />
+    </MockProvider>
+  );
+};
+```
+
+## Detecting mock mode in a component
+
+Use the `useIsMock` hook to branch logic inside a component when running in a mocked context:
+
+```tsx
+import { useIsMock } from '@markec/mototrack-platform.testing.mock-provider';
+
+export function useRiderData(riderId: string) {
+  const isMock = useIsMock();
+
+  if (isMock) {
+    return { name: 'Mock Rider', lapTime: '1:23.456', position: 1 };
+  }
+
+  // real data fetching logic
+  return fetchRiderData(riderId);
+}
+```
+
+## Disabling router or theme
+
+For components that manage their own routing or theming, you can opt out of either wrapper:
+
+```tsx
+import { MockProvider } from '@markec/mototrack-platform.testing.mock-provider';
+
+// No MemoryRouter — useful when the component provides its own router
+export const WithoutRouter = () => (
+  <MockProvider noRouter>
+    <MyComponent />
+  </MockProvider>
+);
+
+// No theme — useful for testing unstyled or self-themed components
+export const WithoutTheme = () => (
+  <MockProvider noTheme>
+    <MyComponent />
+  </MockProvider>
+);
+```

@@ -1,0 +1,74 @@
+---
+description: "useCrosswind(headingDeg) — computes the perpendicular wind component from live weather data relative to the rider's heading. Returns crossKmh, level (none/moderate/strong/dangerous), audibleAlert, and dangerFlash. Triggers an audio beep when level moves to strong, and a repeating beep plus dangerFlash when dangerous."
+labels: ['hook', 'react', 'weather', 'crosswind', 'mototrack', 'safety']
+---
+
+`useCrosswind` fetches live weather via GraphQL and computes the wind component that acts perpendicular to the rider's heading — the most dangerous force for motorcyclists in windy conditions.
+
+## Crosswind levels
+
+| Level       | Crosswind     | Behaviour                                      |
+|-------------|---------------|------------------------------------------------|
+| `none`      | < 20 km/h     | No alert                                       |
+| `moderate`  | 20–39 km/h    | No alert, increased attention                  |
+| `strong`    | 40–59 km/h    | Single audio beep on level entry               |
+| `dangerous` | ≥ 60 km/h     | Repeating beep every 2 s + `dangerFlash: true` |
+
+## Basic usage
+
+```tsx
+function CrosswindDisplay({ headingDeg }: { headingDeg: number }) {
+  const { crossKmh, level, dangerFlash } = useCrosswind(headingDeg, {
+    location: { lat: 46.05, lng: 14.51 },
+  });
+
+  return (
+    <div style={{ background: dangerFlash ? 'red' : 'transparent', padding: 16 }}>
+      <p>Cross wind: {crossKmh} km/h</p>
+      <p>Level: {level}</p>
+      {dangerFlash && <strong>USTAVI SE!</strong>}
+    </div>
+  );
+}
+```
+
+## With mock data for testing
+
+```tsx
+import { crosswindMock } from '@markec/weather.hooks.use-crosswind';
+
+function TestCrosswind() {
+  const { crossKmh, level } = useCrosswind(0, {
+    mockData: crosswindMock.dangerous,
+  });
+
+  return (
+    <div>
+      <p>Cross wind: {crossKmh} km/h</p>
+      <p>Level: {level}</p>
+    </div>
+  );
+}
+```
+
+## Audible alert handling
+
+```tsx
+function CrosswindAudioDemo({ headingDeg }: { headingDeg: number }) {
+  const { level, audibleAlert, dangerFlash } = useCrosswind(headingDeg, {
+    location: { lat: 46.05, lng: 14.51 },
+  });
+
+  return (
+    <div>
+      <p>Level: {level}</p>
+      {audibleAlert && <span>🔊 Alert active</span>}
+      {dangerFlash && (
+        <div style={{ color: 'red', fontWeight: 'bold', fontSize: 24 }}>
+          USTAVI SE!
+        </div>
+      )}
+    </div>
+  );
+}
+```

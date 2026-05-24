@@ -1,0 +1,52 @@
+---
+description: "Round-Trip v2 config card with sliders for distance and twistiness, a direction selector, a live SVG route preview, and a generate button."
+labels: ["routes", "config", "round-trip", "motorcycle"]
+---
+
+A rich configuration card for generating circular motorcycle round-trip routes.
+It features sliders for target distance and twistiness, a clockwise/counterclockwise direction picker, a live mini SVG preview that morphs with your settings, and a generate button.
+
+## Basic usage
+
+```tsx
+<RoundTripConfig
+  defaultDistance={120}
+  defaultTwistiness={60}
+  defaultDirection="clockwise"
+  onGenerate={(config) => console.log(config)}
+/>
+```
+
+## Handling the generate callback
+
+The `onGenerate` callback receives the full config object when the user clicks **Generate Round Trip**.
+
+```tsx
+function MyPage() {
+  const handleGenerate = (config) => {
+    const { distanceKm, twistiness, direction } = config;
+    // Call your API or mutation here
+    generateRoundTrip({ start, distanceKm, twistiness, direction });
+  };
+
+  return (
+    <RoundTripConfig
+      defaultDistance={200}
+      defaultTwistiness={80}
+      defaultDirection="counterclockwise"
+      onGenerate={handleGenerate}
+    />
+  );
+}
+```
+
+## Loading state
+
+Pass `loading` to show a spinner and disable the button while the route is being computed.
+
+```tsx
+<RoundTripConfig
+  loading={isGenerating}
+  onGenerate={(config) => startGeneration(config)}
+/>
+```

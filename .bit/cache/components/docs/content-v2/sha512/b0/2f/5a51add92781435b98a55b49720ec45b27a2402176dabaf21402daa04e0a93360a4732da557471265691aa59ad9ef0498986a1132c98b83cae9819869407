@@ -1,0 +1,1 @@
+[{"name":"","description":"Mock achievement progress data for testing and composition previews.\nMirrors the 12 seeded achievement definitions from the achievement entity.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-achievements.mock.ts"}]

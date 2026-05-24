@@ -1,0 +1,1 @@
+[{"name":"","description":"Represents a geographical coordinate with latitude and longitude.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"lat-lng.model.ts"}]

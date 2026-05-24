@@ -1,0 +1,152 @@
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--borders-radius-full);
+  overflow: visible;
+  flex-shrink: 0;
+  background-color: var(--colors-surface-secondary);
+  border: 2px solid var(--colors-border-default);
+  box-sizing: border-box;
+  transition:
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  cursor: default;
+  user-select: none;
+}
+
+.avatar:hover {
+  border-color: var(--colors-primary-default);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────────── */
+
+.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+}
+
+.lg {
+  width: 56px;
+  height: 56px;
+}
+
+.xl {
+  width: 72px;
+  height: 72px;
+}
+
+/* ── Image ──────────────────────────────────────────────────────────────────── */
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--borders-radius-full);
+  display: block;
+}
+
+/* ── Initials ───────────────────────────────────────────────────────────────── */
+
+.initials {
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  line-height: 1;
+  letter-spacing: var(--typography-letter-spacing-wide);
+  pointer-events: none;
+}
+
+.xs .initials {
+  font-size: 9px;
+}
+
+.sm .initials {
+  font-size: 11px;
+}
+
+.md .initials {
+  font-size: 14px;
+}
+
+.lg .initials {
+  font-size: 20px;
+}
+
+.xl .initials {
+  font-size: 26px;
+}
+
+/* ── Status dot ─────────────────────────────────────────────────────────────── */
+
+.statusDot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: var(--borders-radius-full);
+  border: 2px solid var(--colors-surface-background);
+  box-sizing: border-box;
+}
+
+.xs .statusDot {
+  width: 7px;
+  height: 7px;
+  bottom: -1px;
+  right: -1px;
+}
+
+.sm .statusDot {
+  width: 9px;
+  height: 9px;
+  bottom: -1px;
+  right: -1px;
+}
+
+.md .statusDot {
+  width: 11px;
+  height: 11px;
+  bottom: 0;
+  right: 0;
+}
+
+.lg .statusDot {
+  width: 14px;
+  height: 14px;
+  bottom: 1px;
+  right: 1px;
+}
+
+.xl .statusDot {
+  width: 18px;
+  height: 18px;
+  bottom: 2px;
+  right: 2px;
+}
+
+.online {
+  background-color: var(--colors-status-success-default);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+.offline {
+  background-color: var(--colors-text-muted);
+  box-shadow: none;
+}
+
+/* ── Gradient fallback backgrounds by initials ──────────────────────────────── */
+
+.avatar:not(.hasImage) {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}

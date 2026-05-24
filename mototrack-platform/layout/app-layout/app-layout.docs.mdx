@@ -1,0 +1,62 @@
+---
+description: "App layout shell for MotoTrack. Composes Header, Sidebar (desktop), BottomNav (mobile), and a main content area. Shows a spinner while auth loads. Anonymous users see header + content only."
+labels: ["layout", "shell", "navigation", "auth"]
+---
+
+The `AppLayout` is the top-level shell component for the MotoTrack platform. It wires together the sticky `Header`, the desktop `Sidebar`, the mobile `BottomNav`, and the main route outlet into a cohesive, responsive layout.
+
+## Key behaviours
+
+- **Auth loading** — while `useAuth` is resolving, a full-page spinner is shown instead of the shell.
+- **Authenticated users** — see the full shell: header + sidebar (desktop) + bottom-nav (mobile) + content.
+- **Anonymous users** — see header + content only; sidebar and bottom-nav are hidden.
+- **Slot-driven** — `navigationItems`, `headerActions`, and `dashboardPanels` are passed as props collected by the platform aspect from registered feature aspects.
+
+## Basic usage
+
+```tsx
+<AppLayout
+  navigationItems={navigationItems}
+  headerActions={headerActions}
+  dashboardPanels={dashboardPanels}
+  profileHref="/profile"
+  settingsHref="/settings"
+  loginHref="/login"
+  signupHref="/signup"
+>
+  <Outlet />
+</AppLayout>
+```
+
+## Authenticated shell
+
+When the user is logged in, the full navigation chrome is rendered:
+
+```tsx
+<AppLayout
+  navigationItems={[
+    { key: "dashboard", label: "Dashboard", icon: "🏠", path: "/", order: 1, primary: true },
+    { key: "races",     label: "Races",     icon: "🏁", path: "/races", order: 2, primary: true },
+    { key: "map",       label: "Route Map", icon: "🗺️", path: "/map",   order: 3, primary: true },
+  ]}
+  headerActions={[
+    { key: "sos",           label: "SOS",           icon: "🚨", order: 1 },
+    { key: "notifications", label: "Notifications", icon: "🔔", order: 2 },
+  ]}
+>
+  <Outlet />
+</AppLayout>
+```
+
+## Anonymous / public shell
+
+For unauthenticated visitors, only the header is rendered alongside the content:
+
+```tsx
+<AppLayout
+  loginHref="/login"
+  signupHref="/signup"
+>
+  <LandingPage />
+</AppLayout>
+```

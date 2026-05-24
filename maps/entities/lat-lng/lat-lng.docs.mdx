@@ -1,0 +1,88 @@
+---
+labels: ['lat-lng', 'entity', 'geo', 'coordinates', 'haversine']
+description: "Immutable LatLng value object with lat/lng properties and static geodesic helpers: haversineKm, bearingDeg, interpolate, and bbox."
+---
+
+An immutable geographic coordinate value object. Supports serialisation, deserialisation, and a set of static geodesic helpers for common map calculations.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const paris = LatLng.from({ lat: 48.8566, lng: 2.3522 });
+const london = LatLng.from({ lat: 51.5074, lng: -0.1278 });
+
+console.log(paris.toString()); // "(48.8566, 2.3522)"
+console.log(paris.toObject()); // { lat: 48.8566, lng: 2.3522 }
+```
+
+## Static helpers
+
+### haversineKm — great-circle distance
+
+```ts
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const paris = LatLng.from({ lat: 48.8566, lng: 2.3522 });
+const london = LatLng.from({ lat: 51.5074, lng: -0.1278 });
+
+const distanceKm = LatLng.haversineKm(paris, london);
+console.log(distanceKm); // ~341
+```
+
+### bearingDeg — initial bearing
+
+```ts
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const paris = LatLng.from({ lat: 48.8566, lng: 2.3522 });
+const london = LatLng.from({ lat: 51.5074, lng: -0.1278 });
+
+const bearing = LatLng.bearingDeg(paris, london);
+console.log(bearing); // ~337° (north-northwest)
+```
+
+### interpolate — position along a path
+
+```ts
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const start = LatLng.from({ lat: 0, lng: 0 });
+const end   = LatLng.from({ lat: 10, lng: 20 });
+
+const midpoint = LatLng.interpolate(start, end, 0.5);
+console.log(midpoint.toString()); // "(5, 10)"
+```
+
+### bbox — bounding box for a set of points
+
+```ts
+import { LatLng } from '@markec/maps.entities.lat-lng';
+
+const points = [
+  LatLng.from({ lat: 48.8566, lng: 2.3522 }),
+  LatLng.from({ lat: 51.5074, lng: -0.1278 }),
+  LatLng.from({ lat: 40.7128, lng: -74.006 }),
+];
+
+const box = LatLng.bbox(points);
+console.log(box);
+// { minLat: 40.7128, minLng: -74.006, maxLat: 51.5074, maxLng: 2.3522 }
+```
+
+## Mock data
+
+Use the mock helpers for development and testing:
+
+```ts
+import { mockLatLng, mockLatLngs } from '@markec/maps.entities.lat-lng';
+
+const paris = mockLatLng();                  // default: Paris
+const custom = mockLatLng({ lat: 35.6762 }); // override any property
+
+const cities = mockLatLngs(); // Paris, London, New York, Tokyo, Sydney
+console.log(cities.map((c) => c.toString()));
+```

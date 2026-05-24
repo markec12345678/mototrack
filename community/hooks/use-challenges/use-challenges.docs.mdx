@@ -1,0 +1,101 @@
+---
+description: "A React hook for managing community challenges. Provides listActive(), listPast(), and join(id) methods backed by GraphQL, with mock data support for testing."
+labels: ['hook', 'react', 'graphql', 'challenges', 'community']
+---
+
+A React hook that fetches and manages community challenges from the MotoTrack GraphQL API.
+It exposes `listActive()` to get ongoing challenges, `listPast()` to retrieve finished ones,
+and `join(id)` to enroll the current user in a challenge.
+
+## Basic usage
+
+```tsx
+function ChallengesPage() {
+  const { listActive, listPast, join, loading } = useChallenges();
+
+  if (loading) return <p>Loading challenges…</p>;
+
+  const active = listActive();
+  const past = listPast();
+
+  return (
+    <div>
+      <h2>Active Challenges ({active.length})</h2>
+      {active.map((c) => (
+        <div key={c.id}>
+          <span>{c.icon} {c.name}</span>
+          <button onClick={() => join(c.id)}>Join</button>
+        </div>
+      ))}
+
+      <h2>Past Challenges ({past.length})</h2>
+      {past.map((c) => (
+        <div key={c.id}>
+          <span>{c.icon} {c.name} — {c.progressPct}%</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## With mock data (for tests and previews)
+
+```tsx
+const mockChallenges = [
+  {
+    id: 'c-1',
+    name: 'Balkanski Tour',
+    description: 'Ride through 5 Balkan countries.',
+    icon: '🏍️',
+    points: 500,
+    status: 'active',
+    endsAt: Date.now() + 30 * 86400000,
+    participants: 142,
+    joined: false,
+    progressPct: 0,
+  },
+];
+
+function PreviewComponent() {
+  const { listActive, join, joining } = useChallenges({ mockData: mockChallenges });
+  const active = listActive();
+
+  return (
+    <ul>
+      {active.map((c) => (
+        <li key={c.id}>
+          {c.icon} {c.name} — {c.points} pts
+          <button onClick={() => join(c.id)} disabled={joining}>
+            {joining ? 'Joining…' : 'Join'}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Handling join state and errors
+
+```tsx
+function JoinChallengeButton({ challengeId }: { challengeId: string }) {
+  const { join, joining, joinError } = useChallenges();
+
+  const handleJoin = async () => {
+    const success = await join(challengeId);
+    if (success) {
+      console.log('Successfully joined the challenge!');
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleJoin} disabled={joining}>
+        {joining ? 'Joining…' : 'Join Challenge'}
+      </button>
+      {joinError && <p style={{ color: 'red' }}>Failed to join: {joinError.message}</p>}
+    </div>
+  );
+}
+```

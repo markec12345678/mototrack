@@ -1,0 +1,307 @@
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--interactions-z-index-sticky);
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.98) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
+  backdrop-filter: blur(var(--effects-blur-medium));
+  -webkit-backdrop-filter: blur(var(--effects-blur-medium));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(249, 115, 22, 0.08);
+}
+
+/* ── Inner layout ──────────────────────────────────────────────────────────── */
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 var(--spacing-xl);
+  max-width: 1920px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  gap: var(--spacing-md);
+}
+
+/* ── Logo area ─────────────────────────────────────────────────────────────── */
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Desktop actions area ──────────────────────────────────────────────────── */
+
+.actionsArea {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  justify-content: flex-end;
+}
+
+/* ── Mobile actions (hidden on desktop) ────────────────────────────────────── */
+
+.mobileActions {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* ── UserBar area ──────────────────────────────────────────────────────────── */
+
+.userBarArea {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: var(--spacing-sm);
+}
+
+/* ── Action Button ─────────────────────────────────────────────────────────── */
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 14px;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-large);
+  color: var(--colors-text-default);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-medium);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.actionButton:hover {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-primary-default);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.12);
+  transform: translateY(-1px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── SOS button variant ────────────────────────────────────────────────────── */
+
+.sosButton {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  border-color: rgba(220, 38, 38, 0.6);
+  color: #ffffff !important;
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.35), var(--effects-shadows-xs);
+  animation: sosPulse 2.4s ease-in-out infinite;
+}
+
+.sosButton:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-color: rgba(239, 68, 68, 0.8);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.55), var(--effects-shadows-small);
+  transform: translateY(-1px);
+}
+
+.sosButton:active {
+  transform: translateY(0);
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+}
+
+@keyframes sosPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(220, 38, 38, 0.35), var(--effects-shadows-xs);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(220, 38, 38, 0.65), var(--effects-shadows-small);
+  }
+}
+
+/* ── Compact action button (mobile SOS) ────────────────────────────────────── */
+
+.actionButtonCompact {
+  padding: 8px 10px;
+}
+
+.actionButtonCompact .actionLabel {
+  display: none;
+}
+
+/* ── Action icon & label ───────────────────────────────────────────────────── */
+
+.actionIcon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionLabel {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-medium);
+  color: inherit;
+}
+
+/* ── Mobile menu trigger ───────────────────────────────────────────────────── */
+
+.menuTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-large);
+  color: var(--colors-text-default);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.menuTrigger:hover {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-primary-default);
+  color: var(--colors-primary-default);
+}
+
+.menuTriggerActive {
+  background-color: var(--colors-surface-secondary);
+  border-color: var(--colors-primary-default);
+  color: var(--colors-primary-default);
+}
+
+/* ── Mobile menu wrapper ───────────────────────────────────────────────────── */
+
+.mobileMenuWrapper {
+  position: relative;
+}
+
+/* ── Mobile dropdown ───────────────────────────────────────────────────────── */
+
+.mobileDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: var(--interactions-z-index-modal);
+  min-width: 200px;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: var(--borders-radius-xl);
+  box-shadow: var(--effects-shadows-panel);
+  overflow: hidden;
+  animation: dropdownFadeIn var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mobileDropdownInner {
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Mobile dropdown item ──────────────────────────────────────────────────── */
+
+.mobileDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 10px var(--spacing-md);
+  background: transparent;
+  border: none;
+  border-radius: var(--borders-radius-medium);
+  color: var(--colors-text-default);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-medium);
+  cursor: var(--interactions-cursor-pointer);
+  text-align: left;
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.mobileDropdownItem:hover {
+  background-color: rgba(249, 115, 22, 0.1);
+  color: var(--colors-primary-default);
+}
+
+.mobileDropdownIcon {
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobileDropdownLabel {
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-medium);
+}
+
+/* ── Responsive — tablet and below (<1024px) ───────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .actionsArea {
+    display: none;
+  }
+
+  .mobileActions {
+    display: flex;
+  }
+
+  .inner {
+    padding: 0 var(--spacing-md);
+    height: 56px;
+  }
+}
+
+/* ── Responsive — mobile (<480px) ─────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .inner {
+    padding: 0 var(--spacing-sm);
+    height: 52px;
+    gap: var(--spacing-xs);
+  }
+
+  .userBarArea {
+    margin-left: var(--spacing-xs);
+  }
+}

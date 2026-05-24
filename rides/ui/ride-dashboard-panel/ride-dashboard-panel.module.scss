@@ -1,0 +1,163 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.allLink {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+
+  &:hover {
+    color: var(--colors-primary-default);
+  }
+}
+
+/* ── Content ─────────────────────────────────────────────────────────────── */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── Ride list ───────────────────────────────────────────────────────────── */
+
+.rideList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.rideItem {
+  width: 100%;
+}
+
+/* ── State containers ────────────────────────────────────────────────────── */
+
+.stateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+/* ── Skeleton loading ────────────────────────────────────────────────────── */
+
+.skeletonList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.skeleton {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--borders-radius-large);
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.06) 0%,
+    rgba(148, 163, 184, 0.12) 50%,
+    rgba(148, 163, 184, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Error state ─────────────────────────────────────────────────────────── */
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.errorIcon {
+  font-size: 28px;
+  line-height: 1;
+  color: var(--colors-status-warning-default);
+}
+
+.errorText {
+  margin: 0;
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  font-family: var(--typography-font-family);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: var(--spacing-sm);
+  filter: grayscale(0.3);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  font-family: var(--typography-font-family);
+}
+
+.emptySubtitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  font-family: var(--typography-font-family);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .panel {
+    gap: var(--spacing-md);
+  }
+
+  .rideList {
+    gap: var(--spacing-sm);
+  }
+}

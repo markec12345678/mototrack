@@ -1,0 +1,101 @@
+---
+description: "React hook for listing, saving, and aggregating garage expenses. Accepts optional bikeId, from, and to filters. Returns a flat expense list, save action, loading/error states, and two aggregations: monthlyTotal and byCategory."
+labels: ['hook', 'expenses', 'graphql', 'garage', 'aggregation']
+---
+
+`useExpenses` fetches expenses from the MotoTrack GraphQL API, exposes a `save` action for creating or updating records, and derives two ready-to-render aggregations — `monthlyTotal` and `byCategory` — so you never have to crunch numbers in your UI components.
+
+## Basic usage — list expenses
+
+```tsx
+import { useExpenses } from '@markec/garage.hooks.use-expenses';
+
+function ExpenseList() {
+  const { expenses, loading, error } = useExpenses();
+
+  if (loading) return <p>Loading…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {expenses.map((expense) => (
+        <li key={expense.id}>
+          {expense.label} — €{expense.amountEur.toFixed(2)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Filtered by bike and date range
+
+```tsx
+import { useExpenses } from '@markec/garage.hooks.use-expenses';
+
+function BikeExpenses({ bikeId }: { bikeId: string }) {
+  const startOfYear = new Date(new Date().getFullYear(), 0, 1).getTime();
+
+  const { expenses, monthlyTotal, byCategory } = useExpenses({
+    bikeId,
+    from: startOfYear,
+  });
+
+  return (
+    <div>
+      <h2>Expenses this year</h2>
+      <ul>
+        {expenses.map((e) => (
+          <li key={e.id}>{e.label} — €{e.amountEur.toFixed(2)}</li>
+        ))}
+      </ul>
+
+      <h3>By category</h3>
+      <ul>
+        {byCategory.map((c) => (
+          <li key={c.category}>
+            {c.category}: €{c.totalEur.toFixed(2)} ({c.count} entries)
+          </li>
+        ))}
+      </ul>
+
+      <h3>Monthly totals</h3>
+      <ul>
+        {monthlyTotal.map((m) => (
+          <li key={m.month}>{m.month}: €{m.totalEur.toFixed(2)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+## Saving an expense
+
+```tsx
+import { useExpenses } from '@markec/garage.hooks.use-expenses';
+
+function AddExpenseForm({ bikeId }: { bikeId: string }) {
+  const { save, saving, saveError } = useExpenses({ bikeId });
+
+  const handleSubmit = async () => {
+    await save({
+      bikeId,
+      category: 'fuel',
+      amountEur: 48.5,
+      label: 'Full tank',
+      at: Date.now(),
+      notes: 'Highway run',
+    });
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={() => handleSubmit()} disabled={saving}>
+        {saving ? 'Saving…' : 'Add Expense'}
+      </button>
+      {saveError && <p>Error: {saveError.message}</p>}
+    </div>
+  );
+}
+```

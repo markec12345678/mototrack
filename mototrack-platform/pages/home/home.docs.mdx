@@ -1,0 +1,44 @@
+---
+description: "Home page that switches based on authentication state. Anonymous users see a marketing landing page with hero, feature pills, and CTA buttons. Authenticated users are shown the Dashboard."
+labels: ["page", "home", "landing", "auth", "mototrack"]
+---
+
+The `Home` component is the root entry page of the MotoTrack platform. It reads the authentication state via `useAuth` and renders the appropriate view:
+
+- **Anonymous** → Full marketing landing page with a hero section, feature pills, and CTA buttons to Signup / Login.
+- **Authenticated** → Renders the `Dashboard` page directly.
+
+## Anonymous Landing
+
+When no user is logged in, the home page shows a full-screen hero with the headline, feature pills, and two CTA buttons.
+
+```tsx
+<Home signupPath="/signup" loginPath="/login" />
+```
+
+## Custom Feature Pills
+
+You can override the default feature pills by passing a `featurePills` prop:
+
+```tsx
+<Home
+  featurePills={[
+    { icon: "🏔️", label: "Gorske poti" },
+    { icon: "⚡", label: "Hitro usmerjanje" },
+    { icon: "🌦️", label: "Vreme v živo" },
+    { icon: "👥", label: "Skupnost" },
+    { icon: "🔒", label: "Zasebnost" },
+  ]}
+  signupPath="/signup"
+  loginPath="/login"
+/>
+```
+
+## Authenticated State
+
+When the user is authenticated, `Home` renders the `Dashboard` component automatically — no additional props are needed.
+
+```tsx
+// Authenticated users see the Dashboard automatically
+<Home />
+```

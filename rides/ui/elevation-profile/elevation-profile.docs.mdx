@@ -1,0 +1,58 @@
+---
+description: "Mini SVG elevation profile of a track. Gradient fill, current-position indicator, total climb/descent labels. Used live during recording and in ride detail."
+labels: ["elevation", "svg", "track", "ride", "recording"]
+---
+
+A compact, animated SVG elevation profile for motorcycle track data. Renders a smooth gradient-filled curve from an array of elevation/distance points, with an optional live position indicator and climb/descent stat labels.
+
+Designed for two contexts:
+
+- **Ride detail** — static overview of the full route's elevation shape.
+- **Live recording** — animated position dot moves along the curve as the rider progresses.
+
+## Basic usage
+
+```tsx
+<ElevationProfile
+  points={[
+    { elevation: 320, distanceKm: 0 },
+    { elevation: 480, distanceKm: 5.5 },
+    { elevation: 560, distanceKm: 12.0 },
+    { elevation: 320, distanceKm: 20.0 },
+  ]}
+  climbM={412}
+  descentM={412}
+  width={400}
+  height={90}
+  showStats
+/>
+```
+
+## Live position indicator
+
+Pass a `progress` value between `0` and `1` to show the current-position dot. Update it on a timer or from a GPS stream during recording.
+
+```tsx
+<ElevationProfile
+  points={trackPoints}
+  progress={0.42}
+  climbM={currentClimbM}
+  descentM={currentDescentM}
+  width={400}
+  height={90}
+  showStats
+/>
+```
+
+## Without stat labels
+
+Hide the climb/descent labels for a minimal, purely visual sparkline embed.
+
+```tsx
+<ElevationProfile
+  points={trackPoints}
+  width={320}
+  height={64}
+  showStats={false}
+/>
+```

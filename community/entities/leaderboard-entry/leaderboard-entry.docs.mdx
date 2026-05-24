@@ -1,0 +1,81 @@
+---
+labels: ['leaderboard', 'entity', 'community', 'value-object']
+description: "A LeaderboardEntry value object representing a user's position on the community leaderboard, including rank, stats, and points."
+---
+
+A value object representing a single entry on the community leaderboard. It encapsulates a rider's rank, distance ridden, number of rides, and accumulated points. Supports serialization and deserialization and can be used from both frontend and backend.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { LeaderboardEntry } from '@markec/community.entities.leaderboard-entry';
+
+const entry = LeaderboardEntry.from({
+  rank: 1,
+  userId: 'user-001',
+  displayName: 'Alex Rider',
+  country: 'DE',
+  km: 12450.5,
+  rides: 312,
+  points: 9870,
+  me: false,
+});
+
+console.log(entry.id);        // 'user-001'
+console.log(entry.rank);      // 1
+console.log(entry.toObject()); // serialized plain object
+```
+
+## Serialization
+
+Use `toObject()` to convert the entity into a plain serializable object, for example when sending it over the network or storing it:
+
+```ts
+import { LeaderboardEntry } from '@markec/community.entities.leaderboard-entry';
+
+const entry = LeaderboardEntry.from({
+  rank: 2,
+  userId: 'user-002',
+  displayName: 'Maria Biker',
+  country: 'ES',
+  km: 10320.0,
+  rides: 278,
+  points: 8540,
+  me: true,
+});
+
+const plain = entry.toObject();
+// {
+//   id: 'user-002',
+//   rank: 2,
+//   userId: 'user-002',
+//   displayName: 'Maria Biker',
+//   country: 'ES',
+//   km: 10320,
+//   rides: 278,
+//   points: 8540,
+//   me: true,
+// }
+```
+
+## Mock data
+
+Use the mock helpers for development and testing purposes:
+
+```ts
+import {
+  mockLeaderboardEntry,
+  mockLeaderboardEntries,
+} from '@markec/community.entities.leaderboard-entry';
+
+// Single entry with optional overrides
+const myEntry = mockLeaderboardEntry({ rank: 5, country: 'FR' });
+
+// Full leaderboard list with optional per-index overrides
+const leaderboard = mockLeaderboardEntries([{ displayName: 'Custom Rider' }]);
+
+console.log(myEntry.displayName); // 'Alex Rider'
+console.log(leaderboard.length);  // 5
+```

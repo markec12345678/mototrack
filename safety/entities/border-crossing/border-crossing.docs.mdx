@@ -1,0 +1,69 @@
+---
+labels: ['border-crossing', 'entity', 'balkan', 'travel', 'safety']
+description: "A BorderCrossing entity representing key Balkan border crossings with required documents, vignette info, average wait times, and traveller tips."
+---
+
+A data entity for border crossings used across the safety platform. It models key Balkan crossings with all the information a traveller needs: required documents, whether a road vignette is required on the destination side, average wait times, and practical tips.
+
+Includes a seed of **10 real Balkan border crossings**: Šentilj (SI/AT), Gruškovje/Macelj (HR/SI), Metković/Doljani (BA/HR), Debeli Brijeg (ME/HR), Kalotina (BG/RS), Albița/Leușeni (RO/MD), Iași/Sculeni (RO/MD), Tabanovce/Preševo (MK/RS), Hani i Hotit (AL/ME), and Bogorodica/Evzoni (MK/GR).
+
+## Create a BorderCrossing from a plain object
+
+```ts
+import { BorderCrossing } from '@markec/safety.entities.border-crossing';
+
+const crossing = BorderCrossing.from({
+  id: 'bc-001',
+  name: 'Šentilj',
+  countryFrom: 'SI',
+  countryTo: 'AT',
+  documents: ['Passport', 'EU ID Card'],
+  vignetteRequired: true,
+  avgWaitMin: 15,
+  tips: 'Austrian vignette (Pickerl) is mandatory. Buy it at the border petrol station or online before arrival.',
+});
+
+console.log(crossing.name);           // 'Šentilj'
+console.log(crossing.vignetteRequired); // true
+console.log(crossing.toObject());
+```
+
+## Use the seed mock data for development and testing
+
+```ts
+import { mockBorderCrossings, mockBorderCrossing } from '@markec/safety.entities.border-crossing';
+
+// All 10 Balkan seed crossings
+const allCrossings = mockBorderCrossings();
+
+// A single crossing (Šentilj by default)
+const single = mockBorderCrossing();
+
+// Override specific fields for testing
+const slowCrossing = mockBorderCrossing({ avgWaitMin: 120 });
+console.log(slowCrossing.avgWaitMin); // 120
+```
+
+## Serialize and deserialize
+
+```ts
+import { BorderCrossing } from '@markec/safety.entities.border-crossing';
+import type { PlainBorderCrossing } from '@markec/safety.entities.border-crossing';
+
+const plain: PlainBorderCrossing = {
+  id: 'bc-005',
+  name: 'Kalotina',
+  countryFrom: 'BG',
+  countryTo: 'RS',
+  documents: ['Passport', 'EU ID Card', 'Vehicle Registration', 'Green Card Insurance'],
+  vignetteRequired: false,
+  avgWaitMin: 30,
+  tips: 'Main road corridor between Sofia and Belgrade. Serbian road tax is paid at toll booths.',
+};
+
+// Deserialize from API response
+const crossing = BorderCrossing.from(plain);
+
+// Serialize back for storage or API calls
+const serialized = crossing.toObject();
+```

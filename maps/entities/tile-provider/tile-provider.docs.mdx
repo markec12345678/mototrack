@@ -1,0 +1,89 @@
+---
+labels: ['tile-provider', 'entity', 'maps', 'leaflet', 'carto', 'esri', 'opentopomap']
+description: "TileProvider entity with key, label, urlTemplate, attribution, and maxZoom. Includes built-in providers for streets (CARTO Voyager), dark (CARTO Dark Matter), satellite (Esri World Imagery), and terrain (OpenTopoMap) with subdomain rotation support."
+---
+
+A `TileProvider` entity that models a map tile source. It supports serialization, deserialization, and tile URL resolution with automatic subdomain rotation. Four built-in providers are included out of the box.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { TileProvider } from '@markec/maps.entities.tile-provider';
+
+const provider = TileProvider.from({
+  key: 'carto-voyager',
+  label: 'Streets (CARTO Voyager)',
+  urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+  maxZoom: 19,
+  subdomains: ['a', 'b', 'c', 'd'],
+});
+
+console.log(provider.key);       // 'carto-voyager'
+console.log(provider.maxZoom);   // 19
+console.log(provider.hasSubdomains); // true
+```
+
+## Built-in providers
+
+Use the exported `BUILT_IN_PROVIDERS` array to access all four ready-to-use tile sources:
+
+```ts
+import { BUILT_IN_PROVIDERS, TileProvider } from '@markec/maps.entities.tile-provider';
+
+const providers = BUILT_IN_PROVIDERS.map(TileProvider.from);
+
+// keys: 'carto-voyager', 'carto-dark', 'esri-satellite', 'opentopomap'
+providers.forEach((p) => console.log(p.key, p.label));
+```
+
+## Tile URL resolution with subdomain rotation
+
+Resolve a concrete tile URL for given tile coordinates. Subdomains are automatically rotated to distribute load:
+
+```ts
+import { TileProvider } from '@markec/maps.entities.tile-provider';
+
+const provider = TileProvider.from({
+  key: 'opentopomap',
+  label: 'Terrain (OpenTopoMap)',
+  urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+  attribution: '&copy; OpenStreetMap contributors | OpenTopoMap (CC-BY-SA)',
+  maxZoom: 17,
+  subdomains: ['a', 'b', 'c'],
+});
+
+const tileUrl = provider.getTileUrl(8741, 5620, 14);
+console.log(tileUrl);
+// e.g. 'https://b.tile.opentopomap.org/14/8741/5620.png'
+```
+
+## Mock data
+
+Use the mock helpers for development and testing:
+
+```ts
+import {
+  mockTileProvider,
+  mockTileProviders,
+  mockDarkTileProvider,
+  mockSatelliteTileProvider,
+  mockTopoTileProvider,
+} from '@markec/maps.entities.tile-provider';
+
+// Single provider (CARTO Voyager by default)
+const streets = mockTileProvider();
+
+// All four built-in providers
+const all = mockTileProviders();
+
+// Specific providers
+const dark      = mockDarkTileProvider();
+const satellite = mockSatelliteTileProvider();
+const topo      = mockTopoTileProvider();
+
+// With partial overrides
+const custom = mockTileProvider({ label: 'My Custom Streets', maxZoom: 15 });
+```

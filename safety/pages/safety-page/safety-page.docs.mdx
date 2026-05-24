@@ -1,0 +1,68 @@
+---
+description: "Safety page (/safety) with four tabs: ICE contacts CRUD, country-aware emergency numbers with one-tap call, border crossings with documents and vignette info, and a list of reported hazards."
+labels: ["safety", "page", "ICE", "emergency", "borders", "hazards"]
+---
+
+The `SafetyPage` is the main `/safety` route component for MotoTrack. It provides four tabs covering all safety-critical information a motorcyclist needs on the road.
+
+## Tabs overview
+
+- **ICE** — In Case of Emergency contacts with blood type, allergies, and CRUD management
+- **Reševalne številke** — Country-aware emergency numbers auto-detected from GPS, with manual override and one-tap call buttons
+- **Mejni prehodi** — 10 border crossings with required documents, vignette info, average wait times, and tips
+- **Moja poročila** — List of hazards the user has reported to the community
+
+## Basic usage
+
+```tsx
+import { SafetyPage } from '@markec/safety.pages.safety-page';
+
+export function App() {
+  return <SafetyPage />;
+}
+```
+
+## With initial tab
+
+Open directly to the emergency numbers tab:
+
+```tsx
+import { SafetyPage } from '@markec/safety.pages.safety-page';
+
+export function EmergencyView() {
+  return <SafetyPage initialTab="numbers" />;
+}
+```
+
+## With mock ICE contacts (for testing)
+
+```tsx
+import { SafetyPage } from '@markec/safety.pages.safety-page';
+import type { IceContactData } from '@markec/safety.pages.safety-page';
+
+const contacts: IceContactData[] = [
+  {
+    id: 'ice-1',
+    userId: 'user-1',
+    name: 'Ana Horvat',
+    relation: 'Partner',
+    phone: '+38641123456',
+    primary: true,
+    bloodType: 'A+',
+    allergies: 'Penicilin',
+  },
+];
+
+export function SafetyWithContacts() {
+  return (
+    <SafetyPage
+      initialTab="ice"
+      mockContacts={contacts}
+    />
+  );
+}
+```
+
+## SOS floating button
+
+A persistent SOS floating action button is always visible in the bottom-right corner. Tapping it opens the `SosDialog` with the big 112 call button, ICE contacts, and location sharing — all accessible offline.

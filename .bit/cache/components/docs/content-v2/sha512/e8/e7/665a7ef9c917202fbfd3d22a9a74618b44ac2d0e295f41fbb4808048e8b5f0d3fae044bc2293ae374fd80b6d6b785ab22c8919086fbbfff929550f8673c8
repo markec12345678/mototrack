@@ -1,0 +1,1 @@
+[{"name":"","description":"GraphQL schema for the navigation aspect.\nExposes a `speak` mutation so other aspects (or remote integrations) can\ntrigger voice prompts that the browser runtime ultimately plays.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"navigation.graphql.ts"}]

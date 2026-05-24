@@ -1,0 +1,63 @@
+---
+description: "Floating MotoChat AI assistant drawer that slides in from the right. Features a brain icon header, message list, quick-prompt chips when empty, and an input bar with voice input and send button. Closes on Esc or backdrop click."
+labels: ["ai", "chat", "drawer", "assistant", "mototrack"]
+---
+
+`MotoChatPanel` is a slide-in drawer (right-side) that wraps the MotoChat AI assistant. It integrates the `useMotoChat` hook for conversation management, `ChatMessageBubble` for rendering messages, `QuickPrompts` for empty-state suggestions, and `VoiceInputButton` for hands-free input.
+
+## Basic usage
+
+Open and close the panel by toggling the `open` prop and providing an `onClose` callback:
+
+```tsx
+import { useState } from 'react';
+import { MotoChatPanel } from '@markec/ai-assistant.ui.moto-chat-panel';
+
+function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Odpri MotoChat</button>
+      <MotoChatPanel
+        open={open}
+        onClose={() => setOpen(false)}
+      />
+    </>
+  );
+}
+```
+
+## Custom subtitle
+
+Override the default subtitle shown below the MotoChat heading:
+
+```tsx
+<MotoChatPanel
+  open={open}
+  onClose={() => setOpen(false)}
+  subtitle="Alpski AI vodnik za motocikliste"
+/>
+```
+
+## Custom quick prompts
+
+Provide a custom set of suggestion chips displayed when the conversation is empty:
+
+```tsx
+const prompts = [
+  { id: '1', label: 'Najboljša pot čez Stelvio Pass' },
+  { id: '2', label: 'Vreme na Col du Galibier danes' },
+  { id: '3', label: 'Parkirišča pri Grossglockner' },
+];
+
+<MotoChatPanel
+  open={open}
+  onClose={() => setOpen(false)}
+  quickPrompts={prompts}
+/>
+```
+
+## Keyboard & backdrop dismissal
+
+The panel closes automatically when the user presses **Esc** or clicks the semi-transparent backdrop behind the drawer — no extra wiring needed.

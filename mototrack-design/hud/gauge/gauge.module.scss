@@ -1,0 +1,20 @@
+.gauge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.svg {
+  display: block;
+  overflow: visible;
+}
+
+.needle {
+  transition:
+    d var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    fill var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  transform-origin: center;
+}

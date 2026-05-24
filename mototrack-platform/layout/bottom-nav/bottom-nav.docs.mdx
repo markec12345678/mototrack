@@ -1,0 +1,49 @@
+---
+description: "Mobile bottom-tab navigation bar. Renders primary NavigationItems as icon + label tabs with safe-area bottom inset. Active tab highlighted in orange. Visible only on screens narrower than 1024px."
+labels: ["navigation", "mobile", "bottom-nav", "tabs"]
+---
+
+Mobile bottom-tab navigation for the MotoTrack platform. Renders only items marked as `primary: true` from the `navigationItems` prop, sorted by their `order` field. The active tab is highlighted in orange and shows a glowing dot indicator. A safe-area bottom inset is applied automatically for notched and home-indicator devices. The component is hidden on screens 1024px and wider.
+
+## Basic usage
+
+```tsx
+import { BottomNav } from '@markec/mototrack-platform.layout.bottom-nav';
+
+const navItems = [
+  { key: 'dashboard', label: 'Home',    icon: 'home',    path: '/',        order: 1, primary: true },
+  { key: 'map',       label: 'Map',     icon: 'map',     path: '/map',     order: 2, primary: true },
+  { key: 'routes',    label: 'Routes',  icon: 'route',   path: '/routes',  order: 3, primary: true },
+  { key: 'riders',    label: 'Riders',  icon: 'riders',  path: '/riders',  order: 4, primary: true },
+  { key: 'profile',   label: 'Profile', icon: 'profile', path: '/profile', order: 5, primary: true },
+];
+
+<BottomNav navigationItems={navItems} />
+```
+
+## Filtering non-primary items
+
+Only items with `primary: true` are rendered. Secondary items (e.g. Settings) are silently excluded.
+
+```tsx
+const mixedItems = [
+  { key: 'home',     label: 'Home',     icon: 'home',    path: '/',         order: 1, primary: true  },
+  { key: 'map',      label: 'Map',      icon: 'map',     path: '/map',      order: 2, primary: true  },
+  { key: 'settings', label: 'Settings', icon: 'settings', path: '/settings', order: 3, primary: false },
+  { key: 'profile',  label: 'Profile',  icon: 'profile', path: '/profile',  order: 4, primary: true  },
+];
+
+// Only Home, Map, and Profile tabs are rendered — Settings is hidden.
+<BottomNav navigationItems={mixedItems} />
+```
+
+## Platform slot integration
+
+In the MotoTrack platform, `navigationItems` are collected from feature aspect slot registrations and passed down from the app shell. The bottom nav renders the same slot data as the sidebar, ensuring consistent navigation across breakpoints.
+
+```tsx
+// Inside the app shell / layout component:
+const navigationItems = useNavigationSlot(); // collected from feature aspects
+
+<BottomNav navigationItems={navigationItems} />
+```

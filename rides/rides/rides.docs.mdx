@@ -1,0 +1,39 @@
+---
+description: 'Rides aspect — track recording, ride history and ride detail for MotoTrack.'
+labels: ['aspect', 'rides', 'mototrack']
+---
+
+The Rides aspect plugs into the MotoTrack platform and contributes:
+
+- `/track` — full-screen tracker page with the start-ride control.
+- `/rides` — list & calendar view of past rides.
+- `/rides/:id` — ride detail page with map, stats, elevation and a `RideDetailTab` extension slot.
+- A "Zadnje vožnje" dashboard panel.
+- Navigation items "Sledi" (primary) and "Vožnje" (secondary).
+- A GraphQL API (`listRides`, `getRide`, `createRide`, `deleteRide`, `getRideStats`).
+- A Typegoose `Ride` model with automatic metric computation on save.
+
+## Extending the Ride Detail page
+
+Other aspects can register tabs into the ride detail page:
+
+```ts
+import { RidesAspect, type RidesBrowser } from '@markec/rides.rides';
+
+export class WeatherBrowser {
+  static dependencies = [RidesAspect];
+
+  static async provider([rides]: [RidesBrowser]) {
+    rides.registerRideDetailTab([
+      {
+        key: 'weather',
+        label: 'Weather',
+        icon: '🌤️',
+        component: WeatherTab,
+        order: 1,
+      },
+    ]);
+    return new WeatherBrowser();
+  }
+}
+```

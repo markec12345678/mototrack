@@ -1,0 +1,85 @@
+---
+description: "Modal dialog with backdrop blur, close button, title, body, and footer slot. Supports sm/md/lg sizes. Closes on ESC key or backdrop click. Used for Pre-Ride Checklist, share dialog, and settings."
+labels: ["modal", "dialog", "overlay", "ui"]
+---
+
+A versatile modal dialog component for the MotoTrack design system. Features a blurred backdrop, animated entry, a close button, and composable header/body/footer slots. Supports three sizes and is fully keyboard-accessible.
+
+## Basic usage
+
+```tsx
+import { Modal } from '@markec/mototrack-design.overlays.modal';
+import { useState } from 'react';
+
+function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Open Modal</button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="My Modal"
+      >
+        <p>Modal body content goes here.</p>
+      </Modal>
+    </>
+  );
+}
+```
+
+## With footer actions
+
+Use the `footer` prop to inject action buttons into the modal footer slot.
+
+```tsx
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Confirm Action"
+  size="sm"
+  footer={
+    <>
+      <button onClick={() => setOpen(false)}>Cancel</button>
+      <button onClick={handleConfirm}>Confirm</button>
+    </>
+  }
+>
+  <p>Are you sure you want to proceed?</p>
+</Modal>
+```
+
+## Size variants
+
+The modal supports three sizes: `sm` (400px), `md` (560px, default), and `lg` (720px).
+
+```tsx
+<Modal open={open} onClose={() => setOpen(false)} title="Small Modal" size="sm">
+  <p>Compact modal for quick confirmations or share dialogs.</p>
+</Modal>
+
+<Modal open={open} onClose={() => setOpen(false)} title="Medium Modal" size="md">
+  <p>Default size — great for settings panels and forms.</p>
+</Modal>
+
+<Modal open={open} onClose={() => setOpen(false)} title="Large Modal" size="lg">
+  <p>Wide modal for checklists, data tables, or rich content.</p>
+</Modal>
+```
+
+## Controlling close behaviour
+
+By default the modal closes on ESC key press and backdrop click. Both can be disabled independently.
+
+```tsx
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Persistent Modal"
+  closeOnEsc={false}
+  closeOnBackdrop={false}
+>
+  <p>This modal can only be closed via the close button.</p>
+</Modal>
+```

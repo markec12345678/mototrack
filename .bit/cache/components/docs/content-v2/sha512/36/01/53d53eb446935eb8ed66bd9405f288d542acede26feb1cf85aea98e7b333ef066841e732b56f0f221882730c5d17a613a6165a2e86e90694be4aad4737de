@@ -1,0 +1,1 @@
+[{"filePath":"tour-card.tsx","name":"TourCard","description":"","properties":[{"name":"tour","description":"","required":true,"type":"signature"},{"name":"className","description":"","required":false,"type":"string"},{"name":"style","description":"","required":false,"type":"ReactCSSProperties"}],"access":"public","methods":[],"args":[],"examples":[]}]

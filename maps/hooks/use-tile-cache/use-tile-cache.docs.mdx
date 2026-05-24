@@ -1,0 +1,93 @@
+---
+description: "useTileCache — Cache API wrapper for offline map tile storage. cacheTilesForRoute(coords, zooms, buffer) computes XYZ tiles intersecting the route buffer and stores them in Cache 'mototrack-tiles-v1'. getStats() reports counts and bytes. clear() purges the cache. isTileCached(z,x,y) lets the map favour cached tiles when offline."
+labels: ['hook', 'maps', 'offline', 'cache', 'tiles']
+---
+
+`useTileCache` is a React hook that wraps the browser **Cache API** to enable offline map tile storage for MotoTrack routes.
+
+It synchronises tile metadata with the server via GraphQL and stores the actual tile blobs in the `mototrack-tiles-v1` cache bucket.
+The hook exposes four core operations: **cacheTilesForRoute**, **getStats**, **clear**, and **isTileCached**.
+
+## Cache tiles for a route
+
+Call `cacheTilesForRoute` with an array of `LatLng` waypoints, the zoom levels you want to pre-fetch, and a buffer radius in kilometres.
+The hook expands the route's bounding box by the buffer, computes every XYZ tile that intersects it, and stores them in the Cache API.
+
+```tsx
+function CacheRouteButton() {
+  const { cacheTilesForRoute, caching } = useTileCache();
+
+  const route = [
+    { lat: 46.0569, lng: 14.5058 },
+    { lat: 46.3683, lng: 14.1097 },
+  ];
+
+  const handleCache = async () => {
+    const result = await cacheTilesForRoute(route, [12, 13, 14], 2);
+    if (result) {
+      console.log(`Cached ${result.tilesCached} tiles (${result.bytes} bytes)`);
+    }
+  };
+
+  return (
+    <button type="button" onClick={() => handleCache()} disabled={caching}>
+      {caching ? 'Caching…' : 'Cache Route Tiles'}
+    </button>
+  );
+}
+```
+
+## Read cache statistics
+
+`getStats()` returns a `CacheStats` object with the total tile count, total bytes, and timestamps of the oldest and newest cached tiles.
+
+```tsx
+function CacheStatsPanel() {
+  const { getStats, statsLoading } = useTileCache();
+
+  if (statsLoading) return <p>Loading stats…</p>;
+
+  const stats = getStats();
+  const mb = (stats.bytes / 1_048_576).toFixed(1);
+
+  return (
+    <div>
+      <p>Tiles cached: {stats.tilesCached}</p>
+      <p>Storage used: {mb} MB</p>
+      {stats.newest && (
+        <p>Last updated: {new Date(stats.newest).toLocaleString()}</p>
+      )}
+    </div>
+  );
+}
+```
+
+## Check and clear the cache
+
+Use `isTileCached(z, x, y)` to check whether a specific tile is available offline before making a network request.
+Use `clear()` to purge the entire `mototrack-tiles-v1` cache bucket.
+
+```tsx
+function OfflineTileManager() {
+  const { isTileCached, clear, getStats } = useTileCache();
+
+  const checkTile = async () => {
+    const cached = await isTileCached(14, 8976, 5765);
+    console.log(cached ? 'Tile is cached' : 'Tile not in cache');
+  };
+
+  const stats = getStats();
+
+  return (
+    <div>
+      <p>{stats.tilesCached} tiles in cache</p>
+      <button type="button" onClick={() => checkTile()}>
+        Check tile (14/8976/5765)
+      </button>
+      <button type="button" onClick={() => clear()}>
+        Clear all cached tiles
+      </button>
+    </div>
+  );
+}
+```

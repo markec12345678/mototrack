@@ -1,0 +1,1 @@
+[{"name":"","description":"Mock achievement progress data for testing and composition previews.\nCovers all 12 seeded achievements with realistic progress values.\nIDs match the seeded achievement IDs for easy lookup.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-achievements.mock.ts"}]

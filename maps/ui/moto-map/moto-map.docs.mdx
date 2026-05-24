@@ -1,0 +1,128 @@
+---
+description: "MotoMap — primary Leaflet 2D map wrapper for the MotoTrack platform. Uses react-leaflet MapContainer with a controlled tile style, floating overlays (TileStylePicker, MapLayerToggle), polylines, markers, draggable waypoints, rider position, and ride track rendering."
+labels: ["map", "leaflet", "react-leaflet", "mototrack", "waypoints", "ride"]
+---
+
+MotoMap is the primary 2D map component for the MotoTrack platform. It wraps `react-leaflet`'s `MapContainer` and provides a rich set of props for rendering ride data, planning routes, and integrating platform slot overlays.
+
+## Basic usage
+
+Render a full-screen map centered on a location with default dark tile style and floating controls:
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+
+<MotoMap
+  center={{ lat: 43.8563, lng: 18.4131 }}
+  zoom={13}
+/>
+```
+
+## Ride track and rider position
+
+Display a recorded ride track (orange polyline) and the current rider position (orange circle):
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+
+const track = [
+  { lat: 43.856, lng: 18.413 },
+  { lat: 43.862, lng: 18.422 },
+  { lat: 43.871, lng: 18.435 },
+];
+
+<MotoMap
+  center={{ lat: 43.862, lng: 18.422 }}
+  zoom={13}
+  rideTrack={track}
+  riderPosition={{ lat: 43.871, lng: 18.435 }}
+/>
+```
+
+## Waypoint planner with click-to-add
+
+Enable interactive waypoint planning by passing `onMapClick`. Combine with `draggableWaypoints`, `onDrag`, and `onRemove` for a full planning experience:
+
+```tsx
+import { useState } from 'react';
+import { MotoMap } from '@markec/maps.ui.moto-map';
+
+function WaypointPlanner() {
+  const [waypoints, setWaypoints] = useState([]);
+
+  return (
+    <MotoMap
+      center={{ lat: 43.8563, lng: 18.4131 }}
+      zoom={13}
+      draggableWaypoints={waypoints}
+      onMapClick={(latlng) =>
+        setWaypoints((prev) => [...prev, { id: String(Date.now()), latlng }])
+      }
+      onDrag={(id, latlng) =>
+        setWaypoints((prev) =>
+          prev.map((wp) => (wp.id === id ? { ...wp, latlng } : wp))
+        )
+      }
+      onRemove={(id) =>
+        setWaypoints((prev) => prev.filter((wp) => wp.id !== id))
+      }
+    />
+  );
+}
+```
+
+## Custom polylines and markers
+
+Render a planned route as a dashed blue polyline and add POI markers with popups:
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+
+<MotoMap
+  center={{ lat: 43.868, lng: 18.445 }}
+  zoom={12}
+  polylines={[
+    {
+      points: [
+        { lat: 43.856, lng: 18.413 },
+        { lat: 43.878, lng: 18.448 },
+        { lat: 43.865, lng: 18.49 },
+      ],
+      color: '#3b82f6',
+      weight: 4,
+      dashArray: '8 4',
+    },
+  ]}
+  markers={[
+    { latlng: { lat: 43.856, lng: 18.413 }, popup: 'Start' },
+    { latlng: { lat: 43.865, lng: 18.49 }, popup: 'Finish' },
+  ]}
+/>
+```
+
+## Platform slot overlays
+
+Register custom overlay components at specific map corners using the `overlays` prop:
+
+```tsx
+import { MotoMap } from '@markec/maps.ui.moto-map';
+
+<MotoMap
+  center={{ lat: 43.8563, lng: 18.4131 }}
+  zoom={13}
+  overlays={[
+    {
+      key: 'speed-hud',
+      component: SpeedHud,
+      position: 'top-left',
+    },
+    {
+      key: 'race-timer',
+      component: RaceTimer,
+      position: 'top-center',
+    },
+  ]}
+/>
+```
+
+Available positions: `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`.

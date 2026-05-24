@@ -1,0 +1,81 @@
+---
+labels: ['ride', 'entity', 'gps', 'cycling', 'gpx']
+description: "Ride entity with GPS track metrics. Computes distance, speed, elevation, and twistiness from raw TrackPoints. Supports GPX 1.1 export and plain-object serialisation."
+---
+
+A `Ride` entity that encapsulates all data for a single recorded cycling or outdoor activity.
+It stores computed metrics (distance, duration, speed, climb, descent, twistiness) alongside the raw GPS track.
+
+Use `Ride.computeMetrics(track)` to derive all metrics from a `TrackPoint[]` array, then `Ride.from(plain)` to hydrate a persisted record.
+Call `toGpx()` to export the ride as a standards-compliant GPX 1.1 XML string.
+
+## Create a Ride from raw track points
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+import { Ride } from '@markec/rides.entities.ride';
+
+const track = [
+  TrackPoint.from({ lat: 46.0, lng: 14.0, ts: Date.now(), speed: 0, elevation: 300 }),
+  TrackPoint.from({ lat: 46.01, lng: 14.01, ts: Date.now() + 60_000, speed: 8.5, elevation: 320 }),
+];
+
+const metrics = Ride.computeMetrics(track);
+
+const ride = new Ride(
+  'ride-001',
+  'user-001',
+  metrics.startedAt,
+  metrics.endedAt,
+  metrics.distanceKm,
+  metrics.durationSec,
+  metrics.maxSpeedKmh,
+  metrics.avgSpeedKmh,
+  metrics.climbM,
+  metrics.descentM,
+  metrics.twistinessScore,
+  track,
+  'Morning Loop',
+  'Great weather!'
+);
+
+console.log(ride.distanceKm, ride.twistinessScore);
+```
+
+## Hydrate from a plain object (e.g. API response)
+
+```tsx
+import { Ride } from '@markec/rides.entities.ride';
+
+const plain = await fetch('/api/rides/ride-001').then(r => r.json());
+const ride = Ride.from(plain);
+
+console.log(ride.name, ride.avgSpeedKmh);
+```
+
+## Export to GPX 1.1
+
+```tsx
+import { Ride } from '@markec/rides.entities.ride';
+import { mockRide } from '@markec/rides.entities.ride';
+
+const ride = mockRide({ name: 'Epic Descent' });
+const gpxString = ride.toGpx();
+
+// Save or upload the GPX string
+const blob = new Blob([gpxString], { type: 'application/gpx+xml' });
+const url = URL.createObjectURL(blob);
+```
+
+## Use mock data for development and testing
+
+```tsx
+import { mockRide, mockRides } from '@markec/rides.entities.ride';
+
+// Single ride with optional overrides
+const ride = mockRide({ name: 'Custom Ride', distanceKm: 42.0 });
+
+// List of rides for a feed or table
+const rides = mockRides();
+console.log(rides.map(r => r.name));
+```

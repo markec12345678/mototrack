@@ -1,0 +1,81 @@
+---
+labels: ['iconic-tour', 'entity', 'balkan', 'roads', 'gps', 'waypoints']
+description: "IconicTour entity representing a curated Balkan driving tour with GPS waypoints, difficulty rating, and metadata. Includes 20 seeded tours — 10 original routes and 10 prototype routes with verified real-world GPS coordinates."
+---
+
+A fully-typed entity class for iconic Balkan driving tours. Supports serialization, deserialization, and rich mock data for development and testing.
+Each tour carries GPS waypoints, a difficulty level, distance, rating, country flag, and a description — matching the GraphQL `IconicTour` schema exactly.
+
+## Create a tour from a plain object
+
+```tsx
+import { IconicTour } from '@markec/balkan-roads.entities.iconic-tour';
+
+const tour = IconicTour.from({
+  id: 'tour-vrsic',
+  name: 'Vršič Full Loop',
+  country: 'Slovenia',
+  flag: '🇸🇮',
+  distanceKm: 98,
+  rating: 4.9,
+  difficulty: 'hard',
+  description: 'The complete Vršič Pass loop — 50 hairpin bends, glacial scenery, and the turquoise Soča Valley.',
+  waypoints: [
+    { lat: 46.4833, lng: 13.7833, name: 'Kranjska Gora' },
+    { lat: 46.4167, lng: 13.7333, name: 'Vršič Summit (1 611 m)' },
+    { lat: 46.3333, lng: 13.5500, name: 'Bovec' },
+    { lat: 46.4833, lng: 13.7833, name: 'Kranjska Gora' },
+  ],
+});
+
+console.log(tour.name);        // 'Vršič Full Loop'
+console.log(tour.distanceKm);  // 98
+console.log(tour.waypoints);   // [{lat, lng, name}, ...]
+```
+
+## Serialize a tour to a plain object
+
+```tsx
+import { IconicTour } from '@markec/balkan-roads.entities.iconic-tour';
+
+const tour = IconicTour.from({
+  id: 'tour-transfagarasan',
+  name: 'Transfăgărășan Highway',
+  country: 'Romania',
+  flag: '🇷🇴',
+  distanceKm: 151,
+  rating: 5.0,
+  difficulty: 'hard',
+  description: "Romania's most dramatic road, peaking at Bâlea Lake (2 034 m).",
+  waypoints: [
+    { lat: 45.3500, lng: 24.6333, name: 'Curtea de Argeș' },
+    { lat: 45.6000, lng: 24.6167, name: 'Bâlea Lake (2 034 m)' },
+    { lat: 45.6167, lng: 24.5667, name: 'Cârțișoara' },
+  ],
+});
+
+const plain = tour.toObject();
+// plain is a PlainIconicTour — safe to pass to JSON.stringify or a GraphQL resolver
+console.log(JSON.stringify(plain, null, 2));
+```
+
+## Use mock data for development and testing
+
+```tsx
+import { mockIconicTours, mockIconicTour } from '@markec/balkan-roads.entities.iconic-tour';
+
+// All 20 seeded tours
+const allTours = mockIconicTours();
+console.log(allTours.length); // 20
+
+// Single tour with optional overrides
+const customTour = mockIconicTour({ name: 'My Custom Route', distanceKm: 250 });
+console.log(customTour.name); // 'My Custom Route'
+
+// Per-index overrides across the full dataset
+const tours = mockIconicTours([
+  { difficulty: 'extreme' }, // overrides index 0 only
+]);
+console.log(tours[0].difficulty); // 'extreme'
+console.log(tours[1].difficulty); // original value
+```

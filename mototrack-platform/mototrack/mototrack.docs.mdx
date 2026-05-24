@@ -1,0 +1,85 @@
+---
+labels: ['mototrack', 'harmony', 'platform', 'motorcycle', 'navigation', 'balkan']
+description: "The MotoTrack Harmony platform app — composes the mototrack-platform aspect and all feature aspects into a unified, executable motorcycle navigation platform for the Balkans."
+---
+
+The **MotoTrack** platform is a Harmony-based application that wires together the `mototrack-platform` aspect and all feature aspects (rides, routes, balkan-roads, navigation, safety, weather, garage, community, ai-assistant) into a single deployable app.
+
+## Run the platform
+
+Switch to the mototrack app and start the dev server:
+
+```bash
+bit use mototrack
+```
+
+Then run the platform:
+
+```bash
+bit run mototrack
+```
+
+The platform will be available at the URL shown in the command output.
+
+## Compose a new feature aspect
+
+Add a new feature aspect to the `aspects` array in `mototrack.bit-app.ts`:
+
+```ts
+import { HarmonyPlatform } from '@bitdev/harmony.harmony-platform';
+import { NodeJSRuntime } from '@bitdev/harmony.runtimes.nodejs-runtime';
+import { BrowserRuntime } from '@bitdev/harmony.runtimes.browser-runtime';
+import { SymphonyPlatformAspect } from '@bitdev/symphony.symphony-platform';
+import { MototrackPlatformAspect } from '@markec/mototrack-platform.mototrack-platform';
+import { RidesAspect } from '@markec/mototrack-platform.rides';
+
+export const Mototrack = HarmonyPlatform.from({
+  name: 'mototrack',
+  platform: [SymphonyPlatformAspect, { name: 'MotoTrack' }],
+  runtimes: [new BrowserRuntime(), new NodeJSRuntime()],
+  aspects: [
+    MototrackPlatformAspect,
+    RidesAspect,
+  ],
+});
+
+export default Mototrack;
+```
+
+## Platform architecture
+
+The MotoTrack platform follows the Harmony slot-based composition pattern:
+
+```ts
+import { HarmonyPlatform } from '@bitdev/harmony.harmony-platform';
+import { NodeJSRuntime } from '@bitdev/harmony.runtimes.nodejs-runtime';
+import { BrowserRuntime } from '@bitdev/harmony.runtimes.browser-runtime';
+import { SymphonyPlatformAspect } from '@bitdev/symphony.symphony-platform';
+import { MototrackPlatformAspect } from '@markec/mototrack-platform.mototrack-platform';
+
+// Each feature aspect registers into the platform slots at runtime:
+// - Route          → adds pages to the router
+// - NavigationItem → adds entries to sidebar / bottom-nav
+// - DashboardPanel → adds widgets to the dashboard grid
+// - HeaderAction   → adds buttons to the app header (e.g. SOS)
+// - MapLayer       → adds toggleable layers to the map
+// - MapOverlay     → adds floating overlays on the map
+// - RouteAction    → adds actions invokable on a planned route
+// - SafetyAlert    → adds safety-alert components
+
+export const Mototrack = HarmonyPlatform.from({
+  name: 'mototrack',
+  platform: [
+    SymphonyPlatformAspect,
+    {
+      name: 'MotoTrack',
+      slogan: 'Najboljša moto-navigacija za Balkan',
+      domain: 'mototrack.app',
+    },
+  ],
+  runtimes: [new BrowserRuntime(), new NodeJSRuntime()],
+  aspects: [MototrackPlatformAspect],
+});
+
+export default Mototrack;
+```

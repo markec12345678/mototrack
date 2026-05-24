@@ -1,0 +1,9 @@
+[
+  {
+    "id": {
+      "scope": "bitdev.general",
+      "name": "envs/bit-env"
+    },
+    "head": "2929a371a6c381e334dc4cc405fc1ae64a6c3f42"
+  }
+]

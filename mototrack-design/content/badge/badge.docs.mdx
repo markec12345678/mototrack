@@ -1,0 +1,65 @@
+---
+description: "Badge/pill component for MotoTrack. Supports six semantic variants (accent, success, warning, danger, info, neutral), two sizes (sm/md), and an optional icon prefix."
+labels: ["badge", "pill", "status", "ui", "mototrack"]
+---
+
+A compact, pill-shaped badge component for displaying status labels, categories, and contextual indicators across the MotoTrack platform. Supports six semantic variants, two sizes, and an optional icon prefix.
+
+## Basic usage
+
+Render a badge with a label and a variant:
+
+```tsx
+<Badge label="Fastest Lap" variant="accent" />
+```
+
+## Variants
+
+Six semantic variants map to the MotoTrack design token palette:
+
+```tsx
+<Badge label="Pole Position" variant="accent" />
+<Badge label="Race Complete" variant="success" />
+<Badge label="Yellow Flag" variant="warning" />
+<Badge label="DNF" variant="danger" />
+<Badge label="Qualifying" variant="info" />
+<Badge label="Practice" variant="neutral" />
+```
+
+## Sizes
+
+Two sizes are available — `sm` for dense UIs and `md` (default) for standard use:
+
+```tsx
+<Badge label="Small badge" size="sm" variant="success" />
+<Badge label="Medium badge" size="md" variant="success" />
+```
+
+## With icon prefix
+
+Pass any React node as the `icon` prop to render it before the label:
+
+```tsx
+function CircleIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+      <circle cx="5" cy="5" r="4" />
+    </svg>
+  );
+}
+
+<Badge label="Live" variant="accent" icon={<CircleIcon />} />
+<Badge label="Finished" variant="success" icon={<CircleIcon />} size="sm" />
+```
+
+## Race dashboard example
+
+Badges integrate naturally into data-dense UIs like leaderboards and live timing panels:
+
+```tsx
+<Badge variant="accent" label="LIVE" size="sm" />
+<Badge variant="info" label="Lap 14 / 20" size="sm" />
+<Badge variant="success" label="Green Flag" size="sm" />
+<Badge variant="warning" label="Pit Stop" size="sm" />
+<Badge variant="danger" label="Retired" size="sm" />
+```

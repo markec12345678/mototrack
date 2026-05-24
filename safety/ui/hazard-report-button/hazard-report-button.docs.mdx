@@ -1,0 +1,64 @@
+---
+description: "HazardReportButton — a floating yellow ⚠️ map overlay button that opens a grid of hazard-type tiles (landslide, construction, ice, flood, animal, oil, pothole, camera). One-tap reports the hazard at the rider's current GPS location. Registered as a MapOverlay in the bottom-right corner."
+labels: ["safety", "map", "overlay", "hazard", "report"]
+---
+
+`HazardReportButton` is a floating action button designed for motorcycle safety apps. It sits in the bottom-right corner of the map view and lets riders report road hazards with a single tap — no typing required.
+
+## How it works
+
+1. The rider taps the yellow ⚠️ **Report** button.
+2. A modal opens with a 4×2 grid of hazard-type tiles.
+3. Tapping a tile immediately reports that hazard at the current GPS location.
+4. A success confirmation is shown, then the modal auto-closes.
+
+## Basic usage
+
+```tsx
+import { HazardReportButton } from '@markec/safety.ui.hazard-report-button';
+
+<HazardReportButton />
+```
+
+## With a report callback
+
+```tsx
+import { HazardReportButton } from '@markec/safety.ui.hazard-report-button';
+
+<HazardReportButton
+  onReported={(hazardId, hazardType) => {
+    console.log(`Reported ${hazardType} with id ${hazardId}`);
+  }}
+/>
+```
+
+## Custom hazard types
+
+You can override the default 8 hazard types with your own list:
+
+```tsx
+import { HazardReportButton } from '@markec/safety.ui.hazard-report-button';
+
+<HazardReportButton
+  hazardTypes={[
+    { id: 'construction', label: 'Construction', emoji: '🚧', color: '#d97706' },
+    { id: 'pothole',      label: 'Pothole',      emoji: '🕳️', color: '#b45309' },
+    { id: 'oil',          label: 'Oil Spill',    emoji: '🛢️', color: '#7c3aed' },
+    { id: 'flood',        label: 'Flood',        emoji: '🌊', color: '#2563eb' },
+  ]}
+  onReported={(id, type) => console.log(type)}
+/>
+```
+
+## Default hazard types
+
+| ID           | Label        | Emoji |
+|--------------|--------------|-------|
+| landslide    | Landslide    | 🏔️   |
+| construction | Construction | 🚧    |
+| ice          | Ice          | 🧊    |
+| flood        | Flood        | 🌊    |
+| animal       | Animal       | 🦌    |
+| oil          | Oil Spill    | 🛢️   |
+| pothole      | Pothole      | 🕳️   |
+| camera       | Camera       | 📷    |

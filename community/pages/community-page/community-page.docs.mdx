@@ -1,0 +1,56 @@
+---
+description: "Stran /community z zavihki: Lestvica, Dosežki, Izzivi, Feed, Skupnostne rute, Cene goriva in Grupne vožnje. Vsak zavihek prikazuje ustrezen UI blok."
+labels: ["community", "page", "tabs", "mototrack"]
+---
+
+Stran skupnosti za platformo MotoTrack. Vsebuje sedem zavihkov, ki pokrivajo vse skupnostne funkcionalnosti — od lestvice in dosežkov do skupinskih voženj v realnem času.
+
+## Osnovna uporaba
+
+Komponenta se prikaže z zavihkom Lestvica kot privzetim:
+
+```tsx
+import { CommunityPage } from '@markec/community.pages.community-page';
+
+<CommunityPage />
+```
+
+## Odpiranje določenega zavihka
+
+Uporabi `defaultTab` prop za odpiranje specifičnega zavihka ob nalaganju:
+
+```tsx
+import { CommunityPage } from '@markec/community.pages.community-page';
+
+// Odpri zavihek Dosežki
+<CommunityPage defaultTab="dosezki" />
+
+// Odpri zavihek Grupne vožnje
+<CommunityPage defaultTab="grupne-voznje" />
+```
+
+## Razpoložljivi zavihki
+
+Vsi veljavni ključi za `defaultTab` prop:
+
+```tsx
+type CommunityTab =
+  | 'lestvica'       // 🏆 Leaderboard
+  | 'dosezki'        // 🎖️ Achievements
+  | 'izzivi'         // ⚡ Challenges
+  | 'feed'           // 📡 Activity Feed
+  | 'skupnostne-rute' // 🗺️ Community Routes
+  | 'cene-goriva'    // ⛽ Fuel Prices
+  | 'grupne-voznje'; // 🏍️ Group Rides
+```
+
+## Integracija v aplikacijo
+
+Stran je zasnovana za vključitev v aplikacijski layout brez glav ali nog:
+
+```tsx
+import { CommunityPage } from '@markec/community.pages.community-page';
+
+// V react-router-dom
+<Route path="/community" element={<CommunityPage />} />
+```

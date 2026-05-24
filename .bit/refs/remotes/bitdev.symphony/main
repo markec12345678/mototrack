@@ -1,0 +1,30 @@
+[
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "envs/symphony-env"
+    },
+    "head": "497e27af4297a4e129e07ade54eb23374f0592ba"
+  },
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "symphony-platform"
+    },
+    "head": "0a375a6b3806b9e313bbdb731e83f3818fffec72"
+  },
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "backends/backend-server"
+    },
+    "head": "c0eb37864b1ce697edcfa2e03e81387a1cd15fb1"
+  },
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "examples/people"
+    },
+    "head": "4ee58b027ae57c268ab93ee6d7e2867385aebbe9"
+  }
+]

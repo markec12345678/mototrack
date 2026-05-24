@@ -1,0 +1,83 @@
+---
+description: "React hook that wraps navigator.geolocation.getCurrentPosition and watchPosition. Returns a reactive position stream with accuracy, heading, speed, error, and isHighAccuracy. Falls back to Sarajevo (~43.85, 18.38) when permission is denied and surfaces a friendly error on insecure HTTP contexts."
+labels: ['hook', 'geolocation', 'maps', 'gps', 'react']
+---
+
+`useGeolocation` is the single source of truth for device location across all MotoTrack map components.
+It starts a `getCurrentPosition` call immediately and then keeps the state fresh via `watchPosition`.
+When the user denies access — or the page is served over plain HTTP — the hook falls back gracefully to
+the Balkan centre (Sarajevo) and exposes a human-readable `error` string so the UI can inform the rider.
+
+## Basic usage
+
+```tsx
+import { useGeolocation } from '@markec/maps.hooks.use-geolocation';
+
+function RiderPosition() {
+  const { position, accuracy, loading, error } = useGeolocation();
+
+  if (loading) return <p>Acquiring GPS fix…</p>;
+  if (error)   return <p>⚠️ {error}</p>;
+
+  return (
+    <p>
+      {position.lat.toFixed(5)}, {position.lng.toFixed(5)}
+      {accuracy !== null && ` (±${Math.round(accuracy)} m)`}
+    </p>
+  );
+}
+```
+
+## Custom options
+
+```tsx
+import { useGeolocation } from '@markec/maps.hooks.use-geolocation';
+
+function CoarsePosition() {
+  // Lower accuracy is faster and uses less battery.
+  const { position, isHighAccuracy } = useGeolocation({
+    enableHighAccuracy: false,
+    timeout: 5_000,
+    maximumAge: 30_000,
+  });
+
+  return (
+    <p>
+      {position.lat.toFixed(3)}, {position.lng.toFixed(3)}
+      {' — '}{isHighAccuracy ? 'GPS' : 'Network/IP'}
+    </p>
+  );
+}
+```
+
+## Testing with mock data
+
+Pass `mockData` to bypass the real Geolocation API entirely — no browser permissions needed.
+
+```tsx
+import { useGeolocation } from '@markec/maps.hooks.use-geolocation';
+import { geolocationMock } from '@markec/maps.hooks.use-geolocation';
+
+function TestableMap() {
+  const { position, heading, speed } = useGeolocation({
+    mockData: geolocationMock.onRoute,
+  });
+
+  return (
+    <p>
+      Heading {heading ?? '—'}° at {speed !== null ? `${speed.toFixed(1)} m/s` : '—'}
+    </p>
+  );
+}
+```
+
+## Fallback behaviour
+
+| Scenario | `position` | `error` |
+|---|---|---|
+| Permission denied | Sarajevo (43.85, 18.38) | `"Location access denied…"` |
+| GPS timeout | Sarajevo (43.85, 18.38) | `"Location request timed out…"` |
+| HTTP (insecure) | Sarajevo (43.85, 18.38) | `"Geolocation requires a secure connection (HTTPS)…"` |
+| No Geolocation API | Sarajevo (43.85, 18.38) | `"Geolocation is not supported…"` |
+| Waiting for fix | Sarajevo (43.85, 18.38) | `null` (loading = true) |
+| Success | Real GPS coords | `null` |

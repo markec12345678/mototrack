@@ -1,0 +1,120 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+/* ── Ring container ─────────────────────────────────────────── */
+
+.ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Size variants ──────────────────────────────────────────── */
+
+.sm {
+  width: 20px;
+  height: 20px;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+}
+
+.lg {
+  width: 56px;
+  height: 56px;
+}
+
+/* ── Track (static background circle) ──────────────────────── */
+
+.track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(148, 163, 184, 0.12);
+}
+
+.sm .track {
+  border-width: 2px;
+}
+
+.lg .track {
+  border-width: 4px;
+}
+
+/* ── Arc (animated spinner) ─────────────────────────────────── */
+
+.arc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--colors-primary-default);
+  border-right-color: var(--colors-primary-default);
+  animation: spin 0.75s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.sm .arc {
+  border-width: 2px;
+}
+
+.lg .arc {
+  border-width: 4px;
+}
+
+/* ── Glow overlay on the arc ────────────────────────────────── */
+
+.arc::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(249, 115, 22, 0.18) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Label ──────────────────────────────────────────────────── */
+
+.label {
+  color: var(--colors-text-secondary);
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-align: center;
+  line-height: var(--typography-line-height-tight);
+}
+
+.labelSM {
+  font-size: var(--typography-sizes-caption-default);
+}
+
+.labelMD {
+  font-size: var(--typography-sizes-body-small);
+}
+
+.labelLG {
+  font-size: var(--typography-sizes-body-default);
+}
+
+/* ── Keyframes ──────────────────────────────────────────────── */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

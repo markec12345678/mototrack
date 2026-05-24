@@ -1,0 +1,93 @@
+---
+description: "React hook for managing road hazard data. Provides listNear(latlng, radiusKm), report(input), and confirm(id) — GraphQL backed with seed mock fallback for testing."
+labels: ['hook', 'react', 'graphql', 'safety', 'hazards', 'mototrack']
+---
+
+`useHazards` is a GraphQL-backed React hook for the MotoTrack safety module. It lets you query nearby hazards, report new ones, and confirm existing reports — all with a built-in seed fallback for testing and previews.
+
+## Basic usage — list hazards near a location
+
+```tsx
+function NearbyHazards() {
+  const { hazards, loading, listNear } = useHazards();
+
+  useEffect(() => {
+    listNear({ lat: 46.0569, lng: 14.5058 }, 25);
+  }, []);
+
+  if (loading) return <p>Loading hazards…</p>;
+
+  return (
+    <ul>
+      {hazards.map((h) => (
+        <li key={h.id}>
+          {h.type} — confirmed {h.confirmedCount}×
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Report a new hazard
+
+```tsx
+function ReportHazardButton() {
+  const { report, reporting } = useHazards();
+
+  const handleReport = async () => {
+    const hazard = await report({
+      type: 'pothole',
+      lat: 45.8131,
+      lng: 15.9772,
+    });
+    console.log('Reported hazard:', hazard?.id);
+  };
+
+  return (
+    <button type="button" onClick={() => handleReport()} disabled={reporting}>
+      {reporting ? 'Reporting…' : 'Report Hazard'}
+    </button>
+  );
+}
+```
+
+## Confirm an existing hazard (optimistic cache update)
+
+```tsx
+function HazardCard({ hazard }) {
+  const { confirm } = useHazards();
+
+  return (
+    <div>
+      <span>{hazard.type}</span>
+      <span>Confirmed: {hazard.confirmedCount}</span>
+      <button type="button" onClick={() => confirm(hazard.id)}>
+        ✓ Confirm
+      </button>
+    </div>
+  );
+}
+```
+
+## Seed fallback — bypass GraphQL for testing
+
+Pass `mockData` to skip the network entirely. The hook returns the seed data immediately with `loading: false` and no error.
+
+```tsx
+import { mockHazards } from '@markec/safety.hooks.use-hazards';
+
+function PreviewMap() {
+  const { hazards } = useHazards({ mockData: mockHazards });
+
+  return (
+    <ul>
+      {hazards.map((h) => (
+        <li key={h.id}>
+          [{h.lat.toFixed(4)}, {h.lng.toFixed(4)}] — {h.type}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```

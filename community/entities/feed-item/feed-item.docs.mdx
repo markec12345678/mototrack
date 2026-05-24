@@ -1,0 +1,55 @@
+---
+labels: ['feed-item', 'entity', 'feed', 'community']
+description: "FeedItem entity representing a community activity event. Indexed by createdAt (at) descending for chronological feed ordering."
+---
+
+A typed entity for community feed events. Each `FeedItem` captures who did what (`kind`), carries a JSON `payload` specific to its kind, and is timestamped with `at` for descending-index ordering.
+
+Supported kinds include `ride`, `achievement`, `challenge`, `group_ride`, and `fuel_price`.
+
+## Create a FeedItem
+
+```ts
+import { FeedItem } from '@markec/community.entities.feed-item';
+
+const item = FeedItem.from({
+  id: 'fi-001',
+  kind: 'ride',
+  actor: { id: 'user-42', displayName: 'Sam Rider', country: 'DE' },
+  payload: JSON.stringify({ distanceKm: 142, routeName: 'Alpine Loop' }),
+  at: Date.now(),
+});
+
+console.log(item.kind);           // 'ride'
+console.log(item.parsedPayload);  // { distanceKm: 142, routeName: 'Alpine Loop' }
+```
+
+## Serialize to a plain object
+
+```ts
+import { FeedItem } from '@markec/community.entities.feed-item';
+
+const item = FeedItem.from({
+  id: 'fi-002',
+  kind: 'achievement',
+  actor: { id: 'user-7', displayName: 'Maria Cruz', country: 'ES' },
+  payload: JSON.stringify({ achievementName: 'Iron Rider', icon: '🏅' }),
+  at: 1700001000000,
+});
+
+const plain = item.toObject();
+// { id: 'fi-002', kind: 'achievement', actor: { ... }, payload: '...', at: 1700001000000 }
+```
+
+## Mock data for development and testing
+
+```ts
+import { mockFeedItem, mockFeedItems } from '@markec/community.entities.feed-item';
+
+// Single item with optional overrides
+const singleItem = mockFeedItem({ kind: 'challenge' });
+
+// Full list sorted by `at` descending
+const feed = mockFeedItems();
+console.log(feed.map((f) => `${f.kind} by ${f.actor.displayName}`));
+```

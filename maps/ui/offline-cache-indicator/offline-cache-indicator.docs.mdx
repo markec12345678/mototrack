@@ -1,0 +1,65 @@
+---
+description: "Floating cache-status pill for map UIs. Shows cached tile count, storage size, and a readiness score (0–100). Click to expand a detail panel with a clear-cache button."
+labels: ["maps", "offline", "cache", "ui"]
+---
+
+A compact, floating pill component designed to sit on top of a map and give riders an at-a-glance view of their offline tile cache status.
+
+The pill displays three key metrics — **tile count**, **storage used (MB)**, and a **readiness score** from 0 to 100 — alongside a semantic badge (Ready / Partial / Low / No cache).
+
+Clicking the pill expands a detail panel with a progress bar, a descriptive stat grid, and a **Clear Cache** button.
+
+## Basic usage
+
+```tsx
+<OfflineCacheIndicator
+  tilesCached={4820}
+  bytes={158 * 1024 * 1024}
+/>
+```
+
+## With a clear-cache callback
+
+```tsx
+<OfflineCacheIndicator
+  tilesCached={3100}
+  bytes={96 * 1024 * 1024}
+  onCacheCleared={() => console.log('Cache cleared!')}
+/>
+```
+
+## Empty / no cache state
+
+```tsx
+<OfflineCacheIndicator
+  tilesCached={0}
+  bytes={0}
+/>
+```
+
+## Positioning on a map
+
+The component uses `position: relative` on its root so it can be placed inside an absolutely-positioned overlay container on top of a Leaflet or MapLibre map:
+
+```tsx
+<div style={{ position: 'relative', width: '100%', height: '500px' }}>
+  <LeafletMap />
+  <div style={{ position: 'absolute', top: 16, left: 16, zIndex: 1000 }}>
+    <OfflineCacheIndicator tilesCached={2400} bytes={72 * 1024 * 1024} />
+  </div>
+</div>
+```
+
+## Readiness score
+
+The readiness score (0–100) is computed from two signals:
+
+- **Tile count** contributes up to 60 points (max at 5 000 tiles).
+- **Storage size** contributes up to 40 points (max at 200 MB).
+
+| Score | Badge | Meaning |
+|-------|-------|---------|
+| 70–100 | Ready (green) | Good offline coverage |
+| 35–69 | Partial (yellow) | Limited coverage |
+| 1–34 | Low (red) | Very sparse cache |
+| 0 | No cache (neutral) | Nothing cached |

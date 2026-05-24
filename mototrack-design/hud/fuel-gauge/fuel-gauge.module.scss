@@ -1,0 +1,185 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-large);
+  padding: var(--spacing-md);
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-small);
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.icon {
+  font-size: var(--typography-sizes-body-large);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.statusBadge {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--borders-radius-full);
+}
+
+.statusSuccess {
+  background-color: var(--colors-status-success-subtle);
+  color: var(--colors-status-success-default);
+}
+
+.statusWarning {
+  background-color: var(--colors-status-warning-subtle);
+  color: var(--colors-status-warning-default);
+}
+
+.statusDanger {
+  background-color: var(--colors-status-danger-subtle);
+  color: var(--colors-status-danger-default);
+}
+
+// ─── Liters label ────────────────────────────────────────────────────────────
+
+.litersLabel {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.litersValue {
+  font-size: var(--typography-sizes-md);
+  font-weight: var(--typography-font-weight-extra-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: var(--typography-letter-spacing-tight);
+  transition: color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.textSuccess {
+  color: var(--colors-status-success-default);
+}
+
+.textWarning {
+  color: var(--colors-status-warning-default);
+}
+
+.textDanger {
+  color: var(--colors-status-danger-default);
+}
+
+.litersSeparator {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+.capacityValue {
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+  font-weight: var(--typography-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+// ─── Bar wrapper with tick marks ─────────────────────────────────────────────
+
+.barWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ticks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--colors-surface-primary);
+  opacity: 0.6;
+  transform: translateX(-50%);
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.percentageLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rangeIcon {
+  font-size: var(--typography-sizes-caption-default);
+  line-height: 1;
+}
+
+.rangeValue {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.rangeLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .root {
+    padding: var(--spacing-sm);
+  }
+
+  .litersValue {
+    font-size: var(--typography-sizes-base);
+  }
+}

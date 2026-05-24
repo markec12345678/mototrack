@@ -1,0 +1,281 @@
+.banner {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: var(--borders-radius-xl);
+  overflow: hidden;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #059669 100%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(16, 185, 129, 0.25),
+    0 0 40px rgba(16, 185, 129, 0.12);
+  transition:
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+  font-family: var(--typography-font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+.banner.imminent {
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.7),
+    0 0 0 2px rgba(52, 211, 153, 0.6),
+    0 0 60px rgba(52, 211, 153, 0.25);
+  background: linear-gradient(135deg, #065f46 0%, #047857 35%, #059669 65%, #10b981 100%);
+}
+
+/* ── Gradient overlay ──────────────────────────────────────────────────────── */
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(52, 211, 153, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Top row ───────────────────────────────────────────────────────────────── */
+
+.topRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md) 0 var(--spacing-md);
+}
+
+.btBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-height: 24px;
+}
+
+.btIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.btLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+}
+
+.btDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.9);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* ── Main content ──────────────────────────────────────────────────────────── */
+
+.mainContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-lg);
+}
+
+/* ── Arrow ─────────────────────────────────────────────────────────────────── */
+
+.arrowWrap {
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  transition: transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-spring);
+}
+
+.arrowWrap.arrowPulse {
+  animation: arrowGlow 1s ease-in-out infinite alternate;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.arrowSvg {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+/* ── Text column ───────────────────────────────────────────────────────────── */
+
+.textColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.distanceBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 3px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--borders-radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.distanceValue {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: #ffffff;
+  letter-spacing: var(--typography-letter-spacing-wider);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.instructionText {
+  color: #ffffff !important;
+  line-height: var(--typography-line-height-tight);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.streetRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.streetDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.streetName {
+  color: rgba(255, 255, 255, 0.75) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--typography-sizes-body-small) !important;
+}
+
+/* ── Progress bar ──────────────────────────────────────────────────────────── */
+
+.progressBar {
+  position: relative;
+  z-index: 1;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 0 0 var(--borders-radius-xl) var(--borders-radius-xl);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.85));
+  border-radius: 0 2px 2px 0;
+  transition: width var(--interactions-transitions-duration-slow) var(--interactions-transitions-easing-ease-out);
+}
+
+/* ── Animations ────────────────────────────────────────────────────────────── */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes arrowGlow {
+  from {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      0 0 0 0 rgba(255, 255, 255, 0);
+    transform: scale(1);
+  }
+  to {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 4px 24px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(255, 255, 255, 0.15);
+    transform: scale(1.04);
+  }
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .mainContent {
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-md);
+  }
+
+  .arrowWrap {
+    width: 68px;
+    height: 68px;
+  }
+
+  .arrowSvg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .instructionText {
+    font-size: var(--typography-sizes-heading-h4) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .arrowWrap {
+    width: 104px;
+    height: 104px;
+  }
+
+  .arrowSvg {
+    width: 68px;
+    height: 68px;
+  }
+}

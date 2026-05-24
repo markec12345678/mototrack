@@ -1,0 +1,145 @@
+/* ── Mode colour tokens (hard-coded per design spec) ─────────────────────── */
+/* Asfalt  → blue   #3b82f6  */
+/* Vijugasto → orange #f97316 */
+/* Terensko  → green  #22c55e */
+
+/* ── Picker container ────────────────────────────────────────────────────── */
+
+.picker {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  background-color: var(--colors-surface-primary);
+  border-radius: var(--borders-radius-large);
+  padding: 4px;
+  box-shadow: var(--effects-shadows-raised);
+  box-sizing: border-box;
+}
+
+/* ── Segment (button) ────────────────────────────────────────────────────── */
+
+.segment {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 12px 20px;
+  border: 2px solid transparent;
+  border-radius: var(--borders-radius-medium);
+  background-color: transparent;
+  cursor: var(--interactions-cursor-pointer);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-muted);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  box-sizing: border-box;
+  min-width: 96px;
+  position: relative;
+}
+
+.segment:focus-visible {
+  outline: var(--borders-focus-width) var(--borders-focus-style) var(--borders-focus-color);
+  outline-offset: var(--borders-focus-offset);
+}
+
+/* ── Hover states (inactive) ─────────────────────────────────────────────── */
+
+.asfalt:not(.active):hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.vijugasto:not(.active):hover {
+  background-color: rgba(249, 115, 22, 0.08);
+  color: #f97316;
+  transform: translateY(-1px);
+}
+
+.terensko:not(.active):hover {
+  background-color: rgba(34, 197, 94, 0.08);
+  color: #22c55e;
+  transform: translateY(-1px);
+}
+
+/* ── Active states ───────────────────────────────────────────────────────── */
+
+.asfalt.active {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25), var(--effects-shadows-small);
+}
+
+.vijugasto.active {
+  border-color: #f97316;
+  background-color: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.25), var(--effects-shadows-small);
+}
+
+.terensko.active {
+  border-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25), var(--effects-shadows-small);
+}
+
+/* ── Active press ────────────────────────────────────────────────────────── */
+
+.asfalt.active:active {
+  background-color: rgba(59, 130, 246, 0.18);
+}
+
+.vijugasto.active:active {
+  background-color: rgba(249, 115, 22, 0.18);
+}
+
+.terensko.active:active {
+  background-color: rgba(34, 197, 94, 0.18);
+}
+
+/* ── Emoji ───────────────────────────────────────────────────────────────── */
+
+.emoji {
+  font-size: 22px;
+  line-height: 1;
+  display: block;
+  transition: transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.active .emoji {
+  transform: scale(1.15);
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+
+.label {
+  display: block;
+  white-space: nowrap;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .segment {
+    min-width: 72px;
+    padding: 10px 12px;
+    font-size: var(--typography-sizes-caption-default);
+  }
+
+  .emoji {
+    font-size: 18px;
+  }
+}

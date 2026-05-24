@@ -1,0 +1,71 @@
+---
+description: "React hook for managing the maintenance schedule of a single bike. Provides list(), save(), and markServiced() operations backed by GraphQL."
+labels: ['hook', 'maintenance', 'graphql', 'garage']
+---
+
+`useMaintenance` is a React hook that manages the full maintenance lifecycle for a specific bike.
+It fetches the list of maintenance items via GraphQL, and exposes `save()` for creating or updating
+items and `markServiced()` for recording a service event and advancing the last-service checkpoint.
+
+## Basic usage — listing maintenance items
+
+```tsx
+function MaintenanceList({ bikeId }: { bikeId: string }) {
+  const { items, loading, error } = useMaintenance(bikeId);
+
+  if (loading) return <p>Loading…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.name} — every {item.intervalKm} km / {item.intervalDays} days
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Saving a new or updated maintenance item
+
+```tsx
+function AddMaintenanceItem({ bikeId }: { bikeId: string }) {
+  const { save, saving } = useMaintenance(bikeId);
+
+  const handleAdd = async () => {
+    await save({
+      name: 'Chain Lubrication',
+      intervalKm: 500,
+      intervalDays: 30,
+      lastServiceKm: 24000,
+      lastServiceAt: Date.now(),
+    });
+  };
+
+  return (
+    <button type="button" onClick={() => handleAdd()} disabled={saving}>
+      {saving ? 'Saving…' : 'Add Item'}
+    </button>
+  );
+}
+```
+
+## Marking an item as serviced
+
+```tsx
+function ServiceButton({ bikeId, itemId, currentKm }: { bikeId: string; itemId: string; currentKm: number }) {
+  const { markServiced, saving } = useMaintenance(bikeId);
+
+  const handleService = async () => {
+    await markServiced(itemId, currentKm, Date.now(), 'Motul 7100 10W-40');
+  };
+
+  return (
+    <button type="button" onClick={() => handleService()} disabled={saving}>
+      {saving ? 'Recording…' : 'Mark as Serviced'}
+    </button>
+  );
+}
+```

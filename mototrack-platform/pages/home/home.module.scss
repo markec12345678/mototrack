@@ -1,0 +1,418 @@
+// ─── Root ────────────────────────────────────────────────────────────────────
+
+.home {
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  font-family: var(--typography-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dashboardWrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+// ─── Loading ──────────────────────────────────────────────────────────────────
+
+.loadingScreen {
+  min-height: 100vh;
+  background-color: var(--colors-surface-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid rgba(249, 115, 22, 0.2);
+  border-top-color: var(--colors-primary-default);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(2, 6, 23, 0.92) 0%,
+    rgba(2, 6, 23, 0.75) 45%,
+    rgba(2, 6, 23, 0.88) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  width: 100%;
+  padding: var(--spacing-x3l) 0;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  max-width: 720px;
+}
+
+// ─── Live Badge ───────────────────────────────────────────────────────────────
+
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 5px 14px;
+  background-color: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: var(--borders-radius-full);
+  width: fit-content;
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.9);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(249, 115, 22, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(249, 115, 22, 1);
+  }
+}
+
+.liveBadgeText {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-primary-default);
+}
+
+// ─── Hero Heading ─────────────────────────────────────────────────────────────
+
+.heroHeading {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  line-height: var(--typography-line-height-tight) !important;
+}
+
+.heroSubline {
+  max-width: 580px;
+  font-size: var(--typography-sizes-body-large) !important;
+  line-height: var(--typography-line-height-relaxed) !important;
+}
+
+// ─── Feature Pills ────────────────────────────────────────────────────────────
+
+.pillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 16px;
+  background-color: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: var(--borders-radius-full);
+  backdrop-filter: blur(8px);
+  transition:
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+}
+
+.pill:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  background-color: rgba(249, 115, 22, 0.08);
+  transform: translateY(-1px);
+}
+
+.pillIcon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.pillLabel {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  white-space: nowrap;
+}
+
+// ─── CTA Row ─────────────────────────────────────────────────────────────────
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+// ─── Features Section ─────────────────────────────────────────────────────────
+
+.featuresSection {
+  background: linear-gradient(
+    180deg,
+    var(--colors-surface-background) 0%,
+    rgba(15, 23, 42, 0.6) 50%,
+    var(--colors-surface-background) 100%
+  );
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.featuresSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-x3l);
+  align-items: center;
+}
+
+// ─── Features Text ────────────────────────────────────────────────────────────
+
+.featuresText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.featuresLabel {
+  letter-spacing: var(--typography-letter-spacing-widest) !important;
+}
+
+.featuresHeading {
+  line-height: var(--typography-line-height-tight) !important;
+}
+
+.featuresDescription {
+  max-width: 480px;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
+}
+
+.featureItem {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.featureItemIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: var(--effects-shadows-xs);
+}
+
+.featureItemBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-top: 2px;
+}
+
+// ─── Features Image ───────────────────────────────────────────────────────────
+
+.featuresImageWrapper {
+  position: relative;
+  border-radius: var(--borders-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--effects-shadows-panel);
+}
+
+.featuresImage {
+  width: 100%;
+  display: block;
+  border-radius: var(--borders-radius-xl);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.featuresImageGlow {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--borders-radius-xl);
+  box-shadow: inset 0 0 60px rgba(249, 115, 22, 0.12);
+  pointer-events: none;
+}
+
+// ─── Stat Cards ───────────────────────────────────────────────────────────────
+
+.statCard {
+  position: absolute;
+  background-color: rgba(2, 6, 23, 0.88);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: var(--borders-radius-large);
+  padding: 12px 18px;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: var(--effects-shadows-floating);
+}
+
+.statCardTopLeft {
+  top: 20px;
+  left: 20px;
+}
+
+.statCardBottomRight {
+  bottom: 20px;
+  right: 20px;
+}
+
+.statCardValue {
+  font-size: var(--typography-sizes-heading-h3);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+}
+
+.statCardLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+// ─── Bottom CTA ───────────────────────────────────────────────────────────────
+
+.bottomCta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-x3l);
+  background: linear-gradient(
+    135deg,
+    rgba(249, 115, 22, 0.06) 0%,
+    rgba(15, 23, 42, 0.8) 100%
+  );
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  border-radius: var(--borders-radius-xxl);
+  box-shadow: var(--effects-shadows-medium);
+}
+
+.bottomCtaText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.bottomCtaButtons {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 479px) {
+  .heroInner {
+    gap: var(--spacing-lg);
+  }
+
+  .heroSubline {
+    font-size: var(--typography-sizes-body-default) !important;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .featuresSplit {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .featuresImageWrapper {
+    order: -1;
+  }
+
+  .bottomCta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-xl);
+  }
+
+  .bottomCtaButtons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .statCard {
+    padding: 8px 12px;
+  }
+
+  .statCardValue {
+    font-size: var(--typography-sizes-heading-h4);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .featuresSplit {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-x3l);
+  }
+
+  .featuresImageWrapper {
+    order: -1;
+  }
+
+  .bottomCta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

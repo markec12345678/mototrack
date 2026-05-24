@@ -1,0 +1,1 @@
+[{"name":"","description":"Represents a user in the system, typically provided by the MototrackPlatform.\nAssumed to have an 'id', 'username', and 'roles' property for authentication/authorization.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"rides-types.ts"}]

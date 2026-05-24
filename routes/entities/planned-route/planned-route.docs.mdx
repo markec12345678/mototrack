@@ -1,0 +1,77 @@
+---
+labels: ['planned-route', 'saved-route', 'entity', 'gpx', 'motorcycle', 'route']
+description: "PlannedRoute entity (SavedRoute): id, userId, name, waypoints, mode (paved/twisty/offroad), geometry, distanceKm, durationSec, notes, createdAt. Includes toGpx() for GPX 1.1 export."
+---
+
+`PlannedRoute` is the core saved-route entity for MotoTrack. It holds all data about a user-saved motorcycle route — waypoints, decoded geometry, riding mode, distance, duration, and optional notes. It can be serialized to a plain object or exported as a GPX 1.1 XML file.
+
+## Create a PlannedRoute from a plain object
+
+```ts
+import { PlannedRoute } from '@markec/routes.entities.planned-route';
+
+const route = PlannedRoute.from({
+  id: 'route-001',
+  userId: 'user-abc',
+  name: 'Vršič Pass Loop',
+  waypoints: [
+    { id: 'wp-1', name: 'Kranjska Gora', lat: 46.4839, lng: 13.7836 },
+    { id: 'wp-2', name: 'Vršič Pass',    lat: 46.4328, lng: 13.7447 },
+    { id: 'wp-3', name: 'Bovec',         lat: 46.3378, lng: 13.5523 },
+  ],
+  mode: 'twisty',
+  geometry: [
+    { lat: 46.4839, lng: 13.7836 },
+    { lat: 46.4328, lng: 13.7447 },
+    { lat: 46.3378, lng: 13.5523 },
+  ],
+  distanceKm: 52.4,
+  durationSec: 4800,
+  notes: 'Scenic mountain pass with 50 hairpin turns.',
+  createdAt: 1710000000,
+});
+
+console.log(route.name);        // 'Vršič Pass Loop'
+console.log(route.mode);        // 'twisty'
+console.log(route.distanceKm);  // 52.4
+```
+
+## Export to GPX 1.1
+
+```ts
+import { PlannedRoute } from '@markec/routes.entities.planned-route';
+
+const route = PlannedRoute.from({
+  id: 'route-002',
+  name: 'Soča Valley Gravel',
+  waypoints: [
+    { id: 'wp-1', name: 'Tolmin',   lat: 46.1875, lng: 13.7322 },
+    { id: 'wp-2', name: 'Kobarid',  lat: 46.2472, lng: 13.5781 },
+  ],
+  mode: 'offroad',
+  geometry: [
+    { lat: 46.1875, lng: 13.7322 },
+    { lat: 46.2472, lng: 13.5781 },
+  ],
+  distanceKm: 28.1,
+  durationSec: 3600,
+  createdAt: 1710086400,
+});
+
+const gpxString = route.toGpx();
+// Returns a GPX 1.1 XML string with <wpt> and <trk> elements
+console.log(gpxString);
+```
+
+## Use mock data for development and testing
+
+```ts
+import { mockPlannedRoute, mockPlannedRoutes } from '@markec/routes.entities.planned-route';
+
+// Single mock with optional overrides
+const single = mockPlannedRoute({ name: 'My Custom Route', mode: 'paved' });
+
+// Array of diverse mock routes (twisty, offroad, paved)
+const all = mockPlannedRoutes();
+console.log(all.map((r) => r.name));
+```

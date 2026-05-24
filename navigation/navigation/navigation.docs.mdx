@@ -1,0 +1,40 @@
+---
+description: 'Navigation aspect — registers the /drive route, contributes TurnBanner and DeviationAlert overlays to the platform map, and exposes a speak() API for voice prompts.'
+labels: ['aspect', 'navigation', 'voice', 'overlay']
+---
+
+The `Navigation` aspect plugs into the MotoTrack platform and adds:
+
+- a `/drive` route rendering the full-screen driving HUD
+- a `TurnBanner` and `DeviationAlert` registered into the map overlay slots
+  (top and bottom) whenever an active route is set
+- a `speak()` runtime API that other aspects can call to issue voice prompts
+  via the Web Speech API (defaults to `sl-SI`)
+
+## Compose into your platform
+
+```ts
+import { NavigationAspect } from '@markec/navigation.navigation';
+
+export const MotoTrack = SymphonyPlatform.from({
+  name: 'mototrack',
+  aspects: [
+    [NavigationAspect, { voiceLanguage: 'sl-SI', voiceRate: 1, voiceVolume: 1 }],
+  ],
+});
+```
+
+## Use the runtime API
+
+```ts
+import { NavigationAspect, type NavigationBrowser } from '@markec/navigation.navigation';
+
+export class TurnByTurnBrowser {
+  static dependencies = [NavigationAspect];
+
+  static async provider([navigation]: [NavigationBrowser]) {
+    navigation.setActiveRoute({ id: 'r-1', name: 'Ljubljana → Bled', distanceKm: 52 });
+    navigation.speak('Čez 300 metrov zavijte desno', { priority: 'normal' });
+  }
+}
+```

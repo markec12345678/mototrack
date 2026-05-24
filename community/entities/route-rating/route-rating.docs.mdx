@@ -1,0 +1,80 @@
+---
+labels: ['route-rating', 'entity', 'community', 'rating']
+description: "A RouteRating entity representing a user's rating of a community route across multiple dimensions."
+---
+
+A component for the `RouteRating` entity. Supports serialization and de-serialization of route rating objects and can be used from both backend and frontend.
+
+Each rating captures five dimensions — **quality**, **scenery**, **twistiness**, **difficulty**, and an optional **comment** — allowing riders to give nuanced feedback on community routes.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { RouteRating } from '@markec/community.entities.route-rating';
+
+const rating = RouteRating.from({
+  id: 'rating-abc',
+  routeId: 'route-001',
+  userId: 'user-xyz',
+  quality: 5,
+  scenery: 4,
+  twistiness: 5,
+  difficulty: 3,
+  comment: 'One of the best mountain roads I have ever ridden!',
+  createdAt: Date.now(),
+});
+
+console.log(rating.quality);   // 5
+console.log(rating.comment);   // 'One of the best mountain roads I have ever ridden!'
+```
+
+## Serialize to a plain object
+
+Use `toObject()` to convert a `RouteRating` instance back into a plain JavaScript object — useful for sending data over the network or storing it:
+
+```ts
+import { RouteRating } from '@markec/community.entities.route-rating';
+
+const rating = RouteRating.from({
+  id: 'rating-abc',
+  routeId: 'route-001',
+  userId: 'user-xyz',
+  quality: 5,
+  scenery: 4,
+  twistiness: 5,
+  difficulty: 3,
+  createdAt: Date.now(),
+});
+
+const plain = rating.toObject();
+console.log(plain);
+// {
+//   id: 'rating-abc',
+//   routeId: 'route-001',
+//   userId: 'user-xyz',
+//   quality: 5,
+//   scenery: 4,
+//   twistiness: 5,
+//   difficulty: 3,
+//   comment: undefined,
+//   createdAt: 1700000000000
+// }
+```
+
+## Mock data
+
+Use the mock helpers for development and testing purposes:
+
+```ts
+import { mockRouteRating, mockRouteRatings } from '@markec/community.entities.route-rating';
+
+// Single mock rating with optional overrides
+const single = mockRouteRating({ quality: 3, comment: 'Decent road.' });
+console.log(single.quality); // 3
+
+// Array of three mock ratings
+const all = mockRouteRatings();
+console.log(all.length); // 3
+```

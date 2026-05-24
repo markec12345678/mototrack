@@ -1,0 +1,1 @@
+[{"name":"","description":"Determine whether a component is currently\nrendering inside a mocked context.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-is-mock.ts"}]

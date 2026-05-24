@@ -1,0 +1,318 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* ── Route info ──────────────────────────────────────────────────────────── */
+
+.routeInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid var(--colors-border-default);
+}
+
+.routeMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.routeStats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--borders-radius-full);
+  background-color: var(--colors-text-muted);
+  flex-shrink: 0;
+}
+
+/* ── Idle state ──────────────────────────────────────────────────────────── */
+
+.idleState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+}
+
+.idleIllustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--borders-radius-xl);
+  background-color: var(--colors-surface-secondary);
+  border: 2px dashed var(--colors-border-default);
+}
+
+.qrPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colors-text-muted);
+  opacity: 0.5;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.idleDescription {
+  text-align: center;
+  max-width: 280px;
+}
+
+/* ── Loading state ───────────────────────────────────────────────────────── */
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl) 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--colors-border-default);
+  border-top-color: var(--colors-primary-default);
+  border-radius: var(--borders-radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Error state ─────────────────────────────────────────────────────────── */
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  text-align: center;
+}
+
+/* ── Ready state ─────────────────────────────────────────────────────────── */
+
+.readyState {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  animation: fadeSlideIn 0.3s var(--interactions-transitions-easing-ease-out) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── QR Code ─────────────────────────────────────────────────────────────── */
+
+.qrWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-xl);
+  border: 1px solid var(--colors-border-default);
+  box-shadow: var(--effects-shadows-small);
+}
+
+.qrImage {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--borders-radius-medium);
+  display: block;
+}
+
+/* ── Share code ──────────────────────────────────────────────────────────── */
+
+.codeSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.codeDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid var(--colors-border-default);
+  gap: var(--spacing-md);
+}
+
+.codeText {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: var(--typography-sizes-heading-h3);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  line-height: 1;
+}
+
+.codeAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--borders-radius-medium);
+  background-color: transparent;
+  color: var(--colors-text-muted);
+  cursor: var(--interactions-cursor-pointer);
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  flex-shrink: 0;
+}
+
+.codeAction:hover {
+  color: var(--colors-primary-default);
+  background-color: rgba(249, 115, 22, 0.1);
+}
+
+/* ── Share link ──────────────────────────────────────────────────────────── */
+
+.linkSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--colors-surface-secondary);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid var(--colors-border-default);
+  box-sizing: border-box;
+}
+
+.linkText {
+  flex: 1;
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-secondary);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 5px 12px;
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-medium);
+  background-color: transparent;
+  color: var(--colors-text-secondary);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  font-family: var(--typography-font-family);
+  cursor: var(--interactions-cursor-pointer);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.copyButton:hover {
+  border-color: var(--colors-primary-default);
+  color: var(--colors-primary-default);
+  background-color: rgba(249, 115, 22, 0.08);
+}
+
+.copyButtonCopied {
+  border-color: var(--colors-status-success-default);
+  color: var(--colors-status-success-default);
+  background-color: var(--colors-status-success-subtle);
+}
+
+.copyButtonCopied:hover {
+  border-color: var(--colors-status-success-default);
+  color: var(--colors-status-success-default);
+  background-color: var(--colors-status-success-subtle);
+}
+
+/* ── Expiry note ─────────────────────────────────────────────────────────── */
+
+.expiryNote {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: rgba(234, 179, 8, 0.06);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  border-radius: var(--borders-radius-medium);
+  color: var(--colors-status-warning-default);
+}
+
+.expiryNote p {
+  color: var(--colors-status-warning-default);
+}
+
+/* ── Footer row ──────────────────────────────────────────────────────────── */
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  justify-content: flex-end;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .qrImage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .codeText {
+    font-size: var(--typography-sizes-heading-h4);
+  }
+
+  .footerRow {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+}

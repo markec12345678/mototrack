@@ -1,0 +1,59 @@
+---
+description: "Horizontal progress bar for the MotoTrack design system. Supports values 0–100, four color variants (accent / success / warning / danger), an optional label with percentage display, and animated diagonal stripes for indeterminate state."
+labels: ["ui", "progress", "loader", "mototrack"]
+---
+
+A slim, animated horizontal progress bar built for the MotoTrack dark theme.
+It supports determinate progress (0–100), four semantic color variants, an optional label row with percentage readout, and an indeterminate stripe animation for operations of unknown duration.
+
+## Basic usage
+
+```tsx
+<ProgressBar value={72} />
+```
+
+## With label and percentage
+
+Pass a `label` string and set `showPercentage` to display a header row above the track.
+
+```tsx
+<ProgressBar
+  value={72}
+  variant="accent"
+  label="Race Completion"
+  showPercentage
+  height={10}
+/>
+```
+
+## Color variants
+
+Four semantic variants map to the MotoTrack status palette.
+
+```tsx
+<ProgressBar value={95} variant="success" label="Engine Health" showPercentage />
+<ProgressBar value={38} variant="warning" label="Fuel Level"    showPercentage />
+<ProgressBar value={12} variant="danger"  label="Tyre Life"     showPercentage />
+<ProgressBar value={72} variant="accent"  label="Lap Progress"  showPercentage />
+```
+
+## Indeterminate mode
+
+Omit the `value` prop to render animated diagonal stripes — ideal for loading states where the total duration is unknown.
+
+```tsx
+<ProgressBar variant="accent"  label="Connecting to telemetry…" />
+<ProgressBar variant="success" label="Syncing race data…" />
+<ProgressBar variant="warning" label="Calibrating sensors…" />
+<ProgressBar variant="danger"  label="Critical system check…" />
+```
+
+## Custom height
+
+Control the track thickness with the `height` prop (pixels).
+
+```tsx
+<ProgressBar value={60} height={4}  />
+<ProgressBar value={60} height={8}  />
+<ProgressBar value={60} height={16} />
+```

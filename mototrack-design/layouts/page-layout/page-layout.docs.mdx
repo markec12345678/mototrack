@@ -1,0 +1,52 @@
+---
+description: "Page layout primitive — flex column with configurable max-width, padding, and gap. Used by feature pages. Does NOT include header or footer."
+labels: ["layout", "page", "flex", "primitive"]
+---
+
+A foundational layout primitive that wraps feature page content in a flex column.
+It handles centering, max-width constraints, padding, and vertical gap between sections — keeping all feature pages consistent without coupling them to navigation chrome.
+
+Header and footer are intentionally excluded; those belong in `app-layout`.
+
+## Basic usage
+
+```tsx
+<PageLayout>
+  <h1>Race Dashboard</h1>
+  <p>Live timing and standings for the current session.</p>
+</PageLayout>
+```
+
+## Custom max-width and gap
+
+Use `maxWidth` to constrain content width and `gap` to control vertical spacing between children.
+
+```tsx
+<PageLayout maxWidth="720px" gap="var(--spacing-lg)">
+  <h2>Rider Profile</h2>
+  <p>Career stats and championship history.</p>
+  <p>Technical setup preferences and telemetry notes.</p>
+</PageLayout>
+```
+
+## Fluid full-width layout
+
+Set `fluid` to `true` for data-dense dashboards that need the full viewport width.
+
+```tsx
+<PageLayout fluid padding="var(--spacing-xl) var(--spacing-lg)">
+  <h2>Season Calendar</h2>
+  <table>...</table>
+</PageLayout>
+```
+
+## Left-aligned layout
+
+Use `align="left"` to pin the content column to the left edge instead of centering it.
+
+```tsx
+<PageLayout align="left" maxWidth="960px">
+  <h2>Settings</h2>
+  <p>Manage your account preferences.</p>
+</PageLayout>
+```

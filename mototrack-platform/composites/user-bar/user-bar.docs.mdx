@@ -1,0 +1,50 @@
+---
+description: "User bar component for the MotoTrack platform. Shows Login + Signup buttons when anonymous. When authenticated, renders an avatar trigger with displayName, level badge, and points — plus a dropdown with profile link, settings, and logout."
+labels: ["ui", "navigation", "auth", "user"]
+---
+
+The `UserBar` component adapts to the current authentication state using the `useAuth` hook.
+
+- **Anonymous**: renders a ghost Login button and a primary Sign Up button.
+- **Authenticated**: renders an avatar trigger with the user's display name, level badge, and points. Clicking opens a dropdown with a profile header, stats, profile link, settings, and logout.
+
+## Anonymous state
+
+When no user is authenticated, the bar shows two action buttons:
+
+```tsx
+<UserBar
+  loginHref="/login"
+  signupHref="/signup"
+/>
+```
+
+## Authenticated state
+
+When a user is logged in, the bar shows an avatar trigger and a rich dropdown:
+
+```tsx
+<UserBar
+  avatarSrc="https://example.com/avatar.png"
+  profileHref="/profile"
+  settingsHref="/settings"
+/>
+```
+
+## Inside a navbar
+
+The `UserBar` is designed to be placed inside a top navigation bar alongside a logo and nav links:
+
+```tsx
+<header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: "64px" }}>
+  <Logo />
+  <NavLinks />
+  <UserBar
+    avatarSrc="https://example.com/avatar.png"
+    profileHref="/profile"
+    settingsHref="/settings"
+    loginHref="/login"
+    signupHref="/signup"
+  />
+</header>
+```

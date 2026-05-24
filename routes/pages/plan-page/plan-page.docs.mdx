@@ -1,0 +1,61 @@
+---
+description: "The /plan page for MotoTrack. Two-pane layout with a 340px sidebar and a full-height interactive map. Sidebar includes route mode picker, twisty and round-trip generators, editable waypoint list, route stats, GPX import/export, and Save/Share actions. Map supports click-to-add waypoints, draggable markers, and OSRM-computed route polyline. Stacks vertically on mobile."
+labels: ["routes", "planner", "map", "page"]
+---
+
+The `PlanPage` is the main route planning interface for MotoTrack. It renders a two-pane layout: a fixed 340px sidebar on the left and a full-height interactive map on the right. On mobile (< 1024px), the layout stacks vertically.
+
+## Layout
+
+- **Sidebar (340px):** Route name input, mode picker (Asfalt / Vijugasto / Terensko), collapsible generators (Twisty + Round-Trip), editable waypoint list, route stats (distance + estimated time), actions row (GPX import/export, weather, offline tiles), and Save/Share buttons.
+- **Map:** Click anywhere to add waypoints. Drag markers to reposition. OSRM-computed polyline is rendered as the route. Falls back to a straight-line dashed polyline while computing.
+
+## Basic usage
+
+```tsx
+import { PlanPage } from '@markec/routes.pages.plan-page';
+
+export function App() {
+  return <PlanPage />;
+}
+```
+
+## Pre-loading waypoints
+
+Pass `initialWaypoints` to pre-populate the planner with existing route points:
+
+```tsx
+import { PlanPage } from '@markec/routes.pages.plan-page';
+import { Waypoint } from '@markec/routes.entities.waypoint';
+
+const waypoints = [
+  Waypoint.from({ id: 'wp-1', name: 'Ljubljana', lat: 46.0569, lng: 14.5058 }),
+  Waypoint.from({ id: 'wp-2', name: 'Maribor', lat: 46.5547, lng: 15.6459 }),
+];
+
+export function PlannerWithRoute() {
+  return (
+    <PlanPage
+      initialWaypoints={waypoints}
+      initialRouteName="Ljubljana → Maribor"
+    />
+  );
+}
+```
+
+## GPX import
+
+The sidebar includes a GPX import button. When a valid `.gpx` file is selected, the waypoints and route name are automatically populated:
+
+```tsx
+import { PlanPage } from '@markec/routes.pages.plan-page';
+
+export function PlannerWithGpx() {
+  return <PlanPage initialRouteName="Uvožena Ruta" />;
+}
+```
+
+## Saving and sharing
+
+- **Shrani** — saves the route via `useSavedRoutes` hook (requires ≥ 2 waypoints).
+- **Deli** — opens the `RouteShareDialog` which generates a share code, QR code, and copyable link.

@@ -1,0 +1,99 @@
+---
+labels: ['track-point', 'entity', 'gps', 'ride', 'value-object']
+description: "TrackPoint value object representing a single GPS sample: lat, lng, ts (epoch ms), speed (m/s), elevation (m), accuracy (m), heading (deg). Includes static helpers toLatLng(), distanceKmTo(), and isStale()."
+---
+
+`TrackPoint` is an immutable value object that models a single GPS sample captured during a ride.
+It carries the core positional fields (`lat`, `lng`, `ts`) plus optional sensor readings (`speed`, `elevation`, `accuracy`, `heading`).
+Three helper methods cover the most common operations needed when working with GPS tracks.
+
+## Create a TrackPoint
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const point = TrackPoint.from({
+  lat: 46.227638,
+  lng: 14.357338,
+  ts: Date.now(),
+  speed: 12.5,       // m/s
+  elevation: 420,    // metres
+  accuracy: 4,       // metres
+  heading: 45,       // degrees
+});
+
+console.log(point.lat, point.lng);
+```
+
+## Static helpers
+
+### toLatLng — extract a map-ready coordinate pair
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const point = TrackPoint.from({ lat: 46.2276, lng: 14.3573, ts: Date.now() });
+
+// { lat: 46.2276, lng: 14.3573 }
+const latLng = point.toLatLng();
+```
+
+### distanceKmTo — Haversine distance between two points
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const a = TrackPoint.from({ lat: 46.0569, lng: 14.5058, ts: Date.now() });
+const b = TrackPoint.from({ lat: 46.5547, lng: 15.6459, ts: Date.now() });
+
+// ≈ 107 km straight-line distance
+const km = a.distanceKmTo(b);
+console.log(`Distance: ${km.toFixed(2)} km`);
+```
+
+### isStale — check whether a point is too old
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const point = TrackPoint.from({
+  lat: 46.227638,
+  lng: 14.357338,
+  ts: Date.now() - 10_000, // 10 seconds ago
+});
+
+const MAX_AGE_MS = 5_000; // 5 seconds
+
+if (point.isStale(MAX_AGE_MS)) {
+  console.log('GPS fix is outdated — waiting for a fresh sample.');
+}
+```
+
+## Mock data
+
+Use the provided mock helpers during development and testing.
+
+```tsx
+import { mockTrackPoint, mockTrackPoints } from '@markec/rides.entities.track-point';
+
+// Single point with optional field overrides
+const point = mockTrackPoint({ speed: 20 });
+
+// Array of five points along a short mountain road
+const track = mockTrackPoints();
+console.log(track.map((p) => p.toLatLng()));
+```
+
+## Serialization
+
+```tsx
+import { TrackPoint } from '@markec/rides.entities.track-point';
+
+const point = TrackPoint.from({ lat: 46.2276, lng: 14.3573, ts: Date.now(), speed: 8 });
+
+// Serialize to a plain object (e.g. for JSON storage or API payloads)
+const plain = point.toObject();
+
+// Deserialize back
+const restored = TrackPoint.from(plain);
+```

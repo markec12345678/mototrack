@@ -1,0 +1,1 @@
+[{"name":"","description":"The GaragePage component transitively imports ExpenseSummary which pulls in\na Mongoose/Typegoose model that crashes in the JSDom test environment.\nTests here cover the mock data and basic structural assertions only.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"garage-page.spec.tsx"}]

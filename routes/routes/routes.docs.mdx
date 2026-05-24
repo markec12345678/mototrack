@@ -1,0 +1,57 @@
+---
+description: 'Routes aspect — interactive route planner with OSRM routing, twisty/round-trip generators, and a sharable library.'
+labels: ['aspect', 'routes', 'mototrack']
+---
+
+The `routes` aspect plugs the planner and library into the MotoTrack platform.
+
+## What it provides
+
+- `/plan` route — interactive planner page (PlanPage).
+- `/routes` route — saved-route library (Library).
+- `Načrtuj` navigation item (primary, order 2).
+- `Knjižnica` navigation item (secondary, order 12).
+- `RouteAction` slot — register extra buttons rendered on every route card.
+- GraphQL API: `computeRoute`, `generateTwistyRoute`, `generateRoundTrip`, `saveRoute`, `shareRoute`, `listSavedRoutes`, `loadSharedRoute`.
+
+## Get started
+
+Install the aspect:
+
+```
+bit install @markec/routes.routes
+```
+
+Compose it into the MotoTrack platform:
+
+```ts
+import { RoutesAspect } from '@markec/routes.routes';
+
+export const Mototrack = HarmonyPlatform.from({
+  name: 'mototrack',
+  aspects: [
+    [RoutesAspect, {}],
+  ],
+});
+```
+
+## Extend with a route action
+
+```ts
+import { RoutesAspect, type RoutesBrowser } from '@markec/routes.routes';
+
+export class MyAspectBrowser {
+  static dependencies = [RoutesAspect];
+
+  static async provider([routes]: [RoutesBrowser]) {
+    routes.registerRouteAction([
+      {
+        key: 'navigate',
+        label: 'Navigiraj',
+        icon: '🧭',
+        handler: (route) => console.log('navigate to', route.name),
+      },
+    ]);
+  }
+}
+```

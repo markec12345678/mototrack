@@ -1,0 +1,80 @@
+---
+description: "Dropdown menu component with a customisable trigger and an items array. Used in user menus, route action menus, and country selectors across the MotoTrack platform."
+labels: ["dropdown", "menu", "overlay", "navigation", "ui"]
+---
+
+A flexible, accessible dropdown menu for the MotoTrack design system. Accepts any React node as a trigger and renders a styled floating panel with support for icons, dividers, danger/success variants, disabled states, and anchor links.
+
+## Basic usage
+
+```tsx
+<Dropdown
+  trigger={<button type="button">Open Menu</button>}
+  items={[
+    { key: "profile", label: "View Profile", variant: "default" },
+    { key: "settings", label: "Settings", variant: "default" },
+    { key: "divider-1", label: "", divider: true },
+    { key: "logout", label: "Sign Out", variant: "danger" },
+  ]}
+/>
+```
+
+## With icons and callbacks
+
+```tsx
+<Dropdown
+  trigger={<button type="button">Actions</button>}
+  items={[
+    {
+      key: "edit",
+      label: "Edit Route",
+      icon: <EditIcon />,
+      variant: "default",
+      onClick: () => console.log("edit clicked"),
+    },
+    {
+      key: "delete",
+      label: "Delete Route",
+      icon: <TrashIcon />,
+      variant: "danger",
+      onClick: () => console.log("delete clicked"),
+    },
+  ]}
+  align="right"
+  showChevron={false}
+/>
+```
+
+## Country selector with controlled state
+
+```tsx
+const [country, setCountry] = useState("Italy");
+
+<Dropdown
+  trigger={<span>🇮🇹 {country}</span>}
+  items={[
+    { key: "it", label: "🇮🇹 Italy", onClick: () => setCountry("Italy") },
+    { key: "es", label: "🇪🇸 Spain", onClick: () => setCountry("Spain") },
+    { key: "de", label: "🇩🇪 Germany", onClick: () => setCountry("Germany") },
+  ]}
+  align="center"
+/>
+```
+
+## Item variants
+
+Each item supports a `variant` property for visual emphasis:
+
+- `"default"` — standard text colour
+- `"danger"` — red tint, used for destructive actions like Sign Out or Delete
+- `"success"` — green tint, used for positive confirmations
+
+Dividers are rendered by setting `divider: true` on an item — the `label` value is ignored for dividers.
+
+## Alignment
+
+The `align` prop controls where the floating panel is anchored relative to the trigger:
+
+- `"left"` (default) — panel left-aligns with the trigger
+- `"right"` — panel right-aligns with the trigger (ideal for menus near the right edge)
+- `"center"` — panel is centred below the trigger

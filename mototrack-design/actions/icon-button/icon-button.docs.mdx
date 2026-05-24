@@ -1,0 +1,73 @@
+---
+description: "Circular icon-only button with sm/md/lg sizes and ghost, filled, and danger variants. Used for header actions and floating map controls."
+labels: ["button", "icon", "action", "map", "header"]
+---
+
+A circular, icon-only button designed for the MotoTrack dark theme. It supports three sizes (`sm`, `md`, `lg`) and three visual variants (`ghost`, `filled`, `danger`), making it suitable for header toolbars, floating map overlays, and any compact action surface.
+
+## Basic usage
+
+Render an icon inside the button using the `icon` prop. Always provide an `aria-label` for accessibility.
+
+```tsx
+<IconButton
+  icon={<SearchIcon />}
+  variant="ghost"
+  size="md"
+  aria-label="Search"
+  title="Search"
+/>
+```
+
+## Variants
+
+Use `ghost` for secondary header actions, `filled` for primary map controls, and `danger` for destructive actions like deleting a waypoint.
+
+```tsx
+<IconButton icon={<SearchIcon />} variant="ghost" size="md" aria-label="Search" />
+<IconButton icon={<PlusIcon />} variant="filled" size="md" aria-label="Add" />
+<IconButton icon={<TrashIcon />} variant="danger" size="md" aria-label="Delete" />
+```
+
+## Sizes
+
+Three sizes map to 32px (`sm`), 40px (`md`), and 48px (`lg`) circle diameters.
+
+```tsx
+<IconButton icon={<BellIcon />} variant="ghost" size="sm" aria-label="Notifications" />
+<IconButton icon={<BellIcon />} variant="ghost" size="md" aria-label="Notifications" />
+<IconButton icon={<BellIcon />} variant="ghost" size="lg" aria-label="Notifications" />
+```
+
+## Active and disabled states
+
+Use `active` to indicate a toggled/pressed state (e.g. an open panel). Use `disabled` to prevent interaction.
+
+```tsx
+<IconButton icon={<LayersIcon />} variant="ghost" size="sm" active aria-label="Layers" />
+<IconButton icon={<BellIcon />} variant="ghost" size="md" disabled aria-label="Notifications" />
+```
+
+## Floating map controls
+
+Combine `filled` and `ghost` variants with custom `style` for glass-morphism overlays on map surfaces.
+
+```tsx
+<IconButton
+  icon={<PlusIcon />}
+  variant="filled"
+  size="md"
+  aria-label="Zoom in"
+  title="Zoom in"
+  onClick={() => setZoom((z) => z + 1)}
+/>
+<IconButton
+  icon={<MinusIcon />}
+  variant="ghost"
+  size="md"
+  aria-label="Zoom out"
+  title="Zoom out"
+  style={{ backgroundColor: 'rgba(15,23,42,0.9)', backdropFilter: 'blur(8px)' }}
+  onClick={() => setZoom((z) => z - 1)}
+/>
+```

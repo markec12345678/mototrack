@@ -1,0 +1,1 @@
+[{"filePath":"chat/moto-chat.tsx","name":"MotoChat","description":"Floating MotoChat AI panel built on design system Modal + Card components.","properties":[{"name":"onClose","description":"","required":true,"type":"signature"}],"access":"public","methods":[],"args":[],"examples":[]}]

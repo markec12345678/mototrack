@@ -1,0 +1,20 @@
+---
+description: 'Safety aspect for MotoTrack. Registers the /safety page, navigation entry, hazard report overlay, crash-countdown safety alert and hazard / speed-camera map layers. Persists hazards, speed cameras, border crossings, ICE contacts and SOS events.'
+labels: ['aspect', 'safety', 'sos', 'hazards', 'mototrack']
+---
+
+The Safety aspect plugs into the MotoTrack platform and contributes a
+complete safety vertical:
+
+- A `/safety` page (ICE contacts, emergency numbers, border crossings, my reports)
+- A 'Varnost' (🆘) navigation entry
+- A floating hazard report button rendered over every map
+- A crash-detection countdown alert shown system-wide when a crash is detected
+- Hazard markers and speed-camera markers as toggleable map layers (both on by default)
+
+On the backend it exposes a GraphQL API for `Hazard`, `SpeedCamera`,
+`IceContact`, `BorderCrossing` and `SosEvent` and seeds the database with
+sample hazards, speed cameras and border crossings on first start.
+
+`triggerSos` persists a `SosEvent` document for the current user and returns
+the list of dispatched phone numbers — the user's saved ICE contacts.

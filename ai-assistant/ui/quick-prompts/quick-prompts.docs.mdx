@@ -1,0 +1,37 @@
+---
+description: "A horizontally scrollable row of Slovenian AI suggestion chips for the MotoTrack AI assistant. Each chip fires an onSelect callback with its label when clicked."
+labels: ["ui", "ai", "prompts", "chips", "mototrack"]
+---
+
+`QuickPrompts` renders a horizontally scrollable strip of suggestion chips designed for the MotoTrack AI assistant. It ships with five Slovenian route-planning prompts out of the box and fires `onSelect` with the chip label when the user taps one.
+
+## Basic usage
+
+```tsx
+<QuickPrompts onSelect={(label) => console.log(label)} />
+```
+
+## Custom prompts
+
+Pass your own array of `QuickPrompt` objects to override the defaults:
+
+```tsx
+const prompts = [
+  { id: "1", label: "Najboljša pot čez Stelvio Pass" },
+  { id: "2", label: "Vremenska napoved za Col du Galibier" },
+  { id: "3", label: "Parkirišča pri Grossglockner" },
+];
+
+<QuickPrompts prompts={prompts} onSelect={(label) => sendMessage(label)} />
+```
+
+## Inside a chat input area
+
+Compose `QuickPrompts` above the chat input to give users instant inspiration:
+
+```tsx
+<div className={styles.chatFooter}>
+  <QuickPrompts onSelect={(label) => setInputValue(label)} />
+  <ChatInput value={inputValue} onChange={setInputValue} />
+</div>
+```

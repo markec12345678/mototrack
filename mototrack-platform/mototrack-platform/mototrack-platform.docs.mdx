@@ -1,0 +1,47 @@
+---
+description: 'MotoTrack platform aspect — composition root for the MotoTrack app shell, auth, theme, layout and slots.'
+labels: ['aspect', 'platform', 'mototrack']
+---
+
+The `mototrack-platform` aspect is the composition root of the MotoTrack application.
+It defines the slot APIs that feature aspects plug into, registers the global
+theme and layout, the built-in routes (`/`, `/login`, `/signup`, `/dashboard`),
+and the backend auth schema (login, signup, getCurrentUser, logout) backed by a
+typegoose `User` model on MongoDB.
+
+## Get started
+
+Compose the aspect into your Harmony platform:
+
+```ts
+import { SymphonyPlatform } from '@bitdev/symphony.symphony-platform';
+import { MototrackPlatformAspect } from '@markec/mototrack-platform.mototrack-platform';
+
+export const MotoTrackApp = SymphonyPlatform({
+  name: 'mototrack',
+  aspects: [MototrackPlatformAspect],
+});
+
+export default MotoTrackApp;
+```
+
+## Slots
+
+Feature aspects can contribute to the following slots:
+
+- `Route` — additional application routes
+- `NavigationItem` — sidebar / bottom-nav links
+- `DashboardPanel` — widgets shown on the authenticated dashboard
+- `HeaderAction` — header buttons (SOS is registered by default)
+- `MapLayer` — map data layers
+- `MapOverlay` — floating UI on top of the map
+- `RouteAction` — actions invoked against a planned route
+- `SafetyAlert` — safety / crash detection alerts
+
+## Built-in
+
+- Routes: `/`, `/login`, `/signup`, `/dashboard` (authenticated)
+- NavigationItem: `Dashboard`
+- HeaderAction: `SOS` (always visible red pill)
+- Demo user seeded on first boot:
+  `markec@mototrack.app / motorider2025` (username `markec`, displayName `Markec`, country `SI`, level `8`, points `5430`).

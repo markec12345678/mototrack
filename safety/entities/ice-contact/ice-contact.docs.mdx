@@ -1,0 +1,71 @@
+---
+labels: ['ice-contact', 'entity', 'emergency', 'safety']
+description: "IceContact entity representing an In Case of Emergency contact. Typegoose model indexed by userId."
+---
+
+An entity component for managing **In Case of Emergency (ICE)** contacts. Supports serialization and deserialization of `IceContact` objects and can be used from both backend and frontend.
+
+Each contact belongs to a user (indexed by `userId`) and can optionally carry medical information such as blood type and allergies.
+
+## Create an IceContact
+
+```tsx
+import { IceContact } from '@markec/safety.entities.ice-contact';
+
+const contact = IceContact.from({
+  id: 'contact-001',
+  userId: 'user-001',
+  name: 'Jane Doe',
+  relation: 'Spouse',
+  phone: '+1-555-010-2020',
+  primary: true,
+  bloodType: 'O+',
+  allergies: 'Penicillin',
+  notes: 'Speaks English and Spanish.',
+});
+
+console.log(contact.name);     // "Jane Doe"
+console.log(contact.primary);  // true
+```
+
+## Serialize to a plain object
+
+```tsx
+import { IceContact } from '@markec/safety.entities.ice-contact';
+
+const contact = IceContact.from({
+  id: 'contact-002',
+  userId: 'user-001',
+  name: 'Robert Doe',
+  relation: 'Parent',
+  phone: '+1-555-030-4040',
+  primary: false,
+});
+
+const plain = contact.toObject();
+console.log(plain);
+// {
+//   id: 'contact-002',
+//   userId: 'user-001',
+//   name: 'Robert Doe',
+//   relation: 'Parent',
+//   phone: '+1-555-030-4040',
+//   primary: false,
+//   bloodType: undefined,
+//   allergies: undefined,
+//   notes: undefined,
+// }
+```
+
+## Use mock data for development and testing
+
+```tsx
+import { mockIceContact, mockIceContacts } from '@markec/safety.entities.ice-contact';
+
+// Single mock with optional overrides
+const primary = mockIceContact({ relation: 'Sibling', primary: true });
+
+// Full list of mock contacts for a given user
+const contacts = mockIceContacts('user-42');
+console.log(contacts.length); // 3
+```

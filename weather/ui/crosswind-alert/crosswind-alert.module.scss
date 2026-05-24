@@ -1,0 +1,241 @@
+.overlay {
+  position: fixed;
+  z-index: var(--interactions-z-index-overlay);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition:
+    background-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    opacity var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+/* ── Level: moderate — compact bottom banner ─────────────────────────────── */
+
+.moderate {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  min-width: 320px;
+  max-width: 520px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(234, 179, 8, 0.18);
+  border: 1.5px solid var(--colors-status-warning-default);
+  box-shadow: 0 0 24px rgba(234, 179, 8, 0.35), var(--effects-shadows-large);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  pointer-events: auto;
+}
+
+/* ── Level: strong — wider bottom banner ─────────────────────────────────── */
+
+.strong {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  min-width: 380px;
+  max-width: 600px;
+  border-radius: var(--borders-radius-large);
+  background-color: rgba(249, 115, 22, 0.2);
+  border: 2px solid var(--colors-primary-default);
+  box-shadow: 0 0 32px rgba(249, 115, 22, 0.45), var(--effects-shadows-large);
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  pointer-events: auto;
+}
+
+/* ── Level: dangerous — full-screen flash ────────────────────────────────── */
+
+.dangerous {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: rgba(239, 68, 68, 0.88);
+  border: none;
+  box-shadow: none;
+  padding: var(--spacing-xxl);
+  pointer-events: auto;
+  backdrop-filter: blur(2px);
+}
+
+.flashHidden {
+  opacity: 0.15;
+}
+
+/* ── Content layout ──────────────────────────────────────────────────────── */
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-align: center;
+  width: 100%;
+}
+
+/* ── Icon row ────────────────────────────────────────────────────────────── */
+
+.iconRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.windIcon {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+.warningIcon {
+  font-size: 2.4rem;
+  line-height: 1;
+  animation: warningPulse 0.6s ease-in-out infinite alternate;
+}
+
+/* ── Title ───────────────────────────────────────────────────────────────── */
+
+.title {
+  margin: 0 !important;
+  font-weight: var(--typography-font-weight-extra-bold) !important;
+  letter-spacing: var(--typography-letter-spacing-tight) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.titleModerate {
+  color: #fde047 !important;
+}
+
+.titleStrong {
+  color: #fed7aa !important;
+}
+
+.titleDangerous {
+  color: #ffffff !important;
+  font-size: var(--typography-sizes-display-large) !important;
+  letter-spacing: var(--typography-letter-spacing-wider) !important;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Sub-label ───────────────────────────────────────────────────────────── */
+
+.sublabel {
+  margin: 0;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-medium);
+  line-height: var(--typography-line-height-base);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.moderate .sublabel {
+  color: rgba(253, 224, 71, 0.9);
+}
+
+/* ── Speed badge ─────────────────────────────────────────────────────────── */
+
+.speedBadge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: var(--spacing-xs);
+  padding: 6px 16px;
+  border-radius: var(--borders-radius-full);
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.speedValue {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-heading-h3);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: #ffffff;
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+}
+
+.speedUnit {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1;
+}
+
+.speedLabel {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 4px;
+  line-height: 1;
+}
+
+/* ── Pulse ring (dangerous only) ─────────────────────────────────────────── */
+
+.pulseRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: var(--borders-radius-full);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  animation: pulseExpand 1.2s ease-out infinite;
+  z-index: -1;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+
+@keyframes warningPulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.15);
+    opacity: 0.75;
+  }
+}
+
+@keyframes pulseExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .moderate {
+    min-width: 280px;
+    max-width: calc(100vw - 32px);
+    bottom: 16px;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .strong {
+    min-width: 280px;
+    max-width: calc(100vw - 32px);
+    bottom: 16px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .titleDangerous {
+    font-size: var(--typography-sizes-heading-h1) !important;
+  }
+}

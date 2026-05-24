@@ -1,0 +1,495 @@
+// ─── Root ─────────────────────────────────────────────────────────────────────
+
+.hud {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #020617;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--typography-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+// ─── Ambient glow background ──────────────────────────────────────────────────
+
+.ambientGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(249, 115, 22, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 100%, rgba(34, 197, 94, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+}
+
+// ─── Top bar ──────────────────────────────────────────────────────────────────
+
+.topBar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  background: rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+
+.topBarLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.liveBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: var(--borders-radius-full);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.9);
+  animation: pulseLive 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.liveLabel {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-primary-default);
+}
+
+.etaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.etaLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+  line-height: 1;
+}
+
+.etaValue {
+  font-size: var(--typography-sizes-heading-h4);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.distanceValue {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.exitButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 16px;
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: var(--borders-radius-large);
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    transform var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  font-family: var(--typography-font-family);
+  outline: none;
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.18);
+    border-color: rgba(148, 163, 184, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.exitIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--colors-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.exitLabel {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+}
+
+// ─── Main content area ────────────────────────────────────────────────────────
+
+.mainContent {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  gap: var(--spacing-lg);
+  min-height: 0;
+}
+
+// ─── Speedometer section ──────────────────────────────────────────────────────
+
+.speedSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.streetNameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.streetDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--colors-primary-default);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.7);
+}
+
+.streetName {
+  font-size: var(--typography-sizes-heading-h4);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+
+// ─── Middle row: compass + speed + GPS ───────────────────────────────────────
+
+.middleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-x3l);
+  width: 100%;
+  max-width: 900px;
+}
+
+.compassSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.compassLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+}
+
+.speedometerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  flex-shrink: 0;
+  min-width: 180px;
+}
+
+// ─── GPS row ──────────────────────────────────────────────────────────────────
+
+.gpsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 6px 12px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: var(--borders-radius-full);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.gpsLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+}
+
+// ─── Stat card ────────────────────────────────────────────────────────────────
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: var(--borders-radius-large);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: var(--effects-shadows-small);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.statLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+  line-height: 1;
+}
+
+.statValue {
+  font-size: var(--typography-sizes-heading-h3);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.statUnit {
+  font-size: var(--typography-sizes-body-small);
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--colors-text-muted);
+}
+
+// ─── Turn banner section ──────────────────────────────────────────────────────
+
+.turnSection {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+  flex-shrink: 0;
+}
+
+// ─── Bottom bar ───────────────────────────────────────────────────────────────
+
+.bottomBar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+  background: rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  gap: var(--spacing-md);
+}
+
+.fuelSection {
+  flex: 1;
+  max-width: 360px;
+}
+
+.fontScaleBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: var(--borders-radius-full);
+}
+
+.fontScaleLabel {
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--colors-text-muted);
+}
+
+.fontScaleValue {
+  font-size: var(--typography-sizes-caption-medium);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+}
+
+// ─── Font scale variants ──────────────────────────────────────────────────────
+
+.scale1x {
+  font-size: 100%;
+}
+
+.scale15x {
+  font-size: 112.5%;
+
+  .streetName {
+    font-size: var(--typography-sizes-heading-h3);
+  }
+
+  .etaValue {
+    font-size: var(--typography-sizes-heading-h3);
+  }
+
+  .statValue {
+    font-size: var(--typography-sizes-heading-h2);
+  }
+}
+
+.scale2x {
+  font-size: 125%;
+
+  .streetName {
+    font-size: var(--typography-sizes-heading-h2);
+  }
+
+  .etaValue {
+    font-size: var(--typography-sizes-heading-h2);
+  }
+
+  .statValue {
+    font-size: var(--typography-sizes-display-small);
+  }
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(148, 163, 184, 0.12);
+  flex-shrink: 0;
+}
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes pulseLive {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 767px) {
+  .middleRow {
+    gap: var(--spacing-lg);
+  }
+
+  .compassSection {
+    display: none;
+  }
+
+  .sidePanel {
+    display: none;
+  }
+
+  .streetName {
+    max-width: 240px;
+    font-size: var(--typography-sizes-heading-h5);
+  }
+
+  .topBar {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .mainContent {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .fuelSection {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .middleRow {
+    gap: var(--spacing-xxl);
+  }
+
+  .sidePanel {
+    min-width: 140px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .middleRow {
+    gap: 80px;
+  }
+
+  .sidePanel {
+    min-width: 220px;
+  }
+}

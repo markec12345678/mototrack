@@ -1,0 +1,78 @@
+---
+description: "MapLibre3D — a MapLibre GL JS wrapper for immersive 3D terrain rendering. Loads maplibre-gl dynamically, supports terrain-RGB DEM elevation, route polylines, pan/zoom controls, and gracefully falls back to a 2D notice when WebGL is unavailable."
+labels: ["map", "3d", "terrain", "maplibre", "route", "webgl"]
+---
+
+MapLibre3D renders an interactive 3D terrain map powered by [MapLibre GL JS](https://maplibre.org/). It dynamically imports the library to keep SSR bundles lean, applies terrain-RGB DEM for realistic elevation, and overlays a glowing route polyline when waypoints are provided.
+
+When WebGL is not available in the browser, the component gracefully degrades to a 2D tile notice so the page never breaks.
+
+## Basic usage
+
+```tsx
+import { MapLibre3D } from '@markec/maps.ui.map-libre-3d';
+
+<MapLibre3D
+  center={{ lat: 46.5253, lng: 10.4536 }}
+  zoom={12}
+  pitch={60}
+/>
+```
+
+## With a route polyline
+
+Pass an array of `LatLng` waypoints to the `route` prop. The component renders a glowing orange polyline over the 3D terrain.
+
+```tsx
+import { MapLibre3D } from '@markec/maps.ui.map-libre-3d';
+
+const stelvioRoute = [
+  { lat: 46.5000, lng: 10.4200 },
+  { lat: 46.5140, lng: 10.4350 },
+  { lat: 46.5253, lng: 10.4536 },
+  { lat: 46.5340, lng: 10.4830 },
+  { lat: 46.5400, lng: 10.5000 },
+];
+
+<MapLibre3D
+  center={{ lat: 46.5253, lng: 10.4536 }}
+  zoom={13}
+  pitch={65}
+  bearing={-20}
+  route={stelvioRoute}
+  height="500px"
+/>
+```
+
+## Custom pitch and bearing
+
+Adjust the camera angle with `pitch` (0–85°) and `bearing` (0–360°) for dramatic aerial perspectives.
+
+```tsx
+import { MapLibre3D } from '@markec/maps.ui.map-libre-3d';
+
+<MapLibre3D
+  center={{ lat: 47.0748, lng: 12.8376 }}
+  zoom={11}
+  pitch={70}
+  bearing={-30}
+  height="400px"
+/>
+```
+
+## WebGL fallback
+
+When WebGL is unavailable the component automatically renders a 2D tile notice with a clear explanation. No additional configuration is required — the fallback is built in.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `center` | `LatLng` | Stelvio Pass | Map centre coordinates |
+| `zoom` | `number` | `12` | Initial zoom level |
+| `pitch` | `number` | `60` | Camera pitch in degrees |
+| `bearing` | `number` | `0` | Camera bearing in degrees |
+| `route` | `LatLng[]` | `[]` | Waypoints for the route polyline |
+| `height` | `string` | `"100%"` | CSS height of the map container |
+| `className` | `string` | — | Extra class on the root element |
+| `style` | `CSSProperties` | — | Inline styles for the root element |

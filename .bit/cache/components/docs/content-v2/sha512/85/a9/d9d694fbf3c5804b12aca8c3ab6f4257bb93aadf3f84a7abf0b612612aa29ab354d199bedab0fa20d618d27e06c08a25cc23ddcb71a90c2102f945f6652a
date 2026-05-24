@@ -1,0 +1,1 @@
+[{"name":"","description":"GraphQL schema for the maps aspect. The heavy lifting (raster tile\ncaching) happens on the browser via the Cache API, so the node-side\nresolvers are stateless infrastructure hooks that the browser may\nmirror or extend.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"maps.graphql.ts"}]

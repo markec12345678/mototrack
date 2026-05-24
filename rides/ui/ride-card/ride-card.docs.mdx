@@ -1,0 +1,54 @@
+---
+description: "RideCard — compact card showing one ride: name, date, distance, duration, max speed, and twistiness pill. Clickable to /rides/:id with hover lift effect."
+labels: ["ride", "card", "mototrack", "ui"]
+---
+
+A compact, clickable card that summarises a single motorcycle ride at a glance. It displays the ride name, date, key stats (distance, duration, max speed), a twistiness progress bar, and a semantic twistiness badge pill. Clicking navigates to `/rides/:id` via React Router.
+
+## Basic usage
+
+```tsx
+<RideCard
+  ride={{
+    id: "ride-001",
+    name: "Alpine Pass Morning Run",
+    startedAt: 1718348400000,
+    distanceKm: 142.7,
+    durationSec: 6480,
+    maxSpeedKmh: 187,
+    twistinessScore: 7.4,
+  }}
+/>
+```
+
+## Unnamed ride
+
+When `name` is omitted from the ride object, the card falls back to `"Unnamed Ride"`.
+
+```tsx
+<RideCard
+  ride={{
+    id: "ride-004",
+    startedAt: 1718100000000,
+    distanceKm: 67.8,
+    durationSec: 3600,
+    maxSpeedKmh: 163,
+    twistinessScore: 5.5,
+  }}
+/>
+```
+
+## Twistiness levels
+
+The `twistinessScore` field (0–10) drives both the badge variant and the fill bar colour:
+
+```tsx
+// Extreme (score >= 8) — danger badge, red bar
+<RideCard ride={{ id: "r1", name: "Stelvio Pass", startedAt: 1718000000000, distanceKm: 98, durationSec: 5220, maxSpeedKmh: 212, twistinessScore: 9.2 }} />
+
+// Twisty (score >= 6) — accent badge, orange bar
+<RideCard ride={{ id: "r2", name: "Alpine Run", startedAt: 1718000000000, distanceKm: 142, durationSec: 6480, maxSpeedKmh: 187, twistinessScore: 7.4 }} />
+
+// Mild (score >= 2) — info badge, blue bar
+<RideCard ride={{ id: "r3", name: "Coastal Cruise", startedAt: 1718000000000, distanceKm: 215, durationSec: 9000, maxSpeedKmh: 145, twistinessScore: 2.1 }} />
+```

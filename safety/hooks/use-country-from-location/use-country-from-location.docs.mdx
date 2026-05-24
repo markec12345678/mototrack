@@ -1,0 +1,88 @@
+---
+description: "Lightweight bounding-box reverse geocoder (no API call) that maps lat/lng to an ISO country code for the 10 Balkan countries. Returns country, flag, and emergencyNumbers."
+labels: ['hook', 'react', 'geocoder', 'balkans', 'safety', 'emergency']
+---
+
+`useCountryFromLocation` is a zero-dependency, offline-first reverse geocoder for the Balkan region.
+It maps a `{ lat, lng }` coordinate pair to an ISO 3166-1 alpha-2 country code using bounding-box
+lookups — no network request is ever made.
+
+**Supported countries:** Slovenia (SI), Croatia (HR), Bosnia & Herzegovina (BA), Serbia (RS),
+Montenegro (ME), North Macedonia (MK), Albania (AL), Bulgaria (BG), Romania (RO), Greece (GR).
+
+## Basic usage
+
+```tsx
+import { useCountryFromLocation } from '@markec/safety.hooks.use-country-from-location';
+
+function RiderLocation() {
+  const { country, flag, emergencyNumbers } = useCountryFromLocation({ lat: 45.81, lng: 15.98 });
+
+  if (!country) return <p>Outside supported region</p>;
+
+  return (
+    <div>
+      <p>{flag} You are in {country}</p>
+      <p>Police: {emergencyNumbers?.police}</p>
+      <p>Ambulance: {emergencyNumbers?.ambulance}</p>
+      <p>EU Emergency: {emergencyNumbers?.eu}</p>
+    </div>
+  );
+}
+```
+
+## Handling unknown locations
+
+When the coordinates fall outside all supported bounding boxes, all three return values are `null`.
+
+```tsx
+import { useCountryFromLocation } from '@markec/safety.hooks.use-country-from-location';
+
+function LocationStatus({ lat, lng }: { lat: number; lng: number }) {
+  const { country, flag } = useCountryFromLocation({ lat, lng });
+
+  return (
+    <div>
+      {country
+        ? <span>{flag} Detected: {country}</span>
+        : <span>Location not in supported Balkan region</span>
+      }
+    </div>
+  );
+}
+```
+
+## Testing with mockData
+
+Pass a `mockData` result via the options parameter to bypass the bounding-box lookup entirely.
+This is ideal for unit tests and Storybook compositions.
+
+```tsx
+import { useCountryFromLocation } from '@markec/safety.hooks.use-country-from-location';
+
+function TestableComponent() {
+  const { country, flag, emergencyNumbers } = useCountryFromLocation(
+    { lat: 0, lng: 0 },
+    {
+      mockData: {
+        country: 'HR',
+        flag: '🇭🇷',
+        emergencyNumbers: {
+          police: '192',
+          ambulance: '194',
+          fire: '193',
+          eu: '112',
+          assistance: '1987',
+        },
+      },
+    }
+  );
+
+  return (
+    <div>
+      <p>{flag} {country}</p>
+      <p>Roadside assistance: {emergencyNumbers?.assistance}</p>
+    </div>
+  );
+}
+```

@@ -1,0 +1,76 @@
+---
+description: "App header for the MotoTrack platform. Logo on the left, slot-driven header actions (SOS, MotoChat, Notifications) in the center/right, and the UserBar on the far right. Sticky with a dark gradient background. On mobile, collapses to logo + SOS + user avatar with remaining actions in a 3-dot overflow menu."
+labels: ["header", "layout", "navigation", "mototrack"]
+---
+
+The `Header` component is the top-level navigation shell for the MotoTrack platform. It is sticky, uses a dark gradient background with backdrop blur, and adapts responsively between desktop and mobile layouts.
+
+## Layout structure
+
+- **Left** — `Logo` component linking to home
+- **Center / Right** — `headerActions` slot items rendered as action buttons (SOS, MotoChat, Notifications, etc.)
+- **Far Right** — `UserBar` (anonymous: Login + Sign Up; authenticated: avatar + dropdown)
+
+On screens narrower than 1024 px the actions area is hidden and replaced by:
+- The **SOS button** always pinned and visible
+- A **3-dot overflow menu** containing all other registered actions
+
+## Basic usage
+
+```tsx
+import { Header } from '@markec/mototrack-platform.layout.header';
+
+const actions = [
+  { key: 'sos', label: 'SOS', icon: '🚨', order: 1 },
+  { key: 'motochat', label: 'MotoChat', icon: '💬', order: 2 },
+  { key: 'notifications', label: 'Notifications', icon: '🔔', order: 3 },
+];
+
+<Header
+  headerActions={actions}
+  profileHref="/profile"
+  settingsHref="/settings"
+  loginHref="/login"
+  signupHref="/signup"
+/>
+```
+
+## Slot-driven actions
+
+The `headerActions` prop accepts an array of `HeaderAction` objects. Each action can be a plain button with an `onClick` handler, or a fully custom `component`:
+
+```tsx
+import { Header, type HeaderAction } from '@markec/mototrack-platform.layout.header';
+
+const actions: HeaderAction[] = [
+  {
+    key: 'sos',
+    label: 'SOS',
+    icon: '🚨',
+    order: 1,
+    onClick: () => triggerEmergencyProtocol(),
+  },
+  {
+    key: 'live',
+    label: 'Live',
+    icon: '📡',
+    order: 4,
+    component: LiveTrackingToggle,
+  },
+];
+
+<Header headerActions={actions} />
+```
+
+## Mobile behaviour
+
+On mobile (< 1024 px), the header collapses to a compact bar:
+
+- The **SOS button** is always visible (pinned, pulsing red glow)
+- All other actions move into a **3-dot overflow menu** that opens a floating dropdown
+- The **UserBar** shows only the avatar on very small screens (< 480 px)
+
+```tsx
+// No extra config needed — responsive behaviour is built-in
+<Header headerActions={actions} />
+```

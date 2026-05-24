@@ -1,0 +1,66 @@
+---
+description: "Horizontal scrollable pill tabs for MotoTrack pages. Each item has a key, label, and optional icon. The active tab is highlighted with the accent background color."
+labels: ["navigation", "tabs", "pills", "mototrack"]
+---
+
+Horizontal scrollable pill-style tabs used inside pages such as **Explore** and **Profile sub-sections**.
+Each tab item carries a `key`, a `label`, and an optional `icon`. The active tab is highlighted with the primary accent colour.
+The tab strip scrolls horizontally on small screens, hiding the scrollbar for a clean native feel.
+
+## Basic usage
+
+```tsx
+<Tabs
+  items={[
+    { key: "explore", label: "Explore" },
+    { key: "races",   label: "Races"   },
+    { key: "riders",  label: "Riders"  },
+  ]}
+  activeKey="explore"
+  onTabChange={(key) => console.log(key)}
+/>
+```
+
+## With icons
+
+Pass any React node as the `icon` property to render it before the label.
+
+```tsx
+function FlagIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+      <line x1="4" y1="22" x2="4" y2="15" />
+    </svg>
+  );
+}
+
+<Tabs
+  items={[
+    { key: "races",   label: "Races",   icon: <FlagIcon /> },
+    { key: "riders",  label: "Riders"                      },
+    { key: "teams",   label: "Teams"                       },
+  ]}
+  activeKey="races"
+  onTabChange={(key) => setActiveKey(key)}
+/>
+```
+
+## Controlled active state
+
+Manage the active tab with local state to drive page content.
+
+```tsx
+const [activeKey, setActiveKey] = useState("overview");
+
+<Tabs
+  items={[
+    { key: "overview",      label: "Overview"     },
+    { key: "results",       label: "Results"      },
+    { key: "stats",         label: "Statistics"   },
+    { key: "achievements",  label: "Achievements" },
+  ]}
+  activeKey={activeKey}
+  onTabChange={(key) => setActiveKey(key)}
+/>
+```

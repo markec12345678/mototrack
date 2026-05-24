@@ -1,0 +1,58 @@
+---
+description: "Horizontal strip showing weather at evenly-spaced points along the planned route with ETA labels. Used inside the plan page."
+labels: ["weather", "route", "strip", "mototrack", "plan"]
+---
+
+A horizontal, scrollable strip that displays weather conditions at evenly-spaced checkpoints along a planned motorcycle route. Each checkpoint card shows the weather icon, temperature, wind speed and direction, precipitation, and an ETA label relative to the ride start. Severity states (alert, danger) are highlighted automatically based on WMO weather codes, precipitation, and wind speed.
+
+## Basic usage
+
+```tsx
+import { RouteWeatherStrip } from '@markec/weather.ui.route-weather-strip';
+
+const route = [
+  { lat: 46.0569, lng: 14.5058 },
+  { lat: 46.2396, lng: 14.3561 },
+  { lat: 46.3625, lng: 14.0948 },
+  { lat: 46.4983, lng: 13.8369 },
+  { lat: 46.6226, lng: 13.8350 },
+];
+
+<RouteWeatherStrip route={route} samples={5} />
+```
+
+## Embedding in a plan page
+
+Wrap the strip inside a card container to integrate it naturally into the plan page layout:
+
+```tsx
+import { RouteWeatherStrip } from '@markec/weather.ui.route-weather-strip';
+
+<div style={{ backgroundColor: '#0f172a', borderRadius: '16px', padding: '20px' }}>
+  <RouteWeatherStrip route={route} samples={5} />
+</div>
+```
+
+## Fewer checkpoints for short routes
+
+Use the `samples` prop to reduce the number of checkpoints for shorter routes:
+
+```tsx
+import { RouteWeatherStrip } from '@markec/weather.ui.route-weather-strip';
+
+const shortRoute = [
+  { lat: 46.0569, lng: 14.5058 },
+  { lat: 46.1502, lng: 14.4269 },
+  { lat: 46.2396, lng: 14.3561 },
+];
+
+<RouteWeatherStrip route={shortRoute} samples={3} />
+```
+
+## Severity states
+
+The strip automatically highlights checkpoint cards based on weather severity:
+
+- **Normal** — standard surface card
+- **Alert** — amber tint for light rain, moderate wind (> 30 km/h), or WMO code ≥ 61
+- **Danger** — red tint for thunderstorms, heavy rain (> 3 mm/h), strong wind (> 50 km/h), or WMO code ≥ 95

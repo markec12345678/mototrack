@@ -1,0 +1,77 @@
+---
+labels: ['achievement', 'entity', 'progress', 'gamification']
+description: "Achievement and AchievementProgress entities with 12 seeded Balkan motorcycle community achievements. Includes serialization, mock data, and per-user progress tracking."
+---
+
+Two complementary entities power the achievement system:
+
+- **`Achievement`** — an immutable definition (name, description, icon, threshold, metric).
+- **`AchievementProgress`** — per-user progress toward a specific achievement, including unlock state and timestamp.
+
+Twelve achievements are seeded out of the box: *Vršič Conqueror*, *1000 km Klub*, *Zgodnja Ptica*, *Kotor Master*, *Mokra Vožnja*, *Transfăgărășan*, *Balkanski Popotnik*, *30-dnevna Serija*, *Twisty Rider*, *Cestni Bratec*, *Pomočnik Skupnosti*, and *Stroški pod kontrolo*.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { Achievement, AchievementProgress } from '@markec/community.entities.achievement';
+import { SEEDED_ACHIEVEMENTS } from '@markec/community.entities.achievement';
+
+// Access all 12 seeded definitions
+console.log(SEEDED_ACHIEVEMENTS.map((a) => a.name));
+
+// Create a custom achievement
+const custom = Achievement.from({
+  id: 'my-achievement',
+  name: 'My Achievement',
+  description: 'Ride 500 km in a single day.',
+  icon: '⚡',
+  threshold: 500,
+  metric: 'daily_km',
+});
+
+console.log(custom.toObject());
+```
+
+## Per-user progress
+
+```ts
+import { AchievementProgress } from '@markec/community.entities.achievement';
+
+const progress = AchievementProgress.from({
+  id: 'prog-user-42-vrsic-conqueror',
+  userId: 'user-42',
+  achievementId: 'vrsic-conqueror',
+  name: 'Vršič Conqueror',
+  description: 'Complete a ride that crosses the Vršič mountain pass (1611 m).',
+  icon: '🏔️',
+  unlocked: true,
+  progressPct: 100,
+  unlockedAt: Date.now(),
+});
+
+console.log(`${progress.name} — ${progress.unlocked ? 'Unlocked 🎉' : `${progress.progressPct}%`}`);
+```
+
+## Mock data
+
+Use the mock helpers for development and testing:
+
+```ts
+import {
+  mockAchievements,
+  mockAchievementProgress,
+  mockAchievementProgressList,
+} from '@markec/community.entities.achievement';
+
+// All 12 seeded achievements
+const all = mockAchievements();
+
+// A single progress record with overrides
+const progress = mockAchievementProgress({ userId: 'rider-99', progressPct: 75 });
+
+// Full progress list for a user (one record per achievement)
+const list = mockAchievementProgressList('rider-99');
+console.log(list.filter((p) => p.unlocked).map((p) => p.name));
+```

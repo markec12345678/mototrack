@@ -1,0 +1,1 @@
+[{"name":"","description":"Mock achievement progress data for testing and composition previews.\nUses the entity's seeded factory to produce all 12 achievements for a demo user.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-achievements.mock.ts"}]

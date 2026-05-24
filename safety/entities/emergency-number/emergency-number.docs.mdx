@@ -1,0 +1,68 @@
+---
+description: "EmergencyNumber static dataset. Map of country ISO → { police, ambulance, fire, eu (always 112), assistance }. Includes all 10 Balkan countries: HR, SI, RS, BA, ME, MK, AL, XK, BG, GR."
+labels: ['emergency', 'entity', 'balkan', 'safety', 'dataset']
+---
+
+A static, serialisable entity that maps each Balkan country's ISO 3166-1 alpha-2 code to its
+emergency phone numbers — police, ambulance, fire, the EU-wide 112, and the national roadside
+assistance service (HAK, AMZS, AMS, BIHAMK, AMSM, ACA, AMRKS, SBA, ELPA, …).
+
+## Look up a single country
+
+```tsx
+import { getEmergencyNumber } from '@markec/safety.entities.emergency-number';
+
+const croatia = getEmergencyNumber('HR');
+
+if (croatia) {
+  console.log(croatia.country);    // "Croatia"
+  console.log(croatia.police);     // "192"
+  console.log(croatia.ambulance);  // "194"
+  console.log(croatia.fire);       // "193"
+  console.log(croatia.eu);         // "112"
+  console.log(croatia.assistance); // "1987"  (HAK)
+}
+```
+
+## Iterate over all 10 Balkan countries
+
+```tsx
+import { listEmergencyNumbers } from '@markec/safety.entities.emergency-number';
+
+const entries = listEmergencyNumbers();
+
+entries.forEach((entry) => {
+  console.log(`${entry.country} — police: ${entry.police}, ambulance: ${entry.ambulance}`);
+});
+```
+
+## Use the raw dataset map
+
+```tsx
+import { EMERGENCY_NUMBERS } from '@markec/safety.entities.emergency-number';
+
+const slovenia = EMERGENCY_NUMBERS['SI'];
+console.log(slovenia.toObject());
+// {
+//   iso: 'SI',
+//   country: 'Slovenia',
+//   police: '113',
+//   ambulance: '112',
+//   fire: '112',
+//   eu: '112',
+//   assistance: '1987'   // AMZS
+// }
+```
+
+## Mock data for development and testing
+
+```tsx
+import { mockEmergencyNumber, mockEmergencyNumbers } from '@markec/safety.entities.emergency-number';
+
+// Single mock entry (Croatia by default), with optional overrides
+const custom = mockEmergencyNumber({ iso: 'GR', country: 'Greece', police: '100' });
+
+// A list of representative Balkan entries
+const list = mockEmergencyNumbers();
+console.log(list.map((e) => e.iso)); // ['HR', 'SI', 'RS', 'BA', 'GR']
+```

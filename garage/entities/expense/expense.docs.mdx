@@ -1,0 +1,65 @@
+---
+labels: ['expense', 'entity', 'typegoose', 'garage', 'finance']
+description: "Expense entity per category (fuel, maintenance, insurance, etc.). Includes a Typegoose model for MongoDB persistence and seed data for the demo user."
+---
+
+An entity component representing a motorcycle-related expense. It provides:
+
+- A typed `Expense` domain class with `from()` and `toObject()` methods for serialisation
+- A `ExpenseModel` Typegoose class ready for MongoDB via `getModelForClass`
+- Mock helpers (`mockExpense`, `mockExpenses`) and a `seedExpenses()` function with ~6 realistic entries for the demo user
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { Expense } from '@markec/garage.entities.expense';
+
+const expense = Expense.from({
+  id: 'exp-001',
+  userId: 'user-abc',
+  bikeId: 'bike-xyz',
+  category: 'fuel',
+  amountEur: 28.5,
+  label: 'Full tank — Shell station',
+  at: Date.now(),
+  notes: '14.2 L @ €2.01/L',
+});
+
+console.log(expense.toObject());
+```
+
+## Seed the database
+
+Use `seedExpenses()` to populate MongoDB with demo data on first run:
+
+```ts
+import { seedExpenses } from '@markec/garage.entities.expense';
+import { ExpenseMongoModel } from '@markec/garage.entities.expense';
+
+async function seed() {
+  const seeds = seedExpenses();
+  await ExpenseMongoModel.insertMany(
+    seeds.map(({ id, ...rest }) => rest)
+  );
+  console.log(`Seeded ${seeds.length} expenses`);
+}
+```
+
+## Mock data in tests
+
+Use `mockExpenses()` and `mockExpense()` for unit tests and Storybook compositions:
+
+```ts
+import { mockExpense, mockExpenses } from '@markec/garage.entities.expense';
+
+// Single expense with optional overrides
+const singleExpense = mockExpense({ amountEur: 999, label: 'Custom expense' });
+
+// All 6 demo expenses
+const allExpenses = mockExpenses();
+
+// Per-item overrides (index-aligned)
+const customised = mockExpenses([{ label: 'Override first item' }]);
+```

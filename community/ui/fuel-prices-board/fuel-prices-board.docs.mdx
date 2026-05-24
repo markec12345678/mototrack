@@ -1,0 +1,67 @@
+---
+description: "FuelPricesBoard — crowd-sourced fuel price tracker for Balkan motorcycle routes. Displays country averages table, a report price form, and expandable per-country recent reports."
+labels: ["community", "fuel", "prices", "table", "form"]
+---
+
+The `FuelPricesBoard` component is a full-featured community fuel price tracker. It shows crowd-sourced average petrol and diesel prices across 10 Balkan countries, lets riders submit new price reports, and displays recent per-country reports in an expandable table.
+
+## Features
+
+- **Country averages table** — sorted by cheapest petrol, with rank badges, report counts, and last-updated timestamps
+- **Expandable rows** — click any country row to reveal recent reports with brand, location, prices, and confirm counts
+- **Report form** — validated form to submit new fuel prices (country, brand, petrol €/L, diesel €/L, location)
+- **Live data** — powered by `useFuelPrices` GraphQL hook with optional mock data for testing
+
+## Basic Usage
+
+```tsx
+import { FuelPricesBoard } from '@markec/community.ui.fuel-prices-board';
+
+<FuelPricesBoard />
+```
+
+## With Mock Data
+
+Pass `mockReports` and `mockAverages` to render the board without a live GraphQL connection — useful for testing and compositions.
+
+```tsx
+import { FuelPricesBoard } from '@markec/community.ui.fuel-prices-board';
+import { mockFuelPriceReports, mockCountryAverages } from '@markec/community.ui.fuel-prices-board';
+
+<FuelPricesBoard
+  mockReports={mockFuelPriceReports}
+  mockAverages={mockCountryAverages}
+/>
+```
+
+## Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `mockReports` | `FuelPriceReport[]` | Optional mock reports array for testing |
+| `mockAverages` | `CountryAverage[]` | Optional mock country averages for testing |
+| `className` | `string` | Additional CSS class name |
+| `style` | `React.CSSProperties` | Inline styles |
+
+## Data Shape
+
+The board works with the `FuelPriceReport` type:
+
+```tsx
+type FuelPriceReport = {
+  id: string;
+  country: string;      // ISO code: SI, HR, RS, BA, ME, MK, AL, BG, RO, GR
+  brand: string;        // Station brand name
+  petrolEur: number;    // Petrol price in EUR/L
+  dieselEur: number;    // Diesel price in EUR/L
+  location: string;     // Human-readable location
+  reportedAt: number;   // Unix timestamp (ms)
+  confirms: number;     // Community confirmations
+};
+```
+
+## Interaction
+
+Click any country row in the averages table to expand a panel showing the most recent individual reports for that country. Click again to collapse.
+
+The report form validates all fields before submission and shows a success banner on completion.

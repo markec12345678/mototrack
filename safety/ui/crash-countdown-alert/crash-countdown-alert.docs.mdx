@@ -1,0 +1,70 @@
+---
+description: "Crash detected modal with a 15-second SOS countdown. Displays 'Zaznan trk! SOS bo poslan čez Ns.' with a big cancel button. Registered into the SafetyAlert slot — visible only when a crash event is active."
+labels: ["safety", "modal", "sos", "crash", "alert", "countdown"]
+---
+
+The `CrashCountdownAlert` is a full-screen modal that appears automatically when the `useCrashDetection` hook detects a crash event. It shows a live 15-second countdown with a pulsing danger animation and a large **"Sem v redu"** cancel button. If the user does not cancel in time, SOS is dispatched to emergency contacts.
+
+The component is designed to be registered into a **SafetyAlert slot** and is only visible when a crash event is active.
+
+## Basic usage
+
+```tsx
+import { CrashCountdownAlert } from '@markec/safety.ui.crash-countdown-alert';
+
+export function App() {
+  return (
+    <>
+      {/* Your app content */}
+      <CrashCountdownAlert
+        onCancel={() => console.log('SOS cancelled by rider')}
+        onSosDispatched={() => console.log('SOS dispatched!')}
+      />
+    </>
+  );
+}
+```
+
+## Custom countdown duration
+
+You can override the default 15-second countdown for testing or special scenarios:
+
+```tsx
+import { CrashCountdownAlert } from '@markec/safety.ui.crash-countdown-alert';
+
+export function SafetyOverlay() {
+  return (
+    <CrashCountdownAlert
+      countdownSeconds={10}
+      onCancel={() => console.log('Cancelled')}
+      onSosDispatched={() => console.log('SOS sent after 10s')}
+    />
+  );
+}
+```
+
+## SafetyAlert slot registration
+
+The component is designed to be registered into a slot system so it renders on top of any screen when a crash is detected:
+
+```tsx
+import { CrashCountdownAlert } from '@markec/safety.ui.crash-countdown-alert';
+
+// Register in your app's SafetyAlert slot
+safetyAlertSlot.register({
+  id: 'crash-countdown-alert',
+  component: () => (
+    <CrashCountdownAlert
+      onSosDispatched={() => triggerSos({ lat, lng })}
+    />
+  ),
+});
+```
+
+## How it works
+
+1. `useCrashDetection` monitors the device accelerometer for g-force spikes and sudden speed drops.
+2. When a crash is detected (`lastEvent` becomes truthy), the modal opens automatically.
+3. A 15-second countdown begins with a visual ring and progress bar.
+4. The rider presses **"Sem v redu"** to cancel — this calls `dismiss(eventId)` on the hook.
+5. If the countdown reaches zero without cancellation, `onSosDispatched` is called and SOS is sent.

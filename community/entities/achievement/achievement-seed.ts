@@ -1,0 +1,103 @@
+import { Achievement } from './achievement.js';
+
+/**
+ * The 12 seeded achievement definitions for the community platform.
+ */
+export const SEEDED_ACHIEVEMENTS: Achievement[] = [
+  Achievement.from({
+    id: 'vrsic-conqueror',
+    name: 'Vršič Conqueror',
+    description: 'Complete a ride that crosses the Vršič mountain pass (1611 m).',
+    icon: '🏔️',
+    threshold: 1,
+    metric: 'vrsic_crossings',
+  }),
+  Achievement.from({
+    id: '1000-km-klub',
+    name: '1000 km Klub',
+    description: 'Accumulate 1 000 km of total riding distance.',
+    icon: '🛣️',
+    threshold: 1000,
+    metric: 'km',
+  }),
+  Achievement.from({
+    id: 'zgodnja-ptica',
+    name: 'Zgodnja Ptica',
+    description: 'Start a ride before 06:00 on at least 5 occasions.',
+    icon: '🌅',
+    threshold: 5,
+    metric: 'early_rides',
+  }),
+  Achievement.from({
+    id: 'kotor-master',
+    name: 'Kotor Master',
+    description: 'Ride the serpentines above Kotor Bay at least 3 times.',
+    icon: '🌊',
+    threshold: 3,
+    metric: 'kotor_rides',
+  }),
+  Achievement.from({
+    id: 'mokra-voznja',
+    name: 'Mokra Vožnja',
+    description: 'Complete 10 rides in rainy conditions.',
+    icon: '🌧️',
+    threshold: 10,
+    metric: 'wet_rides',
+  }),
+  Achievement.from({
+    id: 'transfagarasan',
+    name: 'Transfăgărășan',
+    description: 'Ride the legendary Transfăgărășan highway end-to-end.',
+    icon: '🇷🇴',
+    threshold: 1,
+    metric: 'transfagarasan_rides',
+  }),
+  Achievement.from({
+    id: 'balkanski-popotnik',
+    name: 'Balkanski Popotnik',
+    description: 'Log rides in at least 5 different Balkan countries.',
+    icon: '🗺️',
+    threshold: 5,
+    metric: 'balkan_countries',
+  }),
+  Achievement.from({
+    id: '30-dnevna-serija',
+    name: '30-dnevna Serija',
+    description: 'Ride on 30 consecutive days without a break.',
+    icon: '🔥',
+    threshold: 30,
+    metric: 'streak_days',
+  }),
+  Achievement.from({
+    id: 'twisty-rider',
+    name: 'Twisty Rider',
+    description: 'Complete 20 rides on routes rated "twisty" by the community.',
+    icon: '〰️',
+    threshold: 20,
+    metric: 'twisty_rides',
+  }),
+  Achievement.from({
+    id: 'cestni-bratec',
+    name: 'Cestni Bratec',
+    description: 'Participate in 5 group rides with other community members.',
+    icon: '🤝',
+    threshold: 5,
+    metric: 'group_rides',
+  }),
+  Achievement.from({
+    id: 'pomocnik-skupnosti',
+    name: 'Pomočnik Skupnosti',
+    description: 'Contribute 10 fuel price reports verified by the community.',
+    icon: '⛽',
+    threshold: 10,
+    metric: 'fuel_reports',
+  }),
+  Achievement.from({
+    id: 'stroski-pod-kontrolo',
+    name: 'Stroški pod kontrolo',
+    description: 'Log fuel costs for every ride over a full calendar month.',
+    icon: '💰',
+    threshold: 1,
+    metric: 'full_month_fuel_logs',
+  }),
+];

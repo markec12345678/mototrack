@@ -1,0 +1,37 @@
+declare const styles: {
+  readonly forecastCard: string;
+  readonly header: string;
+  readonly headerIcon: string;
+  readonly headerTitle: string;
+  readonly divider: string;
+  readonly dayList: string;
+  readonly dayRow: string;
+  readonly dayRowFirst: string;
+  readonly dayLabel: string;
+  readonly dayName: string;
+  readonly iconBlock: string;
+  readonly weatherIcon: string;
+  readonly weatherLabel: string;
+  readonly tempBlock: string;
+  readonly tempMax: string;
+  readonly tempSep: string;
+  readonly tempMin: string;
+  readonly metaBlock: string;
+  readonly metaIcon: string;
+  readonly windIcon: string;
+  readonly precipIcon: string;
+  readonly metaValue: string;
+  readonly metaUnit: string;
+  readonly 'wind-normal': string;
+  readonly 'wind-moderate': string;
+  readonly 'wind-strong': string;
+  readonly 'wind-danger': string;
+  readonly 'precip-none': string;
+  readonly 'precip-light': string;
+  readonly 'precip-heavy': string;
+  readonly legend: string;
+  readonly legendItem: string;
+  readonly legendDot: string;
+};
+
+export default styles;

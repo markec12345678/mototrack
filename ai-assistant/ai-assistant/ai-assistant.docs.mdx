@@ -1,0 +1,47 @@
+---
+description: 'MotoChat AI assistant aspect. Adds a Slovenian conversational assistant with pluggable AI providers (OpenAI, Anthropic, fallback) and DuckDuckGo web search.'
+labels: ['aspect', 'ai', 'chat', 'mototrack', 'slovenian']
+---
+
+# AiAssistant
+
+`AiAssistant` is a Bit aspect that adds an AI chat assistant — **MotoChat** —
+to the MotoTrack platform. It registers a 💬 trigger into the platform
+header, persists chat history in MongoDB, exposes a GraphQL API for chat
+and web search, and provides a pluggable `AiProvider` slot.
+
+## Built-in providers
+
+The runtime ships with three providers and tries them in order:
+
+1. **OpenAI** — `gpt-4o-mini`, uses `process.env.OPENAI_API_KEY`.
+2. **Anthropic** — `claude-3-5-haiku-latest`, uses `process.env.ANTHROPIC_API_KEY`.
+3. **Fallback** — deterministic Slovenian rule-based responder for Vršič,
+   Soča, vreme, gorivo and checklist prompts. Always available.
+
+Every conversation is prepended with the Slovenian system prompt:
+
+> Si MotoChat, AI asistent za balkanske motoriste. Odgovarjaj v
+> slovenščini, kratko in jasno. Pri vsakem odgovoru predlagaj naslednji
+> korak.
+
+## Register a custom provider
+
+```ts
+import { AiAssistantAspect, type AiAssistantNode } from '@markec/ai-assistant.ai-assistant';
+
+export class MyAspectNode {
+  static dependencies = [AiAssistantAspect];
+
+  static async provider([aiAssistant]: [AiAssistantNode]) {
+    aiAssistant.registerAiProvider([
+      {
+        name: 'my-provider',
+        async generate(messages) {
+          return 'Pozdravljeni!';
+        },
+      },
+    ]);
+  }
+}
+```

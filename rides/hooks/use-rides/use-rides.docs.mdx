@@ -1,0 +1,79 @@
+---
+description: "useRides — GraphQL hook that returns a rides list, loading state, error, and refetch. Exposes createRide(input) and deleteRide(id) mutations. Calls into the rides aspect node runtime. Supports a mock data fallback for compositions and tests."
+labels: ['hook', 'graphql', 'rides', 'apollo', 'react']
+---
+
+`useRides` is the primary data-fetching hook for the MotoTrack rides feature.
+It queries the `listRides` GraphQL endpoint and returns hydrated `Ride` entities
+along with Apollo loading and error state.
+
+Mutations `createRide` and `deleteRide` are co-located in the same hook so
+components only need a single import to read and write ride data.
+
+Pass `mockData` in the options object to skip the network call entirely —
+this is the recommended pattern for compositions and unit tests.
+
+## Basic usage
+
+```tsx
+import { useRides } from '@markec/rides.hooks.use-rides';
+
+function RideList() {
+  const { rides, loading, error, refetch } = useRides();
+
+  if (loading) return <p>Loading rides…</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <ul>
+      {rides.map((ride) => (
+        <li key={ride.id}>
+          {ride.name ?? 'Unnamed ride'} — {ride.distanceKm.toFixed(1)} km
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Creating a ride
+
+```tsx
+import { useRides } from '@markec/rides.hooks.use-rides';
+
+function RecordButton({ track }) {
+  const { createRide } = useRides();
+
+  const handleSave = async () => {
+    const now = Date.now();
+    const ride = await createRide({
+      name: 'New Ride',
+      startedAt: now - 3600_000,
+      endedAt: now,
+      track,
+    });
+    console.log('Saved ride id:', ride?.id);
+  };
+
+  return <button type="button" onClick={handleSave}>Save ride</button>;
+}
+```
+
+## Mock data fallback
+
+```tsx
+import { useRides } from '@markec/rides.hooks.use-rides';
+import { mockRides } from '@markec/rides.hooks.use-rides';
+
+function RideListPreview() {
+  const { rides } = useRides({ mockData: mockRides });
+
+  return (
+    <ul>
+      {rides.map((ride) => (
+        <li key={ride.id}>{ride.name} — {ride.distanceKm.toFixed(1)} km</li>
+      ))}
+    </ul>
+  );
+}
+```

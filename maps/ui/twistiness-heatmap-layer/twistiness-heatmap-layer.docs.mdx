@@ -1,0 +1,63 @@
+---
+description: "Twistiness heatmap polyline layer for Leaflet maps. Splits a GPS track into 500 m sliding windows, computes bearing changes, and colors each segment green (twisty) → yellow → red (straight)."
+labels: ["map", "leaflet", "heatmap", "track", "polyline"]
+---
+
+A Leaflet layer that visualises how twisty each section of a GPS track is.
+It splits the track into overlapping **500 m sliding windows**, computes the total
+absolute bearing change inside each window, and maps that value to a color:
+
+- **Green** — high bearing change → twisty corners
+- **Yellow** — moderate bearing change
+- **Red** — low bearing change → straight sections
+
+Each consecutive pair of track points is rendered as a separate `Polyline` with
+the color derived from the window centred on that segment.
+The component must be placed inside a react-leaflet `<MapContainer>`.
+
+## Basic usage
+
+```tsx
+import { MapContainer, TileLayer } from 'react-leaflet';
+import { LatLng } from '@markec/maps.entities.lat-lng';
+import { TwistinessHeatmapLayer } from '@markec/maps.ui.twistiness-heatmap-layer';
+
+const track: LatLng[] = [
+  new LatLng(46.056, 14.505),
+  new LatLng(46.057, 14.506),
+  // … more points
+];
+
+export function MyMap() {
+  return (
+    <MapContainer center={[46.056, 14.505]} zoom={14} style={{ height: 400 }}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TwistinessHeatmapLayer track={track} />
+    </MapContainer>
+  );
+}
+```
+
+## Custom stroke weight and opacity
+
+```tsx
+<TwistinessHeatmapLayer
+  track={track}
+  weight={8}
+  opacity={0.85}
+/>
+```
+
+## Color scale reference
+
+The color is interpolated linearly across two stops:
+
+```tsx
+// score 0 → green  (twisty)  rgb(0, 200, 0)
+// score 0.5 → yellow          rgb(255, 200, 0)
+// score 1 → red   (straight) rgb(255, 0, 0)
+```
+
+The score is derived from the total absolute bearing change inside the 500 m
+window, normalised against a reference of 360°. A window with ≥ 360° of
+cumulative turning scores 0 (green); a perfectly straight window scores 1 (red).

@@ -1,0 +1,137 @@
+// ── Root ─────────────────────────────────────────────────────────────────────
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #020617;
+  box-sizing: border-box;
+}
+
+// ── Map layers ────────────────────────────────────────────────────────────────
+
+.mapLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  z-index: var(--interactions-z-index-base);
+}
+
+.mapLayerVisible {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: calc(var(--interactions-z-index-base) + 1);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+// ── Floating top-right controls ───────────────────────────────────────────────
+
+.floatingTopRight {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: var(--interactions-z-index-overlay);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+// ── Toggle button wrapper ─────────────────────────────────────────────────────
+
+.toggleButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colors-surface-primary);
+  border: 1px solid var(--colors-border-default);
+  border-radius: var(--borders-radius-full);
+  box-shadow: var(--effects-shadows-floating);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    box-shadow var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.toggleButtonActive {
+  background-color: var(--colors-primary-default);
+  border-color: var(--colors-primary-default);
+  box-shadow: var(--effects-shadows-glow);
+}
+
+// ── 3D badge label ────────────────────────────────────────────────────────────
+
+.badge3DLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  background-color: rgba(249, 115, 22, 0.9);
+  border-radius: var(--borders-radius-small);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.45);
+  animation: fadeInDown var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-out);
+
+  span {
+    font-family: var(--typography-font-family);
+    font-size: var(--typography-sizes-caption-default);
+    font-weight: var(--typography-font-weight-extra-bold);
+    letter-spacing: var(--typography-letter-spacing-wider);
+    color: #020617;
+    text-transform: uppercase;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Floating bottom-left (offline indicator) ──────────────────────────────────
+
+.floatingBottomLeft {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+  z-index: var(--interactions-z-index-overlay);
+  pointer-events: auto;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .floatingTopRight {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    gap: var(--spacing-xs);
+  }
+
+  .floatingBottomLeft {
+    bottom: var(--spacing-sm);
+    left: var(--spacing-sm);
+  }
+
+  .badge3DLabel {
+    padding: 2px 8px;
+  }
+}

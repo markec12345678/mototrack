@@ -1,0 +1,86 @@
+---
+labels: ['challenge', 'entity', 'community', 'motorcycle']
+description: "A Challenge entity representing a community riding challenge. Includes 4 seeded challenges: Balkanski Tour, Vršič 50 Serpentin, Marec Na Motorju, and Jutranja Serija."
+---
+
+A `Challenge` entity used across the community platform to represent riding challenges.
+It supports serialization and deserialization and can be used from both backend and frontend.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { Challenge } from '@markec/community.entities.challenge';
+
+const challenge = Challenge.from({
+  id: 'balkanski-tour-001',
+  name: 'Balkanski Tour',
+  description: 'Complete a multi-day motorcycle tour through the Balkans, covering at least 1,000 km across three or more countries.',
+  icon: '🏔️',
+  points: 500,
+  status: 'active',
+  endsAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
+  participants: 214,
+  joined: false,
+  progressPct: 0,
+});
+
+console.log(challenge.name); // 'Balkanski Tour'
+console.log(challenge.points); // 500
+```
+
+## Serialization
+
+Use `toObject()` to convert a `Challenge` instance back into a plain object suitable for APIs or storage:
+
+```ts
+import { Challenge } from '@markec/community.entities.challenge';
+
+const challenge = Challenge.from({
+  id: 'jutranja-serija-004',
+  name: 'Jutranja Serija',
+  description: 'Complete 10 morning rides (before 9 AM) within a single month.',
+  icon: '🌅',
+  points: 150,
+  status: 'active',
+  endsAt: Date.now() + 21 * 24 * 60 * 60 * 1000,
+  participants: 156,
+  joined: true,
+  progressPct: 70,
+});
+
+const plain = challenge.toObject();
+console.log(plain);
+// {
+//   id: 'jutranja-serija-004',
+//   name: 'Jutranja Serija',
+//   points: 150,
+//   status: 'active',
+//   joined: true,
+//   progressPct: 70,
+//   ...
+// }
+```
+
+## Mock data
+
+Use the built-in mock helpers for development and testing. The 4 seeded challenges are:
+**Balkanski Tour**, **Vršič 50 Serpentin**, **Marec Na Motorju**, and **Jutranja Serija**.
+
+```ts
+import { mockChallenges, mockChallenge } from '@markec/community.entities.challenge';
+
+// Get all 4 seeded challenges
+const challenges = mockChallenges();
+console.log(challenges.map((c) => c.name));
+// ['Balkanski Tour', 'Vršič 50 Serpentin', 'Marec Na Motorju', 'Jutranja Serija']
+
+// Override specific fields per index
+const overridden = mockChallenges([{ points: 999 }]);
+console.log(overridden[0].points); // 999
+
+// Get a single mock challenge with optional overrides
+const single = mockChallenge({ name: 'Custom Challenge', status: 'upcoming' });
+console.log(single.name); // 'Custom Challenge'
+```

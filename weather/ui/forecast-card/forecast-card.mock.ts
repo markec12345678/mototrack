@@ -1,0 +1,100 @@
+import type { ForecastDay } from '@markec/weather.entities.forecast-day';
+
+export const mockForecastDays: ForecastDay[] = [
+  {
+    date: `2025-06-10`,
+    tempMinC: 12,
+    tempMaxC: 22,
+    precipMm: 0.2,
+    windKmh: 18,
+    wmoCode: 1,
+    label: `Pretežno jasno`,
+    icon: `⛅`,
+  },
+  {
+    date: `2025-06-11`,
+    tempMinC: 10,
+    tempMaxC: 19,
+    precipMm: 4.5,
+    windKmh: 32,
+    wmoCode: 61,
+    label: `Dež`,
+    icon: `🌧️`,
+  },
+  {
+    date: `2025-06-12`,
+    tempMinC: 14,
+    tempMaxC: 25,
+    precipMm: 0,
+    windKmh: 12,
+    wmoCode: 0,
+    label: `Jasno`,
+    icon: `☀️`,
+  },
+];
+
+export const mockForecastDaysStorm: ForecastDay[] = [
+  {
+    date: `2025-06-10`,
+    tempMinC: 8,
+    tempMaxC: 14,
+    precipMm: 12.5,
+    windKmh: 65,
+    wmoCode: 95,
+    label: `Nevihta`,
+    icon: `⛈️`,
+  },
+  {
+    date: `2025-06-11`,
+    tempMinC: 6,
+    tempMaxC: 11,
+    precipMm: 8.0,
+    windKmh: 48,
+    wmoCode: 80,
+    label: `Plohe`,
+    icon: `🌧️`,
+  },
+  {
+    date: `2025-06-12`,
+    tempMinC: 10,
+    tempMaxC: 18,
+    precipMm: 1.2,
+    windKmh: 22,
+    wmoCode: 3,
+    label: `Oblačno`,
+    icon: `☁️`,
+  },
+];
+
+export const mockForecastDaysSunny: ForecastDay[] = [
+  {
+    date: `2025-06-10`,
+    tempMinC: 16,
+    tempMaxC: 28,
+    precipMm: 0,
+    windKmh: 8,
+    wmoCode: 0,
+    label: `Jasno`,
+    icon: `☀️`,
+  },
+  {
+    date: `2025-06-11`,
+    tempMinC: 17,
+    tempMaxC: 30,
+    precipMm: 0,
+    windKmh: 10,
+    wmoCode: 0,
+    label: `Jasno`,
+    icon: `☀️`,
+  },
+  {
+    date: `2025-06-12`,
+    tempMinC: 15,
+    tempMaxC: 27,
+    precipMm: 0.1,
+    windKmh: 14,
+    wmoCode: 1,
+    label: `Pretežno jasno`,
+    icon: `⛅`,
+  },
+];

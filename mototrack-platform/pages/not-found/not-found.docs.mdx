@@ -1,0 +1,42 @@
+---
+description: "404 Not Found page for the MotoTrack platform. Displays a friendly Slovenian message 'Hopla, stran ni najdena 🏍️💨' with a cinematic hero image and a return-home button."
+labels: ["404", "not-found", "page", "slovenian", "mototrack"]
+---
+
+A full-page 404 error component for the MotoTrack platform. It features a cinematic motorcycle hero image, a friendly Slovenian message, and action buttons to help the user navigate back.
+
+## Basic usage
+
+```tsx
+import { NotFound } from '@markec/mototrack-platform.pages.not-found';
+
+<NotFound />
+```
+
+## Custom message
+
+Override the title, subtitle, and button label to tailor the message for specific contexts:
+
+```tsx
+import { NotFound } from '@markec/mototrack-platform.pages.not-found';
+
+<NotFound
+  title="Ups, ta stran ne obstaja 🏁"
+  subtitle="Proga, ki jo iščete, ni na voljo. Morda je bila premaknjena ali izbrisana."
+  homeLabel="Na glavno stran"
+  homePath="/"
+/>
+```
+
+## Custom home path
+
+Point the return button to any route in the app:
+
+```tsx
+import { NotFound } from '@markec/mototrack-platform.pages.not-found';
+
+<NotFound
+  homeLabel="Na nadzorno ploščo"
+  homePath="/dashboard"
+/>
+```

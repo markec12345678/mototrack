@@ -1,0 +1,49 @@
+---
+description: "ChatMessageBubble renders chat messages in a MotoTrack-themed conversation UI. User messages appear right-aligned with an accent gradient; assistant messages appear left-aligned in a dark card with markdown-style bold and bullet rendering, plus compact citation links."
+labels: ["chat", "ai", "message", "bubble", "markdown"]
+---
+
+`ChatMessageBubble` is a dual-mode message bubble for AI chat interfaces.
+
+- **User** messages are right-aligned with the primary accent gradient and a slide-in animation.
+- **Assistant** messages are left-aligned inside a dark elevated card, with an AI avatar, markdown rendering (bold and bullets), and optional citation links.
+
+## User message
+
+```tsx
+<ChatMessageBubble
+  role="user"
+  content="Predlagaj vijugasto pot po Soški dolini za vikend izlet z motorjem."
+/>
+```
+
+## Assistant message with markdown and citations
+
+```tsx
+<ChatMessageBubble
+  role="assistant"
+  content={`Soška dolina je ena izmed **najlepših** motorističnih destinacij:\n\n- Začnite v **Novi Gorici**\n- Nadaljujte skozi **Tolmin**\n- Zaključite z vožnjo čez **Vršič**`}
+  citations={[
+    { title: "Soška dolina — Slovenija.info", url: "https://www.slovenia.info" },
+    { title: "Vršič — Wikipedia", url: "https://sl.wikipedia.org/wiki/Vr%C5%A1i%C4%8D" },
+  ]}
+/>
+```
+
+## Full conversation thread
+
+```tsx
+<div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+  <ChatMessageBubble
+    role="user"
+    content="Kakšno bo vreme jutri v Bovcu?"
+  />
+  <ChatMessageBubble
+    role="assistant"
+    content="Jutri bo v **Bovcu** delno oblačno z možnostjo popoldanskih neviht. Temperatura bo med 18 °C in 26 °C."
+    citations={[
+      { title: "ARSO — Napoved za Bovec", url: "https://meteo.arso.gov.si" }
+    ]}
+  />
+</div>
+```

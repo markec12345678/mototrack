@@ -1,0 +1,73 @@
+---
+description: "BikeCard displays a motorcycle summary with a colored border accent, key stats (model, year, mileage, fuel %, consumption, range), a Primary badge, and Edit / Set Primary actions."
+labels: ["bike", "card", "garage", "ui"]
+---
+
+A rich card component for displaying a motorcycle's key information inside the MotoTrack garage. The card features a colored top-border accent driven by the bike's color, a stats grid, an animated fuel bar, and contextual action buttons.
+
+## Basic usage
+
+```tsx
+<BikeCard
+  bike={{
+    id: "ktm-890",
+    name: "KTM 890 Adventure",
+    model: "890 Adventure",
+    year: 2023,
+    mileageKm: 12450,
+    tankL: 20,
+    consumptionLPer100: 5.2,
+    currentFuelL: 14,
+    color: "#f97316",
+    primary: true,
+  }}
+  onEdit={(id) => console.log("Edit", id)}
+  onSetPrimary={(id) => console.log("Set primary", id)}
+/>
+```
+
+## Non-primary bike with Set Primary action
+
+When `bike.primary` is `false`, the **Set Primary** button is rendered alongside the Edit button. Clicking it fires `onSetPrimary` with the bike's `id`.
+
+```tsx
+<BikeCard
+  bike={{
+    id: "yamaha-mt07",
+    name: "Yamaha MT-07",
+    model: "MT-07",
+    year: 2022,
+    mileageKm: 8320,
+    tankL: 14,
+    consumptionLPer100: 4.8,
+    currentFuelL: 3.2,
+    color: "#3b82f6",
+    primary: false,
+  }}
+  onEdit={(id) => console.log("Edit", id)}
+  onSetPrimary={(id) => console.log("Set primary", id)}
+/>
+```
+
+## Garage grid layout
+
+Render multiple `BikeCard` components in a CSS grid to build a full garage view. Manage the `primary` flag in parent state and pass `onSetPrimary` to toggle it.
+
+```tsx
+const [bikes, setBikes] = useState(mockBikes);
+
+const handleSetPrimary = (id) => {
+  setBikes((prev) => prev.map((b) => ({ ...b, primary: b.id === id })));
+};
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "20px" }}>
+  {bikes.map((bike) => (
+    <BikeCard
+      key={bike.id}
+      bike={bike}
+      onEdit={(id) => console.log("Edit", id)}
+      onSetPrimary={handleSetPrimary}
+    />
+  ))}
+</div>
+```

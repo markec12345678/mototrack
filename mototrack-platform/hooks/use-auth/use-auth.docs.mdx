@@ -1,0 +1,80 @@
+---
+description: "useAuth hook for the MotoTrack platform. Returns user, isLoading, isAuthenticated, login(email, pwd), signup(input), logout(), and updateUser(). Persists the JWT token in localStorage under mototrack_token and fetches the current user via GraphQL on mount when a token exists."
+labels: ['hook', 'auth', 'graphql', 'react']
+---
+
+A React hook that manages the full authentication lifecycle for the MotoTrack platform.
+
+On mount, if a token is found in `localStorage` under the key `mototrack_token`, the hook automatically fetches the current user via GraphQL. All mutations (login, signup, logout) keep the token and user state in sync.
+
+## Basic Usage
+
+```tsx
+function RiderHeader() {
+  const { user, isAuthenticated, logout } = useAuth();
+
+  if (!isAuthenticated) return <span>Not logged in</span>;
+
+  return (
+    <div>
+      <span>Welcome, {user?.displayName}</span>
+      <button type="button" onClick={() => logout()}>Logout</button>
+    </div>
+  );
+}
+```
+
+## Login
+
+```tsx
+function LoginForm() {
+  const { login, isLoading } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
+
+    try {
+      await login(email, password);
+    } catch (err) {
+      console.error('Login failed', err);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="email" type="email" placeholder="Email" />
+      <input name="password" type="password" placeholder="Password" />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Logging in...' : 'Login'}
+      </button>
+    </form>
+  );
+}
+```
+
+## Signup
+
+```tsx
+function SignupForm() {
+  const { signup, isLoading } = useAuth();
+
+  const handleSignup = async () => {
+    await signup({
+      email: 'rider@mototrack.app',
+      password: 'securepassword',
+      username: 'speedrider',
+      displayName: 'Speed Rider',
+      country: 'SI',
+    });
+  };
+
+  return (
+    <button type="button" onClick={handleSignup} disabled={isLoading}>
+      {isLoading ? 'Creating account...' : 'Sign Up'}
+    </button>
+  );
+}
+```

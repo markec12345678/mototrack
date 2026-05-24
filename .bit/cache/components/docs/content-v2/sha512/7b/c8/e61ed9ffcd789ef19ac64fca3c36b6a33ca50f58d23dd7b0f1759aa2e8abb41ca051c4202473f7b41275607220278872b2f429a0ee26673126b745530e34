@@ -1,0 +1,1 @@
+[{"name":"","description":"A small set of mock SpeedCamera instances for use in tests and compositions.\nCoordinates are real locations across the Balkans.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"use-speed-cameras.mock.ts"}]

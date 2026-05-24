@@ -1,0 +1,1 @@
+[{"name":"","description":"── Public runtime API (used by resolvers + other aspects) ─────────────","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"community.node.runtime.ts"}]

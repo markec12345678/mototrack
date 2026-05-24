@@ -1,0 +1,49 @@
+---
+labels: ['waypoint', 'entity', 'routes', 'geolocation']
+description: "A Waypoint entity with id, name, lat, and lng properties. Supports serialization and a fromLatLng() helper for creating waypoints from coordinate pairs."
+---
+
+A lightweight entity representing a geographic waypoint on a route. It carries an `id`, an optional human-readable `name`, and `lat`/`lng` coordinates. Use `Waypoint.from()` to deserialize plain objects and `Waypoint.fromLatLng()` to create waypoints directly from coordinate pairs.
+
+## Create from a plain object
+
+```tsx
+import { Waypoint } from '@markec/routes.entities.waypoint';
+
+const waypoint = Waypoint.from({
+  id: 'wp-001',
+  name: 'Eiffel Tower',
+  lat: 48.8584,
+  lng: 2.2945,
+});
+
+console.log(waypoint.name); // 'Eiffel Tower'
+console.log(waypoint.toObject());
+// { id: 'wp-001', name: 'Eiffel Tower', lat: 48.8584, lng: 2.2945 }
+```
+
+## Create from a LatLng coordinate pair
+
+Use `Waypoint.fromLatLng()` when you have a raw coordinate (e.g. from a map click event) and want to turn it into a named waypoint. A browser-safe unique `id` is generated automatically.
+
+```tsx
+import { Waypoint } from '@markec/routes.entities.waypoint';
+
+const waypoint = Waypoint.fromLatLng({ lat: 48.8584, lng: 2.2945 }, 'Eiffel Tower');
+
+console.log(waypoint.id);   // 'wp-a3f9bc12-1718000000000'
+console.log(waypoint.name); // 'Eiffel Tower'
+```
+
+## Use mock data in tests and development
+
+```tsx
+import { mockWaypoint, mockWaypoints } from '@markec/routes.entities.waypoint';
+
+// Single waypoint with optional overrides
+const start = mockWaypoint({ name: 'My Start Point', lat: 51.5074, lng: -0.1278 });
+
+// Array of waypoints
+const stops = mockWaypoints();
+console.log(stops.length); // 4
+```

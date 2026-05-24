@@ -1,0 +1,47 @@
+---
+description: "Dashboard panel showing 'Predlagane ture' — 3 random iconic Balkan motorcycle tours. Registered into the DashboardPanel slot with span 3."
+labels: ["dashboard", "tours", "balkan-roads", "panel"]
+---
+
+The `TourDashboardPanel` is a rich dashboard widget that surfaces three randomly selected iconic Balkan motorcycle tours on every render. It integrates with the `useIconicTours` hook for GraphQL-backed data with a seed-data fallback, and renders each tour using the `TourCard` component.
+
+The panel is designed to be registered into a **DashboardPanel slot** spanning 3 columns, providing a full-width showcase of curated touring routes across 10 Balkan countries.
+
+## Basic usage
+
+```tsx
+import { TourDashboardPanel } from '@markec/balkan-roads.ui.tour-dashboard-panel';
+
+<TourDashboardPanel />
+```
+
+## Custom tour count
+
+Use the `count` prop to control how many random tours are displayed. Defaults to `3`.
+
+```tsx
+import { TourDashboardPanel } from '@markec/balkan-roads.ui.tour-dashboard-panel';
+
+<TourDashboardPanel count={2} />
+```
+
+## In a dashboard grid layout
+
+The panel is designed to span 3 columns in a CSS grid dashboard layout.
+
+```tsx
+import { TourDashboardPanel } from '@markec/balkan-roads.ui.tour-dashboard-panel';
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+  <TourDashboardPanel />
+</div>
+```
+
+## Features
+
+- Displays **3 random iconic tours** on each render, shuffled client-side from the full tour catalogue
+- Shows **skeleton loading cards** while data is being fetched from GraphQL
+- Graceful **error state** with a user-friendly Slovenian message
+- Each `TourCard` includes: country flag, rating pill, tour name, description, distance, difficulty badge, waypoint count, and a CTA that navigates to `/plan`
+- **Responsive grid**: 3 columns on desktop, 2 on tablet, 1 on mobile
+- Links to the full tour catalogue via the footer CTA and header link

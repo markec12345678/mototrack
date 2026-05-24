@@ -1,0 +1,70 @@
+---
+description: "TurnBanner — green gradient navigation panel showing a big turn arrow, instruction text, street name, and distance. Includes a voice on/off toggle and a Bluetooth helmet indicator. Used during turn-by-turn motorcycle navigation."
+labels: ["navigation", "ui", "turn-by-turn", "motorcycle"]
+---
+
+A full-width navigation banner designed for motorcycle HUD use. It renders a prominent green gradient panel with a large directional arrow, the current instruction in Slovenian, the upcoming street name, and the distance to the turn.
+
+The banner automatically enters an **imminent** state (brighter gradient + pulsing arrow) when `distanceM` drops to or below `announceAt`.
+
+## Basic usage
+
+```tsx
+<TurnBanner
+  instruction={{
+    text: "Zavijte desno",
+    distanceM: 320,
+    modifier: "turn-right",
+    announceAt: 300,
+  }}
+  streetName="Dunajska cesta"
+  voiceEnabled
+/>
+```
+
+## With Bluetooth helmet connected
+
+When a BT helmet is paired, pass `btConnected` and `btDeviceName` to show the helmet badge with a live pulse indicator.
+
+```tsx
+<TurnBanner
+  instruction={{
+    text: "Zavijte levo",
+    distanceM: 150,
+    modifier: "turn-left",
+    announceAt: 200,
+  }}
+  streetName="Tržaška cesta"
+  voiceEnabled
+  btConnected
+  btDeviceName="Sena 50S"
+  onVoiceToggle={(enabled) => console.log("Voice:", enabled)}
+/>
+```
+
+## Imminent turn state
+
+When `distanceM` is less than or equal to `announceAt`, the banner automatically activates the imminent state — a brighter gradient and a glowing pulsing arrow.
+
+```tsx
+<TurnBanner
+  instruction={{
+    text: "Obrnite se",
+    distanceM: 50,
+    modifier: "uturn",
+    announceAt: 150,
+  }}
+  streetName="Celovška ulica"
+  voiceEnabled={false}
+  btConnected={false}
+/>
+```
+
+## Supported modifiers
+
+The `modifier` field on `NavInstruction` controls the arrow shape rendered:
+
+- `turn-right` / `sharp-right` / `slight-right` → right-turn arrow
+- `turn-left` / `sharp-left` / `slight-left` → left-turn arrow
+- `uturn` → U-turn arrow
+- `continue` / `straight` → straight-ahead arrow

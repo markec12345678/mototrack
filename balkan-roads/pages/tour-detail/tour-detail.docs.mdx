@@ -1,0 +1,51 @@
+---
+description: "Tour detail page for /tours/:id. Displays a full-bleed hero with country flag, tour name, star rating and difficulty badge. Below the hero: a 4-stat grid (distance, rating, difficulty, waypoints), an interactive MotoMap with the full tour polyline and waypoint markers, a description section, and a primary 'Naloži v Načrtuj' CTA."
+labels: ["page", "tour", "map", "balkan-roads"]
+---
+
+The `TourDetail` component renders the full `/tours/:id` page for an iconic Balkan motorcycle tour.
+
+It reads the tour ID from the React Router `:id` param and fetches data via `useIconicTours`.
+A `mockTour` prop is available for testing and compositions without a live GraphQL backend.
+
+## Basic usage
+
+```tsx
+import { TourDetail } from '@markec/balkan-roads.pages.tour-detail';
+
+// Inside a React Router route:
+<Route path="/tours/:id" element={<TourDetail />} />
+```
+
+## With mock data (testing / compositions)
+
+```tsx
+import { TourDetail } from '@markec/balkan-roads.pages.tour-detail';
+
+const mockTour = {
+  id: 'vrsic-full-loop',
+  name: 'Vršič Polni Krog',
+  country: 'SI',
+  flag: '🇸🇮',
+  distanceKm: 187,
+  rating: 9.4,
+  difficulty: 'Hard',
+  description: 'Epska tura čez prelaz Vršič...',
+  waypoints: [
+    { lat: 46.3667, lng: 13.7167, name: 'Kranjska Gora — Start' },
+    { lat: 46.4333, lng: 13.7500, name: 'Prelaz Vršič (1611 m)' },
+    { lat: 46.3500, lng: 13.6833, name: 'Trenta — Dolina Soče' },
+  ],
+};
+
+<TourDetail mockTour={mockTour} />
+```
+
+## Overriding the tour ID
+
+```tsx
+import { TourDetail } from '@markec/balkan-roads.pages.tour-detail';
+
+// Bypass the :id route param and load a specific tour directly
+<TourDetail tourId="transfagarasan" />
+```

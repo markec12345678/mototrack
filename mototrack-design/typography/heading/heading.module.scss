@@ -1,0 +1,104 @@
+.heading {
+  font-family: var(--typography-font-family);
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-heading);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    color var(--interactions-transitions-duration-fast)
+    var(--interactions-transitions-easing-ease-in-out);
+}
+
+/* ── Size variants ─────────────────────────────────────────────────────────── */
+
+.size-xs {
+  font-size: var(--typography-sizes-heading-h6);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-normal);
+}
+
+.size-sm {
+  font-size: var(--typography-sizes-heading-h5);
+  font-weight: var(--typography-font-weight-semi-bold);
+}
+
+.size-md {
+  font-size: var(--typography-sizes-heading-h4);
+}
+
+.size-lg {
+  font-size: var(--typography-sizes-heading-h3);
+}
+
+.size-xl {
+  font-size: var(--typography-sizes-heading-h2);
+  font-weight: var(--typography-font-weight-extra-bold);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+.size-2xl {
+  font-size: var(--typography-sizes-heading-h1);
+  font-weight: var(--typography-font-weight-extra-bold);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+.size-3xl {
+  font-size: var(--typography-sizes-display-small);
+  font-weight: var(--typography-font-weight-extra-bold);
+  letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+/* ── Color variants ────────────────────────────────────────────────────────── */
+
+.color-primary {
+  color: var(--colors-text-primary);
+}
+
+.color-secondary {
+  color: var(--colors-text-secondary);
+}
+
+.color-accent {
+  color: var(--colors-primary-default);
+}
+
+.color-danger {
+  color: var(--colors-status-danger-default);
+}
+
+/* ── Mobile-first responsive scale ────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .size-3xl {
+    font-size: var(--typography-sizes-heading-h1);
+  }
+
+  .size-2xl {
+    font-size: var(--typography-sizes-heading-h2);
+  }
+
+  .size-xl {
+    font-size: var(--typography-sizes-heading-h3);
+  }
+
+  .size-lg {
+    font-size: var(--typography-sizes-heading-h4);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .size-3xl {
+    font-size: var(--typography-sizes-display-small);
+  }
+
+  .size-2xl {
+    font-size: var(--typography-sizes-heading-h1);
+  }
+
+  .size-xl {
+    font-size: var(--typography-sizes-heading-h2);
+  }
+}

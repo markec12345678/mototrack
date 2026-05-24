@@ -1,0 +1,246 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--spacing-xs) 0;
+}
+
+// ── User bubble ──────────────────────────────────────────────────────────────
+
+.userWrapper {
+  justify-content: flex-end;
+}
+
+.userBubble {
+  max-width: 72%;
+  background: var(--effects-gradients-primary);
+  border-radius: var(--borders-radius-xl) var(--borders-radius-xl) var(--borders-radius-xs) var(--borders-radius-xl);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: var(--effects-shadows-glow);
+  position: relative;
+  animation: slideInRight 0.22s var(--interactions-transitions-easing-ease-out) both;
+}
+
+.userText {
+  margin: 0;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-regular);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--colors-text-inverse) !important;
+  letter-spacing: var(--typography-letter-spacing-normal);
+  word-break: break-word;
+}
+
+// ── Assistant bubble ─────────────────────────────────────────────────────────
+
+.assistantWrapper {
+  justify-content: flex-start;
+}
+
+.assistantContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  max-width: 84%;
+  animation: slideInLeft 0.22s var(--interactions-transitions-easing-ease-out) both;
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--borders-radius-medium);
+  background: var(--effects-gradients-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--effects-shadows-glow);
+  flex-shrink: 0;
+}
+
+.avatarIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--colors-text-inverse);
+}
+
+.assistantBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.assistantCard {
+  border-radius: var(--borders-radius-xs) var(--borders-radius-xl) var(--borders-radius-xl) var(--borders-radius-xl) !important;
+}
+
+// ── Markdown content ─────────────────────────────────────────────────────────
+
+.markdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.paragraph {
+  margin: 0;
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  font-weight: var(--typography-font-weight-regular);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  word-break: break-word;
+}
+
+.bold {
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-text-primary);
+}
+
+.bulletList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-body-default);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--colors-text-primary);
+  word-break: break-word;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--colors-primary-default);
+    flex-shrink: 0;
+    margin-top: 9px;
+  }
+}
+
+// ── Citations ────────────────────────────────────────────────────────────────
+
+.citationsSection {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--colors-border-default);
+}
+
+.citationsLabel {
+  margin-bottom: var(--spacing-sm);
+}
+
+.citationsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.citationLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px var(--spacing-sm);
+  border-radius: var(--borders-radius-small);
+  background-color: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  text-decoration: none;
+  cursor: var(--interactions-cursor-pointer);
+  transition:
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    border-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  max-width: fit-content;
+
+  &:hover {
+    background-color: rgba(249, 115, 22, 0.16);
+    border-color: rgba(249, 115, 22, 0.35);
+  }
+}
+
+.citationIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--borders-radius-xs);
+  background-color: var(--colors-primary-default);
+  color: var(--colors-text-inverse) !important;
+  font-family: var(--typography-font-family);
+  font-size: 9px;
+  font-weight: var(--typography-font-weight-bold);
+  flex-shrink: 0;
+}
+
+.citationTitle {
+  font-family: var(--typography-font-family);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--colors-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.citationArrow {
+  width: 10px;
+  height: 10px;
+  color: var(--colors-text-muted);
+  flex-shrink: 0;
+}
+
+// ── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .userBubble {
+    max-width: 90%;
+  }
+
+  .assistantContainer {
+    max-width: 96%;
+  }
+
+  .citationTitle {
+    max-width: 160px;
+  }
+}

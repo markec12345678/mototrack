@@ -1,0 +1,54 @@
+---
+description: "ChatHeaderTrigger — a 💬 icon button designed to be placed as a HeaderAction. Click opens the MotoChatPanel slide-in drawer. Manages open/close state internally."
+labels: ["ai", "chat", "header", "trigger", "ui"]
+---
+
+`ChatHeaderTrigger` is a self-contained icon button component that renders a 💬 chat icon in your app header. When clicked, it opens the `MotoChatPanel` AI assistant drawer. The open/close state is managed internally — no external state wiring required.
+
+It includes an animated orange notification badge dot to signal that the AI assistant is available.
+
+## Basic usage
+
+Drop it directly into your header's actions area:
+
+```tsx
+import { ChatHeaderTrigger } from '@markec/ai-assistant.ui.chat-header-trigger';
+
+function AppHeader() {
+  return (
+    <header>
+      <nav>{/* nav links */}</nav>
+      <div className="header-actions">
+        <ChatHeaderTrigger />
+      </div>
+    </header>
+  );
+}
+```
+
+## With a custom subtitle
+
+Pass a `subtitle` prop to customise the text shown below the "MotoChat" heading inside the panel:
+
+```tsx
+<ChatHeaderTrigger subtitle="Alpski AI vodnik za motocikliste" />
+```
+
+## Alongside other header actions
+
+`ChatHeaderTrigger` is designed to sit naturally next to other `IconButton` header actions:
+
+```tsx
+import { IconButton } from '@markec/mototrack-design.actions.icon-button';
+import { ChatHeaderTrigger } from '@markec/ai-assistant.ui.chat-header-trigger';
+
+function HeaderActions() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+      <IconButton icon={<SearchIcon />} variant="ghost" size="sm" aria-label="Search" />
+      <IconButton icon={<BellIcon />} variant="ghost" size="sm" aria-label="Notifications" />
+      <ChatHeaderTrigger />
+    </div>
+  );
+}
+```

@@ -1,0 +1,78 @@
+---
+labels: ['fuel', 'price', 'report', 'entity', 'balkan']
+description: "A FuelPriceReport entity representing a community-submitted fuel price at a specific station. Includes 6 seeded reports across Balkan countries."
+---
+
+A data entity for community-reported fuel prices across Balkan countries. Supports serialization and
+deserialization and can be used from both backend and frontend.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { FuelPriceReport } from '@markec/community.entities.fuel-price-report';
+
+const report = FuelPriceReport.from({
+  id: 'report-001',
+  country: 'Serbia',
+  brand: 'NIS Petrol',
+  petrolEur: 1.52,
+  dieselEur: 1.48,
+  location: 'Novi Sad, Bulevar Oslobođenja',
+  reportedAt: Date.now(),
+  confirms: 14,
+});
+
+console.log(report.country);   // 'Serbia'
+console.log(report.petrolEur); // 1.52
+```
+
+## Serialize to a plain object
+
+Use `toObject()` to convert the entity back into a serializable plain object, suitable for API
+responses or local storage:
+
+```ts
+import { FuelPriceReport } from '@markec/community.entities.fuel-price-report';
+
+const report = FuelPriceReport.from({
+  id: 'report-002',
+  country: 'Croatia',
+  brand: 'INA',
+  petrolEur: 1.61,
+  dieselEur: 1.55,
+  location: 'Zagreb, Slavonska avenija',
+  reportedAt: Date.now(),
+  confirms: 22,
+});
+
+const plain = report.toObject();
+console.log(plain);
+// {
+//   id: 'report-002',
+//   country: 'Croatia',
+//   brand: 'INA',
+//   petrolEur: 1.61,
+//   dieselEur: 1.55,
+//   location: 'Zagreb, Slavonska avenija',
+//   reportedAt: ...,
+//   confirms: 22
+// }
+```
+
+## Mock data
+
+Use `mockFuelPriceReports()` for development and testing. It returns 6 pre-seeded reports covering
+Serbia, Croatia, Bosnia and Herzegovina, Slovenia, North Macedonia, and Montenegro.
+
+```ts
+import { mockFuelPriceReports } from '@markec/community.entities.fuel-price-report';
+
+const reports = mockFuelPriceReports();
+console.log(reports.length); // 6
+console.log(reports[0].country); // 'Serbia'
+
+// Apply overrides to all reports
+const cheapReports = mockFuelPriceReports({ petrolEur: 1.20, dieselEur: 1.15 });
+```

@@ -1,0 +1,72 @@
+.paragraph {
+  margin: 0;
+  padding: 0;
+  font-family: var(--typography-font-family);
+  line-height: var(--typography-line-height-base);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  font-weight: var(--typography-font-weight-regular);
+  transition: color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+// ─── Variants ────────────────────────────────────────────────────────────────
+
+.body {
+  font-size: var(--typography-sizes-body-default);
+  line-height: var(--typography-line-height-relaxed);
+  font-weight: var(--typography-font-weight-regular);
+  letter-spacing: var(--typography-letter-spacing-normal);
+}
+
+.caption {
+  font-size: var(--typography-sizes-caption-default);
+  line-height: var(--typography-line-height-base);
+  font-weight: var(--typography-font-weight-regular);
+  letter-spacing: var(--typography-letter-spacing-normal);
+}
+
+.label {
+  font-size: var(--typography-sizes-caption-medium);
+  line-height: var(--typography-line-height-tight);
+  font-weight: var(--typography-font-weight-semi-bold);
+  letter-spacing: var(--typography-letter-spacing-widest);
+  text-transform: uppercase;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-size: var(--typography-sizes-body-small);
+  line-height: var(--typography-line-height-relaxed);
+  font-weight: var(--typography-font-weight-regular);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  background-color: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  border-radius: var(--borders-radius-small);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  display: inline-block;
+}
+
+// ─── Colors ──────────────────────────────────────────────────────────────────
+
+.primary {
+  color: var(--colors-text-primary);
+}
+
+.secondary {
+  color: var(--colors-text-secondary);
+}
+
+.muted {
+  color: var(--colors-text-muted);
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .body {
+    font-size: var(--typography-sizes-body-small);
+  }
+
+  .label {
+    font-size: var(--typography-sizes-xs);
+  }
+}

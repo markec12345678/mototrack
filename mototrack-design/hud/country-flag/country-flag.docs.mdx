@@ -1,0 +1,71 @@
+---
+description: "Country flag emoji + label component for 10 Balkan countries. Maps ISO 3166-1 alpha-2 codes (SI, HR, BA, ME, RS, MK, AL, BG, RO, GR) to a flag emoji and country name. Supports sm, md, and lg sizes."
+labels: ["hud", "flag", "country", "balkan", "mototrack"]
+---
+
+A lightweight HUD component that renders a country flag emoji alongside the country name for 10 Balkan nations. Designed for use in race leaderboards, rider profiles, and timing overlays within the MotoTrack design system.
+
+## Supported Countries
+
+The component maps the following ISO codes:
+
+| Code | Country |
+|------|---------|
+| SI | Slovenia |
+| HR | Croatia |
+| BA | Bosnia & Herzegovina |
+| ME | Montenegro |
+| RS | Serbia |
+| MK | North Macedonia |
+| AL | Albania |
+| BG | Bulgaria |
+| RO | Romania |
+| GR | Greece |
+
+## Basic Usage
+
+Render a flag with its label using the `code` prop:
+
+```tsx
+<CountryFlag code="SI" />
+```
+
+## Size Variants
+
+Three sizes are available — `sm`, `md` (default), and `lg`:
+
+```tsx
+<CountryFlag code="HR" size="sm" />
+<CountryFlag code="HR" size="md" />
+<CountryFlag code="HR" size="lg" />
+```
+
+## Flag Only (No Label)
+
+Hide the country name label by setting `showLabel` to `false`:
+
+```tsx
+<CountryFlag code="GR" showLabel={false} />
+<CountryFlag code="GR" showLabel={false} size="lg" />
+```
+
+## In a Race Leaderboard
+
+Use the `sm` size inside compact list rows for a clean HUD look:
+
+```tsx
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <span>P1 — Luka Horvat</span>
+    <CountryFlag code="SI" size="sm" />
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <span>P2 — Marko Petrović</span>
+    <CountryFlag code="RS" size="sm" />
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <span>P3 — Ivan Kovač</span>
+    <CountryFlag code="HR" size="sm" />
+  </div>
+</div>
+```

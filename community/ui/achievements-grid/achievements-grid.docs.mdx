@@ -1,0 +1,68 @@
+---
+description: "AchievementsGrid displays a rider's full achievement collection. Locked items appear grayscale with a progress bar; unlocked items render in full color with a green check badge."
+labels: ["achievements", "community", "gamification", "mototrack"]
+---
+
+A responsive grid component that showcases all achievements for the current rider. It separates unlocked (full-color, check-badged) from locked (grayscale, progress-bar) achievements, shows an overall completion bar, and handles loading skeletons and error states automatically via the `useAchievements` hook.
+
+## Basic usage
+
+Render the grid without any props — it fetches data from the GraphQL API automatically:
+
+```tsx
+import { AchievementsGrid } from '@markec/community.ui.achievements-grid';
+
+export function MyPage() {
+  return <AchievementsGrid />;
+}
+```
+
+## With mock data (testing / SSR)
+
+Pass an `achievements` prop to bypass the hook and render with static data:
+
+```tsx
+import { AchievementsGrid } from '@markec/community.ui.achievements-grid';
+
+const achievements = [
+  {
+    id: 'vrsic-conqueror',
+    name: 'Vršič Conqueror',
+    description: 'Complete the legendary Vršič Pass with 50 hairpin turns.',
+    icon: '🏔️',
+    unlocked: true,
+    progressPct: 100,
+    unlockedAt: Date.now() - 86400000,
+  },
+  {
+    id: 'kotor-master',
+    name: 'Kotor Master',
+    description: 'Navigate the serpentine road to Kotor Bay fortress.',
+    icon: '⚓',
+    unlocked: false,
+    progressPct: 72,
+    unlockedAt: undefined,
+  },
+];
+
+export function PreviewPage() {
+  return <AchievementsGrid achievements={achievements} />;
+}
+```
+
+## Custom class name
+
+Apply additional layout or spacing overrides via `className`:
+
+```tsx
+import { AchievementsGrid } from '@markec/community.ui.achievements-grid';
+
+export function ProfilePage() {
+  return (
+    <AchievementsGrid
+      className="my-custom-section"
+      style={{ maxWidth: '960px', margin: '0 auto' }}
+    />
+  );
+}
+```

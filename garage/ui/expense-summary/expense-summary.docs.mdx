@@ -1,0 +1,55 @@
+---
+description: "ExpenseSummary — monthly total tile, per-category breakdown with progress bars and percentages, and an inline add-expense form."
+labels: ["expenses", "finance", "garage", "mototrack"]
+---
+
+A rich expense dashboard component for the MotoTrack Garage. Displays a monthly total tile, a per-category breakdown with animated progress bars and percentage shares, and an inline form to add new expenses — all in a single cohesive card layout.
+
+## Basic usage
+
+Wrap with `MockProvider` in compositions. In production the component fetches data via `useExpenses`.
+
+```tsx
+import { ExpenseSummary } from '@markec/garage.ui.expense-summary';
+
+<ExpenseSummary bikeId="bike-1" />
+```
+
+## With mock data (testing / compositions)
+
+Pass `mockExpenses` to bypass the GraphQL hook and render with static data:
+
+```tsx
+import { ExpenseSummary } from '@markec/garage.ui.expense-summary';
+import { mockExpenses } from '@markec/garage.ui.expense-summary/expense-summary.mock';
+
+<ExpenseSummary mockExpenses={mockExpenses} bikeId="bike-1" />
+```
+
+## Filtering by date range
+
+Use `from` and `to` (Unix timestamps in ms) to scope the summary to a specific period:
+
+```tsx
+import { ExpenseSummary } from '@markec/garage.ui.expense-summary';
+
+const startOfMonth = new Date();
+startOfMonth.setDate(1);
+startOfMonth.setHours(0, 0, 0, 0);
+
+<ExpenseSummary
+  bikeId="bike-1"
+  from={startOfMonth.getTime()}
+  to={Date.now()}
+/>
+```
+
+## All bikes (no bikeId)
+
+Omit `bikeId` to aggregate expenses across the entire garage:
+
+```tsx
+import { ExpenseSummary } from '@markec/garage.ui.expense-summary';
+
+<ExpenseSummary />
+```

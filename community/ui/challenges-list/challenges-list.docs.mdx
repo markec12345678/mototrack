@@ -1,0 +1,59 @@
+---
+description: "ChallengesList displays active riding challenges with icon, name, description, XP reward, progress bar, time remaining, and a Join button."
+labels: ["community", "challenges", "gamification", "ui"]
+---
+
+A rich, gamified challenges list component for the MotoTrack community. Each challenge card shows the challenge icon, name, description, XP reward, time remaining, participant count, progress bar (for joined challenges), and a Join button.
+
+## Basic usage
+
+```tsx
+import { ChallengesList } from '@markec/community.ui.challenges-list';
+
+<ChallengesList />
+```
+
+## With custom title and subtitle
+
+```tsx
+import { ChallengesList } from '@markec/community.ui.challenges-list';
+
+<ChallengesList
+  title="Weekly Challenges"
+  subtitle="Complete challenges to earn XP and unlock badges."
+/>
+```
+
+## With mock data (for testing or SSR)
+
+```tsx
+import { ChallengesList } from '@markec/community.ui.challenges-list';
+import type { ChallengeItem } from '@markec/community.ui.challenges-list';
+
+const challenges: ChallengeItem[] = [
+  {
+    id: 'balkanski-tour',
+    name: 'Balkanski Tour',
+    description: 'Complete a 500 km ride through at least 3 Balkan countries within 30 days.',
+    icon: '🏆',
+    points: 500,
+    status: 'active',
+    endsAt: Date.now() + 1000 * 60 * 60 * 24 * 12,
+    participants: 142,
+    joined: true,
+    progressPct: 68,
+  },
+];
+
+<ChallengesList challenges={challenges} title="My Challenges" />
+```
+
+## Empty state
+
+When no challenges are available the component renders a friendly empty state:
+
+```tsx
+import { ChallengesList } from '@markec/community.ui.challenges-list';
+
+<ChallengesList challenges={[]} title="Active Challenges" />
+```

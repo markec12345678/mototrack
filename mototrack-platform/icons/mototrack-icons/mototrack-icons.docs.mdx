@@ -1,0 +1,88 @@
+---
+description: "Named export icons for the MotoTrack platform: MapIcon, PlanIcon, TrackIcon, ExploreIcon, ProfileIcon, SosIcon, ChatIcon, MenuIcon, LogoutIcon, SettingsIcon, and BellIcon. Each wraps the Icon primitive with the appropriate glyph and accessible label."
+labels: ["icons", "ui", "navigation", "mototrack"]
+---
+
+A collection of named icon components for the MotoTrack platform. Each icon is a thin, typed wrapper around the base `Icon` primitive from `@markec/mototrack-design.content.icon`, carrying the correct glyph and accessible `aria-label` out of the box.
+
+Emoji-based icons (`MapIcon`, `PlanIcon`, `TrackIcon`, `ExploreIcon`, `ProfileIcon`, `SosIcon`, `ChatIcon`) render their Unicode glyph at the requested size. SVG-based icons (`MenuIcon`, `LogoutIcon`, `SettingsIcon`, `BellIcon`) render crisp, stroke-based vector graphics that inherit `currentColor`.
+
+## Basic usage
+
+```tsx
+import { MapIcon, BellIcon, MenuIcon } from '@markec/mototrack-platform.icons.mototrack-icons';
+
+<MapIcon />
+<BellIcon size="lg" color="#f97316" />
+<MenuIcon size="xl" onClick={() => openDrawer()} />
+```
+
+## Size variants
+
+All icons accept the `size` prop from the Icon primitive: `xs`, `sm`, `md` (default), `lg`, `xl`, `xxl`.
+
+```tsx
+import { TrackIcon } from '@markec/mototrack-platform.icons.mototrack-icons';
+
+<TrackIcon size="xs" />
+<TrackIcon size="sm" />
+<TrackIcon size="md" />
+<TrackIcon size="lg" />
+<TrackIcon size="xl" />
+<TrackIcon size="xxl" />
+```
+
+## Navigation bar example
+
+```tsx
+import {
+  MapIcon,
+  ExploreIcon,
+  TrackIcon,
+  ChatIcon,
+  ProfileIcon,
+} from '@markec/mototrack-platform.icons.mototrack-icons';
+
+const navItems = [
+  { key: 'map',     label: 'Map',     Icon: MapIcon },
+  { key: 'explore', label: 'Explore', Icon: ExploreIcon },
+  { key: 'track',   label: 'Track',   Icon: TrackIcon },
+  { key: 'chat',    label: 'Chat',    Icon: ChatIcon },
+  { key: 'profile', label: 'Profile', Icon: ProfileIcon },
+];
+
+function BottomNav({ active }: { active: string }) {
+  return (
+    <nav style={{ display: 'flex', gap: '24px' }}>
+      {navItems.map(({ key, label, Icon }) => (
+        <button key={key} type="button">
+          <Icon size="md" color={active === key ? '#f97316' : '#64748b'} />
+          <span>{label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+}
+```
+
+## Header action icons
+
+```tsx
+import {
+  BellIcon,
+  SosIcon,
+  SettingsIcon,
+  LogoutIcon,
+} from '@markec/mototrack-platform.icons.mototrack-icons';
+
+function HeaderActions() {
+  return (
+    <div style={{ display: 'flex', gap: '16px' }}>
+      <BellIcon size="sm" color="#94a3b8" onClick={() => openNotifications()} />
+      <SosIcon size="sm" color="#ef4444" onClick={() => triggerSos()} />
+      <SettingsIcon size="sm" color="#94a3b8" onClick={() => openSettings()} />
+      <LogoutIcon size="sm" color="#64748b" onClick={() => logout()} />
+    </div>
+  );
+}
+```

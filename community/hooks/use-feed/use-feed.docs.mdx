@@ -1,0 +1,80 @@
+---
+description: "A React hook that fetches and returns the activity feed for the current user."
+labels: ['hook', 'react', 'feed', 'graphql', 'community']
+---
+
+`useFeed` is a React hook that queries the GraphQL `listFeed` endpoint and returns a list of `FeedItem` objects representing the current user's activity feed. It supports mock data injection for easy testing and composition previews.
+
+## Basic Usage
+
+```tsx
+import { useFeed } from '@markec/community.hooks.use-feed';
+
+function FeedList() {
+  const { feed, loading, error } = useFeed();
+
+  if (loading) return <p>Loading feed...</p>;
+  if (error) return <p>Error loading feed.</p>;
+
+  return (
+    <ul>
+      {feed.map((item) => (
+        <li key={item.id}>
+          <strong>{item.actor.displayName}</strong> — {item.kind}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## With Mock Data (Testing & Previews)
+
+Pass `mockData` to bypass the GraphQL query entirely. This is useful in tests and Bit compositions.
+
+```tsx
+import { useFeed } from '@markec/community.hooks.use-feed';
+import { feedItemMocks } from '@markec/community.hooks.use-feed';
+
+function PreviewFeed() {
+  const { feed, loading } = useFeed({ mockData: feedItemMocks });
+
+  if (loading) return null;
+
+  return (
+    <ul>
+      {feed.map((item) => (
+        <li key={item.id}>
+          [{item.kind}] {item.actor.displayName} ({item.actor.country})
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## With Refetch
+
+The hook exposes a `refetch` function to manually re-trigger the query.
+
+```tsx
+import { useFeed } from '@markec/community.hooks.use-feed';
+
+function RefreshableFeed() {
+  const { feed, loading, refetch } = useFeed();
+
+  return (
+    <div>
+      <button onClick={() => refetch()}>Refresh Feed</button>
+      {loading && <p>Refreshing...</p>}
+      <ul>
+        {feed.map((item) => (
+          <li key={item.id}>
+            {item.actor.displayName} — {item.kind} at {new Date(item.at).toLocaleString()}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```

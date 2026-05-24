@@ -1,0 +1,1 @@
+[{"name":"","description":"builds the demo seed for a user — two bikes, six maintenance items on the\nprimary bike, and six expenses across categories.","args":[],"returns":{},"access":"public","examples":[],"render":"","properties":[],"static":false,"filePath":"garage.seed.ts"}]

@@ -1,0 +1,84 @@
+---
+description: "Floating tile-style picker with the 5 built-in map styles plus any registered TileProvider slot entries. Compact icon grid. Used inside maps."
+labels: ["map", "tile", "picker", "floating", "ui"]
+---
+
+A compact floating panel that lets users switch between map tile styles directly on the map canvas.
+It ships with 5 built-in styles (Streets, Dark, Satellite, Terrain, Standard) and seamlessly extends
+with any `TileProvider` entries registered via the platform slot system.
+
+## Basic usage
+
+Drop the picker into a map overlay container. It renders a single icon-button trigger; clicking it
+opens a compact thumbnail grid of all available styles.
+
+```tsx
+import { TileStylePicker } from '@markec/maps.ui.tile-style-picker';
+
+function MapOverlay() {
+  const [activeKey, setActiveKey] = useState('streets');
+
+  return (
+    <div style={{ position: 'absolute', bottom: 16, right: 16 }}>
+      <TileStylePicker
+        activeKey={activeKey}
+        onSelect={(provider) => setActiveKey(provider.key)}
+      />
+    </div>
+  );
+}
+```
+
+## With slot-registered providers
+
+Pass additional `TileProvider` objects via the `providers` prop. These are appended after the 5
+built-in styles in the grid.
+
+```tsx
+import { TileStylePicker } from '@markec/maps.ui.tile-style-picker';
+
+const customProviders = [
+  {
+    key: 'mototrack',
+    label: 'MotoTrack',
+    urlTemplate: 'https://tiles.example.com/mototrack/{z}/{x}/{y}.png',
+    attribution: '© MotoTrack',
+    maxZoom: 18,
+  },
+];
+
+function MapOverlay() {
+  const [activeKey, setActiveKey] = useState('streets');
+
+  return (
+    <div style={{ position: 'absolute', bottom: 16, right: 16 }}>
+      <TileStylePicker
+        activeKey={activeKey}
+        onSelect={(provider) => setActiveKey(provider.key)}
+        providers={customProviders}
+      />
+    </div>
+  );
+}
+```
+
+## Pre-selecting a style
+
+Set `activeKey` to any provider key to highlight it as the active selection when the panel opens.
+
+```tsx
+import { TileStylePicker } from '@markec/maps.ui.tile-style-picker';
+
+function SatelliteMap() {
+  const [activeKey, setActiveKey] = useState('satellite');
+
+  return (
+    <div style={{ position: 'absolute', bottom: 16, right: 16 }}>
+      <TileStylePicker
+        activeKey={activeKey}
+        onSelect={(provider) => setActiveKey(provider.key)}
+      />
+    </div>
+  );
+}
+```

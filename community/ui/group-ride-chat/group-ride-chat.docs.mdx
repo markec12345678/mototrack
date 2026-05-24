@@ -1,0 +1,61 @@
+---
+description: "Real-time GroupRideChat panel with messages list, sender avatar and country flag, send box, status pills (Pripravljen/Na poti/Odmor/Konec), and share-location button. Connects via useGroupRide.chat(id)."
+labels: ["chat", "group-ride", "real-time", "community", "mototrack"]
+---
+
+A real-time chat panel for group motorcycle rides. Riders can exchange messages, update their ride status, and share their live location — all within a single cohesive panel.
+
+## Basic usage
+
+```tsx
+<GroupRideChat
+  rideId="ride-1"
+  rideName="Vršič Adventure Ride"
+  currentUserId="user-42"
+/>
+```
+
+## With initial messages (for SSR or testing)
+
+Pass `initialMessages` to pre-populate the chat before the WebSocket connection is established.
+
+```tsx
+const messages = [
+  {
+    id: "msg-1",
+    senderId: "user-1",
+    senderName: "Luka Horvat",
+    senderCountry: "🇸🇮",
+    text: "Živijo! Sem že na zbirnem mestu.",
+    at: Date.now() - 60000,
+  },
+  {
+    id: "msg-2",
+    senderId: "user-42",
+    senderName: "Jaz",
+    senderCountry: "🇸🇮",
+    text: "Pridem čez 5 minut!",
+    at: Date.now(),
+  },
+];
+
+<GroupRideChat
+  rideId="ride-1"
+  rideName="Vršič Adventure Ride"
+  currentUserId="user-42"
+  initialMessages={messages}
+/>
+```
+
+## Status pills
+
+Riders can update their status using the pill buttons at the top of the panel. The active status is highlighted and sent to the server via `useGroupRide().updateStatus(id, status)`.
+
+```tsx
+// Status options: 'pripravljen' | 'na-poti' | 'odmor' | 'konec'
+<GroupRideChat
+  rideId="ride-1"
+  rideName="Balkanski Mega Tour"
+  currentUserId="user-1"
+/>
+```

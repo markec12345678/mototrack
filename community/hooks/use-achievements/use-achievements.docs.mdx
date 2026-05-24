@@ -1,0 +1,80 @@
+---
+description: "A React hook for fetching the current user's achievement progress via GraphQL, with a mock data fallback for testing and previews."
+labels: ['hook', 'react', 'graphql', 'achievements', 'mototrack']
+---
+
+`useAchievements` queries the GraphQL `listAchievements` endpoint and returns the current user's full achievement progress list. It supports a mock data fallback via `options.mockData`, making it easy to test and preview components without a live GraphQL server.
+
+## Basic usage — live GraphQL
+
+Use the hook inside any component wrapped by an Apollo Client provider. The hook fires the query automatically on mount.
+
+```tsx
+function AchievementsPage() {
+  const { achievements, loading, error } = useAchievements();
+
+  if (loading) return <p>Loading achievements...</p>;
+  if (error) return <p>Failed to load achievements.</p>;
+
+  return (
+    <ul>
+      {achievements.map((a) => (
+        <li key={a.id}>
+          {a.icon} {a.name} — {a.unlocked ? 'Unlocked ✅' : `${a.progressPct}%`}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Mock fallback for testing and compositions
+
+Pass `mockData` to bypass the GraphQL network call entirely. The hook returns the provided data immediately with `loading: false` and no error.
+
+```tsx
+import { mockAchievements } from '@markec/community.hooks.use-achievements';
+
+function AchievementsPreview() {
+  const { achievements } = useAchievements({ mockData: mockAchievements });
+
+  return (
+    <ul>
+      {achievements.map((a) => (
+        <li key={a.id}>
+          {a.icon} {a.name} — {a.progressPct}%
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Filtering unlocked achievements
+
+The returned `achievements` array can be filtered to show only unlocked or in-progress entries.
+
+```tsx
+function UnlockedBadges() {
+  const { achievements, loading } = useAchievements({ mockData: mockAchievements });
+
+  if (loading) return null;
+
+  const unlocked = achievements.filter((a) => a.unlocked);
+  const inProgress = achievements.filter((a) => !a.unlocked && a.progressPct > 0);
+
+  return (
+    <div>
+      <h2>Unlocked ({unlocked.length})</h2>
+      {unlocked.map((a) => (
+        <span key={a.id}>{a.icon} {a.name}</span>
+      ))}
+
+      <h2>In Progress ({inProgress.length})</h2>
+      {inProgress.map((a) => (
+        <span key={a.id}>{a.icon} {a.name} — {a.progressPct}%</span>
+      ))}
+    </div>
+  );
+}
+```

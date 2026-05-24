@@ -1,0 +1,84 @@
+---
+description: "BalkanRoad entity representing a scenic driving road across the Balkans, with seeded data for 63 roads across 10 countries."
+labels: ['balkan-road', 'entity', 'roads', 'balkans']
+---
+
+A data entity representing a scenic driving road in the Balkan region. Each `BalkanRoad` carries a rich set of metadata — country, flag, length, rating, difficulty, road type, and a description — making it the single source of truth for road data across the application.
+
+The component also ships a **seeded dataset of 63 iconic roads** spanning 10 countries: Slovenia, Croatia, Bosnia & Herzegovina, Montenegro, Serbia, North Macedonia, Albania, Bulgaria, Romania, and Greece.
+
+## Creating a BalkanRoad
+
+Use the static `from()` factory to create an instance from a plain object:
+
+```ts
+import { BalkanRoad } from '@markec/balkan-roads.entities.balkan-road';
+
+const road = BalkanRoad.from({
+  id: 'ro-001',
+  name: 'Transfăgărășan Highway',
+  country: 'RO',
+  flag: '🇷🇴',
+  lengthKm: 90,
+  rating: 9.8,
+  difficulty: 'Hard',
+  type: 'Pass',
+  description: 'Voted the world\'s greatest driving road by Top Gear.',
+});
+
+console.log(road.name);      // Transfăgărășan Highway
+console.log(road.toObject()); // plain serializable object
+```
+
+## Using the seeded mock data
+
+The `mockBalkanRoads()` function returns all 63 pre-seeded roads as `BalkanRoad` instances, ready for development and testing:
+
+```ts
+import { mockBalkanRoads, mockBalkanRoad } from '@markec/balkan-roads.entities.balkan-road';
+
+// All 63 roads
+const allRoads = mockBalkanRoads();
+console.log(allRoads.length); // 63
+
+// Filter by country
+const slovenianRoads = allRoads.filter((r) => r.country === 'SI');
+
+// Single road with optional property override
+const customRoad = mockBalkanRoad({ rating: 10, difficulty: 'Expert' });
+```
+
+## Serializing road data
+
+Use `toObject()` to convert a `BalkanRoad` back into a plain, JSON-serializable object — useful for API responses, state management, or persistence:
+
+```ts
+import { BalkanRoad } from '@markec/balkan-roads.entities.balkan-road';
+
+const road = BalkanRoad.from({
+  id: 'me-001',
+  name: 'Lovćen Serpentine Road',
+  country: 'ME',
+  flag: '🇲🇪',
+  lengthKm: 18,
+  rating: 9.0,
+  difficulty: 'Hard',
+  type: 'Serpentine',
+  description: 'A legendary serpentine road with 25 hairpin bends above Kotor Bay.',
+});
+
+const plain = road.toObject();
+// {
+//   id: 'me-001',
+//   name: 'Lovćen Serpentine Road',
+//   country: 'ME',
+//   flag: '🇲🇪',
+//   lengthKm: 18,
+//   rating: 9,
+//   difficulty: 'Hard',
+//   type: 'Serpentine',
+//   description: '...'
+// }
+
+const json = JSON.stringify(plain);
+```

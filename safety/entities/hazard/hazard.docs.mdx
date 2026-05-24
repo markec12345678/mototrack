@@ -1,0 +1,65 @@
+---
+labels: ['hazard', 'entity', 'typegoose', 'safety', 'balkans']
+description: "Hazard entity per type with a Typegoose model. Includes a seed array of 8 example hazards across the Balkans."
+---
+
+A component for the `Hazard` entity, supporting serialization and deserialization of hazard objects.
+It can be used on both the frontend and backend. Includes a Typegoose/Mongoose model for persistence
+and a seed dataset of 8 real-world hazard examples across the Balkans region.
+
+## Get started
+
+Install and use the component in your code:
+
+```ts
+import { Hazard } from '@markec/safety.entities.hazard';
+
+const hazard = Hazard.from({
+  id: 'hazard-001',
+  type: 'accident',
+  lat: 43.8563,
+  lng: 18.4131,
+  reportedAt: Date.now(),
+  reportedBy: 'user_sarajevo',
+  confirmedCount: 12,
+});
+
+console.log(hazard.toObject());
+```
+
+## Typegoose model
+
+Use the `HazardMongooseModel` for MongoDB persistence via Typegoose:
+
+```ts
+import { HazardMongooseModel } from '@markec/safety.entities.hazard';
+
+// Save a new hazard to MongoDB
+const doc = await HazardMongooseModel.create({
+  type: 'flood',
+  lat: 44.8048,
+  lng: 20.4781,
+  reportedAt: Date.now(),
+  reportedBy: 'user_belgrade',
+  confirmedCount: 0,
+});
+
+console.log(doc._id.toString());
+```
+
+## Mock data
+
+Use the mock helpers for development and testing:
+
+```ts
+import { mockHazard, mockHazards, hazardSeed } from '@markec/safety.entities.hazard';
+
+// Single hazard with optional overrides
+const singleHazard = mockHazard({ type: 'fire', confirmedCount: 5 });
+
+// All 8 Balkan seed hazards as entity instances
+const allHazards = mockHazards();
+
+// Raw seed array (plain objects)
+console.log(hazardSeed);
+```

@@ -1,0 +1,111 @@
+---
+description: A custom React development environment for mototrack-design and feature components. Extends the base React env and includes the mototrack-theme as a global runtime provider.
+labels: ['env', 'react', 'mototrack', 'vite', 'vitest', 'theme']
+---
+
+A reusable development environment tailored for all mototrack-design and feature components.
+Built on top of the base React env, it wraps every component preview with the MototrackTheme provider automatically.
+
+Features include TypeScript, Vitest testing, OxLint, Prettier, Vite dev-server, and a theme-aware preview mounter.
+
+## Use in existing workspaces
+
+Add the development env to your generator configuration on `workspace.jsonc`.
+
+```json
+{
+  "teambit.generator/generator": {
+    "envs": [
+      "markec/mototrack-design.mototrack-env"
+    ]
+  }
+}
+```
+
+You can see the generator templates in your workspace using `bit templates`.
+
+## Apply to an existing component
+
+Use this dev environment on your existing components by running the following command:
+
+```
+bit env set my-component markec/mototrack-design.mototrack-env
+```
+
+## Create a new mototrack workspace
+
+You can create a new React workspace using this env with the following command:
+
+```
+bit new react my-workspace --aspect markec/mototrack-design.mototrack-env
+```
+
+## Compose your own env
+
+You can base a new env on this one and customize it to your needs. To create your env run:
+
+```
+bit create react-env my-new-env
+```
+
+Make sure your new environment class extends MototrackEnv and overrides the needed class methods.
+
+## Theme provider in preview
+
+Every composition rendered inside this env is automatically wrapped with the MototrackTheme provider.
+This means all mototrack design tokens, typography, and color palettes are available out of the box during development and preview.
+
+## Example: setting the env on a button component
+
+```tsx
+// In your workspace terminal, run:
+// bit env set mototrack-design/ui/button markec/mototrack-design.mototrack-env
+//
+// The button composition will then render inside MototrackTheme automatically.
+
+function ButtonComposition() {
+  return (
+    <button style={{ backgroundColor: 'var(--color-primary, #e63946)', color: '#fff', padding: '8px 16px', border: 'none', borderRadius: 4 }}>
+      Mototrack Button
+    </button>
+  );
+}
+
+```
+
+## Example: using the env with a card component
+
+
+```tsx
+// Any component set to use this env will receive the theme context in preview.
+// No extra provider wiring is needed in your composition files.
+
+function TrackCardComposition() {
+  return (
+    <div style={{ border: '1px solid #ddd', borderRadius: 8, padding: 16, maxWidth: 320 }}>
+      <h2 style={{ margin: 0 }}>Mugello Circuit</h2>
+      <p style={{ color: '#555' }}>5.245 km, Tuscany, Italy</p>
+    </div>
+  );
+}
+
+```
+
+## Example: vitest test using testing-library
+
+
+```tsx
+// Your component tests run with jsdom and @testing-library/react.
+// The setup file automatically imports @testing-library/jest-dom matchers.
+
+function RiderBadge({ name }: { name: string }) {
+  return <span data-testid="rider-badge">{name}</span>;
+}
+
+// In a .spec.tsx file:
+// import { render, screen } from '@testing-library/react';
+// it('renders rider name', () => {
+//   render(<RiderBadge name="Valentino Rossi" />);
+//   expect(screen.getByTestId('rider-badge')).toHaveTextContent('Valentino Rossi');
+// });
+```

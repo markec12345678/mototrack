@@ -1,0 +1,275 @@
+.countryBrowser {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--typography-font-family);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+
+.browserHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.browserTitle {
+  margin: 0;
+  font-size: var(--typography-sizes-heading-h3);
+  font-weight: var(--typography-font-weight-extra-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-tight);
+  line-height: var(--typography-line-height-heading);
+}
+
+.browserSubtitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+}
+
+/* ── Accordion Item ──────────────────────────────────────────────────────────── */
+
+.accordionItem {
+  box-sizing: border-box;
+  border-radius: var(--borders-radius-large);
+  border: var(--borders-default-width) var(--borders-default-style) var(--colors-border-default);
+  background-color: var(--colors-surface-primary);
+  overflow: hidden;
+  transition:
+    border-color var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out),
+    box-shadow var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-out);
+}
+
+.accordionItemOpen {
+  border-color: var(--colors-primary-default);
+  box-shadow: 0 0 0 1px var(--colors-primary-default), var(--effects-shadows-medium);
+}
+
+/* ── Accordion Trigger ───────────────────────────────────────────────────────── */
+
+.accordionTrigger {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: none;
+  border: none;
+  cursor: var(--interactions-cursor-pointer);
+  text-align: left;
+  transition: background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.accordionTrigger:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.accordionTriggerOpen {
+  background-color: rgba(249, 115, 22, 0.05);
+}
+
+/* ── Trigger Left ────────────────────────────────────────────────────────────── */
+
+.triggerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.countryName {
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-primary);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roadCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--borders-radius-full);
+  background-color: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  font-size: var(--typography-sizes-caption-default);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--colors-primary-default);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  flex-shrink: 0;
+}
+
+/* ── Trigger Right ───────────────────────────────────────────────────────────── */
+
+.triggerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.roadCountLabel {
+  font-size: var(--typography-sizes-caption-default);
+  color: var(--colors-text-muted);
+  white-space: nowrap;
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--borders-radius-medium);
+  background-color: rgba(148, 163, 184, 0.08);
+  color: var(--colors-text-muted);
+  transition:
+    transform var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out),
+    background-color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out),
+    color var(--interactions-transitions-duration-fast) var(--interactions-transitions-easing-ease-in-out);
+  flex-shrink: 0;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+  background-color: rgba(249, 115, 22, 0.15);
+  color: var(--colors-primary-default);
+}
+
+/* ── Accordion Panel ─────────────────────────────────────────────────────────── */
+
+.accordionPanel {
+  overflow: hidden;
+  transition: max-height var(--interactions-transitions-duration-medium) var(--interactions-transitions-easing-ease-in-out);
+  max-height: 0;
+}
+
+.accordionPanelOpen {
+  max-height: 2000px;
+  transition: max-height var(--interactions-transitions-duration-slow) var(--interactions-transitions-easing-ease-in-out);
+}
+
+.panelDivider {
+  height: 1px;
+  background-color: var(--colors-border-default);
+  margin: 0 var(--spacing-lg);
+}
+
+.panelContent {
+  padding: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────────── */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  gap: var(--spacing-sm);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-large);
+  font-weight: var(--typography-font-weight-semi-bold);
+  color: var(--colors-text-secondary);
+}
+
+.emptySubtitle {
+  margin: 0;
+  font-size: var(--typography-sizes-body-small);
+  color: var(--colors-text-muted);
+}
+
+/* ── Loading Skeleton ────────────────────────────────────────────────────────── */
+
+.skeleton {
+  box-sizing: border-box;
+  border-radius: var(--borders-radius-large);
+  border: var(--borders-default-width) var(--borders-default-style) var(--colors-border-default);
+  background-color: var(--colors-surface-primary);
+  overflow: hidden;
+}
+
+.skeletonTrigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+.skeletonCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0%, rgba(148, 163, 184, 0.15) 50%, rgba(148, 163, 184, 0.08) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.skeletonBar {
+  height: 16px;
+  border-radius: var(--borders-radius-small);
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0%, rgba(148, 163, 184, 0.15) 50%, rgba(148, 163, 184, 0.08) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonBarWide {
+  width: 140px;
+}
+
+.skeletonBarNarrow {
+  width: 60px;
+  margin-left: auto;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .panelContent {
+    grid-template-columns: 1fr;
+  }
+
+  .accordionTrigger {
+    padding: var(--spacing-md);
+  }
+
+  .panelContent {
+    padding: var(--spacing-md);
+  }
+
+  .roadCountLabel {
+    display: none;
+  }
+}
