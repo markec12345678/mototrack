@@ -1,0 +1,15 @@
+services:
+  app:
+    image: node:22-bookworm
+    working_dir: /workspace
+    network_mode: host
+    environment:
+      IS_ALLOY: ${IS_ALLOY:-false}
+      # Bit needs HOME for its global state (~/.bvm, ~/.bit)
+      HOME: /workspace/.alloy/home
+      # Bit's dev server binds to localhost by default; we want it bound to 0.0.0.0
+      # so the Alloy proxy on 8080 can reach it via host networking.
+      BIT_DEV_SERVER_HOST: 0.0.0.0
+    volumes:
+      - .:/workspace
+    command: bash -lc "bash .alloy/start.sh"

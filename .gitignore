@@ -1,1 +1,7 @@
 node_modules/
+
+# Alloy sandbox bvm/bit cache, generated when docker-compose.alloy.yaml runs
+.alloy/home/
+
+# Bit-generated workspace config files (see workspace-config-files in workspace.jsonc)
+.eslintrc.json
