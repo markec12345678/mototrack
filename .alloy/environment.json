@@ -2,5 +2,5 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "dockerComposePath": "docker-compose.alloy.yaml",
   "frontendPort": 3000,
-  "homeUrl": "/markec.mototrack/apps/mototrack-prototype"
+  "homeUrl": "/"
 }
