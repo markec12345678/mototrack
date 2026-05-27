@@ -26,5 +26,19 @@
       "name": "examples/people"
     },
     "head": "4ee58b027ae57c268ab93ee6d7e2867385aebbe9"
+  },
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "exceptions/unauthorized"
+    },
+    "head": "3d13b513c7418f670e4836c7734d30f14f52d494"
+  },
+  {
+    "id": {
+      "scope": "bitdev.symphony",
+      "name": "exceptions/access-denied"
+    },
+    "head": "52712a829ebba640aa0c3f9a3086fb2bf67bd5d7"
   }
 ]

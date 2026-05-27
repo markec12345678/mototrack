@@ -40,9 +40,6 @@ importers:
       '@bitdev/react.eslint.eslint-config-bit-react':
         specifier: ^2.0.1
         version: 2.0.1(eslint-plugin-import@2.32.0)(eslint@8.57.1)(typescript@5.9.3)
-      '@bitdev/react.react-env':
-        specifier: 6.0.14
-        version: 6.0.14(@opentelemetry/api@1.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.27.7)(eslint@8.57.1)(html-webpack-plugin@5.6.7)(jiti@2.7.0)(less@4.6.4)(postcss@8.5.15)(react-refresh@0.18.0)(rollup@4.60.4)(rxjs@7.8.2)(selfsigned@5.5.0)(terser@5.48.0)(tslib@2.8.1)(type-fest@3.13.1)(webpack-hot-middleware@2.26.1)(yaml@2.9.0)
       '@bitdev/symphony.backends.backend-server':
         specifier: ^2.0.11
         version: 2.0.11(graphql@16.14.0)
@@ -206,6 +203,9 @@ importers:
       '@bitdev/node.node-env':
         specifier: 6.0.12
         version: 6.0.12(@opentelemetry/api@1.9.1)(@vitest/coverage-v8@4.1.7)(browserslist@4.28.1)(esbuild@0.27.7)(eslint-plugin-import@2.32.0)(eslint@8.57.1)(html-webpack-plugin@5.6.7)(jiti@2.7.0)(jsdom@29.1.1)(less@4.6.4)(postcss@8.5.15)(react-refresh@0.18.0)(rollup@4.60.4)(rxjs@7.8.2)(sass@1.98.0)(selfsigned@5.5.0)(terser@5.48.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.107.1)(yaml@2.9.0)
+      '@bitdev/react.react-env':
+        specifier: 6.0.14
+        version: 6.0.14(@opentelemetry/api@1.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.27.7)(eslint@8.57.1)(html-webpack-plugin@5.6.7)(jiti@2.7.0)(less@4.6.4)(postcss@8.5.15)(react-refresh@0.18.0)(rollup@4.60.4)(rxjs@7.8.2)(selfsigned@5.5.0)(terser@5.48.0)(tslib@2.8.1)(type-fest@3.13.1)(webpack-hot-middleware@2.26.1)(yaml@2.9.0)
       '@bitdev/symphony.envs.symphony-env':
         specifier: 5.0.14
         version: 5.0.14(@opentelemetry/api@1.9.1)(@vitest/coverage-v8@4.1.7)(browserslist@4.28.1)(esbuild@0.27.7)(eslint-plugin-import@2.32.0)(eslint@8.57.1)(html-webpack-plugin@5.6.7)(jiti@2.7.0)(less@4.6.4)(postcss@8.5.15)(react-refresh@0.18.0)(rollup@4.60.4)(rxjs@7.8.2)(selfsigned@5.5.0)(terser@5.48.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(webpack-hot-middleware@2.26.1)(webpack@5.107.1)(yaml@2.9.0)
@@ -340,12 +340,18 @@ importers:
       '@bitdev/symphony.backends.backend-server':
         specifier: ^2.0.11
         version: 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform':
+        specifier: ^3.0.14
+        version: 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@typegoose/typegoose':
         specifier: ^13.3.0
         version: 13.3.0(mongoose@9.6.2)
       graphql-tag:
         specifier: ^2.12.6
         version: 2.12.6(graphql@16.14.0)
+      mongoose:
+        specifier: ^9.6.2
+        version: 9.6.2(socks@2.8.9)
     devDependencies:
       '@bitdev/symphony.envs.symphony-env':
         specifier: 5.0.14
@@ -495,6 +501,9 @@ importers:
       '@bitdev/symphony.exceptions.unauthorized':
         specifier: ^1.0.11
         version: 1.0.11
+      '@bitdev/symphony.symphony-platform':
+        specifier: ^3.0.14
+        version: 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@typegoose/typegoose':
         specifier: ^13.3.0
         version: 13.3.0(mongoose@9.6.2)
@@ -2219,7 +2228,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -2828,7 +2837,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -3458,7 +3467,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -4121,7 +4130,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -4754,7 +4763,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -5429,7 +5438,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -6066,7 +6075,7 @@ importers:
         version: file:ai-assistant/ui/voice-input-button(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.balkan-roads':
         specifier: workspace:*
-        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+        version: file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/balkan-roads.entities.balkan-road':
         specifier: workspace:*
         version: file:balkan-roads/entities/balkan-road(vitest@4.1.7)
@@ -7013,6 +7022,9 @@ importers:
       '@bitdev/symphony.backends.backend-server':
         specifier: ^2.0.11
         version: 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform':
+        specifier: ^3.0.14
+        version: 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@typegoose/typegoose':
         specifier: ^13.3.0
         version: 13.3.0(mongoose@9.6.2)
@@ -24976,16 +24988,18 @@ snapshots:
       - react-dom
       - react-router-dom
 
-  '@markec/balkan-roads.balkan-roads@file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)':
+  '@markec/balkan-roads.balkan-roads@file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)':
     dependencies:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/balkan-roads.pages.explore-page': file:balkan-roads/pages/explore-page(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.pages.tour-detail': file:balkan-roads/pages/tour-detail(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.ui.tour-dashboard-panel': file:balkan-roads/ui/tour-dashboard-panel(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/mototrack-platform.mototrack-platform': file:mototrack-platform/mototrack-platform(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@typegoose/typegoose': 13.3.0(mongoose@9.6.2)
       graphql-tag: 2.12.6(graphql@16.14.0)
+      mongoose: 9.6.2(socks@2.8.9)
     transitivePeerDependencies:
       - '@apollo/client'
       - '@aws-sdk/credential-providers'
@@ -25017,7 +25031,6 @@ snapshots:
       - lightningcss
       - mongodb
       - mongodb-client-encryption
-      - mongoose
       - node-sass
       - postcss
       - react
@@ -25041,16 +25054,18 @@ snapshots:
       - webpack-cli
       - webpack-plugin-serve
 
-  '@markec/balkan-roads.balkan-roads@file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)':
+  '@markec/balkan-roads.balkan-roads@file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)':
     dependencies:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/balkan-roads.pages.explore-page': file:balkan-roads/pages/explore-page(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.pages.tour-detail': file:balkan-roads/pages/tour-detail(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/balkan-roads.ui.tour-dashboard-panel': file:balkan-roads/ui/tour-dashboard-panel(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
       '@markec/mototrack-platform.mototrack-platform': file:mototrack-platform/mototrack-platform(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@typegoose/typegoose': 13.3.0(mongoose@9.6.2)
       graphql-tag: 2.12.6(graphql@16.14.0)
+      mongoose: 9.6.2(socks@2.8.9)
     transitivePeerDependencies:
       - '@apollo/client'
       - '@aws-sdk/credential-providers'
@@ -25082,7 +25097,6 @@ snapshots:
       - lightningcss
       - mongodb
       - mongodb-client-encryption
-      - mongoose
       - node-sass
       - postcss
       - react
@@ -25240,6 +25254,7 @@ snapshots:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
       '@bitdev/symphony.exceptions.unauthorized': 1.0.11
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/community.entities.achievement': file:community/entities/achievement(vitest@4.1.7)
       '@markec/community.entities.challenge': file:community/entities/challenge(vitest@4.1.7)
       '@markec/community.entities.community-route': file:community/entities/community-route(vitest@4.1.7)
@@ -25315,6 +25330,7 @@ snapshots:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
       '@bitdev/symphony.exceptions.unauthorized': 1.0.11
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/community.entities.achievement': file:community/entities/achievement(vitest@4.1.7)
       '@markec/community.entities.challenge': file:community/entities/challenge(vitest@4.1.7)
       '@markec/community.entities.community-route': file:community/entities/community-route(vitest@4.1.7)
@@ -26923,7 +26939,7 @@ snapshots:
       '@bitdev/harmony.runtimes.nodejs-runtime': 2.0.13
       '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/ai-assistant.ai-assistant': file:ai-assistant/ai-assistant(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
-      '@markec/balkan-roads.balkan-roads': file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+      '@markec/balkan-roads.balkan-roads': file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/community.community': file:community/community(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/garage.garage': file:garage/garage(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/maps.maps': file:maps/maps(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
@@ -26997,7 +27013,7 @@ snapshots:
       '@bitdev/harmony.runtimes.nodejs-runtime': 2.0.13
       '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/ai-assistant.ai-assistant': file:ai-assistant/ai-assistant(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
-      '@markec/balkan-roads.balkan-roads': file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
+      '@markec/balkan-roads.balkan-roads': file:balkan-roads/balkan-roads(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/community.community': file:community/community(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/garage.garage': file:garage/garage(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/maps.maps': file:maps/maps(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(mongoose@9.6.2)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
@@ -27888,6 +27904,7 @@ snapshots:
     dependencies:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/mototrack-platform.mototrack-platform': file:mototrack-platform/mototrack-platform(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.1)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/routes.entities.planned-route': file:routes/entities/planned-route(vitest@4.1.7)
       '@markec/routes.pages.library': file:routes/pages/library(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)
@@ -27953,6 +27970,7 @@ snapshots:
     dependencies:
       '@bitdev/harmony.harmony': 2.0.7
       '@bitdev/symphony.backends.backend-server': 2.0.11(graphql@16.14.0)
+      '@bitdev/symphony.symphony-platform': 3.0.14(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)
       '@markec/mototrack-platform.mototrack-platform': file:mototrack-platform/mototrack-platform(@apollo/client@4.2.0)(@babel/core@7.29.0)(@bitdev/harmony.harmony@2.0.7)(@bitdev/harmony.testing.load-aspect@1.0.7)(@rspack/core@1.7.11)(@testing-library/react@16.3.2)(@types/react@19.2.14)(browserslist@4.28.2)(eslint@8.57.1)(graphql@16.14.0)(less@4.6.4)(mongodb@7.2.0)(postcss@8.5.15)(react-dom@19.2.4)(react-router-dom@7.15.1)(react-router@7.15.1)(react@19.2.4)(rollup@4.60.4)(sass@1.98.0)(socks@2.8.9)(tslib@2.8.1)(type-fest@3.13.1)(typescript@5.9.3)(vitest@4.1.7)
       '@markec/routes.entities.planned-route': file:routes/entities/planned-route(vitest@4.1.7)
       '@markec/routes.pages.library': file:routes/pages/library(@apollo/client@4.2.0)(react-dom@19.2.4)(react-router-dom@7.15.1)(react@19.2.4)(vitest@4.1.7)

@@ -127,6 +127,22 @@
       },
       "isSymlink": false,
       "hash": "85309f84b88cd03adc54889fad96be5b9dca6036"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "exceptions/unauthorized"
+      },
+      "isSymlink": false,
+      "hash": "4fbee2fcdc23297fcfbb4144ea925e6442895a54"
+    },
+    {
+      "id": {
+        "scope": "bitdev.symphony",
+        "name": "exceptions/access-denied"
+      },
+      "isSymlink": false,
+      "hash": "9edb67d1da3dc21e4babad4a21683a101e621725"
     }
   ],
   "lanes": []
